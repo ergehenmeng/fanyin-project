@@ -1,3 +1,9 @@
 /.idea
 /fanyin-common/target
 /fanyin-common/*.iml
+/fanyin-parent/*.iml
+/fanyin-service/fanyin-service.iml
+/fanyin-service/target
+/fanyin-web/fanyin-web.iml
+/fanyin-web/target
+/*.iml

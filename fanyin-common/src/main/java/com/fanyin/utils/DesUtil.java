@@ -237,16 +237,5 @@ public class DesUtil {
         return keys;
     }
 
-    public static void main(String[] args) {
-        System.out.println(encrypt("abcdefg","1008610086"));
-        System.out.println(encrypt("abcdefg"));
-        System.out.println(encrypt3Des("abcdefg","1008610086"));
-        System.out.println(encrypt3Des("abcdefg"));
-
-        System.out.println(decrypt("+6eSis8svO4=","1008610086"));
-        System.out.println(decrypt("e3NWPobWwwA="));
-        System.out.println(decrypt3Des("/n3ilW/jYlk=","1008610086"));
-        System.out.println(decrypt3Des("bYSNiJ3bOpo="));
-    }
 
 }

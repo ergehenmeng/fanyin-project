@@ -46,7 +46,4 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
         return random(DEFAULT_RANDOM_LENGTH);
     }
 
-    public static void main(String[] args) {
-        System.out.println(random());
-    }
 }
