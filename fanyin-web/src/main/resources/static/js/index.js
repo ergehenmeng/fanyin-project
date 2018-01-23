@@ -1,0 +1,69 @@
+$(function(){
+    if (window.parent !== window){//防止在登陆后sessison过期,再次访问其他页面时,直接在对话框中显示页面
+        parent.location.reload();
+    }
+    $(".login_btn").on("click",function(){
+        loginFun();
+    });
+    $(window).keydown(function(event) {
+        if (event.keyCode === 13) {
+            loginFun();
+        }
+    });
+});
+
+/**
+ * 错误提示
+ * @param msg
+ */
+function errorTip(msg){
+    $(".msg_tip").show().html(msg);
+}
+
+// login
+function loginFun() {
+    var $mobile = $("#mobile");
+    var mobile = $mobile.val();
+    if (verifyMobile(mobile)) {
+        errorTip("手机号码格式错误");
+        $mobile.focus();
+        return;
+    }
+    var $password = $("#password");
+    var password = $password.val();
+    if (!password) {
+        errorTip("密码格式错误");
+        $password.focus();
+        return;
+    }
+    var $validCode = $("#validCode");
+    var validCode = $validCode.val();
+    if (!validCode || validCode.length < 4) {
+        $validCode.focus();
+        errorTip("验证码格式错误");
+        return;
+    }
+
+    $.post("/login",{mobile : mobile,password : md5(password),validCode : validCode},function(data){
+        if (data.result) {
+            // 跳转前清空密码框
+            $password.val("");
+            window.location.href = "/home";
+        } else {
+            errorTip(data.msg);
+            $validCode.val("");
+            // 刷新图形验证码
+            $(".valid_code_img").trigger("click");
+        }
+    },"json");
+}
+
+/**
+ * 校验手机号码是否合法
+ * @param mobile
+ * @returns {boolean}
+ */
+function verifyMobile(mobile){
+    var regexp = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/;
+    return regexp.test(mobile);
+}

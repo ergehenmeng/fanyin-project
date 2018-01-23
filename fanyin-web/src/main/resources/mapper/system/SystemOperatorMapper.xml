@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2p.mapper.system.SystemOperatorMapper">
+  <resultMap id="BaseResultMap" type="com.p2p.model.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="init_password" jdbcType="VARCHAR" property="inipassword" />
+    <result column="password_random" jdbcType="VARCHAR" property="passwordRandom" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, name, mobile, status, password, init_password, password_random, department, deleted, 
+    add_time, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from system_operator
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from system_operator
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    insert into system_operator (id, name, mobile, 
+      status, password, init_password, 
+      password_random, department, deleted, 
+      add_time, update_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{password,jdbcType=VARCHAR}, #{inipassword,jdbcType=VARCHAR}, 
+      #{passwordRandom,jdbcType=VARCHAR}, #{department,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    insert into system_operator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="inipassword != null">
+        init_password,
+      </if>
+      <if test="passwordRandom != null">
+        password_random,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="inipassword != null">
+        #{inipassword,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordRandom != null">
+        #{passwordRandom,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    update system_operator
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="inipassword != null">
+        init_password = #{inipassword,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordRandom != null">
+        password_random = #{passwordRandom,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    update system_operator
+    set name = #{name,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      password = #{password,jdbcType=VARCHAR},
+      init_password = #{inipassword,jdbcType=VARCHAR},
+      password_random = #{passwordRandom,jdbcType=VARCHAR},
+      department = #{department,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

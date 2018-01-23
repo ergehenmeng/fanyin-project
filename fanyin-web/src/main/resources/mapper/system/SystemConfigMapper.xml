@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2p.mapper.system.SystemConfigMapper">
+  <resultMap id="BaseResultMap" type="com.p2p.model.SystemConfig">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nid" jdbcType="VARCHAR" property="nid" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, nid, value, remark, type, locked, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from system_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from system_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.p2p.model.SystemConfig">
+    <!--
+      @create by mybatis
+    -->
+    insert into system_config (id, nid, value, 
+      remark, type, locked, add_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{locked,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.p2p.model.SystemConfig">
+    <!--
+      @create by mybatis
+    -->
+    insert into system_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nid != null">
+        nid,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null">
+        #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.SystemConfig">
+    <!--
+      @create by mybatis
+    -->
+    update system_config
+    <set>
+      <if test="nid != null">
+        nid = #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.p2p.model.SystemConfig">
+    <!--
+      @create by mybatis
+    -->
+    update system_config
+    set nid = #{nid,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      locked = #{locked,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="getConfigByNid" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from system_config WHERE nid = #{nid}
+    </select>
+    
+    <update id="updateConfig" parameterType="SystemConfigUpdateRequest">
+        update system_config SET type = #{type},value = #{value},remark = #{remark},update_time = now() where locked = false and nid = #{nid}
+    </update>
+    
+    <select id="getList" parameterType="SystemConfigSelectRequest" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from system_config
+        <where>
+            <if test="queryName != null">
+                and (nid = #{queryName} or remark = #{remark})
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="locked != null">
+                and locked = #{locked}
+            </if>
+        </where>
+    </select>
+    
+</mapper>

@@ -1,0 +1,53 @@
+package com.fanyin.exception;
+
+import com.fanyin.enums.ErrorCodeEnum;
+
+/**
+ * @description:
+ * @author: 二哥很猛
+ * @date: 2018/1/12
+ * @time: 16:39
+ */
+public class SystemException extends RuntimeException {
+
+    private static final long serialVersionUID = -2155208136300969093L;
+
+    private int code;
+
+    /**
+     * 构造方法
+     * @param error 错误类型枚举
+     */
+    public SystemException(ErrorCodeEnum error){
+        this(error.getCode(),error.getMsg());
+    }
+    /**
+     * 构造方式
+     * @param code 错误编码
+     */
+    private SystemException(int code){
+        super();
+        this.code = code;
+    }
+
+    protected SystemException(int code,String msg){
+        super(msg);
+        this.code = code;
+    }
+
+    public SystemException(String msg,Throwable e){
+        super(msg,e);
+    }
+
+    public SystemException(Throwable e){
+        super(e);
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+}
