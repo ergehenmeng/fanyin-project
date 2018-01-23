@@ -22,6 +22,7 @@
      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+    <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -69,6 +70,8 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!--子modules可直接使用该依赖来-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,6 +79,7 @@
         </dependency>
     </dependencies>
 
+    <!--子modules默认使用父配置-->
     <build>
         <plugins>
             <plugin>
