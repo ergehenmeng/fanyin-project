@@ -21,6 +21,7 @@
   <properties>
       <!--项目版本-->
       <project-version>1.0-SNAPSHOT</project-version>
+      <!--spring boot版本-->
       <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
       <!--项目编码-->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -116,5 +117,16 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.jdk.version}</source>
+                    <target>${java.jdk.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
