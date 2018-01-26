@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     /**
      * 系统未知异常默认400
      */
-    private static final int CODE = 400;
+    public static final int CODE = 400;
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

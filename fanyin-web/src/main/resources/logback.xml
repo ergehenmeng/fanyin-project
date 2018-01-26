@@ -59,7 +59,7 @@
         <appender-ref ref="CONSOLE"/>
     </root>
 
-    <logger name="com.p2p" additivity="false" level="INFO">
+    <logger name="com.fanyin" additivity="false" level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ROLLING_INFO_FILE"/>
     </logger>
@@ -68,7 +68,7 @@
     <logger name="jdbc.resultset" level="WARN"/>
     <logger name="jdbc.sqltiming" level="WARN"/>
     <logger name="jdbc.connection" level="WARN"/>
-    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework" level="DEBUG"/>
 
 
 </configuration>

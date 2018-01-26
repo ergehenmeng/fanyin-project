@@ -12,11 +12,11 @@
         <ul>
             <li>
                 <span class="user_icon"></span>
-                <input type="text" id="mobile" autocomplete="off" maxlength="11"  placeholder="手机号码" class="login_text" />
+                <input type="text" id="mobile" autocomplete="off" maxlength="11" value="13000000000"  placeholder="手机号码" class="login_text" />
             </li>
             <li>
                 <span class="pwd_icon"></span>
-                <input type="password" id="password" autocomplete="off" minlength="6"  maxlength="16"  placeholder="登陆密码" class="login_text"/>
+                <input type="password" id="password" autocomplete="off" minlength="6" value="123456" maxlength="16"  placeholder="登陆密码" class="login_text"/>
             </li>
             <li>
                 <span class="valid_icon"></span>

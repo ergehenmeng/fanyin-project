@@ -4,6 +4,8 @@ package com.fanyin.controller;
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.constant.VersionConstant;
 import com.fanyin.model.system.SystemOperator;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,13 +34,13 @@ public class BaseController {
 
     /**
      * 获取当前用户登陆的系统管理人员
-     * @param session session
      * @return 系统登陆的用户
      */
-    protected SystemOperator getOperator(HttpSession session){
-        Object obj = session.getAttribute(CommonConstant.OPERATOR_SESSION);
-        if(obj != null){
-            return (SystemOperator)obj;
+    protected SystemOperator getOperator(){
+        SecurityContext context = SecurityContextHolder.getContext();
+        Object details = context.getAuthentication().getDetails();
+        if(details != null){
+            return (SystemOperator)details;
         }
         return null;
     }

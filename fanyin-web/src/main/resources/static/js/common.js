@@ -627,7 +627,7 @@ $.fn.dataGridOptions.certificationEditFun = function (id,title,width,height,url,
  */
 function getCity(id,provinceid,cityId){
 	if(provinceid){//省份不为空
-		$.post("/modules/system/cityList",{"pid":provinceid,"cityId":cityId},function(data){
+		$.post("/modules/mapper.system/cityList",{"pid":provinceid,"cityId":cityId},function(data){
 			$("#"+id+" option").remove();
 			 if(data.result){
 				 $("#"+id).append(data.msg);

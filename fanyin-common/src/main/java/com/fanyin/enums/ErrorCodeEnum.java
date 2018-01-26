@@ -54,7 +54,27 @@ public enum ErrorCodeEnum {
     /**
      * 对象转换异常
      */
-    BEAN_COPY_ERROR(5007,"对象转换异常");
+    BEAN_COPY_ERROR(5007,"对象转换异常"),
+
+    /**
+     * 验证码输入错误
+     */
+    IMAGE_CODE_ERROR(5008,"验证码输入错误"),
+
+    /**
+     * 账户或密码错误
+     */
+    ACCOUNT_PASSWORD_ERROR(5009,"账户或密码输入错误"),
+
+    /**
+     * 用户信息不存在
+     */
+    ACCOUNT_NOT_FOUND(5010,"用户信息不存在"),
+
+    /**
+     * 用户已锁定,请联系管理人员
+     */
+    ACCOUNT_LOCKED_ERROR(5011,"用户已锁定,请联系管理人员");
 
     /**
      * 构造方法

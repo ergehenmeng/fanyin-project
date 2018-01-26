@@ -30,6 +30,7 @@ public class ResultJson<T> implements Serializable {
         return new ResultJson<>();
     }
 
+
     public T getData() {
         return data;
     }

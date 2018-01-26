@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.p2p.mapper.system.SystemDictMapper">
-  <resultMap id="BaseResultMap" type="com.p2p.model.SystemDict">
+<mapper namespace="com.fanyin.mapper.system.SystemMenuMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="hidden_value" jdbcType="TINYINT" property="hiddenValue" />
-    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="main_menu" jdbcType="BIT" property="mainMenu" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
-    <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -19,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, name, nid, hidden_value, value, deleted, locked, add_time, update_time
+    id, name, nid, pid, url, main_menu, sort, deleted, remark, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -27,34 +29,34 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from system_dict
+    from system_menu
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       @create by mybatis
     -->
-    delete from system_dict
+    delete from system_menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.p2p.model.SystemDict">
+  <insert id="insert" parameterType="com.fanyin.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
-    insert into system_dict (id, name, nid, 
-      hidden_value, value, deleted, 
-      locked, add_time, update_time
-      )
+    insert into system_menu (id, name, nid, 
+      pid, url, main_menu, sort, 
+      deleted, remark, add_time, 
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nid,jdbcType=VARCHAR}, 
-      #{hiddenValue,jdbcType=TINYINT}, #{value,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
-      #{locked,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{pid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{mainMenu,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.p2p.model.SystemDict">
+  <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
-    insert into system_dict
+    insert into system_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -65,17 +67,23 @@
       <if test="nid != null">
         nid,
       </if>
-      <if test="hiddenValue != null">
-        hidden_value,
+      <if test="pid != null">
+        pid,
       </if>
-      <if test="value != null">
-        value,
+      <if test="url != null">
+        url,
+      </if>
+      <if test="mainMenu != null">
+        main_menu,
+      </if>
+      <if test="sort != null">
+        sort,
       </if>
       <if test="deleted != null">
         deleted,
       </if>
-      <if test="locked != null">
-        locked,
+      <if test="remark != null">
+        remark,
       </if>
       <if test="addTime != null">
         add_time,
@@ -94,17 +102,23 @@
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="hiddenValue != null">
-        #{hiddenValue,jdbcType=TINYINT},
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
       </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="mainMenu != null">
+        #{mainMenu,jdbcType=BIT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
-      <if test="locked != null">
-        #{locked,jdbcType=BIT},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -114,11 +128,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.p2p.model.SystemDict">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
-    update system_dict
+    update system_menu
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -126,17 +140,23 @@
       <if test="nid != null">
         nid = #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="hiddenValue != null">
-        hidden_value = #{hiddenValue,jdbcType=TINYINT},
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
       </if>
-      <if test="value != null">
-        value = #{value,jdbcType=VARCHAR},
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="mainMenu != null">
+        main_menu = #{mainMenu,jdbcType=BIT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
       </if>
-      <if test="locked != null">
-        locked = #{locked,jdbcType=BIT},
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -147,23 +167,40 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.p2p.model.SystemDict">
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
-    update system_dict
+    update system_menu
     set name = #{name,jdbcType=VARCHAR},
       nid = #{nid,jdbcType=VARCHAR},
-      hidden_value = #{hiddenValue,jdbcType=TINYINT},
-      value = #{value,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      main_menu = #{mainMenu,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=BIT},
-      locked = #{locked,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getDictByNid" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList" />
-        from system_dict where deleted = false and nid = #{nid}
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        from system_menu t where t.deleted = false
+    </select>
+
+    <select id="getUserMenuList" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        from system_menu t
+        LEFT JOIN system_role_menu s on t.id = s.menu_id
+        LEFT JOIN system_operator_role o on s.role_id = o.role_id
+        <where>
+            <if test="btnMenu == false">
+                /*查询左侧主菜单,即屏蔽按钮菜单*/
+                and t.menu = TRUE
+            </if>
+            and o.user_id = #{userId}
+        </where>
+        order by t.sort asc
     </select>
 </mapper>
