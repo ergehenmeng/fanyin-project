@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-01-26 17:48:04
+Date: 2018-01-29 18:38:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -239,11 +239,12 @@ CREATE TABLE `recharge_bank` (
 DROP TABLE IF EXISTS `system_config`;
 CREATE TABLE `system_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(50) DEFAULT NULL COMMENT '参数名称',
   `nid` varchar(50) NOT NULL COMMENT '参数标示符',
   `value` varchar(2000) NOT NULL COMMENT '参数值',
-  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `type` tinyint(2) unsigned DEFAULT NULL COMMENT '参数类型,见system_dict表nid=system_config_type',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -254,7 +255,7 @@ CREATE TABLE `system_config` (
 -- ----------------------------
 -- Records of system_config
 -- ----------------------------
-INSERT INTO `system_config` VALUES ('1', 'application_name', '1231231', null, null, '\0', '2018-01-12 10:01:04', '2018-01-18 15:21:21');
+INSERT INTO `system_config` VALUES ('1', 'javascript:void(0)', 'application_name', '1231231ss', null, '\0', '', '2018-01-12 10:01:04', '2018-01-29 18:33:32');
 
 -- ----------------------------
 -- Table structure for system_dict
@@ -287,6 +288,7 @@ CREATE TABLE `system_menu` (
   `nid` varchar(20) NOT NULL COMMENT '菜单标示符 唯一',
   `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
   `url` varchar(255) DEFAULT NULL COMMENT '菜单地址',
+  `sub_url` varchar(2000) DEFAULT NULL COMMENT '该菜单包含的子url以分号做分割',
   `main_menu` bit(1) DEFAULT b'1' COMMENT '是否为左侧主菜单 0:不是,1:是',
   `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
   `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
@@ -300,16 +302,11 @@ CREATE TABLE `system_menu` (
 -- ----------------------------
 -- Records of system_menu
 -- ----------------------------
-INSERT INTO `system_menu` VALUES ('1000', '基础管理', 'baseManage', '0', null, '', '0', '\0', null, '2018-01-25 16:13:25', null);
-INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, '', '0', '\0', null, '2018-01-25 16:13:54', null);
-INSERT INTO `system_menu` VALUES ('1002', '业务管理', 'businessManage', '0', null, '', '0', '\0', null, '2018-01-25 16:14:00', null);
-INSERT INTO `system_menu` VALUES ('1003', '运营管理', 'operateManage', '1000', null, '', '0', '\0', null, '2018-01-25 16:14:00', null);
-INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/admin/system/menu/menuManage', '', '0', '\0', null, '2018-01-25 16:14:01', null);
-INSERT INTO `system_menu` VALUES ('1005', '一级菜单', 'oneMenu', '0', null, '', '0', '\0', null, '2018-01-25 16:14:04', null);
-INSERT INTO `system_menu` VALUES ('1006', '二级菜单', 'sencond', '1005', null, '', '0', '\0', null, '2018-01-25 16:14:04', null);
-INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/admin/system/config/systemConfigManage', '', '0', '\0', null, '2018-01-25 16:14:31', null);
-INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/admin/system/user/userManage', '', '0', '\0', null, '2018-01-25 16:14:40', null);
-INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/admin/system/role/roleManage', '', '0', '\0', null, '2018-01-25 16:14:56', null);
+INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, null, '', '0', '\0', null, '2018-01-25 16:13:54', null);
+INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/menu_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:01', null);
+INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/config_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:31', null);
+INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/user/user_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:40', null);
+INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/role_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:56', null);
 
 -- ----------------------------
 -- Table structure for system_operator
@@ -350,11 +347,12 @@ CREATE TABLE `system_operator_role` (
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`),
   KEY `role_id_index` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与用户关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='角色与用户关系表';
 
 -- ----------------------------
 -- Records of system_operator_role
 -- ----------------------------
+INSERT INTO `system_operator_role` VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for system_role
@@ -370,11 +368,12 @@ CREATE TABLE `system_role` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `role_name_index` (`role_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of system_role
 -- ----------------------------
+INSERT INTO `system_role` VALUES ('1', '超级管理员', 'administator', '2018-01-29 13:45:49', null, '\0', null);
 
 -- ----------------------------
 -- Table structure for system_role_menu
@@ -388,11 +387,16 @@ CREATE TABLE `system_role_menu` (
   KEY `role_id_index` (`role_id`) USING BTREE,
   KEY `menu_id_index` (`menu_id`),
   CONSTRAINT `role_id_FK` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
+INSERT INTO `system_role_menu` VALUES ('2', '1', '1001');
+INSERT INTO `system_role_menu` VALUES ('5', '1', '1004');
+INSERT INTO `system_role_menu` VALUES ('8', '1', '1007');
+INSERT INTO `system_role_menu` VALUES ('9', '1', '1008');
+INSERT INTO `system_role_menu` VALUES ('10', '1', '1009');
 
 -- ----------------------------
 -- Table structure for tips

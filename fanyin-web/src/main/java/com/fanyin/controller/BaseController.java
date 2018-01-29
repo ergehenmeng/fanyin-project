@@ -17,10 +17,6 @@ import javax.servlet.http.HttpSession;
  */
 public class BaseController {
 
-    /**
-     * 访问版本
-     */
-    protected static final String VERSION = VersionConstant.LATEST_VERSION;
 
     /**
      * 存放session
