@@ -29,7 +29,7 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 			}
 		} ]
 	});
-}
+};
 
 function formatUrl(id,url,data){
 	url = url + "?id=" +id;
@@ -56,7 +56,7 @@ $.fn.dataGridOptions.confirm = function(id,url,msg,data){
 			},"json");
 		}
 	});
-}
+};
 
 
 
@@ -80,7 +80,7 @@ $.fn.dataGridOptions.formSubmit = function(formId,url,success){
 		},
 		success:function(data){
 			 parent.$.messager.progress('close');
-		     data = (typeof data == 'object') ? data: $.parseJSON(data);
+		     data = (typeof data === 'object') ? data: $.parseJSON(data);
 		     if(data.result){
                  parent.$.windowDialog.handler.dialog('close');
                  parent.$.messager.alert('提示', successMsg, 'info');
@@ -90,7 +90,7 @@ $.fn.dataGridOptions.formSubmit = function(formId,url,success){
 		     }
 		}
 	});
-}
+};
 /**
  * 表单提交 与上面的区别,上面是针对列表页面的弹出表单,
  * 而该方法仅仅是普通的提交表单,在提交成功后,不会刷新datagrid或者treegrid等
@@ -114,7 +114,7 @@ $.fn.dataGridOptions.submit = function(formId,url,callback){
         },
         success:function(data){
             parent.$.messager.progress('close');
-            data = (typeof data == 'object') ? data: $.parseJSON(data);
+            data = (typeof data === 'object') ? data: $.parseJSON(data);
             if(data.result){
                 parent.$.messager.alert('提示', successMsg, 'info',callback);
             }else{
@@ -122,7 +122,7 @@ $.fn.dataGridOptions.submit = function(formId,url,callback){
             }
         }
     });
-}
+};
 /**
  * treeGrid的询问操作 一般为删除
  * @param id
@@ -144,7 +144,7 @@ $.fn.treeGridOptions.confirm = function(id,url,msg,data){
             },"json");
         }
     });
-}
+};
 /**
  * 表单新增或编辑
  */
@@ -163,7 +163,7 @@ $.fn.treeGridOptions.editFun = function(id,title,width,height,url){
 			}
 		} ]
 	});
-}
+};
 
 /**
  * 表单提交
@@ -186,7 +186,7 @@ $.fn.treeGridOptions.formSubmit = function(formId,url,success){
 		},
 		success:function(data){
 			 parent.$.messager.progress('close');
-		     data = (typeof data == 'object') ? data: $.parseJSON(data);
+		     data = (typeof data === 'object') ? data: $.parseJSON(data);
 		     if(data.result){
 		    	 parent.$.messager.alert('提示', successMsg, 'info');
 		         parent.$.windowDialog.handler.dialog('close');
@@ -196,7 +196,7 @@ $.fn.treeGridOptions.formSubmit = function(formId,url,success){
 		     }
 		}
 	});
-}
+};
 /**
  * 普通表单提交 不刷新任何dataGrid treeGrid
  * @param formId
@@ -218,7 +218,7 @@ $.fn.formOptions.formSubmit = function (formId,url) {
         },
         success:function(data){
             parent.$.messager.progress('close');
-            data = (typeof data == 'object') ? data: $.parseJSON(data);
+            data = (typeof data === 'object') ? data: $.parseJSON(data);
             if(data.result){
                 parent.$.windowDialog.handler.dialog('close');
             }else{
@@ -226,12 +226,11 @@ $.fn.formOptions.formSubmit = function (formId,url) {
             }
         }
     });
-}
+};
 
 /**
  * 普通get请求
  * @param url
- * @param msg 成功提示语
  */
 $.fn.dataGridOptions.get = function(url){
     parent.$.messager.progress({
@@ -256,7 +255,7 @@ $.fn.dataGridOptions.get = function(url){
             parent.$.messager.alert('提示', "请求数据失败,请联系管理人员", 'error');
         }
     });
-}
+};
 
 /**
  * 普通datagrid刷新
@@ -264,12 +263,12 @@ $.fn.dataGridOptions.get = function(url){
  */
 $.fn.dataGridOptions.searchFun = function (formId) {
     dataGrid.datagrid('load', $.serializeObject($(formId)));
-}
+};
 
 //树形数据查询
 $.fn.treeGridOptions.searchFun = function (formId) {
     dataGrid.datagrid('load', $.serializeObject($(formId)));
-}
+};
 /**
  * 普通数据结构转tree结构
  */
@@ -278,7 +277,7 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 	var nodes = [];
 	for(var i = 0;i<rows.length;i++){
 		var row = rows[i];
-		if(row.parentId == "0"){//一级节点
+		if(row.parentId === "0"){//一级节点
 			nodes.push({id:row.id,text:row.menuName});			
 		}
 	}
@@ -291,7 +290,7 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 		var node = topNodes.shift();
 		for(var i = 0;i<rows.length;i++){
 			var row = rows[i];
-			if (row.parentId == node.id){
+			if (row.parentId === node.id){
 				var child = {id:row.id,text:row.menuName,checked:isChecked(row.id,checkRow)};	
 				if (node.children){
 					node.children.push(child);
@@ -311,9 +310,9 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
  * @returns {Boolean}
  */
 function isChecked(id,checkRow){
-	if(checkRow != null && checkRow.length > 0){
+	if(checkRow !== null && checkRow.length > 0){
 		for(var i=0;i < checkRow.length;i++){
-			if(checkRow[i].id == id){
+			if(checkRow[i].id === id){
 				return true;
 			}
 		}
@@ -327,7 +326,7 @@ function isChecked(id,checkRow){
  */
 $.fn.treeGridOptions.checkNode = function(treeObj){
 	var nodes = treeObj.tree("getChecked");
-	if(nodes != null && nodes.length > 0){
+	if(nodes !== null && nodes.length > 0){
 		var nodeId = "";
 		$.each(nodes,function(i,node){
 			nodeId += "," + node.id;
@@ -335,7 +334,7 @@ $.fn.treeGridOptions.checkNode = function(treeObj){
 		return nodeId.substring(1);
 	}
 	return "";
-}
+};
 
 /**
  * 添加字符串方法 开始
@@ -353,7 +352,7 @@ String.prototype.endWith=function(str){
 };
 
 $.windowDialog = function(opts){
-	if($.windowDialog.handler == undefined){
+	if($.windowDialog.handler === undefined){
 		var options = $.extend({
 			title:"easyUI窗口",
 			width:680,
@@ -364,9 +363,10 @@ $.windowDialog = function(opts){
 				$.windowDialog.handler = undefined;
 				$(this).dialog('destroy');
 				//该处为了增加下拉复选框无法关闭的bug
-                if($(".multipeSelect").length > 0 && !$(".multipeSelect").is(":hidden")){
-                    $(".multipeSelect").hide();
-                };
+                var $multipleSelect = $(".multipleSelect");
+                if($multipleSelect.length > 0 && !$multipleSelect.is(":hidden")){
+                    $multipleSelect.hide();
+                }
 			}
 			
 		},opts);
@@ -381,7 +381,7 @@ $.fn.dataGridOptions.cleanFun = function(formId){
     $(formId + ' input').val('');
     dataGrid.datagrid('load', {});
     $("#showAdw")[0].reset();
-}
+};
 
 /**
  * 循环json并以url形式返回
@@ -401,18 +401,19 @@ function eachJson(data){
  */
 function addTabs(title,url,closable){
 	//判断该tabs是否已经打开
-	var isOpen =$("#div_tabs").tabs("exists",title);
+    var $tabs = $("#div_tabs");
+
+	var isOpen = $tabs.tabs("exists",title);
 	if(isOpen){
-		$("#div_tabs").tabs("select",title);//选中点击的tabs
-		$("#div_tabs").tabs("getSelected").children("iframe").attr("src", url);//重新加载数据
+        $tabs.tabs("select",title);//选中点击的tabs
+        $tabs.tabs("getSelected").children("iframe").attr("src", url);//重新加载数据
 	}else{
-		$("#div_tabs").tabs("add",{
+        $tabs.tabs("add",{
 			title:	title,
 			content:createIframe(url),
 			closable:closable,
 			fit:true,
-			width:$("#div_tabs").parent().width(),
-			
+			width:$tabs.parent().width()
 		});
 	}
 }
@@ -437,19 +438,19 @@ Date.prototype.format = function (format){
         "s+": this.getSeconds(), //second 
         "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter 
         "S": this.getMilliseconds() //millisecond 
-    }
+    };
     if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
     (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o) if (new RegExp("(" + k + ")").test(format))
         format = format.replace(RegExp.$1,
-      RegExp.$1.length == 1 ? o[k] :
+      RegExp.$1.length === 1 ? o[k] :
         ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 };
 
 //时间戳转换
 var getLocalTime = function(value,type) {
-    if (value == null || value == '') {
+    if (value === null || value === '') {
         return '';
     }
 	var dt;

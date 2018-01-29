@@ -31,7 +31,15 @@ import javax.servlet.http.HttpServletRequest;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+     /**
+      * 全局不需要权限
+      */
     private static final String[] IGNORE_URL = {"/","/index/","/captcha"};
+
+     /**
+      * 登陆后不需要权限
+      */
+    private static final String[] LOGIN_IGNORE_URL = {"/home","/portal","/public/**"};
 
     @Autowired
     private CustomFilterSecurityInterceptor customFilterSecurityInterceptor;
@@ -54,13 +62,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //iframe同一域名内可以访问
+        http.headers().frameOptions().sameOrigin();
+
         http
              .authorizeRequests()
                 .antMatchers(IGNORE_URL).permitAll()
-                .antMatchers("/home").authenticated()
+                .antMatchers(LOGIN_IGNORE_URL).fullyAuthenticated()
                 .anyRequest().authenticated()
                 .and()
              .formLogin()
+                .loginPage("/")
                 .loginProcessingUrl("/login")
                 .usernameParameter("mobile")
                 .passwordParameter("password")

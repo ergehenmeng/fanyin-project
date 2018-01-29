@@ -21,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, name, nid, pid, url, main_menu, sort, deleted, remark, add_time, update_time
+    t.id, t.name, t.nid, t.pid, t.url, t.main_menu, t.sort, t.deleted, t.remark, t.add_time, t.update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -29,8 +29,8 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from system_menu
-    where id = #{id,jdbcType=INTEGER}
+    from system_menu t
+    where t.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -197,9 +197,9 @@
         <where>
             <if test="btnMenu == false">
                 /*查询左侧主菜单,即屏蔽按钮菜单*/
-                and t.menu = TRUE
+                t.main_menu = TRUE and
             </if>
-            and o.user_id = #{userId}
+            o.user_id = #{userId}
         </where>
         order by t.sort asc
     </select>

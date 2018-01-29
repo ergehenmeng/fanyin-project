@@ -23,14 +23,14 @@ $(function(){
 	   roleMenu();
     });
 
-	
 	//增加首页tabs信息
 	addTabs("首页","/portal");
-	
-	var accordion = new Accordion($('#accordion'), false);
-	
-	$("#accordion li a").on("click",function(){
-		$("#accordion li").removeClass("clicked");
+	var $accordion = $("#accordion");
+	new Accordion($accordion, false);
+
+    var $li = $accordion.find("li");
+    $li.find("a").on("click",function(){
+        $li.removeClass("clicked");
 		$(this).parent("li").addClass("clicked");
 		var url = $(this).attr("rel");
 		addTabs($(this).text(),url,true);
@@ -52,7 +52,6 @@ var Accordion = function(el, multiple) {
 	this.el = el || {};
 	this.multiple = multiple || false;
 
-	
 	var links = this.el.find('.link');
 	
 	links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
@@ -60,11 +59,10 @@ var Accordion = function(el, multiple) {
 
 Accordion.prototype.dropdown = function(e) {
 	var $el = e.data.el;
-		$this = $(this);
-		$next = $this.next();
+		$next = $(this).next();
 
 	$next.slideToggle();
-	$this.parent().toggleClass('open');
+    $(this).parent().toggleClass('open');
 
 	if (!e.data.multiple) {
 		$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
@@ -73,7 +71,7 @@ Accordion.prototype.dropdown = function(e) {
 
 /**
  * 修改密码
- * @param isClose是否显示关闭按钮
+ * @param isClose 是否显示关闭按钮
  */
 var changePwd = function(isClose){
     $.windowDialog({
@@ -98,9 +96,9 @@ var changePwd = function(isClose){
 var logout = function(){
 	$.messager.confirm("提示","您确定要退出该系统吗?",function(r){
 		if(r){
-			$.post("/admin/logout",function(data){
+			$.post("/logout",function(data){
 				if(data.result){
-					window.location.href = "/admin";
+					window.location.href = "/";
 				}
 			},"json");
 		}

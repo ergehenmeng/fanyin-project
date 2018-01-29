@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <#include "resources.ftl">
     <link href="/static/css/home/home.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="/static/js/home/home.js" ></script>
+    <script type="text/javascript" src="/static/js/home.js" ></script>
     <script type="text/javascript" >
         var isInit = "${isInit!'false'}";//0不是初始用户,1是初始用户
     </script>

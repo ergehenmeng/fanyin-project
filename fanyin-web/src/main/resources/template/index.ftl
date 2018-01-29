@@ -34,6 +34,5 @@
 <!-- jquery库2.0版本 -->
 <script type="text/javascript" src="/static/js/jquery.min.js"  charset="UTF-8"></script>
 <script type="text/javascript" src="/static/js/md5.min.js"  charset="UTF-8"></script>
-<script type="text/javascript" src="/static/js/common.js"  charset="UTF-8"></script>
 <script type="text/javascript" src="/static/js/index.js?v=20180101001"   charset="UTF-8"></script>
 </html>

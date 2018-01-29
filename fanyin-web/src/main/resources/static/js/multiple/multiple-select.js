@@ -5,7 +5,7 @@ $.fn.multipleSelect = function(options){
         loadSuccess:""//远程加载成功后的回调 用于格式化数据
     },options || {});
     var self = this;
-    var s = ".multipeSelect";
+    var s = ".multipleSelect";
     var checkboxSelect = {};
 
     /**
@@ -78,7 +78,7 @@ $.fn.multipleSelect = function(options){
      */
     checkboxSelect.panel = function () {
         if($(s).length == 0){
-            $("<div class='multipeSelect' />").appendTo("body").append("<ul id='selectOption'></ul>");
+            $("<div class='multipleSelect' />").appendTo("body").append("<ul id='selectOption'></ul>");
         }
     }
 

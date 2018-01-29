@@ -38,7 +38,7 @@ public class BaseController {
      */
     protected SystemOperator getOperator(){
         SecurityContext context = SecurityContextHolder.getContext();
-        Object details = context.getAuthentication().getDetails();
+        Object details = context.getAuthentication().getPrincipal();
         if(details != null){
             return (SystemOperator)details;
         }

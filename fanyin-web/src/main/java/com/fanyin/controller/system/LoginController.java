@@ -7,9 +7,10 @@ import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -44,4 +45,25 @@ public class LoginController extends BaseController {
         request.setAttribute("menuList", list);
         return "home";
     }
+
+    /**
+     * 首页门户框
+     * @return 门户页面
+     */
+    @RequestMapping("/portal")
+    public String portal(){
+        return "portal";
+    }
+
+    /**
+     * 全局页面定向
+     * @param modules 所属模块
+     * @param page 页面名称
+     * @return 对应的页面
+     */
+    @RequestMapping("/public/{modules}/{page}")
+    public String modules(@PathVariable("modules")String modules,@PathVariable("page")String page){
+        return "public/" + modules + "/" + page;
+    }
+
 }
