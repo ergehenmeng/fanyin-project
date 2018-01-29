@@ -61,9 +61,9 @@ public class LoginController extends BaseController {
      * @param page 页面名称
      * @return 对应的页面
      */
-    @RequestMapping("/public/{modules}/{page}")
-    public String modules(@PathVariable("modules")String modules,@PathVariable("page")String page){
-        return "public/" + modules + "/" + page;
+    @RequestMapping("/public/{modules}/{function}/{page}")
+    public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
+        return "public/" + modules + "/" + function +"/" + page;
     }
 
 }

@@ -224,13 +224,13 @@ textarea{
 .h100{height: 100px !important;}
 .h150{height: 150px !important;}
 
-.formitem{
+.form_item{
 	padding:5px;
 	margin-left:10px;
 	text-align: left;
 	float: left;
 }
-.formitem label {
+.form_item label {
 	margin-top:3px;
 	display: inline-block;
 	width: 80px;
@@ -239,7 +239,7 @@ textarea{
 	float:left;
 	padding-right: 10px;
 }
-.formitem small {
+.form_item small {
 	display: inline-block;
 	padding-left: 5px;
     float: right;
@@ -247,7 +247,7 @@ textarea{
 	width:10px;
 	color: red;
 }
-.formitem input,select,textarea {
+.form_item input,select,textarea {
 	padding: 5px;
 	width:200px;
 	border: 1px solid #ccc;
@@ -258,7 +258,7 @@ textarea{
 	width: 200px;
 }
 
-.solorForm {
+.platform_form {
 	padding: 10px;
 }
 
@@ -273,6 +273,9 @@ textarea{
     padding: 0 10px;
 }
 
+.tabs_body{
+    padding: 0 10px;
+}
 
 
 

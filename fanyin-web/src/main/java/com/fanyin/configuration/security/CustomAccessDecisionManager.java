@@ -26,7 +26,7 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
             return;
         }
 
-        for (ConfigAttribute attribute : configAttributes){
+         for (ConfigAttribute attribute : configAttributes){
             String role = attribute.getAttribute();
             for (GrantedAuthority ga : authentication.getAuthorities()){
                 if (role.equals(ga.getAuthority())){

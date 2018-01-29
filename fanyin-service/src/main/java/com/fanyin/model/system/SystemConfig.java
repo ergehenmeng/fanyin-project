@@ -8,6 +8,11 @@ import java.util.Date;
  * @author 二哥很猛
  */
 public class SystemConfig implements Serializable {
+
+    /**
+     * 参数名称
+     */
+    private String name;
     /**
      * 主键<br>
      * 表 : system_config<br>
@@ -64,9 +69,15 @@ public class SystemConfig implements Serializable {
      */
     private Date updateTime;
 
-
-
     private static final long serialVersionUID = 1L;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * @return 主键

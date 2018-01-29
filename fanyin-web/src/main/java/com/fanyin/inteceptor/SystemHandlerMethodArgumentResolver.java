@@ -59,7 +59,7 @@ public class SystemHandlerMethodArgumentResolver implements HandlerMethodArgumen
     private Object jsonFormat(HttpServletRequest request,Class<?> cls){
         try {
             String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-            if(args == null){
+             if(args == null){
                 return null;
             }
             return JSONObject.parseObject(args,cls);

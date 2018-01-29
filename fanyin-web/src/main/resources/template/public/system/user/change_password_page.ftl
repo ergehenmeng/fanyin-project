@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(function() {
         $("#form").form({
-            url:"/admin/system/user/changePassword",
+            url:"/public/system/user/change_password",
             onSubmit:function(){
                 parent.$.messager.progress({
                     title : '提示',
@@ -28,21 +28,21 @@
         });
     });
 </script>
-<div class="solorForm">
+<div class="platform_form">
     <form id="form"  method="post">
-        <div class="formitem">
+        <div class="form_item">
             <label>原密码:</label>
-            <input maxlength="50" type="password" name="oldPassword" id="oldPassword" class="easyui-validatebox" data-options="required: true"  />
+            <input title="原密码" maxlength="50" type="password" name="oldPassword" id="oldPassword" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
-        <div class="formitem">
+        <div class="form_item">
             <label>新密码:</label>
-            <input maxlength="50" type="password"   name="newPassword" id="newPassword" class="easyui-validatebox" data-options="required: true,validType:['regexPassword','notEqPwd[\'#oldPassword\']' ]"  />
+            <input title="新密码" maxlength="50" type="password"   name="newPassword" id="newPassword" class="easyui-validatebox" data-options="required: true,validType:['regexPassword','notEqPwd[\'#oldPassword\']' ]"  />
             <small>*</small>
         </div>
-        <div class="formitem">
+        <div class="form_item">
             <label>确认新密码:</label>
-            <input maxlength="50" type="password" name="confirmPassword" class="easyui-validatebox" data-options="required: true,validType:'eqPwd[\'#newPassword\']'"  />
+            <input title="确认新密码" maxlength="50" type="password" name="confirmPassword" class="easyui-validatebox" data-options="required: true,validType:'eqPwd[\'#newPassword\']'"  />
             <small>*</small>
         </div>
     </form>

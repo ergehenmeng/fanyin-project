@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Autowired
     private SystemMenuMapper systemMenuMapper;
 
+    private static final Comparator<SystemMenu> COMPARATOR = Comparator.comparing(SystemMenu::getSort);
 
     @Override
     public List<SystemMenu> getUserMenuList(Integer userId) {
@@ -33,6 +35,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
                 parentList.add(parent);
             }
         }
+        parentList.sort(COMPARATOR);
         return parentList;
     }
 
@@ -48,6 +51,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
             for(SystemMenu child : childList){
                 setChild(child,list);
             }
+            childList.sort(COMPARATOR);
             parent.setSubList(childList);
         }
     }

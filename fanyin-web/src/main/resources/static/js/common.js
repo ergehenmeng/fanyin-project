@@ -573,8 +573,8 @@ function Map() {
 
     //获取MAP中所有VALUE的数组（ARRAY）
     this.values = function() {
-        var arr = new Array();
-        for (i = 0; i < this.elements.length; i++) {
+        var arr = [];
+        for (var i = 0; i < this.elements.length; i++) {
             arr.push(this.elements[i].value);
         }
         return arr;
@@ -582,8 +582,8 @@ function Map() {
 
     //获取MAP中所有KEY的数组（ARRAY）
     this.keys = function() {
-        var arr = new Array();
-        for (i = 0; i < this.elements.length; i++) {
+        var arr = [];
+        for (var i = 0; i < this.elements.length; i++) {
             arr.push(this.elements[i].key);
         }
         return arr;
@@ -593,13 +593,13 @@ function Map() {
 
 //数据编辑
 $.fn.dataGridOptions.certificationEditFun = function (id,title,width,height,url,userId,typeId){
-		if (id == undefined) {
+		if (id === undefined) {
 			var rows = dataGrid.datagrid('getSelections');
 			id = rows[0].id;
 		} else {
 			dataGrid.datagrid('unselectAll').datagrid('uncheckAll');
 		}
-		if (url.indexOf("?")==-1) {
+		if (url.indexOf("?") === -1) {
 			url = url+'?id=' + id+'&userId='+userId+'&typeId='+typeId;
 		} else {
 			url = url+'&id=' + id+'&userId='+userId+'&typeId='+typeId;
@@ -651,23 +651,23 @@ Date.prototype.format = function(fmt){
     "q+" : Math.floor((this.getMonth()+3)/3), //季度   
     "S"  : this.getMilliseconds()             //毫秒   
   };   
-  if(/(y+)/.test(fmt))   
-    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-  for(var k in o)   
-    if(new RegExp("("+ k +")").test(fmt))   
-  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-  return fmt;   
+  if(/(y+)/.test(fmt)){
+      fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+  }
+
+  for(var k in o){
+      if(new RegExp("("+ k +")").test(fmt)){
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+      }
+  }
+  return fmt;
 };
 
 String.prototype.endWith=function(s){
-	if(s ==null || s == "" || this.length ==0 || s.length > this.length){
+	if(!s || this.length === 0 || s.length > this.length){
 		return false;
 	}
-	if(this.substring(this.length-s.length) == s){
-		return true;
-	}else{
-		return false;
-	}
+	return this.substring(this.length - s.length) === s;
 };
 
 

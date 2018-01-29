@@ -1,4 +1,4 @@
-package com.fanyin.request.system;
+package com.fanyin.request.system.config;
 
 
 import com.fanyin.ext.BaseRequest;
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date: 2018/1/18
  * @time: 16:04
  */
-public class SystemConfigSelectRequest extends BaseRequest implements Serializable {
+public class ConfigSelectRequest extends BaseRequest implements Serializable {
 
     private static final long serialVersionUID = -2384592001035426711L;
 
@@ -24,6 +24,19 @@ public class SystemConfigSelectRequest extends BaseRequest implements Serializab
      * 是否锁定(禁止编辑)
      */
     private Boolean locked;
+
+    /**
+     * 备注信息
+     */
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public Integer getType() {
         return type;

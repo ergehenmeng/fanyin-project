@@ -1,4 +1,4 @@
-package com.fanyin.request.system;
+package com.fanyin.request.system.config;
 
 /**
  * @description: 更新系统配置信息的请求参数类
@@ -6,12 +6,16 @@ package com.fanyin.request.system;
  * @date: 2018/1/12
  * @time: 17:37
  */
-public class SystemConfigUpdateRequest {
+public class ConfigUpdateRequest {
 
+    /**
+     * 参数名称
+     */
+    private String name;
     /**
      * 参数类型 system_dict#system_config_type所配置
      */
-    private Integer type;
+    private Byte type;
 
     /**
      * 参数值
@@ -28,6 +32,19 @@ public class SystemConfigUpdateRequest {
      */
     private String nid;
 
+    /**
+     * 锁定状态 false未锁定 true锁定无法编辑
+     */
+    private Boolean locked;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getNid() {
         return nid;
     }
@@ -36,12 +53,20 @@ public class SystemConfigUpdateRequest {
         this.nid = nid;
     }
 
-    public Integer getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(Byte type) {
         this.type = type;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
     }
 
     public String getValue() {
@@ -63,7 +88,7 @@ public class SystemConfigUpdateRequest {
 
     @Override
     public String toString() {
-        return "SystemConfigUpdateRequest{" +
+        return "ConfigUpdateRequest{" +
                 "type=" + type +
                 ", value='" + value + '\'' +
                 ", remark='" + remark + '\'' +

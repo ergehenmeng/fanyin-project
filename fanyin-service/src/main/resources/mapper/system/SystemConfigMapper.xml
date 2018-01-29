@@ -6,6 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="value" jdbcType="VARCHAR" property="value" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -18,7 +19,7 @@
     <!--
       @create by mybatis
     -->
-    id, nid, value, remark, type, locked, add_time, update_time
+    id,name, nid, value, remark, type, locked, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -40,10 +41,10 @@
     <!--
       @create by mybatis
     -->
-    insert into system_config (id, nid, value, 
+    insert into system_config (id,name, nid, value,
       remark, type, locked, add_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR}, #{nid,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{locked,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -56,6 +57,9 @@
       <if test="id != null">
         id,
       </if>
+        <if test="name != null">
+            name,
+        </if>
       <if test="nid != null">
         nid,
       </if>
@@ -82,6 +86,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+        <if test="name != null">
+            #{name,jdbcType=VARCHAR},
+        </if>
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
       </if>
@@ -111,6 +118,9 @@
     -->
     update system_config
     <set>
+        <if test="nid != null">
+            name = #{name,jdbcType=VARCHAR},
+        </if>
       <if test="nid != null">
         nid = #{nid,jdbcType=VARCHAR},
       </if>
@@ -140,7 +150,8 @@
       @create by mybatis
     -->
     update system_config
-    set nid = #{nid,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      nid = #{nid,jdbcType=VARCHAR},
       value = #{value,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       type = #{type,jdbcType=TINYINT},
@@ -155,16 +166,16 @@
         from system_config WHERE nid = #{nid}
     </select>
     
-    <update id="updateConfig" parameterType="SystemConfigUpdateRequest">
-        update system_config SET type = #{type},value = #{value},remark = #{remark},update_time = now() where locked = false and nid = #{nid}
+    <update id="updateConfig" parameterType="ConfigUpdateRequest">
+        update system_config SET name = #{name},type = #{type},value = #{value},remark = #{remark},update_time = now(),locked = #{locked} where locked = false and nid = #{nid}
     </update>
     
-    <select id="getList" parameterType="SystemConfigSelectRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="ConfigSelectRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_config
         <where>
-            <if test="queryName != null">
-                and (nid = #{queryName} or remark = #{remark})
+            <if test="queryName != null and queryName != ''">
+                and (name like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%') or remark like concat('%',#{queryName},'%') )
             </if>
             <if test="type != null">
                 and type = #{type}
@@ -173,6 +184,7 @@
                 and locked = #{locked}
             </if>
         </where>
+
     </select>
     
 </mapper>

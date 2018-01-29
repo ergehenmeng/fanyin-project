@@ -83,10 +83,24 @@ public class SystemMenu implements Serializable {
     private Date updateTime;
 
     /**
+     * 该菜单包含的子url以分号做分割<br>
+     * 表 : system_menu<br>
+     *  对应字段 : sub_url<br>
+     */
+    private String subUrl;
+
+    /**
      * 子菜单列表
      */
     private List<SystemMenu> subList;
 
+    public String getSubUrl() {
+        return subUrl;
+    }
+
+    public void setSubUrl(String subUrl) {
+        this.subUrl = subUrl;
+    }
 
     public List<SystemMenu> getSubList() {
         return subList;

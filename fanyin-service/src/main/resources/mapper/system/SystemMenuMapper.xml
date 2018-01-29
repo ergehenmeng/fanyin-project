@@ -10,6 +10,7 @@
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="sub_url" jdbcType="VARCHAR" property="subUrl" />
     <result column="main_menu" jdbcType="BIT" property="mainMenu" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -21,7 +22,7 @@
     <!--
       @create by mybatis
     -->
-    t.id, t.name, t.nid, t.pid, t.url, t.main_menu, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+    t.id, t.name, t.nid, t.pid, t.url,t.sub_url, t.main_menu, t.sort, t.deleted, t.remark, t.add_time, t.update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -44,11 +45,11 @@
       @create by mybatis
     -->
     insert into system_menu (id, name, nid, 
-      pid, url, main_menu, sort, 
+      pid, url,sub_url, main_menu, sort,
       deleted, remark, add_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nid,jdbcType=VARCHAR}, 
-      #{pid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{mainMenu,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, 
+      #{pid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR},#{subUrl,jdbcType=VARCHAR}, #{mainMenu,jdbcType=BIT}, #{sort,jdbcType=INTEGER},
       #{deleted,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -73,6 +74,9 @@
       <if test="url != null">
         url,
       </if>
+        <if test="subUrl != null">
+            sub_url
+        </if>
       <if test="mainMenu != null">
         main_menu,
       </if>
@@ -108,6 +112,9 @@
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
+        <if test="subUrl != null">
+            #{subUrl,jdbcType=VARCHAR},
+        </if>
       <if test="mainMenu != null">
         #{mainMenu,jdbcType=BIT},
       </if>
@@ -146,6 +153,9 @@
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
+        <if test="subUrl != null">
+            sub_url = #{subUrl,jdbcType=VARCHAR},
+        </if>
       <if test="mainMenu != null">
         main_menu = #{mainMenu,jdbcType=BIT},
       </if>
@@ -176,6 +186,7 @@
       nid = #{nid,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
+      sub_url = #{subUrl,jdbcType=VARCHAR},
       main_menu = #{mainMenu,jdbcType=BIT},
       sort = #{sort,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=BIT},
@@ -201,6 +212,6 @@
             </if>
             o.user_id = #{userId}
         </where>
-        order by t.sort asc
+        order by t.pid = 0 desc,t.sort asc
     </select>
 </mapper>

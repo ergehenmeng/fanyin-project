@@ -7,9 +7,11 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.SystemException;
 import com.fanyin.mapper.system.SystemConfigMapper;
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.request.system.SystemConfigSelectRequest;
-import com.fanyin.request.system.SystemConfigUpdateRequest;
+import com.fanyin.request.system.config.ConfigInsertRequest;
+import com.fanyin.request.system.config.ConfigSelectRequest;
+import com.fanyin.request.system.config.ConfigUpdateRequest;
 import com.fanyin.service.system.SystemConfigService;
+import com.fanyin.utils.BeanCopyUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -22,6 +24,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +44,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @CacheEvict(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "T(com.fanyin.constant.RedisConstant).SYSTEM_CONFIG + #request.nid")
-    public void updateConfig(SystemConfigUpdateRequest request) {
+    public void updateConfig(ConfigUpdateRequest request) {
         int i = systemConfigMapper.updateConfig(request);
         if(i != 1){
             throw new SystemException(ErrorCodeEnum.UPDATE_CONFIG_ERROR);
@@ -50,7 +53,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public PageInfo<SystemConfig> getListByPage(SystemConfigSelectRequest request) {
+    public PageInfo<SystemConfig> getListByPage(ConfigSelectRequest request) {
         PageHelper.startPage(request.getPage(),request.getRows());
         List<SystemConfig> list = systemConfigMapper.getList(request);
         return new PageInfo<>(list);
@@ -60,6 +63,17 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     @Cacheable(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "T(com.fanyin.constant.RedisConstant).SYSTEM_CONFIG + #p0")
     public SystemConfig getConfigByNid(String nid) {
         return systemConfigMapper.getConfigByNid(nid);
+    }
+
+    @Override
+    public SystemConfig getConfigById(Integer id) {
+        return systemConfigMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void addConfig(ConfigInsertRequest request) {
+        SystemConfig copy = BeanCopyUtils.copy(request, SystemConfig.class);
+        systemConfigMapper.insertSelective(copy);
     }
 
     @Override

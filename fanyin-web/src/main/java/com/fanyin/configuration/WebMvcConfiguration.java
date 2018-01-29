@@ -24,7 +24,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new SystemHandlerMethodArgumentResolver());
+        //argumentResolvers.add(new SystemHandlerMethodArgumentResolver());
     }
 
     @Override

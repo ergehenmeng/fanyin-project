@@ -69,6 +69,6 @@
     <logger name="jdbc.sqltiming" level="WARN"/>
     <logger name="jdbc.connection" level="WARN"/>
     <logger name="org.springframework" level="DEBUG"/>
-
+    <logger name="freemarker" level="INFO" />
 
 </configuration>

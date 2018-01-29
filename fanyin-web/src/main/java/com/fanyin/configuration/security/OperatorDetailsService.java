@@ -44,7 +44,7 @@ public class OperatorDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(!CollectionUtils.isEmpty(list)){
             for (SystemMenu menu : list){
-                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + menu.getName());
+                GrantedAuthority authority = new SimpleGrantedAuthority(menu.getName());
                 authorities.add(authority);
             }
         }

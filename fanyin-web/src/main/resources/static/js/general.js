@@ -21,7 +21,7 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 		buttons : [ {
 			text : '确定',
 			handler : function() {
-				if(dataGrid != undefined && dataGrid != null){
+				if(dataGrid !== undefined && dataGrid !== null){
 					parent.$.windowDialog.openner_dataGrid = dataGrid;//必须要设定好这个该dataGridGrid,为后续点击提交表单
 				}
 				var f = parent.$.windowDialog.handler.find('form');
@@ -33,7 +33,7 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 
 function formatUrl(id,url,data){
 	url = url + "?id=" +id;
-	if(data != undefined){
+	if(data !== undefined){
 		url = url + "&" + eachJson(data);
 	}
 	return url;
@@ -48,7 +48,7 @@ $.fn.dataGridOptions.confirm = function(id,url,msg,data){
 		if(r){
 			data = $.extend({},{id:id},data);
 			$.post(url,data,function(data){
-				if(data.result){
+				if(data.code === 200){
                     dataGrid.datagrid('reload');
 				}else{
 					parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
@@ -81,7 +81,7 @@ $.fn.dataGridOptions.formSubmit = function(formId,url,success){
 		success:function(data){
 			 parent.$.messager.progress('close');
 		     data = (typeof data === 'object') ? data: $.parseJSON(data);
-		     if(data.result){
+		     if(data.code === 200){
                  parent.$.windowDialog.handler.dialog('close');
                  parent.$.messager.alert('提示', successMsg, 'info');
 		         parent.$.windowDialog.openner_dataGrid.datagrid('reload');
@@ -115,8 +115,8 @@ $.fn.dataGridOptions.submit = function(formId,url,callback){
         success:function(data){
             parent.$.messager.progress('close');
             data = (typeof data === 'object') ? data: $.parseJSON(data);
-            if(data.result){
-                parent.$.messager.alert('提示', successMsg, 'info',callback);
+            if(data.code === 200){
+                parent.$.messager.alert('提示', data.msg, 'info',callback);
             }else{
                 parent.$.messager.alert('提示', data.msg, 'warning');
             }
@@ -136,7 +136,7 @@ $.fn.treeGridOptions.confirm = function(id,url,msg,data){
         if(r){
             data = $.extend({},{id:id},data);
             $.post(url,data,function(data){
-                if(data.result){
+                if(data.code === 200){
                     treeGrid.treegrid('reload');
                 }else{
                     parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
@@ -187,7 +187,7 @@ $.fn.treeGridOptions.formSubmit = function(formId,url,success){
 		success:function(data){
 			 parent.$.messager.progress('close');
 		     data = (typeof data === 'object') ? data: $.parseJSON(data);
-		     if(data.result){
+		     if(data.code === 200){
 		    	 parent.$.messager.alert('提示', successMsg, 'info');
 		         parent.$.windowDialog.handler.dialog('close');
 		         parent.$.windowDialog.openner_treeGrid.treegrid('reload');
@@ -219,7 +219,7 @@ $.fn.formOptions.formSubmit = function (formId,url) {
         success:function(data){
             parent.$.messager.progress('close');
             data = (typeof data === 'object') ? data: $.parseJSON(data);
-            if(data.result){
+            if(data.code === 200){
                 parent.$.windowDialog.handler.dialog('close');
             }else{
                 parent.$.messager.alert('提示', data.msg, 'warning');
@@ -242,7 +242,7 @@ $.fn.dataGridOptions.get = function(url){
         url:url,
         dataType:"json",
         success:function(data){
-            if(data.result){
+            if(data.code === 200){
                 parent.$.messager.progress('close');
                 parent.$.messager.alert('提示', data.msg, 'info');
                 dataGrid.datagrid('reload');
@@ -274,21 +274,23 @@ $.fn.treeGridOptions.searchFun = function (formId) {
  */
 $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 	if(!rows) return ;
+
 	var nodes = [];
-	for(var i = 0;i<rows.length;i++){
-		var row = rows[i];
-		if(row.parentId === "0"){//一级节点
+	for(var s = 0,lens = rows.length; s < lens;s++){
+        //一级节点
+		if(rows[s].parentId === "0"){
 			nodes.push({id:row.id,text:row.menuName});			
 		}
 	}
 	var topNodes = [];
-	for(var i=0; i<nodes.length; i++){
-		topNodes.push(nodes[i]);//数组复制引用会改变原数组数据,因此下面增加子元素数据是有效的
+	for(var x = 0,len = nodes.length; x < len; x++){
+        //数组复制引用会改变原数组数据,因此下面增加子元素数据是有效的
+		topNodes.push(nodes[i]);
 	}
 	
 	while(topNodes.length){
 		var node = topNodes.shift();
-		for(var i = 0;i<rows.length;i++){
+		for(var i = 0,rowLen = rows.length;i < rowLen; i++){
 			var row = rows[i];
 			if (row.parentId === node.id){
 				var child = {id:row.id,text:row.menuName,checked:isChecked(row.id,checkRow)};	
@@ -296,8 +298,9 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 					node.children.push(child);
 				} else {
 					node.children = [child];
-				}				
-				topNodes.push(child);//将子菜单放入数组中,查看其是否存在子元素
+				}
+                //将子菜单放入数组中,查看其是否存在子元素
+				topNodes.push(child);
 			}
 		}
 	}
@@ -459,23 +462,24 @@ var getLocalTime = function(value,type) {
 	}else {
 	    dt = new Date(value);
 	    if (isNaN(dt)) {
-	        value = value.replace(/\/Date\((-?\d+)\)\//, '$1'); //将那个长字符串的日期值转换成正常的JS日期格式
+            //将那个长字符串的日期值转换成正常的JS日期格式
+	        value = value.replace(/\/Date\((-?\d+)\)\//, '$1');
 	        dt = new Date();
 	        dt.setTime(value);
 	    }
 	}
 	 switch (type){
 	 case 1:
-		 return dt.format("yyyy年MM月dd日");   //这里用到一个javascript的Date类型的拓展方法
+		 return dt.format("yyyy年MM月dd日");
 		 break;
 	 case 2:
-		 return dt.format("yyyy年MM月dd日 hh:mm:ss");   //这里用到一个javascript的Date类型的拓展方法
+		 return dt.format("yyyy年MM月dd日 hh:mm:ss");
 		 break;
 	 case 3:
-		 return dt.format("yyyy-MM-dd");   //这里用到一个javascript的Date类型的拓展方法
+		 return dt.format("yyyy-MM-dd");
 		 break;
 	 case 4:
-		 return dt.format("yyyy-MM-dd hh:mm:ss");   //这里用到一个javascript的Date类型的拓展方法
+		 return dt.format("yyyy-MM-dd hh:mm:ss");
 		 break;
 	 }
 
