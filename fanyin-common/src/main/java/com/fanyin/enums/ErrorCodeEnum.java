@@ -21,6 +21,11 @@ public enum ErrorCodeEnum {
      * 系统配置信息更新失败
      */
     UPDATE_CONFIG_ERROR(2002,"系统配置信息更新失败"),
+
+    /**
+     * 菜单信息更新失败
+     */
+    UPDATE_MENU_ERROR(2003,"菜单信息更新失败"),
     /**
      * 身份证格式校验错误
      */

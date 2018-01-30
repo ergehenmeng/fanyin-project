@@ -125,23 +125,32 @@ $.fn.dataGridOptions.submit = function(formId,url,callback){
 };
 /**
  * treeGrid的询问操作 一般为删除
- * @param id
- * @param url
- * @param msg
- * @param data
+ * @param id 待删除的数据主键
+ * @param url 删除的地址
+ * @param msg 删除时提示语
+ * @param data 附带的其他参数
  */
 $.fn.treeGridOptions.confirm = function(id,url,msg,data){
     var confirmMsg = msg || "确定要执行该项操作吗?";
     parent.$.messager.confirm("提示",confirmMsg,function(r){
         if(r){
             data = $.extend({},{id:id},data);
-            $.post(url,data,function(data){
-                if(data.code === 200){
-                    treeGrid.treegrid('reload');
-                }else{
-                    parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
+            $.ajax({
+                type:"post",
+                url:url,
+                data:data,
+                dataType:"json",
+                success:function(data){
+                    if(data.code === 200){
+                        treeGrid.treegrid('reload');
+                    }else{
+                        parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
+                    }
+                },
+                error:function(){
+                    parent.$.messager.alert('提示', "请求数据失败,请联系管理人员", 'error');
                 }
-            },"json");
+            });
         }
     });
 };

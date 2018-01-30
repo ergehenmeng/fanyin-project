@@ -162,20 +162,12 @@
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
       </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=BIT},
-      </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+        update_time = now()
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where deleted = false and id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemMenu">
     <!--
@@ -214,4 +206,8 @@
         </where>
         order by t.pid = 0 desc,t.sort asc
     </select>
+
+    <update id="deleteById">
+        update system_menu set deleted = true where id = #{id}
+    </update>
 </mapper>

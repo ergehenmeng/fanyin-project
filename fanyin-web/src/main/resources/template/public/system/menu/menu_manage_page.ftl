@@ -17,7 +17,7 @@
         var editUrl = "/public/system/menu/edit_menu_page";
 
         var delMsg = "确定要删除该菜单选项吗?";
-        var delUrl = "/public/system/menu/delete_menu";
+        var delUrl = "/system/menu/delete_menu";
 
         $(function() {
             treeGrid = $("#treeGrid").treegrid({

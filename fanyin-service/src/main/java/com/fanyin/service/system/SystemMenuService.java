@@ -1,6 +1,8 @@
 package com.fanyin.service.system;
 
 import com.fanyin.model.system.SystemMenu;
+import com.fanyin.request.system.menu.MenuInsertRequest;
+import com.fanyin.request.system.menu.MenuUpdateRequest;
 
 import java.util.List;
 
@@ -9,7 +11,6 @@ import java.util.List;
  * @date 2018/1/26 16:14
  */
 public interface SystemMenuService {
-
 
     /**
      * 获取用户菜单列表
@@ -30,4 +31,22 @@ public interface SystemMenuService {
      * @return 菜单列表
      */
     List<SystemMenu> getAllList();
+
+    /**
+     * 添加菜单
+     * @param request 要添加的菜单信息
+     */
+    void addMenu(MenuInsertRequest request);
+
+    /**
+     * 更新菜单信息
+     * @param request 要更新的菜单信息
+     */
+    void updateMenu(MenuUpdateRequest request);
+
+    /**
+     * 根据主键删除菜单
+     * @param id 主键
+     */
+    void deleteMenu(Integer id);
 }

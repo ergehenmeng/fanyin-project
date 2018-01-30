@@ -1,10 +1,16 @@
 package com.fanyin.service.system.impl;
 
+import com.fanyin.enums.ErrorCodeEnum;
+import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.system.SystemMenuMapper;
 import com.fanyin.model.system.SystemMenu;
+import com.fanyin.request.system.menu.MenuInsertRequest;
+import com.fanyin.request.system.menu.MenuUpdateRequest;
 import com.fanyin.service.system.SystemMenuService;
+import com.fanyin.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,6 +21,7 @@ import java.util.List;
  * @date 2018/1/26 16:15
  */
 @Service
+@Transactional(rollbackFor = RuntimeException.class)
 public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Autowired
@@ -23,6 +30,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     private static final Comparator<SystemMenu> COMPARATOR = Comparator.comparing(SystemMenu::getSort);
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public List<SystemMenu> getUserMenuList(Integer userId) {
         List<SystemMenu> list = systemMenuMapper.getUserMenuList(userId,false);
         List<SystemMenu> parentList = new ArrayList<>();
@@ -38,15 +46,36 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public SystemMenu getMenuById(Integer id) {
         return systemMenuMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public List<SystemMenu> getAllList() {
         return systemMenuMapper.getAllList();
     }
 
+    @Override
+    public void addMenu(MenuInsertRequest request) {
+        SystemMenu copy = BeanCopyUtils.copy(request, SystemMenu.class);
+        systemMenuMapper.insertSelective(copy);
+    }
+
+    @Override
+    public void updateMenu(MenuUpdateRequest request) {
+        SystemMenu copy = BeanCopyUtils.copy(request, SystemMenu.class);
+        int index = systemMenuMapper.updateByPrimaryKeySelective(copy);
+        if(index != 1){
+            throw new BusinessException(ErrorCodeEnum.UPDATE_MENU_ERROR);
+        }
+    }
+
+    @Override
+    public void deleteMenu(Integer id) {
+        systemMenuMapper.deleteById(id);
+    }
 
     /**
      * 设置子菜单列表

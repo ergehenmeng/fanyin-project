@@ -10,13 +10,18 @@ import java.util.List;
  */
 public interface SystemMenuMapper {
     /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id
-     * @return
+     * 根据主键删除数据库的记录 物理删除
+     * @param id 主键
+     * @return 成功的条数
      */
     int deleteByPrimaryKey(Integer id);
 
+    /**
+     * 根据主键删除数据库的记录 状态变更删除
+     * @param id 主键
+     * @return 成功的条数
+     */
+    int deleteById(Integer id);
     /**
      * 插入数据库记录
      *
@@ -42,10 +47,11 @@ public interface SystemMenuMapper {
     SystemMenu selectByPrimaryKey(Integer id);
 
     /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record
-     * @return
+     * 根据主键来更新部分数据库记录<br>
+     * 已删除的不在更新范围内<br/>
+     * 新增时确认的字段不在更新范围内
+     * @param record 待更新的字段
+     * @return 成功更新的条数
      */
     int updateByPrimaryKeySelective(SystemMenu record);
 
