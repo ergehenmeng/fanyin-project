@@ -1,10 +1,8 @@
 package com.fanyin.constant;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/8
- * @time: 14:41
+ * @author 二哥很猛
+ * @date 2018/1/8 14:41
  */
 public class CommonConstant {
 

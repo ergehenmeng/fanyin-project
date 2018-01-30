@@ -17,10 +17,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/8
- * @time: 14:40
+ * @author 二哥很猛
+ * @date 2018/1/8 14:40
  */
 @Configuration
 @EnableCaching

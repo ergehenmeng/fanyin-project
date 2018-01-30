@@ -14,10 +14,9 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 18:35
+ * mvc全局配置
+ * @author 二哥很猛
+ * @date 2018/1/18 18:35
  */
 @Configuration
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {

@@ -3,10 +3,9 @@ package com.fanyin.exception;
 import com.fanyin.enums.ErrorCodeEnum;
 
 /**
- * @description: 参数异常类
- * @author: 二哥很猛
- * @date: 2018/1/17
- * @time: 13:42
+ * 参数异常类
+ * @author 二哥很猛
+ * @date 2018/1/17 13:42
  */
 public class ParameterException extends SystemException {
 

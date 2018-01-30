@@ -15,10 +15,9 @@ import java.io.IOException;
 
 
 /**
- * @description: 校验失败处理方式 直接返回前台json
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 18:21
+ * 校验失败处理方式 直接返回前台json
+ * @author 二哥很猛
+ * @date 2018/1/25 18:21
  */
 public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 

@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @description: 全局统一异常处理器
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 16:20
+ * 全局统一异常处理器
+ * @author 二哥很猛
+ * @date 2018/1/18 16:20
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {

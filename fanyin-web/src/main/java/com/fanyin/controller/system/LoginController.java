@@ -14,10 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @description: 首页及登陆
- * @author: 二哥很猛
- * @date: 2018/1/8
- * @time: 14:41
+ * 首页及登陆
+ * @author 二哥很猛
+ * @date 2018/1/8 14:41
  */
 @Controller
 public class LoginController extends BaseController {

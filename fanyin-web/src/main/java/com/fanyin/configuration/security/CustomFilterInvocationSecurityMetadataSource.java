@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * @description: 资源角色授权器
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 11:01
+ * 资源角色授权器
+ * @author 二哥很猛
+ * @date 2018/1/25 11:01
  */
 @Service
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
@@ -35,7 +34,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         map.clear();
         Collection<ConfigAttribute> attributes;
         ConfigAttribute cfg;
-        List<SystemMenu> list = systemMenuMapper.getAll();
+        List<SystemMenu> list = systemMenuMapper.getAllList();
         for (SystemMenu menu : list){
             if(StringUtil.isNotBlank(menu.getUrl())){
                 attributes = new ArrayList<>();

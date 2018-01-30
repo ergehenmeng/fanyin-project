@@ -3,10 +3,8 @@ package com.fanyin.request.system.config;
 import java.io.Serializable;
 
 /**
- * @description:
- * @author: 王艳兵
- * @date: 2018/1/29
- * @time: 16:07
+ * @author 王艳兵
+ * @date 2018/1/29 16:07
  */
 public class ConfigInsertRequest implements Serializable{
 

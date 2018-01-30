@@ -1,8 +1,7 @@
 package com.fanyin.controller;
 
 
-import com.fanyin.constant.CommonConstant;
-import com.fanyin.constant.VersionConstant;
+
 import com.fanyin.model.system.SystemOperator;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,10 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.servlet.http.HttpSession;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 17:59
+ * @author 二哥很猛
+ * @date 2018/1/12 17:59
  */
 public class BaseController {
 

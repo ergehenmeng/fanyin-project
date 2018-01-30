@@ -3,10 +3,9 @@ package com.fanyin.utils;
 import org.springframework.context.ApplicationContext;
 
 /**
- * @description: spring上下文工具类
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 18:44
+ * spring上下文工具类
+ * @author 二哥很猛
+ * @date 2018/1/18 18:44
  */
 public class SpringContextUtil {
 

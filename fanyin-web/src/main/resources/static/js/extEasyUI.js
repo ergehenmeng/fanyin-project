@@ -89,6 +89,7 @@ var easyuiErrorFunction = function(XMLHttpRequest) {
 	$.messager.progress('close');
 	parent.$.messager.alert('错误', XMLHttpRequest.responseText);
 };
+
 $.fn.datagrid.defaults.onLoadError = easyuiErrorFunction;
 $.fn.treegrid.defaults.onLoadError = easyuiErrorFunction;
 $.fn.tree.defaults.onLoadError = easyuiErrorFunction;

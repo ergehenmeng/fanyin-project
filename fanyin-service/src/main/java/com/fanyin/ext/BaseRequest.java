@@ -3,10 +3,9 @@ package com.fanyin.ext;
 import java.io.Serializable;
 
 /**
- * @description: 基础类请求参数 如需分页操作需要继承该方法
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 17:29
+ * 基础类请求参数 如需分页操作需要继承该方法
+ * @author 二哥很猛
+ * @date 2018/1/12 17:29
  */
 public class BaseRequest implements Serializable{
 

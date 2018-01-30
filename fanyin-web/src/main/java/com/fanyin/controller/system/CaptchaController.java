@@ -15,10 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 
 /**
- * @description: 图形验证码controller
- * @author: 二哥很猛
- * @date: 2018/1/19
- * @time: 11:50
+ * 图形验证码controller
+ * @author 二哥很猛
+ * @date 2018/1/19 11:50
  */
 @Controller
 public class CaptchaController extends BaseController {

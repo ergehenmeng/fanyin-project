@@ -20,10 +20,9 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @description: 数据校验解析器
- * @author: 二哥很猛
- * @date: 2018/1/8
- * @time: 14:42
+ * 数据校验解析器
+ * @author 二哥很猛
+ * @date 2018/1/8 14:42
  */
 public class SystemHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -105,6 +104,4 @@ public class SystemHandlerMethodArgumentResolver implements HandlerMethodArgumen
                 || cls.equals(Character.class)
                 || cls.equals(Boolean.class);
     }
-
-
 }

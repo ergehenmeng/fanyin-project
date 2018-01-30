@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author 二哥很猛
+ */
 public class SystemMenu implements Serializable {
     /**
      * 主键<br>

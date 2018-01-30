@@ -1,10 +1,9 @@
 package com.fanyin.enums;
 
 /**
- * @description: 标的状态枚举
- * @author: 二哥很猛
- * @date: 2018/1/10
- * @time: 17:50
+ * 标的状态枚举
+ * @author 二哥很猛
+ * @date 2018/1/10 17:50
  */
 public enum BorrowStatusEnum {
 

@@ -7,10 +7,9 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 /**
- * @description: 银行卡信息
- * @author: 二哥很猛
- * @date: 2018/1/17
- * @time: 11:11
+ * 银行卡信息
+ * @author 二哥很猛
+ * @date 2018/1/17 11:11
  */
 public class BankCardUtil {
 

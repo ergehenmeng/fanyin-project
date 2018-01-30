@@ -14,10 +14,9 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 
 /**
- * @description: PBE加密 对比DES 增加盐作为混淆
- * @author: 二哥很猛
- * @date: 2018/1/17
- * @time: 15:30
+ * PBE加密 对比DES 增加盐作为混淆
+ * @author 二哥很猛
+ * @date 2018/1/17 15:30
  */
 public class PbeUtil {
 

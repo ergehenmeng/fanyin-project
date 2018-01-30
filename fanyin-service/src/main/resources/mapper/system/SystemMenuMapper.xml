@@ -31,7 +31,7 @@
     select 
     <include refid="BaseColumnList" />
     from system_menu t
-    where t.id = #{id,jdbcType=INTEGER}
+    where t.deleted = false and  t.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -195,7 +195,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getAll" resultMap="BaseResultMap">
+    <select id="getAllList" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList"/>
         from system_menu t where t.deleted = false
     </select>

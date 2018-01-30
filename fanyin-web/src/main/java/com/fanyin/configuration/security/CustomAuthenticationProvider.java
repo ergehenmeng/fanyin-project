@@ -5,7 +5,6 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -15,10 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 /**
- * @description: 自定义校验规则 authenticate校验图形验证码 super.authenticate方法会调用additionalAuthenticationChecks来校验密码信息
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 13:48
+ * 自定义校验规则 authenticate校验图形验证码 super.authenticate方法会调用additionalAuthenticationChecks来校验密码信息
+ * @author 二哥很猛
+ * @date 2018/1/25 13:48
  */
 public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 

@@ -6,10 +6,8 @@ import com.fanyin.ext.BaseRequest;
 import java.io.Serializable;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 16:04
+ * @author 二哥很猛
+ * @date 2018/1/18 16:04
  */
 public class ConfigSelectRequest extends BaseRequest implements Serializable {
 

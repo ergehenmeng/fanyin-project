@@ -18,10 +18,9 @@ import java.util.List;
 
 
 /**
- * @description: 权限验证获取用户信息
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 10:00
+ * 权限验证获取用户信息
+ * @author 二哥很猛
+ * @date 2018/1/25 10:00
  */
 public class OperatorDetailsService implements UserDetailsService {
 

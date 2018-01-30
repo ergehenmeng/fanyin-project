@@ -1,9 +1,8 @@
 package com.fanyin.service.system;
 
 /**
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 14:16
+ * @author 二哥很猛
+ * @date 2018/1/18 14:16
  */
 public interface CommonService {
 

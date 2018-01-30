@@ -19,10 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 17:40
+ * @author 二哥很猛
+ * @date 2018/1/12 17:40
  */
 @Controller
 public class ConfigController extends BaseController {

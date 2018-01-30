@@ -1,9 +1,9 @@
 package com.fanyin.constant;
+
 /**
- * @description: redis缓存常量
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 09:39
+ * redis缓存常量
+ * @author 二哥很猛
+ * @date 2018/1/12 09:39
  */
 public class RedisConstant {
 

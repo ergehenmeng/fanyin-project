@@ -3,10 +3,8 @@ package com.fanyin.exception;
 import com.fanyin.enums.ErrorCodeEnum;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 16:40
+ * @author 二哥很猛
+ * @date 2018/1/12 16:40
  */
 public class BusinessException extends SystemException {
 

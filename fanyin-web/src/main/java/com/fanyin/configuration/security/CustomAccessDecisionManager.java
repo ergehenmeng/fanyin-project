@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 /**
- * @description: 决策(访问权限)管理器
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 11:39
+ * 决策(访问权限)管理器
+ * @author 二哥很猛
+ * @date 2018/1/25 11:39
  */
 @Service
 public class CustomAccessDecisionManager implements AccessDecisionManager {

@@ -14,10 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @description: 登陆校验通过的后置处理器
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 10:28
+ * 登陆校验通过的后置处理器
+ * @author 二哥很猛
+ * @date 2018/1/25 10:28
  */
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
 

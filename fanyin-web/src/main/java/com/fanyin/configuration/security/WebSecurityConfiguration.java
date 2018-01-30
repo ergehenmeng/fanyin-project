@@ -21,10 +21,9 @@ import org.springframework.security.web.session.SimpleRedirectSessionInformation
 import javax.servlet.http.HttpServletRequest;
 
  /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 09:35
+ * spring security权限配置
+ * @author 二哥很猛
+ * @date 2018/1/25 09:35
  */
 
 @Configuration
@@ -49,7 +48,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
     @Override
-    @Bean
+    @Bean("userDetailsService")
     protected UserDetailsService userDetailsService() {
         return new OperatorDetailsService();
     }

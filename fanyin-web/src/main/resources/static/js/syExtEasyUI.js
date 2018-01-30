@@ -113,9 +113,34 @@ sy.onLoadError = {
 		}
 	}
 };
+
+/**
+ *用于datagrid/treegrid/tree加载数据成功时,但后台错误的问题
+ * @type {{onLoadSuccess: sy.onLoadSuccess.onLoadSuccess}}
+ */
+sy.onLoadSuccess = {
+    onLoadSuccess : function (data) {
+        if(data.code !== 200){
+            if (parent.$ && parent.$.messager) {
+                parent.$.messager.progress('close');
+                parent.$.messager.alert('错误', data.msg);
+            } else {
+                $.messager.progress('close');
+                $.messager.alert('错误', data.msg);
+            }
+        }
+    }
+};
+
 $.extend($.fn.datagrid.defaults, sy.onLoadError);
+$.extend($.fn.datagrid.defaults, sy.onLoadSuccess);
+
 $.extend($.fn.treegrid.defaults, sy.onLoadError);
+$.extend($.fn.treegrid.defaults, sy.onLoadSuccess);
+
 $.extend($.fn.tree.defaults, sy.onLoadError);
+$.extend($.fn.tree.defaults, sy.onLoadSuccess);
+
 $.extend($.fn.combogrid.defaults, sy.onLoadError);
 $.extend($.fn.combobox.defaults, sy.onLoadError);
 $.extend($.fn.form.defaults, sy.onLoadError);

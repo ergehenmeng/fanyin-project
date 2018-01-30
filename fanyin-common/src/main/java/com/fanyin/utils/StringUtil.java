@@ -3,10 +3,9 @@ package com.fanyin.utils;
 import java.util.Random;
 
 /**
- * @description: 字符串日常工具类
- * @author: 二哥很猛
- * @date: 2018/1/8
- * @time: 14:56
+ * 字符串日常工具类
+ * @author 二哥很猛
+ * @date 2018/1/8 14:56
  */
 public class StringUtil extends org.apache.commons.lang3.StringUtils{
 

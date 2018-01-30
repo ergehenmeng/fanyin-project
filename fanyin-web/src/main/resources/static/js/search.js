@@ -1,8 +1,9 @@
 $(".dropBtn").on("click",function(event){
-	if($(".showAdw").is(":hidden")){
-		$(".showAdw").show();
+    var $showAdw = $(".showAdw");
+	if($showAdw.is(":hidden")){
+        $showAdw.show();
 	}else{
-		$(".showAdw").hide();
+        $showAdw.hide();
 	}
 });
 $(".close").on("click",function(){

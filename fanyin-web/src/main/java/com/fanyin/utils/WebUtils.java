@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @description: web工具类
- * @author: 二哥很猛
- * @date: 2018/1/26
- * @time: 10:30
+ * web工具类
+ * @author 二哥很猛
+ * @date 2018/1/26 10:30
  */
 public class WebUtils {
 

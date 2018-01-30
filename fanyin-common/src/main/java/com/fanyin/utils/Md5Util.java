@@ -9,10 +9,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @description: MD5摘要算法
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 11:43
+ * MD5摘要算法
+ * @author 二哥很猛
+ * @date 2018/1/18 11:43
  */
 public class Md5Util {
 

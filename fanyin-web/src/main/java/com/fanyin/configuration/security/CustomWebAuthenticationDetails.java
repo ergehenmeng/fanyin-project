@@ -7,10 +7,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @description: 获取图形验证码信息
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 14:49
+ * 获取图形验证码信息
+ * @author 二哥很猛
+ * @date 2018/1/25 14:49
  */
 public class CustomWebAuthenticationDetails extends WebAuthenticationDetails {
 

@@ -10,9 +10,8 @@ import com.github.pagehelper.PageInfo;
 
 
 /**
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 09:45
+ * @author 二哥很猛
+ * @date 2018/1/12 09:45
  */
 public interface SystemConfigService {
 

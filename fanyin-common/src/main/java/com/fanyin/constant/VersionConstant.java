@@ -1,10 +1,9 @@
 package com.fanyin.constant;
 
 /**
- * @description: 系统版本常量
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 17:50
+ * 系统版本常量
+ * @author 二哥很猛
+ * @date 2018/1/12 17:50
  */
 public class VersionConstant {
 

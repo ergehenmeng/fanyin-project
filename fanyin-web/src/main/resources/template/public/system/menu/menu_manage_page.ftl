@@ -8,7 +8,7 @@
         var treeGrid;
 
         var winWidth = 400;
-        var winHeight = 400;
+        var winHeight = 450;
 
         var addTitle = "添加菜单";
         var addUrl = "/public/system/menu/add_menu_page";
@@ -21,7 +21,7 @@
 
         $(function() {
             treeGrid = $("#treeGrid").treegrid({
-                url : "getMenuList",
+                url : "/system/menu/menu_list",
                 loadFilter : pageFilter,
                 border : false,
                 animate : true,
@@ -50,45 +50,48 @@
                             return str;
                         }
                     },
-                    {field : "text",title : "菜单名称",width : 200},
-                    {field : "menuMark",title : "菜单标示",width : 120,align : "center"},
-                    {field : "menuUrl",title : "菜单地址",width : 300,align : "center"},
-                    {field : "isMenu",title : "类型",width : 80,align : "center",
+                    {field : "text",title : "菜单名称",width : 150},
+                    {field : "nid",title : "菜单标示",width : 120,align : "center"},
+                    {field : "url",title : "菜单URL",width : 300,align : "center"},
+                    {field : "subUrl",title : "子菜单URL",width : 400,align : "center"},
+                    {field : "mainMenu",title : "类型",width : 80,align : "center",
                         formatter : function(value) {
                             return value ? "左侧菜单" : "按钮菜单";
                         }
                     },
                     {field : "sort",title : "排序",width : 50,align : "center"},
-                    {field : "createdAt",title : "添加时间",width : 150,align : "center",
+                    {field : "addTime",title : "添加时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "updatedAt",title : "更新时间",width : 150,align : "center",
+                    {field : "updateTime",title : "更新时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "remarks",title : "备注",align : "center",width : 200 }
+                    {field : "remark",title : "备注",align : "center",width : 200 }
                 ] ]
             });
         });
 
         function pageFilter(rows) {
-            if (!rows || !rows.list){
+            if (!rows || !rows.data){
                 return;
             }
-            var menuRow = rows.list;
+            var menuRow = rows.data;
             var nodes = [];
             for (var i = 0,len = menuRow.length; i < len; i++) {
                 //无父节点(顶级节点)
-                if (menuRow[i].parentId === 0) {
+                var row = menuRow[i];
+                if (row.pid === 0) {
                     nodes.push({
                         "id" : row.id,
-                        "text" : row.menuName,
+                        "text" : row.name,
                         "nid" : row.nid,
                         "pid" : row.pid,
                         "url" : row.url,
+                        "subUrl" : row.subUrl,
                         "addTime" : row.addTime,
                         "updateTime" : row.updateTime,
                         "mainMenu" : row.mainMenu,
@@ -104,25 +107,26 @@
 
             while (topNodes.length) {
                 var node = topNodes.shift();
-                for (var x = 0,menu_len = menuRow.length; xi < menu_len; x++) {
-                    var row = menuRow[x];
-                    if (row.parentId === node.id) {
+                for (var x = 0,menu_len = menuRow.length; x < menu_len; x++) {
+                    var childRow = menuRow[x];
+                    if (childRow.pid === node.id) {
                         var child = {
-                            id : row.id,
-                            text : row.menuName,
-                            menuMark : row.menuMark,
-                            parentId : row.parentId,
-                            menuUrl : row.menuUrl,
-                            createdAt : row.createdAt,
-                            updatedAt : row.updatedAt,
-                            isMenu : row.isMenu,
-                            sort : row.sort,
-                            remarks : row.remarks
+                            "id" : childRow.id,
+                            "text" : childRow.name,
+                            "nid" : childRow.nid,
+                            "pid" : childRow.pid,
+                            "url" : childRow.url,
+                            "subUrl" : childRow.subUrl,
+                            "addTime" : childRow.addTime,
+                            "updateTime" : childRow.updateTime,
+                            "mainMenu" : childRow.mainMenu,
+                            "sort" : childRow.sort,
+                            "remark" : childRow.remark
                         };
                         if (node.children) {
                             node.children.push(child);
                         } else {
-                            node.children = [ child ];
+                            node.children = [child];
                         }
                         topNodes.push(child);
                     }

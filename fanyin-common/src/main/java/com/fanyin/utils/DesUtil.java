@@ -16,10 +16,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 /**
- * @description: DES加密 3DES加密
- * @author: 二哥很猛
- * @date: 2018/1/17
- * @time: 15:26
+ * DES加密 3DES加密
+ * @author 二哥很猛
+ * @date 2018/1/17 15:26
  */
 public class DesUtil {
 

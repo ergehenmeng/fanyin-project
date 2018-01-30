@@ -13,10 +13,8 @@ import javax.servlet.*;
 import java.io.IOException;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/25
- * @time: 10:46
+ * @author 二哥很猛
+ * @date 2018/1/25 10:46
  */
 @Service
 public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter{

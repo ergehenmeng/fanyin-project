@@ -11,10 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @description:
- * @author: 王艳兵
- * @date: 2018/1/26
- * @time: 16:15
+ * @author 王艳兵
+ * @date 2018/1/26 16:15
  */
 @Service
 public class SystemMenuServiceImpl implements SystemMenuService {
@@ -37,6 +35,16 @@ public class SystemMenuServiceImpl implements SystemMenuService {
         }
         parentList.sort(COMPARATOR);
         return parentList;
+    }
+
+    @Override
+    public SystemMenu getMenuById(Integer id) {
+        return systemMenuMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<SystemMenu> getAllList() {
+        return systemMenuMapper.getAllList();
     }
 
 

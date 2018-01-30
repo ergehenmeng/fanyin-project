@@ -28,10 +28,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @description: 系统参数配置服务类,系统参数无权限删除
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 09:46
+ * 系统参数配置服务类,系统参数无权限删除
+ * @author 二哥很猛
+ * @date 2018/1/12 09:46
  */
 @Service("systemConfigService")
 @Transactional(rollbackFor = RuntimeException.class)

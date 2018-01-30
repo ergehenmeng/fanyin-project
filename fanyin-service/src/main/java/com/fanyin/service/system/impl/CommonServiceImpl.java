@@ -5,10 +5,9 @@ import com.fanyin.utils.Md5Util;
 import org.springframework.stereotype.Service;
 
 /**
- * @description: 常用服务类
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 14:17
+ * 常用服务类
+ * @author 二哥很猛
+ * @date 2018/1/18 14:17
  */
 @Service("commonService")
 public class CommonServiceImpl implements CommonService{

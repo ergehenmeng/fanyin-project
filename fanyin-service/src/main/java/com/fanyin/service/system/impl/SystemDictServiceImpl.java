@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @description: 数据字典服务类
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 14:31
+ * 数据字典服务类
+ * @author 二哥很猛
+ * @date 2018/1/12 14:31
  */
 @Service("systemDictService")
 public class SystemDictServiceImpl implements SystemDictService {

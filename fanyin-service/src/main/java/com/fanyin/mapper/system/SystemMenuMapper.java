@@ -5,11 +5,15 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author 二哥很猛
+ */
 public interface SystemMenuMapper {
     /**
      * 根据主键删除数据库的记录
      *
      * @param id
+     * @return
      */
     int deleteByPrimaryKey(Integer id);
 
@@ -17,6 +21,7 @@ public interface SystemMenuMapper {
      * 插入数据库记录
      *
      * @param record
+     * @return
      */
     int insert(SystemMenu record);
 
@@ -24,6 +29,7 @@ public interface SystemMenuMapper {
      * 插入不为空的记录
      *
      * @param record
+     * @return
      */
     int insertSelective(SystemMenu record);
 
@@ -31,6 +37,7 @@ public interface SystemMenuMapper {
      * 根据主键获取一条数据库记录
      *
      * @param id
+     * @return
      */
     SystemMenu selectByPrimaryKey(Integer id);
 
@@ -38,6 +45,7 @@ public interface SystemMenuMapper {
      * 根据主键来更新部分数据库记录
      *
      * @param record
+     * @return
      */
     int updateByPrimaryKeySelective(SystemMenu record);
 
@@ -45,6 +53,7 @@ public interface SystemMenuMapper {
      * 根据主键来更新数据库记录
      *
      * @param record
+     * @return
      */
     int updateByPrimaryKey(SystemMenu record);
 
@@ -52,7 +61,7 @@ public interface SystemMenuMapper {
      * 查询所有可用的菜单
      * @return
      */
-    List<SystemMenu> getAll();
+    List<SystemMenu> getAllList();
 
 
     /**

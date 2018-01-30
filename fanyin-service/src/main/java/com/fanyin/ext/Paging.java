@@ -6,10 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @description: 分页返回前台的对象
- * @author: 二哥很猛
- * @date: 2018/1/18
- * @time: 15:35
+ * 分页返回前台的对象
+ * @author 二哥很猛
+ * @date 2018/1/18 15:35
  */
 public class Paging<T> implements Serializable{
 

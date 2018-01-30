@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @description:
- * @author: 二哥很猛
- * @date: 2018/1/23
- * @time: 12:02
+ * @author 二哥很猛
+ * @date 2018/1/23 12:02
  */
 public class GlobalHandlerInterceptor implements HandlerInterceptor {
     @Override

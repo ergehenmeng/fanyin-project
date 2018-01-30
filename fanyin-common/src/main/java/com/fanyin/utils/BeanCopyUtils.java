@@ -5,10 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 /**
- * @description:
- * @author: 王艳兵
- * @date: 2018/1/26
- * @time: 16:10
+ * @author 王艳兵
+ * @date 2018/1/26 16:10
  */
 public class BeanCopyUtils {
 

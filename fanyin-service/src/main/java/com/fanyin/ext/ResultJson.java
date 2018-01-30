@@ -3,10 +3,9 @@ package com.fanyin.ext;
 import java.io.Serializable;
 
 /**
- * @description: 用于返回前台的结果集
- * @author: 二哥很猛
- * @date: 2018/1/12
- * @time: 17:41
+ * 用于返回前台的结果集
+ * @author 二哥很猛
+ * @date 2018/1/12 17:41
  */
 public class ResultJson<T> implements Serializable {
 
