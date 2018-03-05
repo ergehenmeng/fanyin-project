@@ -61,7 +61,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //iframe同一域名内可以访问
+        //Iframe同一域名内可以访问
         http.headers().frameOptions().sameOrigin();
 
         http

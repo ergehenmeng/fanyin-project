@@ -13,10 +13,6 @@ import java.util.regex.Pattern;
  */
 public class BankCardUtil {
 
-    /**
-     * 身份证校验正则表达式
-     */
-    private static final String REGEXP_ID_CARD = "(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}$)";
 
     /**
      * 身份证号码长度 默认18位
@@ -45,14 +41,7 @@ public class BankCardUtil {
      * 对身份证DES加密默认的秘钥
      */
     private static final String DEFAULT_DES_PASSWORD = "8e5f58369fadfddbed40532d4f1552ac";
-    /**
-     * 校验身份证是否合法 只做较为基础的校验
-     * @param idCard 身份证编号 15位或18位
-     * @return boolean true:合法 false:不合法
-     */
-    public static boolean verifyIdCard(String idCard){
-        return Pattern.matches(REGEXP_ID_CARD,idCard);
-    }
+
 
     /**
      * 根据身份证获取用户的出生年月日
@@ -60,7 +49,7 @@ public class BankCardUtil {
      * @return 出生年月日 yyyyMMdd或yyMMdd
      */
     public static String getBirthDay(String idCard){
-        if(!verifyIdCard(idCard)){
+        if(!RegExpUtils.isIdCard(idCard)){
             throw new ParameterException(ErrorCodeEnum.ID_CARD_ERROR);
         }
         if (idCard.length() == ID_CARD_LENGTH){
@@ -86,7 +75,7 @@ public class BankCardUtil {
      * @return 不合法,异常均返回0
      */
     public static int getAge(String idCard){
-        if(!verifyIdCard(idCard)){
+        if(!RegExpUtils.isIdCard(idCard)){
             return 0;
         }
         String birth = getNormalBirthDay(idCard);
