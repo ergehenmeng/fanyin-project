@@ -94,13 +94,15 @@ body{
 .wd80{
     width: 80px !important;
 }
+.img_code_width{
+    width: 82px !important;
+}
 .login_panel ul li .valid_code_img{
     display: inline-block;
     vertical-align: middle;
     width: 92px;
     height: 36px;
     cursor: pointer;
-    margin-left: 2px;
     text-align: center;
 }
 

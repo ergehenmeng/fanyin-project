@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @author 二哥很猛
  * @date 2018/2/23 11:17
  */
-public class RegExpUtils {
+public class RegExpUtil {
 
     /**
      * 身份证校验正则表达式

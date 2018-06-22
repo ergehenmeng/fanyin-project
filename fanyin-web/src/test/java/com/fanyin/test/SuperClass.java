@@ -1,7 +1,7 @@
 package com.fanyin.test;
 
 /**
- * @author 王艳兵
+ * @author
  * @date 2018/2/8 13:43
  */
 public interface SuperClass {

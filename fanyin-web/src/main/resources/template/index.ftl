@@ -20,7 +20,7 @@
             </li>
             <li>
                 <span class="valid_icon"></span>
-                <input type="text" autocomplete="off" id="validCode" placeholder="验证码" maxlength="4" class="login_text wd80"/>
+                <input type="text" autocomplete="off" id="validCode" placeholder="验证码" maxlength="4" class="login_text img_code_width"/>
                 <img src="/captcha" title="点击刷新" class="valid_code_img" onClick="this.src='/captcha?t=' + Math.random();"/>
             </li>
             <li>

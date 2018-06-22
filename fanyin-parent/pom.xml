@@ -43,6 +43,11 @@
       <fastjson.version>1.2.46</fastjson.version>
       <!--打包跳过测试-->
       <skipTests>true</skipTests>
+      <netty.version>4.1.22.Final</netty.version>
+      <asm.version>5.1</asm.version>
+      <dubbo.version>2.5.10</dubbo.version>
+      <!--生产消费者-->
+      <disruptor.version>3.4.2</disruptor.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -106,6 +111,26 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
