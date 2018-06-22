@@ -13,6 +13,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * 图形验证码controller
@@ -27,11 +28,14 @@ public class CaptchaController extends BaseController {
 
     /**
      * 图形验证码
-     * @return
+     * @param session session对象
+     * @param response 响应对象
+     * @return 流默认为空
+     * @throws Exception
      */
     @GetMapping("/captcha")
     @ResponseBody
-    public String captcha(HttpSession session, HttpServletResponse response)throws Exception{
+    public String captcha(HttpSession session, HttpServletResponse response)throws IOException{
         response.setDateHeader("Expires", 0);
         response.setHeader("CacheCreate-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
