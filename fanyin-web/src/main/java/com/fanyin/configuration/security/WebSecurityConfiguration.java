@@ -33,7 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      /**
       * 全局不需要权限
       */
-    private static final String[] IGNORE_URL = {"/","/index/","/captcha"};
+    private static final String[] IGNORE_URL = {"/","/index/","/captcha","/**/captcha"};
 
      /**
       * 登陆后不需要权限

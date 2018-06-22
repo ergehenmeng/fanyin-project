@@ -3,9 +3,13 @@ package com.fanyin.controller.system;
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.controller.BaseController;
 import com.google.code.kaptcha.Producer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
@@ -23,32 +27,62 @@ import java.io.IOException;
 @Controller
 public class CaptchaController extends BaseController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CaptchaController.class);
+
     @Autowired
     private Producer producer;
 
     /**
      * 图形验证码
+     * @param module 哪个模块下的访问的
      * @param session session对象
      * @param response 响应对象
      * @return 流默认为空
-     * @throws Exception
+     * @throws IOException 写流异常
+     */
+    @RequestMapping("/{module}/captcha")
+    @ResponseBody
+    public String module(@PathVariable("module")String module, HttpSession session, HttpServletResponse response)throws IOException{
+        String text = producer.createText();
+        writeBack(module,text,session,response);
+        return null;
+    }
+
+    /**
+     * 默认的图片验证码
+     * @param session session对象
+     * @param response 响应对象
+     * @return 默认为null
+     * @throws IOException 写异常
      */
     @GetMapping("/captcha")
     @ResponseBody
     public String captcha(HttpSession session, HttpServletResponse response)throws IOException{
+        String text = producer.createText();
+        writeBack(CommonConstant.IMG_AUTH_CODE,text,session,response);
+        return null;
+    }
+
+    /**
+     * 将图片数据写入响应中
+     * @param key 图片保存session中的key
+     * @param value 图片验证码的值
+     * @param session session对象
+     * @param response 响应
+     * @throws IOException 写流异常
+     */
+    private void writeBack(String key,String value,HttpSession session, HttpServletResponse response)throws IOException{
         response.setDateHeader("Expires", 0);
         response.setHeader("CacheCreate-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
-
-        String capText = producer.createText();
-        System.out.println("******************验证码是: " + capText + "******************");
-        this.putSession(session, CommonConstant.AUTH_CODE, capText);
-        BufferedImage bi = producer.createImage(capText);
+        LOGGER.info("图形验证码************{}*****{}************",key,value);
+        this.putSession(session, key, value);
+        BufferedImage bi = producer.createImage(value);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(bi, "jpg", out);
         out.flush();
         out.close();
-        return null;
     }
+
 }

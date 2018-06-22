@@ -14,7 +14,7 @@ public class CommonConstant {
     /**
      * 图形验证码 key
      */
-    public static final String AUTH_CODE = "auth_code";
+    public static final String IMG_AUTH_CODE = "img_auth_code";
 
     /**
      * 后台管理员session

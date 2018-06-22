@@ -26,7 +26,7 @@ public class CustomWebAuthenticationDetails extends WebAuthenticationDetails {
     public CustomWebAuthenticationDetails(HttpServletRequest request) {
         super(request);
         this.imageCode = request.getParameter(SecurityParam.IMAGE_CODE);
-        this.sessionImageCode = (String) request.getSession().getAttribute(CommonConstant.AUTH_CODE);
+        this.sessionImageCode = (String) request.getSession().getAttribute(CommonConstant.IMG_AUTH_CODE);
     }
 
     public String getImageCode() {
