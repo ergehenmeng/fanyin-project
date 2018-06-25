@@ -1,6 +1,9 @@
 package com.fanyin.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.WebMvcProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
@@ -19,8 +22,9 @@ import org.springframework.security.web.session.SessionInformationExpiredStrateg
 import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
- /**
+/**
  * spring security权限配置
  * @author 二哥很猛
  * @date 2018/1/25 09:35
@@ -28,17 +32,23 @@ import javax.servlet.http.HttpServletRequest;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(WebMvcProperties.class)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-     /**
-      * 全局不需要权限
-      */
-    private static final String[] IGNORE_URL = {"/","/index/","/captcha","/**/captcha"};
+    /**
+     * 全局不需要权限
+     */
+    @Value("#{'${ignore.url}'.split(';')}")
+    private List<String> ignoreUrl;
 
-     /**
-      * 登陆后不需要权限
-      */
-    private static final String[] LOGIN_IGNORE_URL = {"/home","/portal","/public/**"};
+    /**
+     * 登陆后不需要权限
+     */
+    @Value("#{'${login.ignore.url}'.split(';')}")
+    private List<String> loginIgnoreUrl;
+
+    @Autowired
+    private WebMvcProperties webMvcProperties;
 
     @Autowired
     private CustomFilterSecurityInterceptor customFilterSecurityInterceptor;
@@ -55,7 +65,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/static/**");
+        web.ignoring().mvcMatchers(webMvcProperties.getStaticPathPattern());
     }
 
 
@@ -66,8 +76,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http
              .authorizeRequests()
-                .antMatchers(IGNORE_URL).permitAll()
-                .antMatchers(LOGIN_IGNORE_URL).fullyAuthenticated()
+                .antMatchers(ignoreUrl.toArray(new String[]{})).permitAll()
+                .antMatchers(loginIgnoreUrl.toArray(new String[]{})).fullyAuthenticated()
                 .anyRequest().authenticated()
                 .and()
              .formLogin()
