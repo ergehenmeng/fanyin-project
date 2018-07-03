@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
+import com.fanyin.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +20,9 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * spring security权限配置
@@ -35,17 +35,9 @@ import java.util.List;
 @EnableConfigurationProperties(WebMvcProperties.class)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-    /**
-     * 全局不需要权限
-     */
-    @Value("#{'${ignore.url}'.split(';')}")
-    private List<String> ignoreUrl;
 
-    /**
-     * 登陆后不需要权限
-     */
-    @Value("#{'${login.ignore.url}'.split(';')}")
-    private List<String> loginIgnoreUrl;
+    @Autowired
+    private ApplicationProperties applicationProperties;
 
     @Autowired
     private WebMvcProperties webMvcProperties;
@@ -76,8 +68,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http
              .authorizeRequests()
-                .antMatchers(ignoreUrl.toArray(new String[]{})).permitAll()
-                .antMatchers(loginIgnoreUrl.toArray(new String[]{})).fullyAuthenticated()
+                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getIgnoreUrl(),";")).permitAll()
+                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getLoginIgnoreUrl(),";")).fullyAuthenticated()
                 .anyRequest().authenticated()
                 .and()
              .formLogin()

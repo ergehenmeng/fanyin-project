@@ -30,7 +30,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     /**
      * 重新加载所有菜单权限
      */
-    public void loadResource(){
+    private void loadResource(){
         map.clear();
         Collection<ConfigAttribute> attributes;
         ConfigAttribute cfg;

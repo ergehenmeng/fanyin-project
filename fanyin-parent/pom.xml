@@ -48,6 +48,7 @@
       <dubbo.version>2.5.10</dubbo.version>
       <!--生产消费者-->
       <disruptor.version>3.4.2</disruptor.version>
+      <akka.version>2.5.13</akka.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -131,6 +132,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-actor_2.12</artifactId>
+                <version>${akka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
