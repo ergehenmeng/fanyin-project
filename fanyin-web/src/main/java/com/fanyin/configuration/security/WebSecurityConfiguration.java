@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Configuration
-@EnableWebSecurity
 @EnableConfigurationProperties(WebMvcProperties.class)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
