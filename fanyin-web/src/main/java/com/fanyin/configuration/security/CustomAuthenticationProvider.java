@@ -4,13 +4,11 @@ package com.fanyin.configuration.security;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.utils.Md5Util;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 /**
@@ -20,11 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
-    @Override
-    @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        super.setUserDetailsService(userDetailsService);
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

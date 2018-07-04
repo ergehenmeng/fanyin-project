@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CustomWebAuthenticationDetails extends WebAuthenticationDetails {
 
+    private static final long serialVersionUID = 6385522500580848508L;
     /**
      * 前台传递过来的图形验证码
      */

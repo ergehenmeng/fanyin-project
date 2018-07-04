@@ -113,6 +113,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
+        provider.setUserDetailsService(userDetailsService());
         return provider;
     }
 
