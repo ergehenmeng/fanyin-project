@@ -42,9 +42,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     private WebMvcProperties webMvcProperties;
 
     @Autowired
-    private CustomFilterSecurityInterceptor customFilterSecurityInterceptor;
-
-    @Autowired
     private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
 
@@ -86,7 +83,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry()).expiredUrl("/index");
 
-        http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class).csrf().disable();
+        http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class).csrf().disable();
 
     }
 
@@ -131,4 +128,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      public LoginFailureHandler customAuthenticationFailureHandler(){
         return new LoginFailureHandler();
     }
+
+
+    @Bean
+    public CustomFilterSecurityInterceptor filterSecurityInterceptor(){
+        CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor();
+        interceptor.setAccessDecisionManager(accessDecisionManager());
+        return interceptor;
+    }
+
+    @Bean
+    public CustomAccessDecisionManager accessDecisionManager(){
+        return new CustomAccessDecisionManager();
+    }
+
 }

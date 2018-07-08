@@ -4,7 +4,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
     padding:0;
     font-family:"Microsoft YaHei", simsun, sans-serif;
 }
-input,button,select,textarea{
+input,button{
     outline:none;
     font-family:"Microsoft YaHei", simsun, sans-serif;
 }
@@ -13,39 +13,26 @@ ul,li{
     list-style:none;
 }
 
-a{
-    color: #8d8d8d;
-    text-decoration: none;
-}
-
 body{
     text-align: center;
-}
-
-.login_context{
-    background-color: #eeeeee;
-    height:660px;
-    width: 100%;
-    position: absolute;
-    top:50%;
-    margin-top: -330px;
+    background: #000000 url("/static/images/login/login-background5.jpg") no-repeat;
 }
 
 .login_panel{
-    width:20%;
-    height:342px;
+    height:340px;
+    width: 340px;
     position: absolute;
-    right: 40%;
-    bottom: 27%;
-    background-image: url("/static/images/login.png") ;
-    border: 1px solid #cccccc;
+    left: 50%;
+    top: 50%;
+    margin:-170px 0 0 -170px;
+    background-color: rgba(0,0,0,0.3);
+
 }
 .login_panel h2{
-    width:237px;
     height:50px;
     line-height:50px;
     margin:0 auto;
-    color: #666666;
+    color: #FFFFFF;
     padding-top: 15px !important;
     text-align: center;
     /*不可选中*/
@@ -54,6 +41,17 @@ body{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+.login_tips{
+    width: 180px;
+    height: 40px;
+    position: absolute;
+    color: #FFFFFF;
+    text-align: left;
+    margin:-10px 0 0 -90px;
+    left: 50%;
+    top: 50%;
+    display: none;
 }
 .login_panel ul{
     margin-top:15px;

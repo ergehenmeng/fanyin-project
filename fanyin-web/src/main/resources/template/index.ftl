@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/static/css/index.css?v=2018012060142" type="text/css">
 </head>
 <body>
-<div class="login_context">
     <div class="login_panel">
         <h2>后台管理系统</h2>
         <ul>
@@ -29,7 +28,7 @@
             <li class="msg_tip"></li>
         </ul>
     </div>
-</div>
+    <h2 class="login_tips">正在登陆系统</h2>
 </body>
 <!-- jquery库2.0版本 -->
 <script type="text/javascript" src="/static/js/jquery.min.js"  charset="UTF-8"></script>

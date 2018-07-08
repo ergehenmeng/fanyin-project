@@ -44,11 +44,12 @@ function loginFun() {
         return;
     }
 
+
     $.post("/login",{mobile : mobile,password : md5(password),validCode : validCode},function(data){
         if (data.code === 200) {
             // 跳转前清空密码框
             $password.val("");
-            window.location.href = "/home";
+            successAnimate();
         } else {
             errorTip(data.msg);
             $validCode.val("");
@@ -66,4 +67,27 @@ function loginFun() {
 function verifyMobile(mobile){
     var regexp = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/;
     return regexp.test(mobile);
+}
+
+function successAnimate(){
+    $(".login_panel").animate({
+        left:"1390px",
+        opacity:"0",
+        height:"0",
+        width:"0"
+    },500,function(){
+        var $loginTips = $(".login_tips").show();
+        setInterval(function () {
+            var text = $loginTips.html();
+            if(text.length >= 11){
+                text = text.substring(0,6);
+            }else{
+                text += ".";
+            }
+            $loginTips.html(text);
+        },500);
+        setTimeout(function(){
+            window.location.href = "/home";
+        },2000);
+    });
 }

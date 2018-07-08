@@ -6,7 +6,6 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
@@ -15,7 +14,6 @@ import java.util.Collection;
  * @author 二哥很猛
  * @date 2018/1/25 11:39
  */
-@Service
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
 
