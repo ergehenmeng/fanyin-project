@@ -16,6 +16,6 @@ public class CustomAuthenticationDetailsSource implements AuthenticationDetailsS
 
     @Override
     public WebAuthenticationDetails buildDetails(HttpServletRequest context) {
-        return new CustomWebAuthenticationDetails(context);
+        return new ImageCodeAuthenticationDetails(context);
     }
 }

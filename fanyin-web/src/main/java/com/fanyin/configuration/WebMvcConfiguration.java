@@ -29,11 +29,6 @@ import java.util.Properties;
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        //argumentResolvers.add(new SystemHandlerMethodArgumentResolver());
-    }
-
-    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new GlobalHandlerInterceptor());
     }
@@ -71,19 +66,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         configurer.setUseRegisteredSuffixPatternMatch(false);
     }
 
-    @Bean
+   @Bean
     public EmbeddedServletContainerFactory servletContainerFactory(){
-        TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory(){
-            @Override
-            protected void postProcessContext(Context context) {
-                SecurityConstraint securityConstraint = new SecurityConstraint();
-                securityConstraint.setUserConstraint("CONFIDENTAIL");
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/*");
-                securityConstraint.addCollection(collection);
-                context.addConstraint(securityConstraint);
-            }
-        };
+        TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
         factory.addAdditionalTomcatConnectors(connector());
         return factory;
     }

@@ -10,8 +10,7 @@
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="init_password" jdbcType="VARCHAR" property="inipassword" />
-    <result column="password_random" jdbcType="VARCHAR" property="passwordRandom" />
+    <result column="init_password" jdbcType="VARCHAR" property="initPassword" />
     <result column="department" jdbcType="INTEGER" property="department" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -22,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, name, mobile, status, password, init_password, password_random, department, deleted, 
+    id, name, mobile, status, password, init_password, department, deleted,
     add_time, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -46,13 +45,12 @@
       @create by mybatis
     -->
     insert into system_operator (id, name, mobile, 
-      status, password, init_password, 
-      password_random, department, deleted, 
+      status, password, init_password, department, deleted,
       add_time, update_time, remark
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT}, #{password,jdbcType=VARCHAR}, #{inipassword,jdbcType=VARCHAR}, 
-      #{passwordRandom,jdbcType=VARCHAR}, #{department,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, 
+      #{status,jdbcType=BIT}, #{password,jdbcType=VARCHAR}, #{initPassword,jdbcType=VARCHAR},
+      #{department,jdbcType=INTEGER}, #{deleted,jdbcType=BIT},
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
@@ -77,11 +75,8 @@
       <if test="password != null">
         password,
       </if>
-      <if test="inipassword != null">
+      <if test="initPassword != null">
         init_password,
-      </if>
-      <if test="passwordRandom != null">
-        password_random,
       </if>
       <if test="department != null">
         department,
@@ -115,11 +110,8 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="inipassword != null">
-        #{inipassword,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordRandom != null">
-        #{passwordRandom,jdbcType=VARCHAR},
+      <if test="initPassword != null">
+        #{initPassword,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
         #{department,jdbcType=INTEGER},
@@ -156,11 +148,8 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="inipassword != null">
-        init_password = #{inipassword,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordRandom != null">
-        password_random = #{passwordRandom,jdbcType=VARCHAR},
+      <if test="initPassword != null">
+        init_password = #{initPassword,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
         department = #{department,jdbcType=INTEGER},
@@ -189,8 +178,7 @@
       mobile = #{mobile,jdbcType=VARCHAR},
       status = #{status,jdbcType=BIT},
       password = #{password,jdbcType=VARCHAR},
-      init_password = #{inipassword,jdbcType=VARCHAR},
-      password_random = #{passwordRandom,jdbcType=VARCHAR},
+      init_password = #{initPassword,jdbcType=VARCHAR},
       department = #{department,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=BIT},
       add_time = #{addTime,jdbcType=TIMESTAMP},

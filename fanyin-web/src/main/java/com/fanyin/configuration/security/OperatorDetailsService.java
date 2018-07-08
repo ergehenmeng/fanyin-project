@@ -34,10 +34,10 @@ public class OperatorDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SystemOperator operator = systemOperatorMapper.getOperatorByMobile(username);
         if(operator == null){
-            throw new CustomAuthenticationException(ErrorCodeEnum.ACCOUNT_NOT_FOUND);
+            throw new SystemAuthenticationException(ErrorCodeEnum.ACCOUNT_NOT_FOUND);
         }
         if(!operator.getStatus()){
-            throw new CustomAuthenticationException(ErrorCodeEnum.ACCOUNT_LOCKED_ERROR);
+            throw new SystemAuthenticationException(ErrorCodeEnum.ACCOUNT_LOCKED_ERROR);
         }
         List<SystemMenu> list = systemMenuMapper.getUserMenuList(operator.getId(),true);
         List<GrantedAuthority> authorities = new ArrayList<>();

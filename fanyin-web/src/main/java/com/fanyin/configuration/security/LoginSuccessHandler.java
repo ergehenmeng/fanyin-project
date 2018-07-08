@@ -18,9 +18,9 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2018/1/25 10:28
  */
-public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
+public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomLoginSuccessHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginSuccessHandler.class);
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {

@@ -19,14 +19,14 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2018/1/25 18:21
  */
-public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
+public class LoginFailureHandler implements AuthenticationFailureHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomAuthenticationException.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SystemAuthenticationException.class);
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        if (exception instanceof CustomAuthenticationException){
-            CustomAuthenticationException exc = (CustomAuthenticationException) exception;
+        if (exception instanceof SystemAuthenticationException){
+            SystemAuthenticationException exc = (SystemAuthenticationException) exception;
             ResultJson<Object> resultJson = ResultJson.getInstance().setCode(exc.getCode()).setMsg(exc.getMessage());
             WebUtils.printJson(response,resultJson);
         }else{

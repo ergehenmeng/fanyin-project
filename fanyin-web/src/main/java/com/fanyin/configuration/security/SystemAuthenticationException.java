@@ -8,17 +8,17 @@ import org.springframework.security.core.AuthenticationException;
  * @author 二哥很猛
  * @date 2018/1/26 09:44
  */
-public class CustomAuthenticationException extends AuthenticationException {
+public class SystemAuthenticationException extends AuthenticationException {
 
     private static final long serialVersionUID = 645673408616288144L;
 
     private int code;
 
-    private CustomAuthenticationException(String msg) {
+    private SystemAuthenticationException(String msg) {
         super(msg);
     }
 
-    public CustomAuthenticationException(ErrorCodeEnum codeEnum){
+    public SystemAuthenticationException(ErrorCodeEnum codeEnum){
         this(codeEnum.getMsg());
         this.code = codeEnum.getCode();
     }

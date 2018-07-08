@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-01-29 18:38:40
+Date: 2018-07-08 15:28:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,11 +83,12 @@ CREATE TABLE `bank` (
   PRIMARY KEY (`id`),
   KEY `type_index` (`type`),
   KEY `name_index` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='银行信息表';
 
 -- ----------------------------
 -- Records of bank
 -- ----------------------------
+INSERT INTO `bank` VALUES ('1', '1', '我是出借,你是出借吗', '0.00', '去', null, null, '2018-04-25 14:36:43', null, '\0', '\0');
 
 -- ----------------------------
 -- Table structure for bank_card
@@ -110,6 +111,26 @@ CREATE TABLE `bank_card` (
 
 -- ----------------------------
 -- Records of bank_card
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `img` varchar(200) NOT NULL COMMENT '轮播图片地址',
+  `url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
+  `index` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(小<->大) 最小的在最前面',
+  `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
+  `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
+  `click` bit(1) DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of banner
 -- ----------------------------
 
 -- ----------------------------
@@ -183,7 +204,7 @@ DROP TABLE IF EXISTS `borrow_ext`;
 CREATE TABLE `borrow_ext` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `borrow_id` int(10) unsigned NOT NULL COMMENT '标的信息表',
-  `details` text COMMENT '项目详细信息(富文本)',
+  `content` text COMMENT '项目详细信息(富文本)',
   PRIMARY KEY (`id`),
   KEY `borrow_id_index` (`borrow_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的附加信息表';
@@ -239,8 +260,8 @@ CREATE TABLE `recharge_bank` (
 DROP TABLE IF EXISTS `system_config`;
 CREATE TABLE `system_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(50) DEFAULT NULL COMMENT '参数名称',
   `nid` varchar(50) NOT NULL COMMENT '参数标示符',
+  `name` varchar(50) DEFAULT NULL COMMENT '参数名称',
   `value` varchar(2000) NOT NULL COMMENT '参数值',
   `type` tinyint(2) unsigned DEFAULT NULL COMMENT '参数类型,见system_dict表nid=system_config_type',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
@@ -250,12 +271,16 @@ CREATE TABLE `system_config` (
   PRIMARY KEY (`id`),
   KEY `nid_index` (`nid`),
   KEY `type_index` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
 -- Records of system_config
 -- ----------------------------
-INSERT INTO `system_config` VALUES ('1', 'javascript:void(0)', 'application_name', '1231231ss', null, '\0', '', '2018-01-12 10:01:04', '2018-01-29 18:33:32');
+INSERT INTO `system_config` VALUES ('1', 'application_name', '系统名称', '后台管理系统', null, '\0', '', '2018-01-12 10:01:04', '2018-01-29 18:33:32');
+INSERT INTO `system_config` VALUES ('2', 'compay_name', '公司名称', '二哥', null, '\0', null, '2018-02-08 14:38:59', null);
+INSERT INTO `system_config` VALUES ('3', 'company_address', '公司地址', '浙江省杭州市西湖区教工路79号', null, '\0', null, '2018-02-08 14:40:01', null);
+INSERT INTO `system_config` VALUES ('4', 'company_phone', '公司电话', '0571-65800000', null, '\0', null, '2018-02-08 14:40:46', null);
+INSERT INTO `system_config` VALUES ('5', 'company_emial', '公司邮箱', '664956140@qq.com', null, '\0', null, '2018-02-08 14:41:22', null);
 
 -- ----------------------------
 -- Table structure for system_dict
@@ -303,10 +328,29 @@ CREATE TABLE `system_menu` (
 -- Records of system_menu
 -- ----------------------------
 INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, null, '', '0', '\0', null, '2018-01-25 16:13:54', null);
-INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/menu_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:01', null);
-INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/config_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:31', null);
-INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/user/user_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:40', null);
-INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/role_manage_page', null, '', '0', '\0', null, '2018-01-25 16:14:56', null);
+INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/menu_manage_page', null, '', '1', '\0', null, '2018-01-25 16:14:01', null);
+INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/config_manage_page', null, '', '2', '\0', null, '2018-01-25 16:14:31', null);
+INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/user/user_manage_page', null, '', '3', '\0', null, '2018-01-25 16:14:40', null);
+INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/role_manage_page', null, '', '4', '\0', null, '2018-01-25 16:14:56', null);
+
+-- ----------------------------
+-- Table structure for system_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `system_notice`;
+CREATE TABLE `system_notice` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(255) NOT NULL COMMENT '公告标题',
+  `type` tinyint(2) DEFAULT NULL COMMENT '公告类型(数据字典表system_notice_type)',
+  `content` text COMMENT '公告内容(富文本)',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统公告信息表';
+
+-- ----------------------------
+-- Records of system_notice
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for system_operator
@@ -319,7 +363,6 @@ CREATE TABLE `system_operator` (
   `status` tinyint(1) DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
   `password` varchar(128) DEFAULT NULL COMMENT '登陆密码MD5',
   `init_password` varchar(128) DEFAULT NULL COMMENT '初始密码',
-  `password_random` varchar(10) DEFAULT NULL COMMENT '登陆密码随机串',
   `department` int(2) DEFAULT NULL,
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -334,7 +377,7 @@ CREATE TABLE `system_operator` (
 -- ----------------------------
 -- Records of system_operator
 -- ----------------------------
-INSERT INTO `system_operator` VALUES ('1', '超管', '13000000000', '1', 'e9547f82c857a5eac526c2110af54f6f', 'e9547f82c857a5eac526c2110af54f6f', 'RcTaX5', '0', '\0', '2018-01-26 10:38:20', null, null);
+INSERT INTO `system_operator` VALUES ('1', '超管', '13000000000', '1', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmhomy', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmhomy', '0', '\0', '2018-01-26 10:38:20', null, null);
 
 -- ----------------------------
 -- Table structure for system_operator_role

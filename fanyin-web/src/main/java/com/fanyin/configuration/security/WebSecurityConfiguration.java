@@ -11,11 +11,11 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
@@ -113,16 +113,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(userDetailsService());
+        provider.setEncoder(passwordEncoder());
         return provider;
     }
 
     @Bean
-    public CustomLoginSuccessHandler loginSuccessHandler(){
-        return new CustomLoginSuccessHandler();
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-     public CustomLoginFailureHandler customAuthenticationFailureHandler(){
-        return new CustomLoginFailureHandler();
+    public LoginSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
+    }
+
+    @Bean
+     public LoginFailureHandler customAuthenticationFailureHandler(){
+        return new LoginFailureHandler();
     }
 }
