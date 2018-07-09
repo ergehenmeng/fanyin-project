@@ -9,17 +9,15 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * 资源角色授权器
+ * 权限配置资源管理器
  * @author 二哥很猛
  * @date 2018/1/25 11:01
  */
-@Service
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private Map<String,Collection<ConfigAttribute>> map = new HashMap<>(256);

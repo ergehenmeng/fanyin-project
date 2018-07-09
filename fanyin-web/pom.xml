@@ -12,8 +12,15 @@
 
     <artifactId>fanyin-web</artifactId>
 	<name>fanyin-web</name>
-
     <dependencies>
+        <dependency>
+            <groupId>com.fanyin</groupId>
+            <artifactId>fanyin-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fanyin</groupId>
+            <artifactId>fanyin-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -54,14 +61,7 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
-        <dependency>
-            <groupId>com.fanyin</groupId>
-            <artifactId>fanyin-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fanyin</groupId>
-            <artifactId>fanyin-common</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>

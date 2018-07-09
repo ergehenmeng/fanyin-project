@@ -104,6 +104,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     * 登陆校验器
+     * @return bean
+     */
     @Bean
     public AuthenticationProvider authenticationProvider(){
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
@@ -114,22 +118,38 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         return provider;
     }
 
+    /**
+     * 加密方式
+     * @return bean
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 登陆成功后置处理
+     * @return bean
+     */
     @Bean
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
     }
 
+    /**
+     * 登陆失败后置处理
+     * @return bean
+     */
     @Bean
      public LoginFailureHandler customAuthenticationFailureHandler(){
         return new LoginFailureHandler();
     }
 
 
+    /**
+     * 权限管理过滤器
+     * @return bean
+     */
     @Bean
     public CustomFilterSecurityInterceptor filterSecurityInterceptor(){
         CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor();
@@ -142,4 +162,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         return new CustomAccessDecisionManager();
     }
 
+
+    /**
+     * 角色权限资源管理
+     * @return bean
+     */
+    @Bean
+    public CustomFilterInvocationSecurityMetadataSource metadataSource(){
+        return new CustomFilterInvocationSecurityMetadataSource();
+    }
+
+    /**
+     * 附加信息管理
+     * @return bean
+     */
+    @Bean
+    public CustomAuthenticationDetailsSource detailsSource(){
+        return new CustomAuthenticationDetailsSource();
+    }
 }
