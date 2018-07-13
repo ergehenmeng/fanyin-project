@@ -1,0 +1,12 @@
+package com.fanyin.test.aop.introducation;
+
+/**
+ * @author 王艳兵
+ * @date 2018/7/13 10:29
+ */
+public class Performance {
+
+    public void say(){
+        System.out.println("执行中....");
+    }
+}
