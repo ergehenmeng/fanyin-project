@@ -7,43 +7,41 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.ComposablePointcut;
 import org.springframework.aop.support.ControlFlowPointcut;
-import org.springframework.aop.support.StaticMethodMatcher;
-
-import java.lang.reflect.Method;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
 
 /**
- * 复合切面
+ * 复合切面 intersection交集 union合集
  * @author 王艳兵
  * @date 2018/7/13 17:59
  */
 public class Composable {
 
-    public static Pointcut getPointcut(){
+    private static Pointcut getPointcut(){
         ComposablePointcut composablePointcut = new ComposablePointcut();
-        Pointcut pointcut = new ControlFlowPointcut(NaiveWaiter.class,"greetTo");
-        StaticMethodMatcher matcher = new StaticMethodMatcher() {
-            @Override
-            public boolean matches(Method method, Class<?> targetClass) {
-                return "serviceTo".equals(method.getName());
-            }
-        };
-        return composablePointcut.intersection(pointcut).intersection(matcher);
+        Pointcut pointcut = new ControlFlowPointcut(WaiterDelegate.class,"greetTo");
+        Pointcut pointcut2 = new ControlFlowPointcut(WaiterDelegate.class,"serviceTo");
+        return composablePointcut.intersection(pointcut).union(pointcut2);
     }
 
     public static void main(String[] args) {
         ProxyFactory factory = new ProxyFactory();
         NaiveWaiter waiter = new NaiveWaiter();
+
         Pointcut pointcut = Composable.getPointcut();
         GreetingBeforeAdvice advice = new GreetingBeforeAdvice();
 
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+        advisor.setPointcut(pointcut);
+        advisor.setAdvice(advice);
+
         factory.setOptimize(true);
         factory.setTarget(waiter);
+        factory.addAdvisor(advisor);
 
-        Waiter naiveWaiter = (NaiveWaiter)factory.getProxy();
-        naiveWaiter.greetTo("死板");
-        naiveWaiter.serviceTo("死板");
-
-
+        NaiveWaiter naiveWaiter = (NaiveWaiter)factory.getProxy();
+        Waiter delegate = new WaiterDelegate(naiveWaiter);
+        delegate.greetTo("死板");
+        delegate.serviceTo("死板");
     }
 
 }
