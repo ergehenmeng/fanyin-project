@@ -82,6 +82,22 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-actor_2.12</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>2.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>2.0.0.Final</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
