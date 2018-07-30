@@ -152,7 +152,7 @@ public class HttpClientUtil {
                 valuePairs.add(new BasicNameValuePair(key,params.get(key)));
             }
             try {
-                return EntityUtils.toString(new UrlEncodedFormEntity(valuePairs,"UTF-8"));
+                return EntityUtils.toString(new UrlEncodedFormEntity(valuePairs,Consts.UTF_8));
             }catch (Exception e){
                 LOGGER.error("url参数编码错误",e);
             }

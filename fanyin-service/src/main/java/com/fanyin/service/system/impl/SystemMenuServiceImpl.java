@@ -7,7 +7,7 @@ import com.fanyin.model.system.SystemMenu;
 import com.fanyin.request.system.menu.MenuInsertRequest;
 import com.fanyin.request.system.menu.MenuUpdateRequest;
 import com.fanyin.service.system.SystemMenuService;
-import com.fanyin.utils.BeanCopyUtil;
+import com.fanyin.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,13 +59,13 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     public void addMenu(MenuInsertRequest request) {
-        SystemMenu copy = BeanCopyUtil.copy(request, SystemMenu.class);
+        SystemMenu copy = BeanCopyUtils.copy(request, SystemMenu.class);
         systemMenuMapper.insertSelective(copy);
     }
 
     @Override
     public void updateMenu(MenuUpdateRequest request) {
-        SystemMenu copy = BeanCopyUtil.copy(request, SystemMenu.class);
+        SystemMenu copy = BeanCopyUtils.copy(request, SystemMenu.class);
         int index = systemMenuMapper.updateByPrimaryKeySelective(copy);
         if(index != 1){
             throw new BusinessException(ErrorCodeEnum.UPDATE_MENU_ERROR);
