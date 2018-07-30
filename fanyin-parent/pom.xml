@@ -49,6 +49,7 @@
       <!--生产消费者-->
       <disruptor.version>3.4.2</disruptor.version>
       <akka.version>2.5.13</akka.version>
+      <httpclient.version>4.5.3</httpclient.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -137,6 +138,11 @@
                 <groupId>com.typesafe.akka</groupId>
                 <artifactId>akka-actor_2.12</artifactId>
                 <version>${akka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
