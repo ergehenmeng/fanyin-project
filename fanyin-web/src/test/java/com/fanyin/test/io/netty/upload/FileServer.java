@@ -28,8 +28,7 @@ public class FileServer {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 100)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
-                        public void initChannel(SocketChannel ch)
-                                throws Exception {
+                        public void initChannel(SocketChannel ch){
                             ch.pipeline().addLast(
                                     new StringEncoder(CharsetUtil.UTF_8),
                                     new LineBasedFrameDecoder(1024),
