@@ -228,9 +228,7 @@ public class HttpClientUtil {
         if(client == null){
             client = HttpClients.custom().setDefaultRequestConfig(config).build();
         }
-
-        try {
-            CloseableHttpResponse response = client.execute(request);
+        try (CloseableHttpResponse response = client.execute(request)){
             int code = response.getStatusLine().getStatusCode();
             if (code != HttpStatus.SC_OK){
                 LOGGER.error("http请求响应状态码异常,code:{}",code);
@@ -242,6 +240,12 @@ public class HttpClientUtil {
             return entity;
         } catch (IOException e) {
             LOGGER.error("http请求异常",e);
+        }finally {
+            try {
+                client.close();
+            } catch (IOException e) {
+                LOGGER.error("关闭client异常",e);
+            }
         }
         return null;
     }

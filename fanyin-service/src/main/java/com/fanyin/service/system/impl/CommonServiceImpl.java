@@ -1,7 +1,7 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.service.system.CommonService;
-import com.fanyin.utils.Md5Util;
+import com.fanyin.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +14,6 @@ public class CommonServiceImpl implements CommonService{
 
     @Override
     public String encryptPassword(String password, String random) {
-        return Md5Util.md5(password + random);
+        return MD5Util.md5(password + random);
     }
 }

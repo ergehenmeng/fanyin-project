@@ -20,9 +20,9 @@ import javax.crypto.spec.SecretKeySpec;
  * @author 二哥很猛
  * @date 2018/1/17 15:26
  */
-public class DesUtil {
+public class DESUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DesUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DESUtil.class);
 
     /**
      * DES算法填充方式

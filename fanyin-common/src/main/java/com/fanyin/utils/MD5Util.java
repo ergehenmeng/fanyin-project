@@ -13,9 +13,9 @@ import java.security.NoSuchAlgorithmException;
  * @author 二哥很猛
  * @date 2018/1/18 11:43
  */
-public class Md5Util {
+public class MD5Util {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Md5Util.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MD5Util.class);
 
     /**
      * 16进制数组
