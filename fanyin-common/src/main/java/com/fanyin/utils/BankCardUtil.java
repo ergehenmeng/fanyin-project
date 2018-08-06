@@ -120,7 +120,7 @@ public class BankCardUtil {
      */
     public static String encryptBirthDay(String idCard){
         String birthDay = getBirthDay(idCard);
-        return DESUtil.encrypt3Des(birthDay,DEFAULT_DES_PASSWORD);
+        return DesUtil.encrypt3Des(birthDay,DEFAULT_DES_PASSWORD);
     }
 
     /**
@@ -130,7 +130,7 @@ public class BankCardUtil {
      * @return 真实身份证号码 例如:310223198901146831
      */
     public static String decryptIdCard(String idCard,String data){
-        String s = DESUtil.decrypt3Des(data, DEFAULT_DES_PASSWORD);
+        String s = DesUtil.decrypt3Des(data, DEFAULT_DES_PASSWORD);
         return idCard.replace("****",s);
     }
 

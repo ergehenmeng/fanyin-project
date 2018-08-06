@@ -18,9 +18,9 @@ import javax.crypto.spec.PBEParameterSpec;
  * @author 二哥很猛
  * @date 2018/1/17 15:30
  */
-public class PBEUtil {
+public class PbeUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PBEUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PbeUtil.class);
 
     /**
      * 盐 直接写死

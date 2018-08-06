@@ -11,7 +11,7 @@ import com.fanyin.request.system.config.ConfigInsertRequest;
 import com.fanyin.request.system.config.ConfigSelectRequest;
 import com.fanyin.request.system.config.ConfigUpdateRequest;
 import com.fanyin.service.system.SystemConfigService;
-import com.fanyin.utils.BeanCopyUtils;
+import com.fanyin.utils.BeanCopyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -24,7 +24,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +70,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     public void addConfig(ConfigInsertRequest request) {
-        SystemConfig copy = BeanCopyUtils.copy(request, SystemConfig.class);
+        SystemConfig copy = BeanCopyUtil.copy(request, SystemConfig.class);
         systemConfigMapper.insertSelective(copy);
     }
 

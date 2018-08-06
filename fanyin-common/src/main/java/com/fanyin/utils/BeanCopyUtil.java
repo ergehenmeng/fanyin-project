@@ -8,9 +8,9 @@ import org.springframework.beans.BeanUtils;
  * @author 王艳兵
  * @date 2018/1/26 16:10
  */
-public class BeanCopyUtils {
+public class BeanCopyUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BeanCopyUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeanCopyUtil.class);
 
     public static <T> T  copy(Object source,Class<T> cls){
         if(source == null){
