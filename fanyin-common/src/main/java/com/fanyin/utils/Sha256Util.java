@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -27,7 +28,7 @@ public class Sha256Util {
     public static String sha256(String message){
         try {
             MessageDigest instance = MessageDigest.getInstance("SHA-256");
-            instance.update(message.getBytes());
+            instance.update(message.getBytes(Charset.forName("UTF-8")));
             byte[] digest = instance.digest();
             return ByteUtil.byteArrayToHex(digest);
         } catch (NoSuchAlgorithmException e) {
@@ -53,4 +54,5 @@ public class Sha256Util {
             throw new ParameterException(ErrorCodeEnum.SHA_256_ERROR);
         }
     }
+
 }
