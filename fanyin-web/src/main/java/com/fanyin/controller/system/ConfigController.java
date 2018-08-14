@@ -1,7 +1,7 @@
 package com.fanyin.controller.system;
 
 
-import com.fanyin.controller.BaseController;
+import com.fanyin.controller.AbstractController;
 import com.fanyin.ext.Paging;
 import com.fanyin.ext.ResultJson;
 import com.fanyin.model.system.SystemConfig;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2018/1/12 17:40
  */
 @Controller
-public class ConfigController extends BaseController {
+public class ConfigController extends AbstractController {
 
     @Autowired
     private SystemConfigService systemConfigService;

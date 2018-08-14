@@ -1,6 +1,6 @@
 package com.fanyin.controller.system;
 
-import com.fanyin.controller.BaseController;
+import com.fanyin.controller.AbstractController;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
@@ -19,14 +19,14 @@ import java.util.List;
  * @date 2018/1/8 14:41
  */
 @Controller
-public class LoginController extends BaseController {
+public class LoginController extends AbstractController {
 
     @Autowired
     private SystemMenuService systemMenuService;
 
     /**
      * 未登录的首页
-     * @return
+     * @return 首页index.ftl
      */
     @GetMapping("/")
     public String index(){

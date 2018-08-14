@@ -1,7 +1,7 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.constant.CommonConstant;
-import com.fanyin.controller.BaseController;
+import com.fanyin.controller.AbstractController;
 import com.google.code.kaptcha.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ import java.io.IOException;
  * @date 2018/1/19 11:50
  */
 @Controller
-public class CaptchaController extends BaseController {
+public class CaptchaController extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CaptchaController.class);
 

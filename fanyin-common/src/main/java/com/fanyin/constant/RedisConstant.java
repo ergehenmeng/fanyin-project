@@ -16,4 +16,9 @@ public class RedisConstant {
      * 数据字典缓存prefix
      */
     public static final String SYSTEM_DICT = "system_dict";
+
+    /**
+     * 会话令牌缓存prefix
+     */
+    public static final String ACCESS_TOKEN = "access_token";
 }

@@ -90,8 +90,8 @@ public class SystemHandlerMethodArgumentResolver implements HandlerMethodArgumen
 
     /**
      * 类是否为简单类型的包装类
-     * @param cls
-     * @return
+     * @param cls 类
+     * @return true:简单类型
      */
     private boolean isWrapClass(Class<?> cls){
         return cls.equals(Long.class)

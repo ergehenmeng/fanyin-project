@@ -48,7 +48,7 @@ public class BankCardUtil {
      * @return 出生年月日 yyyyMMdd或yyMMdd
      */
     public static String getBirthDay(String idCard){
-        if(!RegExpUtil.isIdCard(idCard)){
+        if(!RegExpUtil.idCard(idCard)){
             throw new ParameterException(ErrorCodeEnum.ID_CARD_ERROR);
         }
         if (idCard.length() == ID_CARD_LENGTH){
@@ -74,7 +74,7 @@ public class BankCardUtil {
      * @return 不合法,异常均返回0
      */
     public static int getAge(String idCard){
-        if(!RegExpUtil.isIdCard(idCard)){
+        if(!RegExpUtil.idCard(idCard)){
             return 0;
         }
         String birth = getNormalBirthDay(idCard);

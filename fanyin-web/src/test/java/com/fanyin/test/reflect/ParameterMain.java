@@ -1,8 +1,10 @@
 package com.fanyin.test.reflect;
 
 import com.fanyin.test.SubClass;
+import com.fanyin.test.SuperClass;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 
 /**
@@ -20,5 +22,9 @@ public class ParameterMain {
                 System.out.println(method.getName() + ":" + parameter.isNamePresent());
             }
         }
+        boolean anAbstract = Modifier.isAbstract(AbstractClass.class.getModifiers());
+        boolean anInterface = Modifier.isInterface(SuperClass.class.getModifiers());
+        System.out.println("是否为抽象类:" + anAbstract);
+        System.out.println("是否为接口:" + anInterface);
     }
 }

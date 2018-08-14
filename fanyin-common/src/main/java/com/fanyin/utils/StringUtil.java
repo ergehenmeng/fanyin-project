@@ -24,6 +24,8 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
      */
     private static final int DEFAULT_RANDOM_LENGTH = 4;
 
+
+
     /**
      * 生成指定长度的随机字符串
      * @param length 长度
@@ -76,4 +78,6 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
     public static String randomNumber(){
         return randomNumber(DEFAULT_RANDOM_LENGTH);
     }
+
+
 }
