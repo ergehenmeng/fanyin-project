@@ -288,7 +288,7 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 	for(var s = 0,lens = rows.length; s < lens;s++){
         //一级节点
 		if(rows[s].parentId === "0"){
-			nodes.push({id:row.id,text:row.menuName});			
+			nodes.push({"id":row.id,"text":row.menuName});
 		}
 	}
 	var topNodes = [];
@@ -480,18 +480,13 @@ var getLocalTime = function(value,type) {
 	 switch (type){
 	 case 1:
 		 return dt.format("yyyy年MM月dd日");
-		 break;
 	 case 2:
 		 return dt.format("yyyy年MM月dd日 hh:mm:ss");
-		 break;
 	 case 3:
 		 return dt.format("yyyy-MM-dd");
-		 break;
 	 case 4:
 		 return dt.format("yyyy-MM-dd hh:mm:ss");
-		 break;
 	 }
-
 };
 
 

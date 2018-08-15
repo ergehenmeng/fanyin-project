@@ -13,8 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 二哥很猛
  * @date 2018/1/23 12:02
  */
-public class AccessHandlerInterceptor implements HandlerInterceptor {
+public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccessHandlerInterceptor.class);
 
@@ -65,10 +64,12 @@ public class AccessHandlerInterceptor implements HandlerInterceptor {
      */
     private void accessToken(String accessKey,String accessToken){
         if (accessKey == null || accessToken == null){
+            LOGGER.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
             throw new SystemException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         Token token = accessTokenService.getToken(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken())){
+            LOGGER.error("令牌无效,accessKey:{}",accessKey);
             throw new SystemException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间
@@ -115,17 +116,5 @@ public class AccessHandlerInterceptor implements HandlerInterceptor {
             return method.getMethodAnnotation(AccessToken.class);
         }
         return null;
-    }
-
-
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
 }
