@@ -1,4 +1,4 @@
-package com.fanyin.validation.annotation;
+package com.fanyin.annotation;
 
 import com.fanyin.enums.Source;
 

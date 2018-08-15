@@ -1,4 +1,4 @@
-package com.fanyin.validation.annotation;
+package com.fanyin.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
