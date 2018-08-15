@@ -1,7 +1,7 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.constant.RedisConstant;
-import com.fanyin.model.system.Token;
+import com.fanyin.dto.Token;
 import com.fanyin.service.system.AccessTokenService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

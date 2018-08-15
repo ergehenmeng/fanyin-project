@@ -1,4 +1,4 @@
-package com.fanyin.model.system;
+package com.fanyin.dto;
 
 import java.io.Serializable;
 

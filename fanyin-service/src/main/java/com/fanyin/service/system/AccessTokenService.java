@@ -1,6 +1,6 @@
 package com.fanyin.service.system;
 
-import com.fanyin.model.system.Token;
+import com.fanyin.dto.Token;
 
 /**
  * 会话令牌service

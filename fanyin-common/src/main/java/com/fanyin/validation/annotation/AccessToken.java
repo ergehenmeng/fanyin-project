@@ -10,7 +10,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 访问权限校验
+ * 访问权限校验 主要针对前后端分离接口
  * @author 王艳兵
  * @date 2018/8/14 16:19
  */
@@ -29,6 +29,11 @@ public @interface AccessToken {
      * 客户端类型
      * @return 默认后台请求
      */
-    Source[] value() default Source.BG;
+    Source[] value() default Source.PC;
 
+    /**
+     * 数据是否需要签名
+     * @return 默认需要
+     */
+    boolean sign() default true;
 }

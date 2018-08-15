@@ -1,5 +1,7 @@
 package com.fanyin.constant;
 
+import com.fanyin.utils.Sha256Util;
+
 /**
  * @author 二哥很猛
  * @date 2018/1/8 14:41
@@ -22,12 +24,9 @@ public class CommonConstant {
     public static final String OPERATOR_SESSION = "operator_session";
 
     /**
-     * 投资人登陆session
+     * 验签 存放客户端本地 android ios
      */
-    public static final String USER_SESSION = "user_session";
+    public static final String APP_KEY = "e6a16db37d2cbbbc3fc704ef5fa89bb02f4563d2c8109cfafb0b0e591e09fb88";
 
-    /**
-     * 借款人session
-     */
-    public static final String BORROWER_SESSION = "borrower_session";
+
 }

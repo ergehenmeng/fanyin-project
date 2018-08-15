@@ -45,9 +45,15 @@ public enum ErrorCodeEnum {
      */
     SHA_256_ERROR(1006,"数据加密异常"),
 
+    /**
+     * 验签异常
+     */
+    SIGN_NULL_ERROR(1007,"验签异常"),
 
-
-
+    /**
+     * 验签失败
+     */
+    SIGN_ERROR(1008,"验签失败"),
 
 
     /**
@@ -118,6 +124,10 @@ public enum ErrorCodeEnum {
      */
     ACCESS_TOKEN_TIMEOUT(3010,"用户超时,请重新登陆"),
 
+    /**
+     * 用户超时,请重新登陆
+     */
+    USER_LOGIN_TIMEOUT(3011,"用户超时,请重新登陆"),
 
     ;
     /**

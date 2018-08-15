@@ -21,4 +21,23 @@ public class HeaderConstant {
      * accessToken
      */
     public static final String ACCESS_TOKEN = "Access-Token";
+
+    /**
+     * 签名
+     */
+    public static final String SIGN = "Sign";
+
+    /**
+     * 请求时间戳
+     */
+    public static final String TIMESTAMP = "Timestamp";
+    /**
+     * 软件版本号
+     */
+    public static final String VERSION = "Version";
+
+    /**
+     * 操作系统版本
+     */
+    public static final String OS_VERSION = "Os-version";
 }
