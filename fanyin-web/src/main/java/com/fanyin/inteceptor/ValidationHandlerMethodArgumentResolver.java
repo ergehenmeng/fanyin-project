@@ -1,6 +1,7 @@
 package com.fanyin.inteceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fanyin.annotation.Validation;
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
@@ -24,12 +25,15 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/1/8 14:42
  */
-public class SystemHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class ValidationHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasMethodAnnotation(ResponseBody.class) && isPrimitive(parameter) && isWrapPrimitive(parameter);
+        return parameter.hasMethodAnnotation(ResponseBody.class)
+                && parameter.hasMethodAnnotation(Validation.class)
+                && isPrimitive(parameter)
+                && isWrapPrimitive(parameter);
     }
 
     @Override
