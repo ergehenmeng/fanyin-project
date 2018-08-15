@@ -31,9 +31,4 @@ public @interface AccessToken {
      */
     Source[] value() default Source.PC;
 
-    /**
-     * 数据是否需要签名
-     * @return 默认需要
-     */
-    boolean sign() default true;
 }
