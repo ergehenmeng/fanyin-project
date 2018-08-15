@@ -1,7 +1,7 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.constant.RedisConstant;
-import com.fanyin.dto.Token;
+import com.fanyin.dto.AccessToken;
 import com.fanyin.service.system.AccessTokenService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,12 +16,12 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     @Cacheable(cacheNames = RedisConstant.ACCESS_TOKEN,key = "T(com.fanyin.constant.RedisConstant).ACCESS_TOKEN + #p0")
-    public Token getToken(String accessKey) {
+    public AccessToken getAccessToken(String accessKey) {
         return null;
     }
 
     @Override
     @CachePut(cacheNames = RedisConstant.ACCESS_TOKEN,key = "T(com.fanyin.constant.RedisConstant).ACCESS_TOKEN + token.accessKey",cacheManager = "longCacheManager")
-    public void saveToken(Token token) {
+    public void saveAccessToken(AccessToken token) {
     }
 }

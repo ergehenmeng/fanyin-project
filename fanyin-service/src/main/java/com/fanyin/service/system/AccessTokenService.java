@@ -1,6 +1,6 @@
 package com.fanyin.service.system;
 
-import com.fanyin.dto.Token;
+import com.fanyin.dto.AccessToken;
 
 /**
  * 会话令牌service
@@ -14,12 +14,12 @@ public interface AccessTokenService {
      * @param accessKey accessKey
      * @return token
      */
-    Token getToken(String accessKey);
+    AccessToken getAccessToken(String accessKey);
 
     /**
      * 保存token 30分钟超时时间
      * @param token token对象
      */
-    void saveToken(Token token);
+    void saveAccessToken(AccessToken token);
 }
 

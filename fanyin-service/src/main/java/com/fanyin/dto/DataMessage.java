@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author 王艳兵
  * @date 2018/8/15 13:56
  */
-public class DataMessage extends Token implements Serializable {
+public class DataMessage extends AccessToken implements Serializable {
 
     private static final long serialVersionUID = 1588228430420375286L;
 

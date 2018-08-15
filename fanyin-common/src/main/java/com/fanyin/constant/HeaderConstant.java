@@ -39,5 +39,5 @@ public class HeaderConstant {
     /**
      * 操作系统版本
      */
-    public static final String OS_VERSION = "Os-version";
+    public static final String OS_VERSION = "Os-Version";
 }

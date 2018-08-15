@@ -9,6 +9,7 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -25,9 +26,17 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AccessHandlerInterceptor());
+        registry.addInterceptor(accessHandlerInterceptor());
     }
 
+    /**
+     * 签名,令牌拦截器
+     * @return handler
+     */
+    @Bean
+    public HandlerInterceptor accessHandlerInterceptor(){
+        return new AccessHandlerInterceptor();
+    }
 
     /**
      * 图形验证码

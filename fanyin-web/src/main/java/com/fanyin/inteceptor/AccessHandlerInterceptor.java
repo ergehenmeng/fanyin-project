@@ -2,13 +2,13 @@ package com.fanyin.inteceptor;
 
 import com.fanyin.constant.HeaderConstant;
 import com.fanyin.dto.DataMessage;
-import com.fanyin.dto.Token;
+import com.fanyin.dto.AccessToken;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.enums.Source;
 import com.fanyin.exception.SystemException;
 import com.fanyin.service.system.AccessTokenService;
 import com.fanyin.utils.SignatureUtil;
-import com.fanyin.annotation.AccessToken;
+import com.fanyin.annotation.Access;
 import com.fanyin.annotation.Signature;
 import com.google.common.collect.Lists;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -41,7 +41,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-
+        //app请求头信息
         String requestType = request.getHeader(HeaderConstant.REQUEST_TYPE);
         String version = request.getHeader(HeaderConstant.VERSION);
         String osVersion = request.getHeader(HeaderConstant.OS_VERSION);
@@ -97,13 +97,13 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
             LOGGER.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
             throw new SystemException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
-        Token token = accessTokenService.getToken(accessKey);
+        AccessToken token = accessTokenService.getAccessToken(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken())){
             LOGGER.error("令牌无效,accessKey:{}",accessKey);
             throw new SystemException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间
-        accessTokenService.saveToken(token);
+        accessTokenService.saveAccessToken(token);
         //由于ThreadLocal是对象引用,可以直接设置附加值
         message.setAccessKey(token.getAccessKey());
         message.setAccessToken(token.getAccessToken());
@@ -112,7 +112,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
 
 
     /**
-     * 校验签名信息,加密方式 sha256(md5(appKey+timestamp)+appKey)
+     * 校验签名信息
      * @param sign 签名信息
      * @param timestamp 时间戳
      */
@@ -133,7 +133,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
      * @return true:需要验签 false不需要
      */
     private boolean access(Object handler){
-        AccessToken accessToken = getAnnotation(handler,AccessToken.class);
+        Access accessToken = getAnnotation(handler,Access.class);
         if(accessToken != null){
             return accessToken.access();
         }
@@ -147,7 +147,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
      * @return 是否为合法请求
      */
     private boolean requestType(Object handler,String requestType){
-        AccessToken accessToken = getAnnotation(handler,AccessToken.class);
+        Access accessToken = getAnnotation(handler,Access.class);
         if(accessToken != null){
             Source[] value = accessToken.value();
             return Lists.newArrayList(value).stream().anyMatch(source -> source.name().equals(requestType));

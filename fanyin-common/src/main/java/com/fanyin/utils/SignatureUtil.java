@@ -10,13 +10,12 @@ import com.fanyin.constant.CommonConstant;
 public class SignatureUtil {
 
     /**
-     * 时间戳签名
+     * 时间戳签名 加密方式 sha256Hmac(appKey+timestamp)
      * @param salt 盐
      * @return 签名后的数据
      */
     public static String sign(String salt){
-        String md5 = Md5Util.md5(CommonConstant.APP_KEY + salt);
-        return Sha256Util.sha256(md5 + CommonConstant.APP_KEY);
+        return Sha256Util.sha256Hmac(CommonConstant.APP_KEY + salt);
     }
 
 }

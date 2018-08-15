@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author 王艳兵
  * @date 2018/8/14 17:37
  */
-public class Token implements Serializable {
+public class AccessToken implements Serializable {
 
     private static final long serialVersionUID = -539686478899884844L;
 
