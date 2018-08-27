@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-07-08 15:28:57
+Date: 2018-08-27 16:07:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `account` (
   `tender_freeze` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '投标冻结',
   `withdraw_freeze` decimal(12,2) DEFAULT '0.00' COMMENT '提现冻结',
   `accumulated_income` decimal(12,2) DEFAULT '0.00' COMMENT '累计收益',
-  `wait_capital` decimal(12,2) DEFAULT '0.00',
+  `wait_capital` decimal(12,2) DEFAULT '0.00' COMMENT '待收本金',
   `wait_interest` decimal(12,2) DEFAULT '0.00' COMMENT '待收利息',
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`)
@@ -46,9 +46,7 @@ CREATE TABLE `account_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
   `amount` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '实际操作金额',
-  `type` tinyint(2) DEFAULT NULL COMMENT '资金类型',
-  `ie_type` tinyint(1) DEFAULT NULL COMMENT '收支类型 -1:支出 0:不支出不收入 1:收入',
-  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
+  `type` tinyint(2) DEFAULT NULL COMMENT '资金详细类型',
   `available_balance` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '可用余额(已清算+未清算)',
   `recharge` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '充值金额(未清算)',
   `tender_freeze` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '投标冻结金额',
@@ -56,12 +54,35 @@ CREATE TABLE `account_log` (
   `accumulated_income` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '累计收益',
   `wait_capital` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '待收本金',
   `wait_interest` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '待收利息',
+  `add_time` datetime DEFAULT NULL COMMENT '发生时间',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
-  KEY `user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `user_id_index` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户资产变动详细记录表';
 
 -- ----------------------------
 -- Records of account_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for app_feedback
+-- ----------------------------
+DROP TABLE IF EXISTS `app_feedback`;
+CREATE TABLE `app_feedback` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) DEFAULT NULL COMMENT '用户ID',
+  `status` tinyint(1) DEFAULT NULL COMMENT '状态: 0:待解决 1:已解决',
+  `version` varchar(50) DEFAULT NULL COMMENT '软件版本',
+  `system_version` varchar(50) DEFAULT NULL COMMENT '系统版本',
+  `content` varchar(200) DEFAULT NULL COMMENT '反馈内容',
+  `add_time` datetime DEFAULT NULL COMMENT '反馈时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `index_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='APP用户反馈信息表';
+
+-- ----------------------------
+-- Records of app_feedback
 -- ----------------------------
 
 -- ----------------------------
@@ -70,25 +91,26 @@ CREATE TABLE `account_log` (
 DROP TABLE IF EXISTS `bank`;
 CREATE TABLE `bank` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(20) NOT NULL COMMENT '银行编码类型:ABC,ICBC',
+  `code` varchar(20) NOT NULL COMMENT '银行编码类型:ABC,ICBC',
   `name` varchar(50) NOT NULL COMMENT '银行名称',
-  `quota` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '单卡操作限额',
-  `quota_remark` varchar(50) NOT NULL COMMENT '银行限额说明',
+  `limit` decimal(10,2) DEFAULT '0.00' COMMENT '单卡当日限额',
+  `limit_remark` varchar(100) DEFAULT NULL COMMENT '银行卡限额说明',
   `icon` varchar(500) DEFAULT NULL COMMENT '银行图标(长图)',
   `logo` varchar(500) DEFAULT NULL COMMENT '银行图标logo(短图)',
+  `bank_no` varchar(50) DEFAULT NULL COMMENT '第三方充值银行编码',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态:0:正常 1:已删除(数据库可见,后台不可见)',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态 0:未锁定1:锁定(相当于下架,后台可见,前台不可见)',
   PRIMARY KEY (`id`),
-  KEY `type_index` (`type`),
+  KEY `type_index` (`code`),
   KEY `name_index` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='银行信息表';
 
 -- ----------------------------
 -- Records of bank
 -- ----------------------------
-INSERT INTO `bank` VALUES ('1', '1', '我是出借,你是出借吗', '0.00', '去', null, null, '2018-04-25 14:36:43', null, '\0', '\0');
+INSERT INTO `bank` VALUES ('1', '1', '我是出借,你是出借吗', '0.00', '去', null, null, null, '2018-04-25 14:36:43', null, '\0', '\0');
 
 -- ----------------------------
 -- Table structure for bank_card
@@ -98,15 +120,16 @@ CREATE TABLE `bank_card` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL COMMENT '用户ID',
   `user_type` tinyint(1) DEFAULT '0' COMMENT '用户类型 0:投资人 1:借款人',
-  `bank_type` varchar(10) DEFAULT NULL COMMENT '银行编号:ABC,ICBC',
+  `bank_code` varchar(10) DEFAULT NULL COMMENT '银行编号:ABC,ICBC',
   `bank_num` varchar(32) DEFAULT NULL COMMENT '银行卡号',
+  `mobile` varchar(15) DEFAULT NULL COMMENT '银行预留手机号',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`),
   KEY `user_type_index` (`user_type`),
-  KEY `bank_type_index` (`bank_type`)
+  KEY `bank_type_index` (`bank_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='银行卡信息表';
 
 -- ----------------------------
@@ -119,53 +142,19 @@ CREATE TABLE `bank_card` (
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `img` varchar(200) NOT NULL COMMENT '轮播图片地址',
-  `url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
+  `type` tinyint(2) DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_type维护',
+  `img_url` varchar(500) NOT NULL COMMENT '轮播图片地址',
+  `turn_url` varchar(500) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
   `index` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(小<->大) 最小的在最前面',
   `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
   `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
   `click` bit(1) DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='轮播图维护表';
 
 -- ----------------------------
 -- Records of banner
--- ----------------------------
-
--- ----------------------------
--- Table structure for borrow
--- ----------------------------
-DROP TABLE IF EXISTS `borrow`;
-CREATE TABLE `borrow` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键标的ID',
-  `borrower_id` int(10) unsigned NOT NULL COMMENT '借款人ID',
-  `code` varchar(50) DEFAULT NULL COMMENT '标的编号',
-  `status` tinyint(2) DEFAULT '0' COMMENT '标的状态:-2:废弃-1:标的撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成',
-  `name` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `amount` decimal(12,2) DEFAULT '100.00' COMMENT '计划募集金额',
-  `raise_amount` decimal(12,2) DEFAULT '0.00' COMMENT '已募集金额',
-  `apr` decimal(3,1) DEFAULT '0.0' COMMENT '标的基础利息 单位%',
-  `platform_apr` decimal(2,1) DEFAULT '0.0' COMMENT '平台加息利息 单位%',
-  `period` tinyint(2) DEFAULT NULL COMMENT '期限',
-  `period_unit` tinyint(1) DEFAULT '1' COMMENT '期限单位 0:天,1:月,2:年',
-  `repayment_type` tinyint(1) DEFAULT NULL COMMENT '还款方式,0:等额本息,1:按月付息,到期还本',
-  `presell_time` datetime DEFAULT NULL COMMENT '预售时间(非空即表示预售标)',
-  `min_tender` decimal(12,2) DEFAULT '100.00' COMMENT '最小投标金额',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '标的信息录入时间',
-  `publish_time` datetime DEFAULT NULL COMMENT '标的发布时间(复审通过时间)',
-  PRIMARY KEY (`id`),
-  KEY `borrower_id_index` (`borrower_id`),
-  KEY `code_index` (`code`),
-  KEY `status_index` (`status`),
-  KEY `period_index` (`period`),
-  KEY `name_index` (`name`),
-  KEY `repayment_type_index` (`repayment_type`),
-  KEY `period_unit_index` (`period_unit`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
-
--- ----------------------------
--- Records of borrow
 -- ----------------------------
 
 -- ----------------------------
@@ -191,67 +180,189 @@ CREATE TABLE `borrower` (
   KEY `mobile_index` (`mobile`),
   KEY `real_name_index` (`real_name`),
   KEY `id_card_index` (`id_card`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款人信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人借款人信息';
 
 -- ----------------------------
 -- Records of borrower
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for borrow_ext
+-- Table structure for operation_report
 -- ----------------------------
-DROP TABLE IF EXISTS `borrow_ext`;
-CREATE TABLE `borrow_ext` (
+DROP TABLE IF EXISTS `operation_report`;
+CREATE TABLE `operation_report` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `borrow_id` int(10) unsigned NOT NULL COMMENT '标的信息表',
+  `img_url` varchar(500) DEFAULT NULL COMMENT '图片地址URL',
+  `link_url` varchar(200) DEFAULT NULL COMMENT '链接地址URL',
+  `title` varchar(50) DEFAULT NULL COMMENT '标题',
+  `year` year(4) DEFAULT NULL COMMENT '年份',
+  `month` date DEFAULT NULL COMMENT '月份(包含年)',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '是否已删除 0:未删除,1:已删除',
+  `add_time` datetime DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='运营报告表';
+
+-- ----------------------------
+-- Records of operation_report
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project
+-- ----------------------------
+DROP TABLE IF EXISTS `project`;
+CREATE TABLE `project` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键标的ID',
+  `borrower_id` int(10) unsigned NOT NULL COMMENT '借款人ID',
+  `code` varchar(50) DEFAULT NULL COMMENT '标的编号',
+  `status` tinyint(2) DEFAULT '0' COMMENT '标的状态:-2:废弃-1:标的撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清',
+  `type` tinyint(2) DEFAULT '0' COMMENT '标的类型 0:个人车贷,1:企业车贷',
+  `name` varchar(50) DEFAULT NULL COMMENT '标的名称',
+  `amount` decimal(12,2) DEFAULT '100.00' COMMENT '计划募集金额',
+  `raise_amount` decimal(12,2) DEFAULT '0.00' COMMENT '已募集金额',
+  `min_tender` decimal(12,2) DEFAULT '100.00' COMMENT '单次最小投标金额',
+  `max_tender` decimal(12,2) DEFAULT NULL COMMENT '单次最大投标金额',
+  `apr` decimal(3,1) DEFAULT '0.0' COMMENT '标的基础利息 单位%',
+  `platform_apr` decimal(2,1) DEFAULT '0.0' COMMENT '平台加息利息 单位%',
+  `period` tinyint(2) DEFAULT NULL COMMENT '期限(月)',
+  `repayment_type` tinyint(1) DEFAULT NULL COMMENT '还款方式,0:等额本息,1:按月付息,到期还本,2:按天计息',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '标的信息录入时间',
+  `presell_time` datetime DEFAULT NULL COMMENT '预售时间(默认标的发布时间)',
+  `publish_time` datetime DEFAULT NULL COMMENT '标的发布时间(复审通过时间)',
+  `recheck_time` datetime DEFAULT NULL COMMENT '满标复审时间',
+  `end_time` datetime DEFAULT NULL COMMENT '标的完结时间(废弃,撤标,还款完成,逾期结清)等',
+  PRIMARY KEY (`id`),
+  KEY `borrower_id_index` (`borrower_id`),
+  KEY `code_index` (`code`),
+  KEY `status_index` (`status`),
+  KEY `period_index` (`period`),
+  KEY `name_index` (`name`),
+  KEY `repayment_type_index` (`repayment_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
+
+-- ----------------------------
+-- Records of project
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project_audit_log
+-- ----------------------------
+DROP TABLE IF EXISTS `project_audit_log`;
+CREATE TABLE `project_audit_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `project_id` int(10) unsigned DEFAULT NULL COMMENT '标的ID',
+  `remark` varchar(200) DEFAULT NULL COMMENT '审核记录',
+  `add_time` datetime DEFAULT NULL COMMENT '审核时间',
+  `operator_id` int(10) unsigned DEFAULT NULL COMMENT '审核人',
+  PRIMARY KEY (`id`),
+  KEY `index_project_id` (`project_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的审核记录表';
+
+-- ----------------------------
+-- Records of project_audit_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project_car_ext
+-- ----------------------------
+DROP TABLE IF EXISTS `project_car_ext`;
+CREATE TABLE `project_car_ext` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `project_id` int(10) unsigned NOT NULL COMMENT '标的信息表',
   `content` text COMMENT '项目详细信息(富文本)',
   PRIMARY KEY (`id`),
-  KEY `borrow_id_index` (`borrow_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的附加信息表';
+  KEY `index_project_id` (`project_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的汽车附加信息表';
 
 -- ----------------------------
--- Records of borrow_ext
+-- Records of project_car_ext
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for borrow_tips
+-- Table structure for project_receive
 -- ----------------------------
-DROP TABLE IF EXISTS `borrow_tips`;
-CREATE TABLE `borrow_tips` (
+DROP TABLE IF EXISTS `project_receive`;
+CREATE TABLE `project_receive` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `borrow_id` int(10) unsigned NOT NULL COMMENT '标的ID',
+  `user_id` int(10) DEFAULT NULL COMMENT '投资人ID',
+  `status` tinyint(1) DEFAULT '0' COMMENT '回款状态 0:待回款 1:已回款',
+  `tender_id` int(10) DEFAULT NULL COMMENT '投标ID',
+  `project_id` int(10) DEFAULT NULL COMMENT '项目ID',
+  `period` tinyint(2) DEFAULT NULL COMMENT '第几期回款',
+  `periods` tinyint(2) DEFAULT NULL COMMENT '总期数',
+  `capital` decimal(12,2) DEFAULT NULL COMMENT '应还本金',
+  `interest` decimal(12,2) DEFAULT NULL COMMENT '预计回款利息(基础利息)',
+  `platform_interest` decimal(12,2) DEFAULT '0.00' COMMENT '预计平台加息利息',
+  `coupon_interest` decimal(12,2) DEFAULT '0.00' COMMENT '预计加息券利息',
+  `receive_time` date DEFAULT NULL COMMENT '预计回款时间(精确到天)',
+  `real_receive_time` datetime DEFAULT NULL COMMENT '实际回款时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人回款计划表';
+
+-- ----------------------------
+-- Records of project_receive
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project_repayment
+-- ----------------------------
+DROP TABLE IF EXISTS `project_repayment`;
+CREATE TABLE `project_repayment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(10) unsigned DEFAULT NULL COMMENT '借款人ID',
+  `project_id` int(10) unsigned DEFAULT NULL COMMENT '标的ID',
+  `status` bit(1) DEFAULT b'0' COMMENT '是否还款 0:未还款 1:已还款',
+  `mode` tinyint(1) DEFAULT '0' COMMENT '还款方式 0:正常还款,1:提前还款,2:逾期还款',
+  `period` tinyint(4) unsigned DEFAULT NULL COMMENT '第几期还款',
+  `periods` tinyint(3) unsigned DEFAULT NULL COMMENT '总期数',
+  `capital` decimal(12,2) unsigned DEFAULT NULL COMMENT '预计还款本金',
+  `interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '预计还款利息',
+  `repay_time` date DEFAULT NULL COMMENT '预计还款时间(精确到天)',
+  `real_repay_time` datetime DEFAULT NULL COMMENT '实际还款时间(精确到秒)',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`),
+  KEY `index_user_id` (`user_id`),
+  KEY `index_project_id` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款人还款计划表';
+
+-- ----------------------------
+-- Records of project_repayment
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project_tender
+-- ----------------------------
+DROP TABLE IF EXISTS `project_tender`;
+CREATE TABLE `project_tender` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) DEFAULT NULL COMMENT '用户ID',
+  `project_id` int(10) DEFAULT NULL COMMENT '标的id',
+  `account` decimal(12,2) unsigned DEFAULT NULL COMMENT '投标金额(元)',
+  `base_interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '基础利息(预计利息)',
+  `platform_interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '平台加息利息(预计利息)',
+  `coupon_interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '加息券利息(预计利息)',
+  `status` tinyint(2) DEFAULT '0' COMMENT '投标状态:-3标的撤销,-2:已转让,-1:转让申请中,0:投标加入,1:回款中,2:还款完成',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of project_tender
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project_tips
+-- ----------------------------
+DROP TABLE IF EXISTS `project_tips`;
+CREATE TABLE `project_tips` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `project_id` int(10) unsigned NOT NULL COMMENT '标的ID',
   `tips_id` int(10) unsigned DEFAULT NULL COMMENT '标签ID',
   PRIMARY KEY (`id`),
-  KEY `borrow_id_index` (`borrow_id`),
+  KEY `borrow_id_index` (`project_id`),
   KEY `tips_id_index` (`tips_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的标签关系表';
 
 -- ----------------------------
--- Records of borrow_tips
--- ----------------------------
-
--- ----------------------------
--- Table structure for recharge_bank
--- ----------------------------
-DROP TABLE IF EXISTS `recharge_bank`;
-CREATE TABLE `recharge_bank` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(50) DEFAULT NULL COMMENT '银行编号(与第三方充值合作的银行编号)',
-  `type` varchar(20) DEFAULT NULL COMMENT '银行类型:ABC,ICBC',
-  `name` varchar(50) DEFAULT NULL COMMENT '银行名称',
-  `icon` varchar(500) DEFAULT NULL COMMENT '银行图标',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除(数据库可见,后台不可见)',
-  `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态 0:未锁定 1:锁定(相当于下架,后台可见,前台不可见)',
-  PRIMARY KEY (`id`),
-  KEY `code_index` (`code`),
-  KEY `type_index` (`type`),
-  KEY `name_index` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='充值银行信息表';
-
--- ----------------------------
--- Records of recharge_bank
+-- Records of project_tips
 -- ----------------------------
 
 -- ----------------------------
@@ -521,4 +632,19 @@ CREATE TABLE `user_address` (
 
 -- ----------------------------
 -- Records of user_address
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user_ext
+-- ----------------------------
+DROP TABLE IF EXISTS `user_ext`;
+CREATE TABLE `user_ext` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `email` varchar(50) DEFAULT NULL COMMENT '邮箱地址',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '头像地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户附加信息表';
+
+-- ----------------------------
+-- Records of user_ext
 -- ----------------------------

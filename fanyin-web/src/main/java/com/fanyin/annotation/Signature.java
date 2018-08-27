@@ -8,6 +8,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * 需要请求验签的地方添加该验签
  * @author 王艳兵
  * @date 2018/8/15 15:24
  */

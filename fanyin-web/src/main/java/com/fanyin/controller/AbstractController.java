@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 public class AbstractController {
 
     /**
-     * 获取登陆用户的id,必须在Controller中添加@AccessToken(access=true)注解,否则获取时会抛异常
+     * 前后端分离方式:获取登陆用户的id,必须在Controller中添加@AccessToken(access=true)注解,否则获取时会抛异常
      * @return id
      */
     protected int getUserId(){
@@ -29,7 +29,7 @@ public class AbstractController {
     }
 
     /**
-     * 获取访问来源
+     * 前后端分离方式:获取访问来源
      * @return android ios h5
      */
     protected String getSource(){
@@ -37,7 +37,7 @@ public class AbstractController {
     }
 
     /**
-     * 获取软件版本号
+     * 前后端分离方式:获取软件版本号
      * @return v1.0.0
      */
     protected String getVersion(){
@@ -45,7 +45,7 @@ public class AbstractController {
     }
 
     /**
-     * 获取系统版本号 针对android和ios
+     * 前后端分离方式:获取系统版本号 针对android和ios
      * @return ios 10.4.1
      */
     protected String getOsVersion(){
