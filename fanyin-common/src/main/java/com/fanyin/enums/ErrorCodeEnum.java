@@ -55,6 +55,11 @@ public enum ErrorCodeEnum {
      */
     SIGN_ERROR(1008,"验签失败"),
 
+    /**
+     * 参数解析异常
+     */
+    PARAMETER_PARSE_ERROR(1009,"参数解析异常"),
+
 
     /**
      * 身份证格式校验错误

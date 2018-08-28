@@ -29,6 +29,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(accessHandlerInterceptor());
     }
 
+
+
     /**
      * 签名,令牌拦截器
      * @return handler

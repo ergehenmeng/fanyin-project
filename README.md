@@ -13,6 +13,15 @@
 * 签名接口额外要传递的头信息包含:
   * Sign :签名(签名规则见SignatureUtil)
   * Timestamp: 时间戳
+* 验签:@Signature
 * 登陆后额外传递的头信息包含:
   * Access-Key:登陆成功时后台传递前台
   * Access-Token: 登陆成功时后台传递给前台
+* 参数校验,管理后台默认不进行校验,前台PC,APP,H5可通过@Validation开启校验  
+* 登陆拦截:@Access
+* APP端 请求:/mobile/**
+* H5端 请求:/html5/**
+* PC端(前台,后台) 请求:/json/**
+* 后台管理页面 请求:/bg/**
+* 后台管理页面json请求:/bg/json/**
+
