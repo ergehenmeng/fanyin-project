@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * 冒泡 不算快
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/21 17:41
  */
 public class MaoPao {

@@ -4,7 +4,7 @@ import akka.actor.UntypedAbstractActor;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/27 17:13
  */
 public class Greeter extends UntypedAbstractActor {

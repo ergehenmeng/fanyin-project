@@ -4,7 +4,7 @@ import com.fanyin.dto.AccessToken;
 
 /**
  * 会话令牌service
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 17:35
  */
 public interface AccessTokenService {

@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 字符串长度校验 只适用string
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 11:24
  */
 @Documented

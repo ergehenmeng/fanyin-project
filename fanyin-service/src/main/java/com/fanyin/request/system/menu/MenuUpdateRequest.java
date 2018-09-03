@@ -3,7 +3,7 @@ package com.fanyin.request.system.menu;
 import java.io.Serializable;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  */
 public class MenuUpdateRequest implements Serializable {
 

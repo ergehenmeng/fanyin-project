@@ -2,7 +2,7 @@ package com.fanyin.test.io.netty.protocol;
 
 /**
  * 自定义协议
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 9:26
  */
 public final class Message {

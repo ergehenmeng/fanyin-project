@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * ByteBuffer说明
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 17:29
  */
 public class ByteBufferMain {

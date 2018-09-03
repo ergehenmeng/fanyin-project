@@ -2,7 +2,7 @@ package com.fanyin.enums;
 
 /**
  * 客户端类型
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 13:51
  */
 public enum Source {

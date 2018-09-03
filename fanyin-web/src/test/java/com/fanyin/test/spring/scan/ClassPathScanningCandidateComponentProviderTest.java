@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * 根据路径扫描表 只扫描指定注解的 默认是Component,ManagedBean,Named
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/3/9 11:24
  */
 public class ClassPathScanningCandidateComponentProviderTest {

@@ -9,7 +9,7 @@ import org.springframework.cglib.proxy.MethodProxy;
 import java.lang.reflect.Method;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/12 15:27
  */
 public class CglibProxy implements MethodInterceptor {

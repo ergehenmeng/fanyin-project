@@ -3,6 +3,7 @@ package com.fanyin.controller.system;
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.controller.AbstractController;
 import com.google.code.kaptcha.Producer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

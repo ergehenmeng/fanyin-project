@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 客户端心跳检测
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 14:23
  */
 public class ClientHeartBeatHandler extends ChannelInboundHandlerAdapter {

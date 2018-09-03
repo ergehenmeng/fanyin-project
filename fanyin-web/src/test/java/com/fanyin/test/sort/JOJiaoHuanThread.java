@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/22 10:10
  */
 public class JOJiaoHuanThread {

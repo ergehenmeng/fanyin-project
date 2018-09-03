@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 监听某一个节点的变化
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/3 15:54
  */
 public class NodeCacheCurator {

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 9:21
  */
 public final class MessageHeader {

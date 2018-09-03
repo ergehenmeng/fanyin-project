@@ -4,7 +4,7 @@ import com.fanyin.constant.CommonConstant;
 
 /**
  * 签名工具类
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/15 15:33
  */
 public class SignatureUtil {

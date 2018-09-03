@@ -6,7 +6,7 @@ import org.jboss.marshalling.ByteInput;
 import java.io.IOException;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 11:21
  */
 public class ChannelBufferByteInput implements ByteInput {

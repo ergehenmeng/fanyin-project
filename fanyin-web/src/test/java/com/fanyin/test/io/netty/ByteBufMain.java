@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/21 13:54
  */
 public class ByteBufMain {

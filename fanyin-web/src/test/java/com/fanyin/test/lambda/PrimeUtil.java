@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 
 /**
  * 是否为质数
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/26 19:56
  */
 public class PrimeUtil {

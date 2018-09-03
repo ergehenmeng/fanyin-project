@@ -1,7 +1,7 @@
 package com.fanyin.test;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/20 10:03
  */
 public class StringTest {

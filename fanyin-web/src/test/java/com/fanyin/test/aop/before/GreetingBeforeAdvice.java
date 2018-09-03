@@ -9,7 +9,7 @@ import org.springframework.aop.framework.ProxyFactory;
 import java.lang.reflect.Method;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/12 16:20
  */
 public class GreetingBeforeAdvice implements MethodBeforeAdvice {

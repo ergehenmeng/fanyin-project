@@ -13,7 +13,7 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 14:00
  */
 public class HttpFileServer {

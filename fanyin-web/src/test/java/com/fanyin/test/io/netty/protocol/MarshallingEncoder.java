@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import org.jboss.marshalling.Marshaller;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 10:45
  */
 public class MarshallingEncoder {

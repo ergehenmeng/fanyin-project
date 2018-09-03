@@ -7,7 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 16:40
  */
 public class Server {

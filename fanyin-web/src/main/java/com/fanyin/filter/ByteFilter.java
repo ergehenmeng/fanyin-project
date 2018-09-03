@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * 请求参数重复使用 方便ValidationHandlerMethodArgumentResolver参数校验
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/28 16:38
  */
 @WebFilter(filterName = "byteFilter",urlPatterns = {"/mobile/**","/html5/**","/json/**"})

@@ -16,7 +16,7 @@ import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 14:07
  */
 public class FileHandler extends SimpleChannelInboundHandler<FullHttpRequest> {

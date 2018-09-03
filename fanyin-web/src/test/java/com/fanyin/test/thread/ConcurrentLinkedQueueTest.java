@@ -4,7 +4,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/12 15:20
  */
 public class ConcurrentLinkedQueueTest {

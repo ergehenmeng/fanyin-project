@@ -4,7 +4,7 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/17 15:13
  */
 public class CronTriggerMain {

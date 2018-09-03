@@ -3,7 +3,7 @@ package com.fanyin.test.lambda;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/27 10:32
  */
 public class CompletableFutureTest {

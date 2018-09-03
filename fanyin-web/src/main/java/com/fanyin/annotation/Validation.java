@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 请求参数必须为application/json格式,
  * 并且数据绑定对象必须为非基本类型
  * @see com.fanyin.inteceptor.ValidationHandlerMethodArgumentResolver#supportsParameter(MethodParameter)  拦截规则
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/15 17:55
  */
 @Documented

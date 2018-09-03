@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/1/26 16:10
  */
 public class BeanCopyUtil {

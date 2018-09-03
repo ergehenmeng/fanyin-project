@@ -1,7 +1,7 @@
 package com.fanyin.test.base;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/9 11:20
  */
 public class IntegerMain {

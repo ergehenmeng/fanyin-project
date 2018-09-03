@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/25 11:14
  */
 public class ArrayTest {

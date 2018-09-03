@@ -9,7 +9,7 @@ import java.util.concurrent.RecursiveTask;
 /**
  * RecursiveTask:带返回值,
  * RecursiveAction:不带返回值
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/11 15:27
  */
 public class ForkJoinPoolTest extends RecursiveTask<Long> {

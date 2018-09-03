@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 11:43
  */
 public class MobileDefine implements ConstraintValidator<RangeDouble,String> {

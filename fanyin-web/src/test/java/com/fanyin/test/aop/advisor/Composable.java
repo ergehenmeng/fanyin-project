@@ -11,7 +11,7 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 
 /**
  * 复合切面 intersection交集 union合集
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/13 17:59
  */
 public class Composable {

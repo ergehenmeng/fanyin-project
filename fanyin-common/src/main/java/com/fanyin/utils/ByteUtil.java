@@ -2,7 +2,7 @@ package com.fanyin.utils;
 
 /**
  * 字节工具类
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/6 15:19
  */
 public class ByteUtil {

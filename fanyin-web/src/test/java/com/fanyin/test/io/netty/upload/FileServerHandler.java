@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 17:32
  */
 public class FileServerHandler extends SimpleChannelInboundHandler<String> {

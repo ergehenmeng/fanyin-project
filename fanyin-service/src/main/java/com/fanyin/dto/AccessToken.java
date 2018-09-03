@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * token令牌
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 17:37
  */
 public class AccessToken implements Serializable {

@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 14:36
  */
 public class Client {

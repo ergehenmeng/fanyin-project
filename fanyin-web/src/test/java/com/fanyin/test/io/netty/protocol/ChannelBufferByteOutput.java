@@ -6,7 +6,7 @@ import org.jboss.marshalling.ByteOutput;
 import java.io.IOException;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 10:48
  */
 public class ChannelBufferByteOutput implements ByteOutput {

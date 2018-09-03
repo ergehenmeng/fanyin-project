@@ -4,7 +4,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.util.StringUtils;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * 总结:与spring结合扫描包路径 分隔符支持 , ; 空格 回车
  * @date 2018/3/9 10:58
  */

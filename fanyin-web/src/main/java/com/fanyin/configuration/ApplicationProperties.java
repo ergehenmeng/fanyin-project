@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/2 14:05
  */
 @ConfigurationProperties(prefix = "project")

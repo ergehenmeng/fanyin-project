@@ -1,7 +1,7 @@
 package com.fanyin.test.aop.introducation;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/13 10:00
  */
 public interface Monitorable {

@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.LongAdder;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/27 16:07
  */
 public class AtomicLongAdd {

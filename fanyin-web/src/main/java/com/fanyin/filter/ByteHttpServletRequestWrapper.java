@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/28 16:42
  */
 public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {

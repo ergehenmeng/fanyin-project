@@ -32,7 +32,6 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
@@ -68,7 +67,7 @@
     <logger name="jdbc.resultset" level="WARN"/>
     <logger name="jdbc.sqltiming" level="WARN"/>
     <logger name="jdbc.connection" level="WARN"/>
-    <logger name="org.springframework" level="DEBUG"/>
-    <logger name="freemarker" level="INFO" />
+    <logger name="org.springframework" level="INFO"/>
+
 
 </configuration>

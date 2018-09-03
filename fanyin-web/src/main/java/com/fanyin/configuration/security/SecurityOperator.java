@@ -19,7 +19,7 @@ public class SecurityOperator extends SystemOperator implements UserDetails{
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    protected SecurityOperator(SystemOperator operator,Collection<GrantedAuthority> authorityList){
+    SecurityOperator(SystemOperator operator,Collection<GrantedAuthority> authorityList){
         BeanUtils.copyProperties(operator,this);
         this.authorities = authorityList;
     }

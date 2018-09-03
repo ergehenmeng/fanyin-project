@@ -3,7 +3,7 @@ package com.fanyin.test.security;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/8 14:07
  */
 public class BCryptPasswordTest {

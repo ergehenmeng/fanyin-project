@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 /**
  * 位运行算符
- * @author 王艳兵
+ * @author 二哥很猛
  */
 public class BitCalc {
 	public static void main(String[] args) {

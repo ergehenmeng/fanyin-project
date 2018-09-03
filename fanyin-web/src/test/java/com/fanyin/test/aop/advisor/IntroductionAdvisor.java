@@ -6,7 +6,7 @@ import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultIntroductionAdvisor;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/16 9:55
  */
 public class IntroductionAdvisor {

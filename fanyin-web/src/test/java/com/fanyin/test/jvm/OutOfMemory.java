@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * -Xms20m -Xmx20m
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/3/21 18:21
  */
 public class OutOfMemory {

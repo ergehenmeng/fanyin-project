@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 16:45
  */
 public class ServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {

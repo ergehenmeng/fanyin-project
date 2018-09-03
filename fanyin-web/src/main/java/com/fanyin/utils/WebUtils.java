@@ -22,15 +22,10 @@ public class WebUtils {
      */
     public static void printJson(HttpServletResponse response, ResultJson<Object> object) throws IOException{
         response.setCharacterEncoding("UTF-8");
-        PrintWriter writer = response.getWriter();
-        try {
+        try (PrintWriter writer = response.getWriter()){
             response.setContentType("application/json;charset=utf-8");
             writer.write(JSONObject.toJSONString(object));
             writer.flush();
-        }finally {
-            if (writer != null){
-                writer.close();
-            }
         }
     }
 }

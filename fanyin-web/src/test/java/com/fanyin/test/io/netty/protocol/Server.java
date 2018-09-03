@@ -12,7 +12,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 14:51
  */
 public class Server {

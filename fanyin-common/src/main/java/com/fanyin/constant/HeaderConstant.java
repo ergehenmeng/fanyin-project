@@ -2,7 +2,7 @@ package com.fanyin.constant;
 
 /**
  * 请求头信息
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 16:57
  */
 public class HeaderConstant {

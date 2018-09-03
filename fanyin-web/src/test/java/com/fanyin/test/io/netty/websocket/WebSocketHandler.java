@@ -10,7 +10,7 @@ import io.netty.handler.codec.http.websocketx.*;
 import java.util.Date;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 16:20
  */
 public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {

@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/31 18:05
  */
 public class ApacheCurator {

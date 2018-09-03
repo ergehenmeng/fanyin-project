@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 13:46
  */
 public class SectionDefine implements ConstraintValidator<Section,Integer> {

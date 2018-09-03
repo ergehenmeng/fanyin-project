@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/3 16:38
  */
 public class LeaderLatchCurator {

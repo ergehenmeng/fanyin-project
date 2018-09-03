@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * 校验规则定义
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 11:30
  */
 public class RangeLengthDefine implements ConstraintValidator<RangeLength,String> {

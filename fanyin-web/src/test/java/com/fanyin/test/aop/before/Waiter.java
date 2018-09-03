@@ -1,7 +1,7 @@
 package com.fanyin.test.aop.before;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/12 16:15
  */
 public interface Waiter {

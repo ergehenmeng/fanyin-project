@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/4/17 16:36
  */
 public class BigDecimalTest {

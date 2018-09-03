@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 二哥很猛
  * @date 2018/1/25 14:49
  */
-public class ImageCodeAuthenticationDetails extends WebAuthenticationDetails {
+class ImageCodeAuthenticationDetails extends WebAuthenticationDetails {
 
     private static final long serialVersionUID = 6385522500580848508L;
     /**
@@ -24,18 +24,18 @@ public class ImageCodeAuthenticationDetails extends WebAuthenticationDetails {
      */
     private String sessionImageCode;
 
-    public ImageCodeAuthenticationDetails(HttpServletRequest request) {
+    ImageCodeAuthenticationDetails(HttpServletRequest request) {
         super(request);
         this.imageCode = request.getParameter(SecurityParam.IMAGE_CODE);
         this.sessionImageCode = (String) request.getSession().getAttribute(CommonConstant.IMG_AUTH_CODE);
     }
 
-    public String getImageCode() {
+    String getImageCode() {
         return imageCode;
     }
 
 
-    public String getSessionImageCode() {
+    String getSessionImageCode() {
         return sessionImageCode;
     }
 

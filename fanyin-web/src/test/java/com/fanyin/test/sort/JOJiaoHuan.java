@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * 奇偶交换排序
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/22 9:49
  */
 public class JOJiaoHuan {

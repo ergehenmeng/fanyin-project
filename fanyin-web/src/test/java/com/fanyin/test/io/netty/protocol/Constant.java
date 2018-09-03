@@ -1,7 +1,7 @@
 package com.fanyin.test.io.netty.protocol;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 15:25
  */
 public class Constant {

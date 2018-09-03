@@ -5,7 +5,7 @@ import org.assertj.core.util.Lists;
 import java.util.List;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/26 19:47
  */
 public class ConstantMethodRef {

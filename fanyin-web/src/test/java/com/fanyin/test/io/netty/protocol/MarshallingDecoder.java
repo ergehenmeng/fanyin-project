@@ -5,7 +5,7 @@ import org.jboss.marshalling.ByteInput;
 import org.jboss.marshalling.Unmarshaller;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 11:10
  */
 public class MarshallingDecoder {

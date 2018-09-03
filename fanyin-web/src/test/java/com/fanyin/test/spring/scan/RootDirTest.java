@@ -1,7 +1,7 @@
 package com.fanyin.test.spring.scan;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/3/9 15:01
  */
 public class RootDirTest {

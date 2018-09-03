@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 菜单添加
- * @author 王艳兵
+ * @author 二哥很猛
  * @date  2018/1/30 11:36
  */
 public class MenuInsertRequest implements Serializable {

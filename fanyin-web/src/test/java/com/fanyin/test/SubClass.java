@@ -5,7 +5,7 @@ import org.springframework.util.ClassUtils;
 import java.lang.reflect.Method;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/2/8 13:45
  */
 public class SubClass extends SecondClass{

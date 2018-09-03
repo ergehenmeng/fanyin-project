@@ -7,7 +7,7 @@ import org.quartz.JobExecutionException;
 import java.util.Date;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/17 14:25
  */
 public class SimpleJob implements Job {

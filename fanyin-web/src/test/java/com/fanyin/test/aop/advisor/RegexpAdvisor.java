@@ -8,7 +8,7 @@ import org.springframework.aop.support.RegexpMethodPointcutAdvisor;
 
 /**
  * 正则表达式匹配模式,setPattern方法匹配是全限定的方法名 即包含类名
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/13 14:14
  */
 public class RegexpAdvisor extends RegexpMethodPointcutAdvisor {

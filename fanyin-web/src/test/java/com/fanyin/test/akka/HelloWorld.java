@@ -6,7 +6,7 @@ import akka.actor.UntypedAbstractActor;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/27 17:19
  */
 public class HelloWorld extends UntypedAbstractActor {

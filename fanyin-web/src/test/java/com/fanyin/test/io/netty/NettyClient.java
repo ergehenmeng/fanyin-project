@@ -10,7 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/18 19:57
  */
 public class NettyClient {

@@ -6,7 +6,7 @@ import org.quartz.impl.triggers.SimpleTriggerImpl;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/17 14:21
  */
 public class SimpleJobMain {

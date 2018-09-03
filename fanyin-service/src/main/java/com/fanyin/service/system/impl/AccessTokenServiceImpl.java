@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/14 17:36
  */
 @Service("accessTokenService")

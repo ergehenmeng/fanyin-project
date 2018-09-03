@@ -11,7 +11,7 @@ package com.fanyin.test.jvm;
  * -XX:+PrintGCTimeStamps #输出gc的触发时间
  * -XX:PretenureSizeThreshold=3145728 令大于这个设置值的对象直接在老年代分配.这样做的目的避免在Eden区以及两个Survivor区之间发生大量的内存复制
  *
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/3/22 16:59
  */
 public class GCLog {

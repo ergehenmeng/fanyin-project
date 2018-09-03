@@ -4,7 +4,7 @@ import com.fanyin.dto.AccessToken;
 
 /**
  * 投资人service
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/15 17:18
  */
 public interface UserService {

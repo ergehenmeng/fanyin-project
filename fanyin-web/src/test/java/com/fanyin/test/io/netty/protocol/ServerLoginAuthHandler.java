@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 13:51
  */
 public class ServerLoginAuthHandler extends ChannelInboundHandlerAdapter {

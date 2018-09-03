@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/16 11:03
  */
 @Aspect

@@ -1,7 +1,7 @@
 package com.fanyin.test.fastjson;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/4/4 14:53
  */
 public class TypeRefer {

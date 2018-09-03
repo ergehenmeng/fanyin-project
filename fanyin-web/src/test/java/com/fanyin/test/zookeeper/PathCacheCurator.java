@@ -10,7 +10,7 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 
 /**
  * 子节点的变化(增删改查)
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/3 15:55
  */
 public class PathCacheCurator {

@@ -7,7 +7,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import java.util.Map;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 9:27
  */
 public class NettyEncoder extends MessageToByteEncoder<Message> {

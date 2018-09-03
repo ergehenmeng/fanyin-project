@@ -1,7 +1,7 @@
 package com.fanyin.test.asm;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/3/9 18:02
  */
 public class MyClassLoader extends ClassLoader {

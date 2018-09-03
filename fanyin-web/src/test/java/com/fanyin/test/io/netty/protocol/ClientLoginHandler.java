@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/20 14:57
  */
 public class ClientLoginHandler extends ChannelInboundHandlerAdapter {

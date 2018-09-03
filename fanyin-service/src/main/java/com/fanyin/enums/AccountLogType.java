@@ -2,7 +2,7 @@ package com.fanyin.enums;
 
 /**
  * 资产变动详细记录类型 包含借款人和投资人(平台账户以银行为准)
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/8 11:52
  */
 public enum AccountLogType {

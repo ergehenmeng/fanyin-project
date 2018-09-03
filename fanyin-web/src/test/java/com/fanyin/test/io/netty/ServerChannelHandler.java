@@ -5,7 +5,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/18 19:34
  */
 public class ServerChannelHandler extends ChannelInitializer<SocketChannel> {

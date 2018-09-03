@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 
 /**
  * 静态方法切面类型
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/13 11:37
  */
 public class StaticMethodAdvisor extends StaticMethodMatcherPointcutAdvisor {

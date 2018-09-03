@@ -8,7 +8,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.util.Date;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/18 19:40
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {

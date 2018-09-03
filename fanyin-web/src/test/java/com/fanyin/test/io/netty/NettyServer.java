@@ -9,7 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/18 19:20
  */
 public class NettyServer {

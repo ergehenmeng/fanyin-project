@@ -1,7 +1,7 @@
 package com.fanyin.test.lambda;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/26 19:46
  */
 public class User {

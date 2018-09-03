@@ -7,7 +7,7 @@ import com.fanyin.request.system.menu.MenuUpdateRequest;
 import java.util.List;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/1/26 16:14
  */
 public interface SystemMenuService {

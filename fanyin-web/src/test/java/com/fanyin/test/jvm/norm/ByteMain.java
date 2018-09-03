@@ -1,7 +1,7 @@
 package com.fanyin.test.jvm.norm;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/4/9 14:23
  */
 public class ByteMain {

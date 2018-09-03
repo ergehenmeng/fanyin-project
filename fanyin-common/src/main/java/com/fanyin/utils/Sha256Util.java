@@ -13,7 +13,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/6 15:17
  */
 public class Sha256Util {

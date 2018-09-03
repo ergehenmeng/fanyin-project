@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 用户请求信息
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/8/15 13:56
  */
 public class DataMessage extends AccessToken implements Serializable {

@@ -13,7 +13,7 @@ import io.netty.util.CharsetUtil;
 import java.net.InetSocketAddress;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/19 16:59
  */
 public class Client {

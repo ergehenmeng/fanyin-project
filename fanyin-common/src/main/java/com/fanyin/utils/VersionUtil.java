@@ -2,7 +2,7 @@ package com.fanyin.utils;
 
 /**
  * 版本比较工具类
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/3/14 9:04
  */
 public class VersionUtil {

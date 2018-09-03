@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * 插入 最快
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/22 11:54
  */
 public class ChaRu {

@@ -1,7 +1,7 @@
 package com.fanyin.test.cglib;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/7/12 15:34
  */
 public class Proxy {

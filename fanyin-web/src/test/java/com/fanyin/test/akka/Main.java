@@ -6,7 +6,7 @@ import akka.actor.Props;
 import com.typesafe.config.ConfigFactory;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/6/27 17:40
  */
 public class Main {

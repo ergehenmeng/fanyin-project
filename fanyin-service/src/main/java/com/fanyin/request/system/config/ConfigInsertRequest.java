@@ -3,7 +3,7 @@ package com.fanyin.request.system.config;
 import java.io.Serializable;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/1/29 16:07
  */
 public class ConfigInsertRequest implements Serializable{

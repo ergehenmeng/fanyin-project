@@ -24,7 +24,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
      */
     private PasswordEncoder encoder;
 
-    public void setEncoder(PasswordEncoder encoder) {
+    void setEncoder(PasswordEncoder encoder) {
         this.encoder = encoder;
     }
 

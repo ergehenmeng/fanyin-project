@@ -1,7 +1,7 @@
 package com.fanyin.test.java8;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/4/2 11:32
  */
 public class IntegerDismountingTest {
