@@ -12,7 +12,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-
+import java.nio.charset.Charset;
 
 
 /**
@@ -146,7 +146,7 @@ public class DesUtil {
             SecretKey convertSecretKey = getSecretKey(password,desType);
             Cipher cipher =getCipher(desType);
             cipher.init(Cipher.ENCRYPT_MODE,convertSecretKey);
-            byte[] bytes = cipher.doFinal(str.getBytes());
+            byte[] bytes = cipher.doFinal(str.getBytes("UTF-8"));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             LOGGER.error("DES加密失败",e);

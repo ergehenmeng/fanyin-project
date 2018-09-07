@@ -50,10 +50,10 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         }
         HttpServletRequest httpRequest = ((FilterInvocation) object).getHttpRequest();
         AntPathRequestMatcher matcher;
-        for (String key : map.keySet()){
-            matcher = new AntPathRequestMatcher(key);
+        for (Map.Entry<String,Collection<ConfigAttribute>> entry : map.entrySet()){
+            matcher = new AntPathRequestMatcher(entry.getKey());
             if(matcher.matches(httpRequest)){
-                return map.get(key);
+                return entry.getValue();
             }
         }
         return null;

@@ -8,9 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author 二哥很猛
@@ -28,10 +26,10 @@ public class Sha256Util {
     public static String sha256(String message){
         try {
             MessageDigest instance = MessageDigest.getInstance("SHA-256");
-            instance.update(message.getBytes(Charset.forName("UTF-8")));
+            instance.update(message.getBytes("UTF-8"));
             byte[] digest = instance.digest();
             return ByteUtil.byteArrayToHex(digest);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             LOGGER.error("sha256加密异常",e);
             throw new ParameterException(ErrorCodeEnum.SHA_256_ERROR);
         }
@@ -45,9 +43,9 @@ public class Sha256Util {
     public static String sha256Hmac(String message){
         try {
             Mac instance = Mac.getInstance("HmacSHA256");
-            SecretKey secretKey = new SecretKeySpec(message.getBytes(),"HmacSHA256");
+            SecretKey secretKey = new SecretKeySpec(message.getBytes("UTF-8"),"HmacSHA256");
             instance.init(secretKey);
-            byte[] bytes = instance.doFinal(message.getBytes());
+            byte[] bytes = instance.doFinal(message.getBytes("UTF-8"));
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {
             LOGGER.error("HmacSHA256加密异常",e);

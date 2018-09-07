@@ -148,8 +148,8 @@ public class HttpClientUtil {
     private static String formatParams(Map<String,String> params){
         if (!CollectionUtils.isEmpty(params)){
             List<NameValuePair> valuePairs = Lists.newArrayList();
-            for (String key : params.keySet()){
-                valuePairs.add(new BasicNameValuePair(key,params.get(key)));
+            for (Map.Entry<String,String> entry : params.entrySet()){
+                valuePairs.add(new BasicNameValuePair(entry.getKey(),entry.getValue()));
             }
             try {
                 return EntityUtils.toString(new UrlEncodedFormEntity(valuePairs,Consts.UTF_8));

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * MD5摘要算法
@@ -26,10 +25,10 @@ public class Md5Util {
     public static String md5(String str){
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(str.getBytes());
+            digest.update(str.getBytes("UTF-8"));
             byte[] bytes = digest.digest();
             return ByteUtil.byteArrayToHex(bytes);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             LOGGER.error("MD5加密异常",e);
             throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
         }

@@ -2,6 +2,7 @@ package com.fanyin.configuration.security;
 
 import com.fanyin.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,8 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2018/1/25 09:35
  */
 
-@Configuration
-@EnableConfigurationProperties(WebMvcProperties.class)
+//@Configuration
+//@EnableConfigurationProperties(WebMvcProperties.class)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
@@ -48,11 +49,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     @Bean("userDetailsService")
     protected UserDetailsService userDetailsService() {
-        return new OperatorDetailsServiceImpl();
+        return new OperatorDetailsService();
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web){
         web.ignoring().mvcMatchers(webMvcProperties.getStaticPathPattern());
     }
 

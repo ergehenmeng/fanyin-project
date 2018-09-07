@@ -22,7 +22,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/1/25 10:00
  */
-public class OperatorDetailsServiceImpl implements UserDetailsService {
+public class OperatorDetailsService implements UserDetailsService {
 
     @Autowired
     private SystemOperatorMapper systemOperatorMapper;

@@ -78,15 +78,8 @@ public enum AccountLogType {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 }
