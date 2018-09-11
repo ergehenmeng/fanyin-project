@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 11:01
  */
 public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {

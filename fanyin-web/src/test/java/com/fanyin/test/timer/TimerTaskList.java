@@ -8,15 +8,24 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 9:14
  */
 public class TimerTaskList implements Delayed {
 
+    /**
+     * 任务数统计,所有桶公用
+     */
     private AtomicInteger taskCounter;
 
+    /**
+     * 根任务,默认为空,不进行任务处理
+     */
     private TimerTaskEntry root;
 
+    /**
+     * 该TimerTaskList的过期时间
+     */
     private AtomicLong expiration;
 
 

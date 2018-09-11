@@ -1,13 +1,13 @@
 package com.fanyin.test.timer;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 10:56
  */
 public interface Timer  {
 
     /**
-     * 添加任务,将延迟执行
+     * 添加任务
      * @param task 任务
      */
     void add(TimerTask task);

@@ -1,11 +1,14 @@
 package com.fanyin.test.timer;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 9:19
  */
 public abstract class TimerTask implements Runnable {
 
+    /**
+     * 存放该TimerTask的entry对象,相互引用
+     */
     private TimerTaskEntry timerTaskEntry;
 
     /**
@@ -32,7 +35,7 @@ public abstract class TimerTask implements Runnable {
     public abstract void execute();
 
     /**
-     * 删除任务
+     * 删除任务(取消任务执行)
      */
     public void cancel(){
         synchronized (this){
@@ -43,6 +46,10 @@ public abstract class TimerTask implements Runnable {
         }
     }
 
+    /**
+     * 如果存在,先删除旧entry,再赋值
+     * @param entry 新entry
+     */
     public void setTimerTaskEntry(TimerTaskEntry entry) {
         synchronized (this){
             if(this.timerTaskEntry != null && this.timerTaskEntry != entry){

@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * 本地使用freemarker进行渲染
  * @see org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration.FreeMarkerWebConfiguration
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/10 15:48
  */
 @SpringBootTest

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 存放任务
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 11:05
  */
 @NotThreadSafe
@@ -18,12 +18,12 @@ public class TimingWheel {
     private long tickMs;
 
     /**
-     * 一圈的总格子数
+     * 一圈的格子数 每个格子都有一个 buckets
      */
     private int wheelSize;
 
     /**
-     * 一圈的间隔时间
+     * 一圈的总时间 = tickMs * wheelSize
      */
     private long interval;
 
@@ -42,6 +42,9 @@ public class TimingWheel {
      */
     private DelayQueue<TimerTaskList> queue;
 
+    /**
+     * 开启任务时的时间
+     */
     private long currentTime;
 
     /**
@@ -70,6 +73,11 @@ public class TimingWheel {
         }
     }
 
+    /**
+     * 添加新任务到时间轮上
+     * @param timerTaskEntry entry
+     * @return true:添加成功, false:添加失败,任务已过期或者已取消
+     */
     public boolean add(TimerTaskEntry timerTaskEntry){
         long expiration = timerTaskEntry.getExpirationMs();
         if(timerTaskEntry.cancelled()){

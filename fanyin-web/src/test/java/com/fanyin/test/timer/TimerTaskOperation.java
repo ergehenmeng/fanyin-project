@@ -1,7 +1,7 @@
 package com.fanyin.test.timer;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 11:56
  */
 public class TimerTaskOperation extends TimerTask {

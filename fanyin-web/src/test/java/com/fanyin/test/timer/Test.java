@@ -1,7 +1,7 @@
 package com.fanyin.test.timer;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/11 12:00
  */
 public class Test {
