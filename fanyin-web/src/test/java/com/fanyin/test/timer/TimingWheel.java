@@ -116,7 +116,7 @@ public class TimingWheel {
     }
 
     /**
-     * 指针向前
+     * 指针向前移动(更新当前时间)
      * @param timeMs 走多少时间
      */
     public void advanceClock(long timeMs){

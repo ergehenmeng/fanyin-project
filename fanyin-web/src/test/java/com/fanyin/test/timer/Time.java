@@ -3,6 +3,7 @@ package com.fanyin.test.timer;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 工具类
  * @author 二哥很猛
  * @date 2018/9/11 9:52
  */

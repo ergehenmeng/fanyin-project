@@ -9,6 +9,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
 
 /**
+ * 延迟定时执行器
  * @author 二哥很猛
  * @date 2018/9/11 11:01
  */
@@ -61,6 +62,12 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
      */
     private ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
 
+    /**
+     * 全局时间轮定时器
+     * @param executeName 线程池名称
+     * @param tickMs 初始值 一格多少毫秒
+     * @param wheelSize 初始值 一圈的格数
+     */
     public SystemTimer(String executeName,long tickMs,int wheelSize) {
         this.executeName = executeName;
         this.tickMs = tickMs;

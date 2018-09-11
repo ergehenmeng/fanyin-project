@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
 /**
+ * 存放任务的列表
  * @author 二哥很猛
  * @date 2018/9/11 9:14
  */

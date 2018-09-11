@@ -1,6 +1,7 @@
 package com.fanyin.test.timer;
 
 /**
+ * 定时器接口
  * @author 二哥很猛
  * @date 2018/9/11 10:56
  */
