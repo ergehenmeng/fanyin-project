@@ -8,17 +8,17 @@ package com.fanyin.constant;
 public class RedisConstant {
 
     /**
-     * 系统参数缓存prefix
+     * 系统参数缓存key前缀
      */
     public static final String SYSTEM_CONFIG = "system_config";
 
     /**
-     * 数据字典缓存prefix
+     * 数据字典缓存key前缀
      */
     public static final String SYSTEM_DICT = "system_dict";
 
     /**
-     * 会话令牌缓存prefix
+     * 会话令牌缓存key前缀
      */
     public static final String ACCESS_TOKEN = "access_token";
 }
