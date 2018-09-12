@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.ACCESS_TOKEN,key = "T(com.fanyin.constant.RedisConstant).ACCESS_TOKEN + #p0")
+    @Cacheable(cacheNames = RedisConstant.ACCESS_TOKEN,key = "#p0")
     public AccessToken getAccessToken(String accessKey) {
         return null;
     }
 
     @Override
-    @CachePut(cacheNames = RedisConstant.ACCESS_TOKEN,key = "T(com.fanyin.constant.RedisConstant).ACCESS_TOKEN + token.accessKey",cacheManager = "longCacheManager")
+    @CachePut(cacheNames = RedisConstant.ACCESS_TOKEN,key = "#token.accessKey",cacheManager = "longCacheManager")
     public void saveAccessToken(AccessToken token) {
     }
 }

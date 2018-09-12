@@ -1,7 +1,6 @@
 package com.fanyin.service.system;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.fanyin.model.system.SystemConfig;
 import com.fanyin.request.system.config.ConfigInsertRequest;
 import com.fanyin.request.system.config.ConfigSelectRequest;
@@ -48,39 +47,5 @@ public interface SystemConfigService {
      */
     void addConfig(ConfigInsertRequest request);
 
-    /**
-     * 根据nid获取系统参数配置信息的值
-     * @param nid 唯一nid
-     * @return 系统参数结果值string
-     */
-    String getStringByNid(String nid);
 
-    /**
-     * 根据nid获取系统参数配置信息的值,支持以下类型(yes,true,on,y,t,n,f,no,off,false)
-     * @param nid 唯一nid
-     * @return 系统参数结果值boolean
-     */
-    boolean getBooleanByNid(String nid);
-
-    /**
-     * 根据nid获取系统参数配置信息的值
-     * @param nid 唯一nid
-     * @return 系统参数结果值int 如果转换失败为0
-     */
-    int getIntByNid(String nid);
-
-    /**
-     * 根据nid获取系统参数配置信息的值
-     * @param nid 唯一nid
-     * @return 系统参数结果值json,如果异常则抛出
-     */
-    JSONObject getJsonByNid(String nid);
-
-    /**
-     * 根据nid获取系统参数配置信息的值
-     * @param nid 唯一nid
-     * @param cls 要转换的类型
-     * @return 系统参数结果值class,如果异常则抛出
-     */
-     <T> T getClassByNid(String nid, Class<T> cls);
 }

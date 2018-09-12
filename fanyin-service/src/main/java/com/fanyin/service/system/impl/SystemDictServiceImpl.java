@@ -23,7 +23,7 @@ public class SystemDictServiceImpl implements SystemDictService {
     private SystemDictMapper systemDictMapper;
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.SYSTEM_DICT,key = "T(com.p2p.constant.RedisConstant).SYSTEM_DICT + #p0")
+    @Cacheable(cacheNames = RedisConstant.SYSTEM_DICT,key = "#p0")
     public List<SystemDict> getDictByNid(String nid) {
         return systemDictMapper.getDictByNid(nid);
     }

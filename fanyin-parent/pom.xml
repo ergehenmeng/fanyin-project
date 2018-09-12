@@ -63,6 +63,7 @@
       <hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
       <!--spring redis session共享-->
       <redis-session.version>1.2.1.RELEASE</redis-session.version>
+      <kafka.version>1.0.0</kafka.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -197,6 +198,16 @@
                 <groupId>org.springframework.session</groupId>
                 <artifactId>spring-session-data-redis</artifactId>
                 <version>${redis-session.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.12</artifactId>
+                <version>${kafka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
