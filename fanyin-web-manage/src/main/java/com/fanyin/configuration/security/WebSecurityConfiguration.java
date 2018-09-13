@@ -4,6 +4,7 @@ import com.fanyin.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
@@ -31,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Configuration
-@EnableConfigurationProperties(WebMvcProperties.class)
+@EnableConfigurationProperties({WebMvcProperties.class,ApplicationProperties.class})
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
@@ -53,7 +54,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(WebSecurity web){
-        web.ignoring().mvcMatchers(webMvcProperties.getStaticPathPattern());
+        web.ignoring().antMatchers(webMvcProperties.getStaticPathPattern());
     }
 
 
@@ -147,7 +148,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
     /**
-     * 权限管理过滤器
+     * 权限管理过滤器,
+     * 声明为Bean会加入到全局FilterChain中拦截所有请求
+     * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
      * @return bean
      */
     @Bean
@@ -155,6 +158,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor();
         interceptor.setAccessDecisionManager(accessDecisionManager());
         return interceptor;
+    }
+
+    /**
+     * 声明为Bean会加入到全局FilterChain中拦截所有请求
+     * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
+     * @return bean
+     */
+    @Bean
+    public FilterRegistrationBean registration(){
+        FilterRegistrationBean registration = new FilterRegistrationBean(filterSecurityInterceptor());
+        registration.setEnabled(true);
+        return registration;
     }
 
     @Bean
@@ -180,4 +195,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     public CustomAuthenticationDetailsSource detailsSource(){
         return new CustomAuthenticationDetailsSource();
     }
+
+
 }

@@ -36,7 +36,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         for (SystemMenu menu : list){
             if(StringUtil.isNotBlank(menu.getUrl())){
                 attributes = new ArrayList<>();
-                cfg = new SecurityConfig(menu.getName());
+                cfg = new SecurityConfig(menu.getNid());
                 attributes.add(cfg);
                 map.put(menu.getUrl(),attributes);
             }

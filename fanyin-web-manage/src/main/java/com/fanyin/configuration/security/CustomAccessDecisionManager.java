@@ -18,7 +18,8 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
 
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        if(authentication == null || configAttributes.size() <= 0){
+        //可能是公共页面访问
+        if(authentication == null || configAttributes == null || configAttributes.size() <= 0){
             return;
         }
 
