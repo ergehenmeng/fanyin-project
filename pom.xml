@@ -14,7 +14,8 @@
 
     <modules>
         <module>fanyin-parent</module>
-        <module>fanyin-web</module>
+        <module>fanyin-web-manage</module>
+        <module>fanyin-web-front</module>
         <module>fanyin-service</module>
         <module>fanyin-common</module>
     </modules>

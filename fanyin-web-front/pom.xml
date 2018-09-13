@@ -10,8 +10,8 @@
         <relativePath>../fanyin-parent</relativePath>
     </parent>
 
-    <artifactId>fanyin-front-web</artifactId>
-    <name>fanyin-front-web</name>
+    <artifactId>fanyin-web-front</artifactId>
+    <name>fanyin-web-front</name>
 
 
 

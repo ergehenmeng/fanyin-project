@@ -4,6 +4,8 @@
 /fanyin-parent/*.iml
 /fanyin-service/fanyin-service.iml
 /fanyin-service/target
-/fanyin-web/fanyin-web.iml
-/fanyin-web/target
+/fanyin-web-manage/fanyin-web-manage.iml
+/fanyin-web-front/fanyin-web-front.iml
+/fanyin-web-manage/target
+/fanyin-web-front/target
 /*.iml

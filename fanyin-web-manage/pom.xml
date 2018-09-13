@@ -10,8 +10,8 @@
         <relativePath>../fanyin-parent</relativePath>
     </parent>
 
-    <artifactId>fanyin-web</artifactId>
-	<name>fanyin-web</name>
+    <artifactId>fanyin-web-manage</artifactId>
+	<name>fanyin-web-manage</name>
     <dependencies>
         <dependency>
             <groupId>com.fanyin</groupId>
@@ -61,7 +61,10 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
@@ -149,6 +152,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

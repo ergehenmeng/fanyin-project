@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
+ * 自定义监听器用来设置application级别的参数,以便于freemarker直接在页面显示
  * @author 二哥很猛
  * @date 2018/1/18 18:38
  */

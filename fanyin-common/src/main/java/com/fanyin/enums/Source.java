@@ -28,9 +28,9 @@ public enum Source {
     IOS,
 
     /**
-     * 后台
+     * 其他或第三方
      */
-    BG;
+    OTHER;
 
 }
 

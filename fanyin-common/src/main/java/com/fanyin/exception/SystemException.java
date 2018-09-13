@@ -28,7 +28,7 @@ public class SystemException extends RuntimeException {
         this.code = code;
     }
 
-    protected SystemException(int code,String msg){
+    SystemException(int code,String msg){
         super(msg);
         this.code = code;
     }

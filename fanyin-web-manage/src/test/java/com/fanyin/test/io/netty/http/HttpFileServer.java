@@ -46,6 +46,6 @@ public class HttpFileServer {
 
     public static void main(String[] args) throws Exception{
         HttpFileServer server = new HttpFileServer();
-        server.run("/fanyin-web/src/main/java/com",8888);
+        server.run("/fanyin-web-manage/src/main/java/com",8888);
     }
 }
