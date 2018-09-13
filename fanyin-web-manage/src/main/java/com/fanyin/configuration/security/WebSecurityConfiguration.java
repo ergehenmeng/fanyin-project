@@ -2,7 +2,6 @@ package com.fanyin.configuration.security;
 
 import com.fanyin.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +48,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     @Bean("userDetailsService")
     protected UserDetailsService userDetailsService() {
-        return new OperatorDetailsService();
+        return new OperatorDetailsServiceImpl();
     }
 
     @Override

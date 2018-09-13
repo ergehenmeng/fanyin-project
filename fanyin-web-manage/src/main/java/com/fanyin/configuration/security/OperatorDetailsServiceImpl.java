@@ -18,11 +18,12 @@ import java.util.List;
 
 
 /**
- * 权限验证获取用户信息
+ * 自定义获取用户信息接口,如果找不到用户信息直接抛异常
+ * 如果找到,则组装为UserDetails对象供后续拦截器进行校验
  * @author 二哥很猛
  * @date 2018/1/25 10:00
  */
-public class OperatorDetailsService implements UserDetailsService {
+public class OperatorDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private SystemOperatorMapper systemOperatorMapper;
@@ -43,7 +44,7 @@ public class OperatorDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(!CollectionUtils.isEmpty(list)){
             for (SystemMenu menu : list){
-                GrantedAuthority authority = new SimpleGrantedAuthority(menu.getName());
+                GrantedAuthority authority = new SimpleGrantedAuthority(menu.getNid());
                 authorities.add(authority);
             }
         }

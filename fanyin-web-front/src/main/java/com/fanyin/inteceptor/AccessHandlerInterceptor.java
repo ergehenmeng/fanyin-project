@@ -164,7 +164,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
 
 
     /**
-     * 获取handlerMethod上的响应的注解
+     * 获取handlerMethod上指定类型的注解,如果类上有也会返回
      * @param handler handlerMethod
      * @param cls 注解类型
      * @return AccessToken
@@ -172,7 +172,8 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
     private  <T extends Annotation> T getAnnotation(Object handler, Class<T> cls){
         if(handler instanceof HandlerMethod){
             HandlerMethod method = (HandlerMethod)handler;
-            return method.getMethodAnnotation(cls);
+            T t = method.getMethodAnnotation(cls);
+            return t != null ? t : method.getBeanType().getAnnotation(cls);
         }
         return null;
     }

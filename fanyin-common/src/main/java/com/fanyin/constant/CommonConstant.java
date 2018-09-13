@@ -25,4 +25,9 @@ public class CommonConstant {
      * 系统未知异常默认400
      */
     public static final int CODE = 400;
+
+    /**
+     * 未知ip地址
+     */
+    public static final String UNKNOWN = "unknown";
 }
