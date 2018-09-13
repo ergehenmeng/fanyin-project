@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
+import com.fanyin.constant.CommonConstant;
 import com.fanyin.ext.ResultJson;
-import com.fanyin.inteceptor.GlobalExceptionHandler;
 import com.fanyin.utils.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +28,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             WebUtils.printJson(response,resultJson);
         }else{
             log.error("权限校验异常",exception);
-            ResultJson<Object> resultJson = ResultJson.getInstance().setCode(GlobalExceptionHandler.CODE).setMsg("权限校验异常,请联系管理人员");
+            ResultJson<Object> resultJson = ResultJson.getInstance().setCode(CommonConstant.CODE).setMsg("权限校验异常,请联系管理人员");
             WebUtils.printJson(response,resultJson);
         }
     }

@@ -16,10 +16,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 @Retention(RUNTIME)
 public @interface Signature {
-
-    /**
-     * 请求是否需要签名
-     * @return 默认是
-     */
-    boolean value() default true;
 }

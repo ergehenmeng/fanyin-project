@@ -21,5 +21,8 @@ public class CommonConstant {
      */
     public static final String APP_KEY = "e6a16db37d2cbbbc3fc704ef5fa89bb02f4563d2c8109cfafb0b0e591e09fb88";
 
-
+    /**
+     * 系统未知异常默认400
+     */
+    public static final int CODE = 400;
 }

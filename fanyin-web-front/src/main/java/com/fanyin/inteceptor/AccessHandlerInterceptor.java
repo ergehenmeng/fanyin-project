@@ -1,6 +1,7 @@
 package com.fanyin.inteceptor;
 
 import com.fanyin.annotation.Access;
+import com.fanyin.annotation.GroupAccess;
 import com.fanyin.annotation.Signature;
 import com.fanyin.constant.HeaderConstant;
 import com.fanyin.dto.AccessToken;
@@ -56,14 +57,16 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
             log.error("请求接口非法,requestType:{}",requestType);
             throw new SystemException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
+
+        boolean haveGroup = haveGroup(handler);
         //签名
-        if(sign(handler)){
+        if(haveGroup || sign(handler)){
             String timestamp = request.getHeader(HeaderConstant.TIMESTAMP);
             String sign = request.getHeader(HeaderConstant.SIGN);
             signVerify(sign,timestamp);
         }
         //登陆
-        if(access(handler)){
+        if(haveGroup || access(handler)){
             String accessKey = request.getHeader(HeaderConstant.ACCESS_KEY);
             String accessToken = request.getHeader(HeaderConstant.ACCESS_TOKEN);
             accessTokenVerify(accessKey,accessToken,message);
@@ -78,10 +81,16 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
      */
     private boolean sign(Object handler){
         Signature signature = getAnnotation(handler, Signature.class);
-        if(signature != null){
-            return signature.value();
-        }
-        return false;
+        return signature != null;
+    }
+
+    /**
+     * 是否包含组合注解
+     * @param handler 处理器
+     * @return true:包含 false:包含
+     */
+    private boolean haveGroup(Object handler){
+        return getAnnotation(handler,GroupAccess.class) != null;
     }
 
     /**

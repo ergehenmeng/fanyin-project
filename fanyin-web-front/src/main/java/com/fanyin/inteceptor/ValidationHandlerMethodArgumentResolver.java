@@ -1,6 +1,7 @@
 package com.fanyin.inteceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fanyin.annotation.GroupAccess;
 import com.fanyin.annotation.Validation;
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.enums.ErrorCodeEnum;
@@ -31,7 +32,7 @@ public class ValidationHandlerMethodArgumentResolver implements HandlerMethodArg
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasMethodAnnotation(ResponseBody.class)
-                && parameter.hasMethodAnnotation(Validation.class)
+                && (parameter.hasMethodAnnotation(Validation.class) || parameter.hasMethodAnnotation(GroupAccess.class))
                 && isPrimitive(parameter)
                 && isWrapPrimitive(parameter);
     }

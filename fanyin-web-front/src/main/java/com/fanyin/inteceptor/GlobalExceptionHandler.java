@@ -1,5 +1,6 @@
 package com.fanyin.inteceptor;
 
+import com.fanyin.constant.CommonConstant;
 import com.fanyin.exception.SystemException;
 import com.fanyin.ext.ResultJson;
 import lombok.extern.slf4j.Slf4j;
@@ -10,18 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * 全局统一异常处理器
+ * 全局统一异常处理器,返回前台的数据格式由ReturnJson包装
  * @author 二哥很猛
  * @date 2018/1/18 16:20
  */
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-
-    /**
-     * 系统未知异常默认400
-     */
-    public static final int CODE = 400;
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
@@ -32,6 +28,6 @@ public class GlobalExceptionHandler {
             SystemException exception = (SystemException)e;
             return ResultJson.<String>getInstance().setCode(exception.getCode()).setMsg(exception.getMessage());
         }
-        return ResultJson.<String>getInstance().setCode(CODE).setMsg("系统异常,请联系管理人员");
+        return ResultJson.<String>getInstance().setCode(CommonConstant.CODE).setMsg("系统异常,请联系管理人员");
     }
 }
