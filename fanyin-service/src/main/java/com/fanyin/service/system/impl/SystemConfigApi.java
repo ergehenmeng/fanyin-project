@@ -5,9 +5,8 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.SystemException;
 import com.fanyin.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("systemConfigApi")
 @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+@Slf4j
 public class SystemConfigApi {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SystemConfigApi.class);
 
     @Autowired
     private SystemConfigService systemConfigService;
@@ -61,7 +59,7 @@ public class SystemConfigApi {
         try {
             return Integer.parseInt(value);
         }catch (Exception e){
-            LOGGER.error("字符串转int异常",e);
+            log.error("字符串转int异常",e);
             return 0;
         }
     }
@@ -76,7 +74,7 @@ public class SystemConfigApi {
         try {
             return JSONObject.parseObject(value);
         }catch (Exception e){
-            LOGGER.error("字符串转json异常",e);
+            log.error("字符串转json异常",e);
             throw new SystemException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }
@@ -92,7 +90,7 @@ public class SystemConfigApi {
         try {
             return JSONObject.parseObject(value,cls);
         }catch (Exception e){
-            LOGGER.error("字符串转对象异常",e);
+            log.error("字符串转对象异常",e);
             throw new SystemException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }

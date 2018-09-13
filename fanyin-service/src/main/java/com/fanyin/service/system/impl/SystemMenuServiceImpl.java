@@ -27,7 +27,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Autowired
     private SystemMenuMapper systemMenuMapper;
 
-    private static final Comparator<SystemMenu> COMPARATOR = Comparator.comparing(SystemMenu::getSort);
+    private final Comparator<SystemMenu> comparator = Comparator.comparing(SystemMenu::getSort);
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
@@ -41,7 +41,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
                 parentList.add(parent);
             }
         }
-        parentList.sort(COMPARATOR);
+        parentList.sort(comparator);
         return parentList;
     }
 
@@ -88,7 +88,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
             for(SystemMenu child : childList){
                 setChild(child,list);
             }
-            childList.sort(COMPARATOR);
+            childList.sort(comparator);
             parent.setSubList(childList);
         }
     }

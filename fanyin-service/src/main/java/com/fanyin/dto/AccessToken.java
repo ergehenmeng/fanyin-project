@@ -1,5 +1,7 @@
 package com.fanyin.dto;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/8/14 17:37
  */
+@Data
 public class AccessToken implements Serializable {
 
     private static final long serialVersionUID = -539686478899884844L;
@@ -25,31 +28,6 @@ public class AccessToken implements Serializable {
      * 用户id
      */
     private int userId;
-
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
 
 }

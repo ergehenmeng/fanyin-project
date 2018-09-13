@@ -2,8 +2,7 @@ package com.fanyin.filter;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -16,9 +15,9 @@ import java.nio.charset.Charset;
  * @author 二哥很猛
  * @date 2018/8/28 16:42
  */
+@Slf4j
 public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ByteHttpServletRequestWrapper.class);
 
     private byte[] requestByte;
 
@@ -26,7 +25,6 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
         super(request);
         this.requestByte = readByte(request);
     }
-
 
     /**
      * 将request中数据读取出来以便于重复利用
@@ -43,7 +41,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
             }
             return bos.toByteArray();
         } catch (IOException e) {
-            LOGGER.error("过滤器解析request数据异常",e);
+            log.error("过滤器解析request数据异常",e);
             throw new ParameterException(ErrorCodeEnum.PARAMETER_PARSE_ERROR);
         }
     }

@@ -1,5 +1,8 @@
 package com.fanyin.dto;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +10,8 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/8/15 13:56
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class DataMessage extends AccessToken implements Serializable {
 
     private static final long serialVersionUID = 1588228430420375286L;
@@ -32,27 +37,4 @@ public class DataMessage extends AccessToken implements Serializable {
         this.osVersion = osVersion;
     }
 
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getOsVersion() {
-        return osVersion;
-    }
-
-    public void setOsVersion(String osVersion) {
-        this.osVersion = osVersion;
-    }
 }

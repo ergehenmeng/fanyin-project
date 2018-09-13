@@ -16,7 +16,6 @@ import java.util.Collection;
  */
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
-
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
         if(authentication == null || configAttributes.size() <= 0){

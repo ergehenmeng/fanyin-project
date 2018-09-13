@@ -1,5 +1,7 @@
 package com.fanyin.model.system;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,8 +9,10 @@ import java.util.Date;
  * 系统参数表
  * @author 二哥很猛
  */
+@Data
 public class SystemConfig implements Serializable {
 
+    private static final long serialVersionUID = -3006821887681558075L;
     /**
      * 参数名称
      */
@@ -69,139 +73,5 @@ public class SystemConfig implements Serializable {
      */
     private Date updateTime;
 
-    private static final long serialVersionUID = 1L;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return 主键
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id  主键
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * @return 参数标示符
-     */
-    public String getNid() {
-        return nid;
-    }
-
-    /**
-     * @param nid  参数标示符
-     */
-    public void setNid(String nid) {
-        this.nid = nid == null ? null : nid.trim();
-    }
-
-    /**
-     * @return 参数值
-     */
-    public String getValue() {
-        return value;
-    }
-
-    /**
-     * @param value  参数值
-     */
-    public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
-    }
-
-    /**
-     * @return 备注信息
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * @param remark  备注信息
-     */
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    /**
-     * @return 参数类型,见system_dict表nid=system_config_type
-     */
-    public Byte getType() {
-        return type;
-    }
-
-    /**
-     * @param type  参数类型,见system_dict表nid=system_config_type
-     */
-    public void setType(Byte type) {
-        this.type = type;
-    }
-
-    /**
-     * @return 锁定状态(禁止编辑) 0:未锁定,1:锁定
-     */
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    /**
-     * @param locked  锁定状态(禁止编辑) 0:未锁定,1:锁定
-     */
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
-    }
-
-    /**
-     * @return 添加时间
-     */
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    /**
-     * @param addTime  添加时间
-     */
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
-    /**
-     * @return 更新时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * @param updateTime  更新时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "SystemConfig{" +
-                "id=" + id +
-                ", nid='" + nid + '\'' +
-                ", value='" + value + '\'' +
-                ", remark='" + remark + '\'' +
-                ", type=" + type +
-                ", locked=" + locked +
-                ", addTime=" + addTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

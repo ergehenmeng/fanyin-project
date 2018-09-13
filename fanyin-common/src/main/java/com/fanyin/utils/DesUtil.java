@@ -2,17 +2,14 @@ package com.fanyin.utils;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
 
 
 /**
@@ -20,9 +17,8 @@ import java.nio.charset.Charset;
  * @author 二哥很猛
  * @date 2018/1/17 15:26
  */
+@Slf4j
 public class DesUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DesUtil.class);
 
     /**
      * DES算法填充方式
@@ -149,7 +145,7 @@ public class DesUtil {
             byte[] bytes = cipher.doFinal(str.getBytes("UTF-8"));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
-            LOGGER.error("DES加密失败",e);
+            log.error("DES加密失败",e);
             throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
         }
     }
@@ -170,7 +166,7 @@ public class DesUtil {
             byte[] bytes = cipher.doFinal(params);
             return new String(bytes,"UTF-8");
         } catch (Exception e) {
-            LOGGER.error("DES解密失败",e);
+            log.error("DES解密失败",e);
             throw new ParameterException(ErrorCodeEnum.DECRYPT_ERROR);
         }
     }
@@ -187,7 +183,7 @@ public class DesUtil {
             }
             return Cipher.getInstance(DES3_PADDING);
         } catch (Exception e) {
-            LOGGER.error("生成Cipher加解密对象异常",e);
+            log.error("生成Cipher加解密对象异常",e);
             throw new ParameterException(ErrorCodeEnum.ENCRYPT_DECRYPT_ERROR);
         }
     }
@@ -207,7 +203,7 @@ public class DesUtil {
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(desType);
             return keyFactory.generateSecret(desKey);
         } catch (Exception e) {
-            LOGGER.error("DES获取秘钥key失败",e);
+            log.error("DES获取秘钥key失败",e);
             throw new ParameterException(ErrorCodeEnum.ENCRYPT_DECRYPT_ERROR);
         }
     }

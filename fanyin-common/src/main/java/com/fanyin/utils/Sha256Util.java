@@ -2,8 +2,7 @@ package com.fanyin.utils;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -14,9 +13,8 @@ import java.security.MessageDigest;
  * @author 二哥很猛
  * @date 2018/8/6 15:17
  */
+@Slf4j
 public class Sha256Util {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Sha256Util.class);
 
     /**
      * sha256加密
@@ -30,7 +28,7 @@ public class Sha256Util {
             byte[] digest = instance.digest();
             return ByteUtil.byteArrayToHex(digest);
         } catch (Exception e) {
-            LOGGER.error("sha256加密异常",e);
+            log.error("sha256加密异常",e);
             throw new ParameterException(ErrorCodeEnum.SHA_256_ERROR);
         }
     }
@@ -48,7 +46,7 @@ public class Sha256Util {
             byte[] bytes = instance.doFinal(message.getBytes("UTF-8"));
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {
-            LOGGER.error("HmacSHA256加密异常",e);
+            log.error("HmacSHA256加密异常",e);
             throw new ParameterException(ErrorCodeEnum.SHA_256_ERROR);
         }
     }

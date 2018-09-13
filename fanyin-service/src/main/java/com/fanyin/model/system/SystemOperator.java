@@ -1,12 +1,17 @@
 package com.fanyin.model.system;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
+@Data
 public class SystemOperator implements Serializable {
+
+    private static final long serialVersionUID = -4647762860063174639L;
     /**
      * 主键<br>
      * 表 : system_operator<br>
@@ -84,156 +89,6 @@ public class SystemOperator implements Serializable {
      * 对应字段 : remark<br>
      */
     private String remark;
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * @return 主键
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id  主键
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * @return 用户名称
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name  用户名称
-     */
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    /**
-     * @return 手机号码(登陆账户)
-     */
-    public String getMobile() {
-        return mobile;
-    }
-
-    /**
-     * @param mobile  手机号码(登陆账户)
-     */
-    public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
-    }
-
-    /**
-     * @return 用户状态:0:锁定,1:正常
-     */
-    public Boolean getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status  用户状态:0:锁定,1:正常
-     */
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    /**
-     * @return 登陆密码MD5
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password  登陆密码MD5
-     */
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public String getInitPassword() {
-        return initPassword;
-    }
-
-    public void setInitPassword(String initPassword) {
-        this.initPassword = initPassword;
-    }
-
-    /**
-     * @return 
-     */
-    public Integer getDepartment() {
-        return department;
-    }
-
-    /**
-     * @param department  
-     */
-    public void setDepartment(Integer department) {
-        this.department = department;
-    }
-
-    /**
-     * @return 删除状态 0:正常,1:已删除
-     */
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    /**
-     * @param deleted  删除状态 0:正常,1:已删除
-     */
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    /**
-     * @return 添加时间
-     */
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    /**
-     * @param addTime  添加时间
-     */
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
-    /**
-     * @return 更新时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * @param updateTime  更新时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    /**
-     * @return 备注信息
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * @param remark  备注信息
-     */
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
 
 
 }

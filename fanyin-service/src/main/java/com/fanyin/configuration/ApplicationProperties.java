@@ -1,5 +1,6 @@
 package com.fanyin.configuration;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "project")
 @Component
+@Data
 public class ApplicationProperties {
 
     /**
@@ -27,27 +29,4 @@ public class ApplicationProperties {
      */
     private String loginIgnoreUrl;
 
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getIgnoreUrl() {
-        return ignoreUrl;
-    }
-
-    public void setIgnoreUrl(String ignoreUrl) {
-        this.ignoreUrl = ignoreUrl;
-    }
-
-    public String getLoginIgnoreUrl() {
-        return loginIgnoreUrl;
-    }
-
-    public void setLoginIgnoreUrl(String loginIgnoreUrl) {
-        this.loginIgnoreUrl = loginIgnoreUrl;
-    }
 }

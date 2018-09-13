@@ -1,19 +1,18 @@
 package com.fanyin.inteceptor;
 
+import com.fanyin.annotation.Access;
+import com.fanyin.annotation.Signature;
 import com.fanyin.constant.HeaderConstant;
-import com.fanyin.dto.DataMessage;
 import com.fanyin.dto.AccessToken;
+import com.fanyin.dto.DataMessage;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.enums.Source;
 import com.fanyin.exception.SystemException;
 import com.fanyin.service.system.AccessTokenService;
 import com.fanyin.utils.SignatureUtil;
-import com.fanyin.annotation.Access;
-import com.fanyin.annotation.Signature;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -27,9 +26,8 @@ import java.lang.annotation.Annotation;
  * @author 二哥很猛
  * @date 2018/1/23 12:02
  */
+@Slf4j
 public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccessHandlerInterceptor.class);
 
     /**
      * 存放用户信息
@@ -50,12 +48,12 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
 
         //文件上传过滤掉
         if(ServletFileUpload.isMultipartContent(request)){
-            LOGGER.debug("文件上传请求,不做处理");
+            log.debug("文件上传请求,不做处理");
             return true;
         }
         //访问来源
         if(!requestType(handler,requestType)){
-            LOGGER.error("请求接口非法,requestType:{}",requestType);
+            log.error("请求接口非法,requestType:{}",requestType);
             throw new SystemException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
         //签名
@@ -94,12 +92,12 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
      */
     private void accessTokenVerify(String accessKey,String accessToken,DataMessage message){
         if (accessKey == null || accessToken == null){
-            LOGGER.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
+            log.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
             throw new SystemException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         AccessToken token = accessTokenService.getAccessToken(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken())){
-            LOGGER.error("令牌无效,accessKey:{}",accessKey);
+            log.error("令牌无效,accessKey:{}",accessKey);
             throw new SystemException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间
@@ -122,7 +120,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
         }
         String serverSign = SignatureUtil.sign(timestamp);
         if (sign.equals(serverSign)){
-            LOGGER.warn("签名错误,sign:{},timestamp:{}",sign,timestamp);
+            log.warn("签名错误,sign:{},timestamp:{}",sign,timestamp);
             throw new SystemException(ErrorCodeEnum.SIGN_ERROR);
         }
     }

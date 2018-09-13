@@ -1,7 +1,5 @@
 package com.fanyin.constant;
 
-import com.fanyin.utils.Sha256Util;
-
 /**
  * @author 二哥很猛
  * @date 2018/1/8 14:41
@@ -17,11 +15,6 @@ public class CommonConstant {
      * 图形验证码 key
      */
     public static final String IMG_AUTH_CODE = "img_auth_code";
-
-    /**
-     * 后台管理员session
-     */
-    public static final String OPERATOR_SESSION = "operator_session";
 
     /**
      * 验签 存放客户端本地 android ios

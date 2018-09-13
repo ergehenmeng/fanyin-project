@@ -3,9 +3,8 @@ package com.fanyin.utils;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -19,9 +18,8 @@ import java.nio.charset.Charset;
  * @author 二哥很猛
  * @date 2018/1/17 15:30
  */
+@Slf4j
 public class PbeUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PbeUtil.class);
 
     /**
      * 盐 直接写死
@@ -67,7 +65,7 @@ public class PbeUtil {
             byte[] bytes = cipher.doFinal(str.getBytes("UTF-8"));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
-            LOGGER.error("pbe加密失败",e);
+            log.error("pbe加密失败",e);
             throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
         }
     }
@@ -113,7 +111,7 @@ public class PbeUtil {
             byte[] result = cipher.doFinal(bytes);
             return new String(result,"UTF-8");
         } catch (Exception e) {
-            LOGGER.error("pbe解密失败",e);
+            log.error("pbe解密失败",e);
             throw new ParameterException(ErrorCodeEnum.DECRYPT_ERROR);
         }
     }

@@ -2,8 +2,7 @@ package com.fanyin.utils;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.security.MessageDigest;
 
@@ -11,11 +10,8 @@ import java.security.MessageDigest;
  * MD5摘要算法
  * @author 二哥很猛
  */
+@Slf4j
 public class Md5Util {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Md5Util.class);
-
-
 
     /**
      * md5加密
@@ -29,7 +25,7 @@ public class Md5Util {
             byte[] bytes = digest.digest();
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {
-            LOGGER.error("MD5加密异常",e);
+            log.error("MD5加密异常",e);
             throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
         }
     }

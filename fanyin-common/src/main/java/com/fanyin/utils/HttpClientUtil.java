@@ -1,6 +1,7 @@
 package com.fanyin.utils;
 
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -23,8 +24,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -36,9 +35,8 @@ import java.util.Map;
  * @author 二哥很猛
  * @date 2018/7/30 10:16
  */
+@Slf4j
 public class HttpClientUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtil.class);
 
     /**
      * get请求参数符号
@@ -71,7 +69,7 @@ public class HttpClientUtil {
      * @return 响应信息
      */
     public static String postSSL(String url,String body){
-        LOGGER.info("https post请求地址:{},请求参数:{}",url,body);
+        log.debug("https post请求地址:{},请求参数:{}",url,body);
         HttpPost post = new HttpPost(url);
         post.setEntity(new StringEntity(body,ContentType.APPLICATION_JSON));
         return execute(post,sslHttpClient(),null);
@@ -135,7 +133,7 @@ public class HttpClientUtil {
      * @return 响应数据
      */
     public static String get(String url){
-        LOGGER.info("http get请求地址及参数:{}",url);
+        log.debug("http get请求地址及参数:{}",url);
         HttpGet get = new HttpGet(url);
         return execute(get,null,null);
     }
@@ -154,7 +152,7 @@ public class HttpClientUtil {
             try {
                 return EntityUtils.toString(new UrlEncodedFormEntity(valuePairs,Consts.UTF_8));
             }catch (Exception e){
-                LOGGER.error("url参数编码错误",e);
+                log.error("url参数编码错误",e);
             }
         }
         return null;
@@ -169,7 +167,7 @@ public class HttpClientUtil {
      * @return 响应结果
      */
     public static String post(String url,String body, Map<String,String> headers,RequestConfig config){
-        LOGGER.info("http post请求地址:{},请求参数:{}",url,body);
+        log.debug("http post请求地址:{},请求参数:{}",url,body);
         HttpPost post = new HttpPost(url);
         post.setHeaders(formatHeaders(headers));
         post.setEntity(new StringEntity(body,ContentType.APPLICATION_JSON));
@@ -231,21 +229,15 @@ public class HttpClientUtil {
         try (CloseableHttpResponse response = client.execute(request)){
             int code = response.getStatusLine().getStatusCode();
             if (code != HttpStatus.SC_OK){
-                LOGGER.error("http请求响应状态码异常,code:{}",code);
+                log.error("http请求响应状态码异常,code:{}",code);
                 return null;
             }
             HttpEntity responseEntity = response.getEntity();
             String entity = EntityUtils.toString(responseEntity, Consts.UTF_8);
-            LOGGER.info("http响应结果:{}",entity);
+            log.debug("http响应结果:{}",entity);
             return entity;
         } catch (IOException e) {
-            LOGGER.error("http请求异常",e);
-        }finally {
-            try {
-                client.close();
-            } catch (IOException e) {
-                LOGGER.error("关闭client异常",e);
-            }
+            log.error("http请求异常",e);
         }
         return null;
     }

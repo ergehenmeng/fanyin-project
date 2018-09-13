@@ -1,5 +1,7 @@
 package com.fanyin.request.system.menu;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date  2018/1/30 11:36
  */
+@Data
 public class MenuInsertRequest implements Serializable {
 
     private static final long serialVersionUID = 8515421119279590820L;
@@ -51,67 +54,4 @@ public class MenuInsertRequest implements Serializable {
      */
     private Boolean mainMenu;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNid() {
-        return nid;
-    }
-
-    public void setNid(String nid) {
-        this.nid = nid;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getSubUrl() {
-        return subUrl;
-    }
-
-    public void setSubUrl(String subUrl) {
-        this.subUrl = subUrl;
-    }
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Boolean getMainMenu() {
-        return mainMenu;
-    }
-
-    public void setMainMenu(Boolean mainMenu) {
-        this.mainMenu = mainMenu;
-    }
 }

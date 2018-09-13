@@ -2,6 +2,8 @@ package com.fanyin.request.system.config;
 
 
 import com.fanyin.ext.BaseRequest;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/18 16:04
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class ConfigSelectRequest extends BaseRequest implements Serializable {
 
     private static final long serialVersionUID = -2384592001035426711L;
@@ -28,27 +32,5 @@ public class ConfigSelectRequest extends BaseRequest implements Serializable {
      */
     private String remark;
 
-    public String getRemark() {
-        return remark;
-    }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
-    }
 }

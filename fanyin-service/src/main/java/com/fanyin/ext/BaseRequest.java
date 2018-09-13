@@ -1,5 +1,7 @@
 package com.fanyin.ext;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/12 17:29
  */
+@Data
 public class BaseRequest implements Serializable{
 
     private static final long serialVersionUID = 9015209122071749218L;
@@ -26,27 +29,5 @@ public class BaseRequest implements Serializable{
      */
     private String queryName;
 
-    public String getQueryName() {
-        return queryName;
-    }
 
-    public void setQueryName(String queryName) {
-        this.queryName = queryName;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
 }
