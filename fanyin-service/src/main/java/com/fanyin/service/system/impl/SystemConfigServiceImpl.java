@@ -1,6 +1,7 @@
 package com.fanyin.service.system.impl;
 
 
+import com.alicp.jetcache.anno.Cached;
 import com.fanyin.constant.RedisConstant;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.SystemException;
@@ -57,6 +58,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
+    @Cached(name = RedisConstant.SYSTEM_CONFIG,key = "#id")
     public SystemConfig getConfigById(Integer id) {
         return systemConfigMapper.selectByPrimaryKey(id);
     }

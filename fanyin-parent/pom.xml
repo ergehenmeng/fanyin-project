@@ -68,6 +68,8 @@
       <jasypt.version>1.18</jasypt.version>
       <!--生成编译的工具类-->
       <lombok.version>1.18.0</lombok.version>
+      <!--阿里redis缓存-->
+      <jetcache.version>2.5.6</jetcache.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -228,6 +230,16 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-anno</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-redis</artifactId>
+                <version>${jetcache.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

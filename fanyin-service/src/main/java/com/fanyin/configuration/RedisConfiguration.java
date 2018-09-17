@@ -3,10 +3,13 @@ package com.fanyin.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,24 +21,31 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date 2018/1/8 14:40
  */
 @Configuration
+@PropertySource("classpath:redis.properties")
+@EnableCaching
 public class RedisConfiguration{
 
-    /**
-     * 过期时间 30分钟
-     */
-    private static final int EXPIRATION_30 = 30 * 60;
 
     /**
-     * 过期时间 10分钟
+     * 长过期时间 默认30分钟
      */
-    private static final int EXPIRATION_10 = 10 * 60;
+    @Value("${long_expire:3600}")
+    private int longExpire;
+
+
+    /**
+     * 短过期时间 默认10分钟
+     */
+    @Value("${short_expire:600}")
+    private int shortExpire;
+
 
     /**
      * 默认redisAutoConfiguration配置时,采用的是jdk序列化,该处可自定义序列化方式;
      * <br>在新版本fastJson也提供了序列化:
      * <br>FastJsonRedisSerializer(可配置化)
      * <br>GenericFastJsonRedisSerializer(默认配置)
-     * @param factory factory
+     * @param factory factory由 RedisAutoConfiguration生成
      * @return bean
      */
     @Bean("redisTemplate")
@@ -63,7 +73,7 @@ public class RedisConfiguration{
     @Bean("longCacheManager")
     public CacheManager longCacheManager(RedisTemplate<Object,Object> redisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-        cacheManager.setDefaultExpiration(EXPIRATION_30);
+        cacheManager.setDefaultExpiration(longExpire);
         cacheManager.setUsePrefix(true);
         return cacheManager;
     }
@@ -89,7 +99,7 @@ public class RedisConfiguration{
     @Bean("shortCacheManager")
     public CacheManager shortCacheManager(RedisTemplate<Object,Object> redisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-        cacheManager.setDefaultExpiration(EXPIRATION_10);
+        cacheManager.setDefaultExpiration(shortExpire);
         cacheManager.setUsePrefix(true);
         return cacheManager;
     }
