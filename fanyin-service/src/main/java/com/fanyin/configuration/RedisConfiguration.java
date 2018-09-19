@@ -29,14 +29,14 @@ public class RedisConfiguration{
     /**
      * 长过期时间 默认30分钟
      */
-    @Value("${long_expire:3600}")
+    @Value("${long-expire:3600}")
     private int longExpire;
 
 
     /**
      * 短过期时间 默认10分钟
      */
-    @Value("${short_expire:600}")
+    @Value("${short-expire:600}")
     private int shortExpire;
 
 

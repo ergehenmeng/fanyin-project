@@ -23,6 +23,8 @@ public class BitCalc {
 		System.out.println("a^b结果:" + (a^b));
 		//移位运算符
 		// << 左移运算 将运算符左边的对象向左移动右边指定的位数 x<<3 将x向左移动三位 低位补零
+        // x << y 等价于 x * 2^y
+
 		// >> (有符号)右移运算 将运算符左边的对象向右移动右边指定的位数 x>>5 将x向右移动五位 注意: 正值 高位补零 负值高位补1
 		// >>> (无符号)右移运算 将运算符左边的对象向右移动右边指定的位数 x>>>5 将x向右移动五位 注意:无论正负 高位都补零
 		int c = -4;
@@ -30,6 +32,7 @@ public class BitCalc {
 		System.out.println("c的二进制:"+Integer.toBinaryString(c));//10转2
 		System.out.println("d的二进制:"+Integer.toBinaryString(d));//10转2
 		System.out.println("c<<d结果:" + Integer.toBinaryString(c << d));
+		System.out.println("1<<12结果:" + (1 << 12));
 		System.out.println("c>>d结果:" + Integer.toBinaryString(c >> d));
 		System.out.println("c>>>d结果:" + Integer.toBinaryString(c >>> d));
         a &= 8;
@@ -54,6 +57,7 @@ public class BitCalc {
 		// float 占四个字节
         // boolean 1位
 
+        System.out.println(Integer.toBinaryString(4095));
 		
 	}
 }

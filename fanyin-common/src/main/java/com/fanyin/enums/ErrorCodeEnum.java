@@ -60,6 +60,24 @@ public enum ErrorCodeEnum {
      */
     PARAMETER_PARSE_ERROR(1009,"参数解析异常"),
 
+    /**
+     * 未指定方法实现
+     */
+    NOT_IMPLEMENT(1010,"未指定方法实现"),
+
+    /**
+     * 参数转换异常
+     */
+    PARAMETER_CASE_ERROR(1011,"参数转换异常"),
+    /**
+     *未知主机名
+     */
+    UN_KNOW_HOSTNAME(1012,"未知主机名"),
+    /**
+     * 未知主机地址
+     */
+    UN_KNOW_HOST_ADDRESS(1013,"未知主机地址"),
+
 
     /**
      * 身份证格式校验错误

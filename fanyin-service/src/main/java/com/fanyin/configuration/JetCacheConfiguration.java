@@ -29,10 +29,10 @@ import java.util.Map;
  * @author 王艳兵
  * @date 2018/9/14 15:58
  */
-@Configuration
-@EnableMethodCache(basePackages = "com.fanyin.service")
-@EnableCreateCacheAnnotation
-@PropertySource("classpath:redis.properties")
+//@Configuration
+//@EnableMethodCache(basePackages = "com.fanyin.service")
+//@EnableCreateCacheAnnotation
+//@PropertySource("classpath:redis.properties")
 public class JetCacheConfiguration {
 
 
@@ -54,12 +54,21 @@ public class JetCacheConfiguration {
     @Value("${timeout:60000}")
     private int timeout;
 
+    @Value("${max-idle:10}")
+    private int maxIdle;
+
+    @Value("${min-idle:2}")
+    private int minIdle;
+
+    @Value("${max-total:10}")
+    private int maxTotal;
+
     @Bean
     public Pool<Jedis> pool(){
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
-        config.setMaxIdle(10);
-        config.setMaxTotal(10);
-        config.setMinIdle(2);
+        config.setMaxIdle(maxIdle);
+        config.setMaxTotal(maxTotal);
+        config.setMinIdle(minIdle);
         return new JedisPool(config, host, port,timeout);
     }
 
@@ -89,7 +98,6 @@ public class JetCacheConfiguration {
         config.setConfigProvider(configProvider);
         config.setRemoteCacheBuilders(remoteBuilder);
         config.setLocalCacheBuilders(localBuilder);
-        config.setEnableMethodCache(true);
         config.setStatIntervalMinutes(15);
         config.setAreaInCacheName(false);
         return config;
