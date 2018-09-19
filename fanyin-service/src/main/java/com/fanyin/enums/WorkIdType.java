@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 
 /**
  * 分布式id workId生成类型
- * @author 王艳兵
+ * @author 二哥很猛
  */
 public enum  WorkIdType {
 

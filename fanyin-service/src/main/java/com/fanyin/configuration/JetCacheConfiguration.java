@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * jetCache缓存配置
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/14 15:58
  */
 //@Configuration

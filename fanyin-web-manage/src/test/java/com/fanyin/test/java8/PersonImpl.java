@@ -3,7 +3,7 @@ package com.fanyin.test.java8;
 import com.google.common.base.Supplier;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/18 16:02
  */
 public class PersonImpl implements Person {

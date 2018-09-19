@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 系统参数公用Api接口
  * 主要原因缓存注解Aop同方法调用失效问题
  * @see SystemConfigServiceImpl
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/12 14:36
  */
 @Service("systemConfigApi")
