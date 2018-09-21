@@ -3,11 +3,14 @@ package com.fanyin.configuration;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
+import com.google.common.collect.Maps;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jmx.export.MBeanExporter;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -48,5 +51,14 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer.setUseRegisteredSuffixPatternMatch(false);
+    }
+
+    @Bean
+    public MBeanExporter mBeanExporter(){
+        MBeanExporter exporter = new MBeanExporter();
+        HashMap<String, Object> map = Maps.newHashMap();
+        map.put("kaptcha:name=DefaultKaptcha",captcha());
+        exporter.setBeans(map);
+        return exporter;
     }
 }
