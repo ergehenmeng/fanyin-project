@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
  * @date 2018/1/18 18:35
  */
 @Configuration
-public class WebMvcConfiguration extends WebMvcPublicConfiguration {
+public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
