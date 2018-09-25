@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,12 +39,25 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private AccessTokenService accessTokenService;
 
+    /**
+     * 请求头最大长度 默认256
+     */
+    private static final int MAX_HEADER_LENGTH = 256;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         //app请求头信息
         String requestType = request.getHeader(HeaderConstant.REQUEST_TYPE);
         String version = request.getHeader(HeaderConstant.VERSION);
         String osVersion = request.getHeader(HeaderConstant.OS_VERSION);
+
+        if(checkHeaderLength(requestType)
+                || checkHeaderLength(version)
+                || checkHeaderLength(osVersion)){
+            //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
+            throw new SystemException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
+        }
+
         DataMessage message = new DataMessage(version,requestType,osVersion);
         TOKEN_LOCAL.set(message);
 
@@ -73,6 +87,16 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
         }
         return true;
     }
+
+    /**
+     * 检查header请求参数是否过长,防止恶意攻击导致服务器挂掉,最大长度不能超过256
+     * @param headerValue 字符串
+     * @return true合法 false不合法
+     */
+    private boolean checkHeaderLength(String headerValue){
+        return headerValue != null && headerValue.length() <= MAX_HEADER_LENGTH;
+    }
+
 
     /**
      * 是否需要签名验证
@@ -183,6 +207,11 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
         TOKEN_LOCAL.remove();
     }
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        TOKEN_LOCAL.remove();
+    }
+
     /**
      * 获取线程中的变量
      * @return 线程中保存的对象
@@ -190,4 +219,5 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
     public static DataMessage getMessage(){
         return TOKEN_LOCAL.get();
     }
+
 }
