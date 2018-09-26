@@ -70,19 +70,21 @@ public final class DefaultKeyGenerator implements KeyGenerator {
     }
 
     @Override
-    public Number generateKey() {
+    public synchronized Number generateKey() {
         return this.generateKey(WorkIdType.IP);
     }
 
     @Override
-    public Number generateKey(WorkIdType type) {
+    public synchronized Number generateKey(WorkIdType type) {
 
         long currentMillis = System.currentTimeMillis();
 
         Preconditions.checkState(lastTime <= currentMillis, "时钟回拨, 最后生成id时间: %d ms, 当前时间: %d ms", lastTime, currentMillis);
 
         if (lastTime == currentMillis) {
-            if (0L == (sequence = ++sequence & SEQUENCE_MASK)) {
+            ++sequence;
+            sequence = sequence & SEQUENCE_MASK;
+            if (0L == sequence) {
                 currentMillis = waitUntilNextTime(currentMillis);
             }
         } else {

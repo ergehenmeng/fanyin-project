@@ -1,6 +1,7 @@
 package com.fanyin.model.system;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +9,8 @@ import java.util.Date;
 /**
  * @author 二哥很猛
  */
-@Data
+@Getter
+@Setter
 public class SystemOperator implements Serializable {
 
     private static final long serialVersionUID = -4647762860063174639L;

@@ -4,6 +4,8 @@ package com.fanyin.request.system.config;
 import com.fanyin.ext.BaseRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 

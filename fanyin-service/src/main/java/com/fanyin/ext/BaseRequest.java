@@ -1,6 +1,8 @@
 package com.fanyin.ext;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,7 +11,8 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/12 17:29
  */
-@Data
+@Getter
+@Setter
 public class BaseRequest implements Serializable{
 
     private static final long serialVersionUID = 9015209122071749218L;

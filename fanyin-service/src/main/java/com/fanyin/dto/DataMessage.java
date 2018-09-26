@@ -2,6 +2,8 @@ package com.fanyin.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -17,7 +19,7 @@ public class DataMessage extends AccessToken implements Serializable {
     private static final long serialVersionUID = 1588228430420375286L;
 
     /**
-     * 软件版本号 针对app端
+     * 软件版本号 针对app端,例如 1.2.7
      */
     private String version;
 

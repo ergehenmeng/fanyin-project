@@ -1,6 +1,7 @@
 package com.fanyin.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,7 +10,8 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/8/14 17:37
  */
-@Data
+@Getter
+@Setter
 public class AccessToken implements Serializable {
 
     private static final long serialVersionUID = -539686478899884844L;
