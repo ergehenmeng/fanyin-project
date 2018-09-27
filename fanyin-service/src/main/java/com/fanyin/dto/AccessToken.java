@@ -31,5 +31,8 @@ public class AccessToken implements Serializable {
      */
     private int userId;
 
-
+    /**
+     * 访问来源 ANDROID IOS
+     */
+    private String source;
 }

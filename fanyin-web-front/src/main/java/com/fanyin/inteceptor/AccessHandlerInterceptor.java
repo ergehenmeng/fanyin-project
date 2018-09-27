@@ -133,6 +133,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
             log.error("令牌无效,accessKey:{}",accessKey);
             throw new SystemException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
+        token.setSource(message.getSource());
         //重新放入刷新超时时间
         accessTokenService.saveAccessToken(token);
         //由于ThreadLocal是对象引用,可以直接设置附加值
