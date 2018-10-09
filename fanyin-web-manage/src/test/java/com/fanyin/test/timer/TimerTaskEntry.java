@@ -37,7 +37,7 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
     /**
      * 构造方法
      * @param timerTask 定时任务
-     * @param expirationMs  到期时间
+     * @param expirationMs  到期执行时间
      */
     public TimerTaskEntry(TimerTask timerTask,long expirationMs){
         if(timerTask != null){

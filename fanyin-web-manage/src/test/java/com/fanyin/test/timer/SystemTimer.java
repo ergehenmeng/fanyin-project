@@ -92,8 +92,9 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
      * @param timerTaskEntry entry对象 封装了TimerTask对象
      */
     private void addTimerTaskEntry(TimerTaskEntry timerTaskEntry){
+        //过期或取消时,会返回false
         if (!timingWheel.add(timerTaskEntry)){
-            //过期或取消
+            //过期了,需要执行
             if(!timerTaskEntry.cancelled()){
                 //过期时执行一次
                 taskExecutor.submit(timerTaskEntry.getTimerTask());

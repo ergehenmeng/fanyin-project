@@ -17,6 +17,6 @@ public class TimerTaskOperation extends TimerTask {
 
     @Override
     public void execute() {
-        System.out.println("任务执行:" + System.currentTimeMillis());
+        System.out.println("任务执行:" + Thread.currentThread() + " : " + System.currentTimeMillis());
     }
 }

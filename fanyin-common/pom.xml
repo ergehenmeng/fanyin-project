@@ -16,6 +16,8 @@
     <version>${project-version}</version>
     <packaging>jar</packaging>
 
+    <description>fanyin-common</description>
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
