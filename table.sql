@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-08-27 16:07:33
+Date: 2018-10-11 16:54:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,18 +86,38 @@ CREATE TABLE `app_feedback` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for app_version
+-- ----------------------------
+DROP TABLE IF EXISTS `app_version`;
+CREATE TABLE `app_version` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` char(20) DEFAULT NULL COMMENT '版本类型 IOS,ANDROID',
+  `version` char(10) DEFAULT NULL COMMENT '版本号:1.2.8',
+  `force_update` bit(1) DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
+  `url` varchar(500) DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
+  `add_time` datetime DEFAULT NULL COMMENT '上传时间',
+  `remark` varchar(500) DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='APP版本管理表';
+
+-- ----------------------------
+-- Records of app_version
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for bank
 -- ----------------------------
 DROP TABLE IF EXISTS `bank`;
 CREATE TABLE `bank` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nid` varchar(50) DEFAULT NULL COMMENT '所属模板nid,例如充值,开户,提现等',
   `code` varchar(20) NOT NULL COMMENT '银行编码类型:ABC,ICBC',
   `name` varchar(50) NOT NULL COMMENT '银行名称',
-  `limit` decimal(10,2) DEFAULT '0.00' COMMENT '单卡当日限额',
-  `limit_remark` varchar(100) DEFAULT NULL COMMENT '银行卡限额说明',
+  `limit_amount` decimal(10,2) DEFAULT '0.00' COMMENT '单卡当日限额',
+  `remark` varchar(100) DEFAULT NULL COMMENT '银行卡限额说明',
   `icon` varchar(500) DEFAULT NULL COMMENT '银行图标(长图)',
   `logo` varchar(500) DEFAULT NULL COMMENT '银行图标logo(短图)',
-  `bank_no` varchar(50) DEFAULT NULL COMMENT '第三方充值银行编码',
+  `bank_num` varchar(50) DEFAULT NULL COMMENT '第三方充值银行编码(三方支付公司采用的编码可能不是ABC,ICBC等)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态:0:正常 1:已删除(数据库可见,后台不可见)',
@@ -110,7 +130,7 @@ CREATE TABLE `bank` (
 -- ----------------------------
 -- Records of bank
 -- ----------------------------
-INSERT INTO `bank` VALUES ('1', '1', '我是出借,你是出借吗', '0.00', '去', null, null, null, '2018-04-25 14:36:43', null, '\0', '\0');
+INSERT INTO `bank` VALUES ('1', null, '1', '我是出借,你是出借吗', '0.00', '去', null, null, null, '2018-04-25 14:36:43', null, '\0', '\0');
 
 -- ----------------------------
 -- Table structure for bank_card
@@ -142,7 +162,8 @@ CREATE TABLE `bank_card` (
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` tinyint(2) DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_type维护',
+  `type` tinyint(2) DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_type维护(不同模块的轮播均在该表中维护)',
+  `client_type` tinyint(1) DEFAULT NULL COMMENT '客户端类型 0:PC 1:APP',
   `img_url` varchar(500) NOT NULL COMMENT '轮播图片地址',
   `turn_url` varchar(500) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
   `index` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(小<->大) 最小的在最前面',
@@ -164,26 +185,103 @@ DROP TABLE IF EXISTS `borrower`;
 CREATE TABLE `borrower` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `mobile` varchar(11) NOT NULL COMMENT '手机号码',
-  `real_name` varchar(20) DEFAULT NULL,
-  `id_card` varchar(18) DEFAULT NULL COMMENT '身份证号',
-  `id_card_encrypt` varchar(512) DEFAULT NULL COMMENT '身份证年月日加密',
   `password` varchar(128) DEFAULT NULL COMMENT '登陆密码MD5',
-  `password_random` varchar(10) DEFAULT NULL COMMENT '登陆密码随机加密串',
-  `pay_password` varchar(128) DEFAULT NULL COMMENT '支付密码',
-  `pay_password_random` varchar(100) DEFAULT NULL COMMENT '支付密码随机串',
-  `pay_error` tinyint(2) unsigned DEFAULT NULL COMMENT '支付密码错误次数',
   `locked` bit(1) DEFAULT b'0' COMMENT '用户状态 0:未锁定 1:锁定(不可登陆系统)',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除(仅数据库可见)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `mobile_index` (`mobile`),
-  KEY `real_name_index` (`real_name`),
-  KEY `id_card_index` (`id_card`)
+  KEY `mobile_index` (`mobile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人借款人信息';
 
 -- ----------------------------
 -- Records of borrower
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for borrower_extend
+-- ----------------------------
+DROP TABLE IF EXISTS `borrower_extend`;
+CREATE TABLE `borrower_extend` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `borrower_id` int(10) DEFAULT NULL COMMENT '借款人ID',
+  `real_name` varchar(20) DEFAULT NULL COMMENT '借款人真实姓名',
+  `id_card` varchar(128) DEFAULT NULL COMMENT '身份证号码',
+  `address` varchar(100) DEFAULT NULL COMMENT '户籍地址(身份证)',
+  `local_address` varchar(100) DEFAULT NULL COMMENT '现居住地址',
+  PRIMARY KEY (`id`),
+  KEY `index_borrower_id` (`borrower_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人借款人扩展信息';
+
+-- ----------------------------
+-- Records of borrower_extend
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for integral_log
+-- ----------------------------
+DROP TABLE IF EXISTS `integral_log`;
+CREATE TABLE `integral_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(10) DEFAULT NULL,
+  `num` smallint(6) unsigned DEFAULT '1' COMMENT '积分数',
+  `type` int(10) NOT NULL COMMENT '积分类型(表integral_type主键)',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '获取积分的时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='积分记录表';
+
+-- ----------------------------
+-- Records of integral_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for integral_type
+-- ----------------------------
+DROP TABLE IF EXISTS `integral_type`;
+CREATE TABLE `integral_type` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `nid` varchar(20) DEFAULT NULL COMMENT '积分类型nid',
+  `name` varchar(200) DEFAULT NULL COMMENT '积分类型名称',
+  `status` bit(1) DEFAULT b'1' COMMENT '积分类型状态 0:不可用 1:可用',
+  `score` smallint(6) DEFAULT NULL COMMENT '积分个数',
+  `type` tinyint(1) DEFAULT '0' COMMENT '积分类型 0:收入 1:支出',
+  `random` bit(1) DEFAULT b'0' COMMENT '是否为随机积分 0:不是 1:是',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='积分类型表';
+
+-- ----------------------------
+-- Records of integral_type
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for operation_data_log
+-- ----------------------------
+DROP TABLE IF EXISTS `operation_data_log`;
+CREATE TABLE `operation_data_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `data_time` date DEFAULT NULL COMMENT '统计数据时的时间 不包含时分秒',
+  `borrow_amount` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '借款总额(元)',
+  `borrow_num` int(10) unsigned DEFAULT '0' COMMENT '总借款个数(借款成功的标的个数)',
+  `borrow_people` int(10) unsigned DEFAULT '0' COMMENT '总借款人数',
+  `borrow_await` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '总待收金额',
+  `tender_earnings` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '累计收益(已回款的利息,包含平台奖励)',
+  `tender_people` int(10) unsigned DEFAULT '0' COMMENT '总投资人数',
+  `register_people` int(10) unsigned DEFAULT '0' COMMENT '总注册人数',
+  `overdue_num` int(10) unsigned DEFAULT '0' COMMENT '总逾期个数(针对标的统计)',
+  `now_borrow_num` int(10) unsigned DEFAULT '0' COMMENT '当前借款个数(还在还款中的标的)',
+  `now_borrow_people` int(10) unsigned DEFAULT '0' COMMENT '当前借款人数',
+  `now_tender_people` int(10) unsigned DEFAULT '0' COMMENT '当前投资人数(在投的人数)',
+  `today_borrow_num` int(10) unsigned DEFAULT '0' COMMENT '今日发标个数',
+  `today_borrow_amount` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '今日发标金额',
+  `today_tender_amount` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '今日投标金额',
+  `today_overdue_num` int(10) unsigned DEFAULT '0' COMMENT '今日逾期个数(针对标的统计)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日运营数据统计日志表';
+
+-- ----------------------------
+-- Records of operation_data_log
 -- ----------------------------
 
 -- ----------------------------
@@ -192,6 +290,7 @@ CREATE TABLE `borrower` (
 DROP TABLE IF EXISTS `operation_report`;
 CREATE TABLE `operation_report` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `client_type` tinyint(1) DEFAULT NULL COMMENT '客户端类型 0:PC 1:APP',
   `img_url` varchar(500) DEFAULT NULL COMMENT '图片地址URL',
   `link_url` varchar(200) DEFAULT NULL COMMENT '链接地址URL',
   `title` varchar(50) DEFAULT NULL COMMENT '标题',
@@ -278,10 +377,10 @@ CREATE TABLE `project_car_ext` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for project_receive
+-- Table structure for project_recover
 -- ----------------------------
-DROP TABLE IF EXISTS `project_receive`;
-CREATE TABLE `project_receive` (
+DROP TABLE IF EXISTS `project_recover`;
+CREATE TABLE `project_recover` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` int(10) DEFAULT NULL COMMENT '投资人ID',
   `status` tinyint(1) DEFAULT '0' COMMENT '回款状态 0:待回款 1:已回款',
@@ -299,7 +398,7 @@ CREATE TABLE `project_receive` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人回款计划表';
 
 -- ----------------------------
--- Records of project_receive
+-- Records of project_recover
 -- ----------------------------
 
 -- ----------------------------
@@ -382,16 +481,21 @@ CREATE TABLE `system_config` (
   PRIMARY KEY (`id`),
   KEY `nid_index` (`nid`),
   KEY `type_index` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
 -- Records of system_config
 -- ----------------------------
 INSERT INTO `system_config` VALUES ('1', 'application_name', '系统名称', '后台管理系统', null, '\0', '', '2018-01-12 10:01:04', '2018-01-29 18:33:32');
-INSERT INTO `system_config` VALUES ('2', 'compay_name', '公司名称', '二哥', null, '\0', null, '2018-02-08 14:38:59', null);
-INSERT INTO `system_config` VALUES ('3', 'company_address', '公司地址', '浙江省杭州市西湖区教工路79号', null, '\0', null, '2018-02-08 14:40:01', null);
-INSERT INTO `system_config` VALUES ('4', 'company_phone', '公司电话', '0571-65800000', null, '\0', null, '2018-02-08 14:40:46', null);
-INSERT INTO `system_config` VALUES ('5', 'company_emial', '公司邮箱', '664956140@qq.com', null, '\0', null, '2018-02-08 14:41:22', null);
+INSERT INTO `system_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', null, '\0', null, '2018-02-08 14:38:59', null);
+INSERT INTO `system_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市西湖区教工路79号', null, '\0', null, '2018-02-08 14:40:01', null);
+INSERT INTO `system_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-65800000', null, '\0', null, '2018-02-08 14:40:46', null);
+INSERT INTO `system_config` VALUES ('5', 'enterprise_email', '企业邮箱', '664956140@qq.com', null, '\0', null, '2018-02-08 14:41:22', null);
+INSERT INTO `system_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', null, '\0', '用于指定最新版本号,格式只能是三类版本,不能少一位,也不能多一位', '2018-09-28 10:50:03', null);
+INSERT INTO `system_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', null, '\0', '用于指定最新版本号,格式只能是三类版本,不能少一位,也不能多一位', '2018-09-28 10:50:41', null);
+INSERT INTO `system_config` VALUES ('8', 'min_tender_age', '最小投标年龄', '18', null, '\0', '用户必须满足该年龄后才能进行投标操作', '2018-10-10 15:56:23', null);
+INSERT INTO `system_config` VALUES ('9', 'once_min_tender_amount', '单次最小投标金额', '100', null, '\0', '单次最小投标金额', '2018-10-11 09:22:29', null);
+INSERT INTO `system_config` VALUES ('10', 'max_tender_amount', '总最大投标金额', '200000', null, '\0', '投标金额-已回款本金(投标金额包含未复审金额)', '2018-10-11 09:26:15', null);
 
 -- ----------------------------
 -- Table structure for system_dict
@@ -401,7 +505,7 @@ CREATE TABLE `system_dict` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL COMMENT '字典中文名称',
   `nid` varchar(50) DEFAULT NULL COMMENT '数据字典nid(英文名称)',
-  `hidden_value` tinyint(2) DEFAULT NULL COMMENT '数据字典隐藏值',
+  `hidden_value` tinyint(2) DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
   `value` varchar(50) DEFAULT NULL COMMENT '显示值',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
@@ -474,7 +578,7 @@ CREATE TABLE `system_operator` (
   `status` tinyint(1) DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
   `password` varchar(128) DEFAULT NULL COMMENT '登陆密码MD5',
   `init_password` varchar(128) DEFAULT NULL COMMENT '初始密码',
-  `department` int(2) DEFAULT NULL,
+  `department` int(2) DEFAULT NULL COMMENT '所属部门',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -577,36 +681,27 @@ CREATE TABLE `tips` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` tinyint(1) DEFAULT '0' COMMENT '用户类型:0:投资人 1:代偿人',
   `mobile` varchar(11) NOT NULL COMMENT '手机号码',
   `email` varchar(50) DEFAULT NULL COMMENT '电子邮箱',
-  `real_name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
-  `id_card` varchar(128) DEFAULT NULL COMMENT '身份证号(年月日加密)',
-  `id_card_encrypt` varchar(512) DEFAULT NULL COMMENT '年月日加密',
-  `password` varchar(128) NOT NULL COMMENT '登陆密码随机串',
-  `password_random` varchar(10) NOT NULL COMMENT '登陆密码随机串',
-  `pay_password` varchar(128) DEFAULT NULL COMMENT '交易密码',
-  `pay_password_random` varchar(10) DEFAULT NULL COMMENT '交易密码随机串',
-  `pay_error` tinyint(2) unsigned DEFAULT NULL COMMENT '支付密码输入错误次数',
-  `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
+  `deposit_no` varchar(64) DEFAULT NULL COMMENT '存管账号',
+  `password` varchar(128) NOT NULL COMMENT '登陆密码',
   `status` bit(1) DEFAULT b'1' COMMENT '状态 1正常 0:锁定',
   `channel` tinyint(3) unsigned DEFAULT '0' COMMENT '注册渠道0:pc,1:android,2:ios,3:h5,第三方渠道注册',
-  `pid` int(11) unsigned DEFAULT NULL COMMENT '邀请人的ID',
+  `register_ip` varchar(32) DEFAULT NULL COMMENT '注册地址',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `type` tinyint(1) DEFAULT '0' COMMENT '用户类型:0:投资人 1:代偿人',
   PRIMARY KEY (`id`),
   KEY `mobile_index` (`mobile`),
   KEY `email_index` (`email`),
-  KEY `real_name_index` (`real_name`),
-  KEY `id_card_index` (`id_card`),
   KEY `status_index` (`status`),
   KEY `channel_index` (`channel`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='投资人信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='投资人基本信息表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '15966666666', null, null, null, null, '12', '1', null, null, null, null, '', '0', null, '2018-01-11 15:59:08', null, null);
+INSERT INTO `user` VALUES ('1', '0', '15966666666', null, null, '12', '', '0', null, '2018-01-11 15:59:08', null);
 
 -- ----------------------------
 -- Table structure for user_address
@@ -628,23 +723,27 @@ CREATE TABLE `user_address` (
   KEY `province_nid_index` (`province_nid`),
   KEY `city_nid_index` (`city_nid`),
   KEY `deleted_index` (`deleted`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户地址信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人地址信息表';
 
 -- ----------------------------
 -- Records of user_address
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_ext
+-- Table structure for user_extend
 -- ----------------------------
-DROP TABLE IF EXISTS `user_ext`;
-CREATE TABLE `user_ext` (
+DROP TABLE IF EXISTS `user_extend`;
+CREATE TABLE `user_extend` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `email` varchar(50) DEFAULT NULL COMMENT '邮箱地址',
+  `user_id` int(10) unsigned DEFAULT NULL COMMENT '投资人用户ID',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像地址',
+  `real_name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
+  `id_card` varchar(128) DEFAULT NULL COMMENT '身份证号码(前10位加密[18位身份证],前8位加密[15位身份证])',
+  `integral_num` int(10) unsigned DEFAULT '0' COMMENT '可用积分总数',
+  `cash_num` smallint(6) unsigned DEFAULT '0' COMMENT '免费提现次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户附加信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人扩展信息表';
 
 -- ----------------------------
--- Records of user_ext
+-- Records of user_extend
 -- ----------------------------
