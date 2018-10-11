@@ -78,6 +78,16 @@ public enum ErrorCodeEnum {
      */
     UN_KNOW_HOST_ADDRESS(1013,"未知主机地址"),
 
+    /**
+     * 请求接口非法
+     */
+    REQUEST_INTERFACE_ERROR(1014,"请求接口非法"),
+
+    /**
+     * 请求参数非法
+     */
+    REQUEST_PARAM_ILLEGAL(1015,"请求参数非法"),
+
 
     /**
      * 身份证格式校验错误
@@ -131,27 +141,25 @@ public enum ErrorCodeEnum {
      */
     OPERATOR_TIMEOUT(3007,"用户超时,请重新登陆"),
 
-
     /**
-     * 请求接口非法
+     * 用户超时,请重新登陆
      */
-    REQUEST_INTERFACE_ERROR(3008,"请求接口非法"),
-
-    /**
-     * 请求参数非法
-     */
-    REQUEST_PARAM_ILLEGAL(3009,"请求参数非法"),
+    ACCESS_TOKEN_TIMEOUT(3008,"用户超时,请重新登陆"),
 
     /**
      * 用户超时,请重新登陆
      */
-    ACCESS_TOKEN_TIMEOUT(3010,"用户超时,请重新登陆"),
+    USER_LOGIN_TIMEOUT(3009,"用户超时,请重新登陆"),
 
     /**
-     * 用户超时,请重新登陆
+     * 积分类型未查询到
      */
-    USER_LOGIN_TIMEOUT(3011,"用户超时,请重新登陆"),
+    INTEGRAL_TYPE_NOT_FOUND(3010,"积分类型错误"),
 
+    /**
+     * 可用积分不足
+     */
+    INTEGRAL_NOT_ENOUGH(3011,"可用积分不足"),
     ;
     /**
      * 构造方法

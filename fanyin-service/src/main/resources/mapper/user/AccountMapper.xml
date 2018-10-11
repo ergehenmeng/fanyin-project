@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.user.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.user.Account">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
+    <result column="available_balance" jdbcType="DECIMAL" property="availableBalance" />
+    <result column="recharge" jdbcType="DECIMAL" property="recharge" />
+    <result column="tender_freeze" jdbcType="DECIMAL" property="tenderFreeze" />
+    <result column="withdraw_freeze" jdbcType="DECIMAL" property="withdrawFreeze" />
+    <result column="accumulated_income" jdbcType="DECIMAL" property="accumulatedIncome" />
+    <result column="wait_capital" jdbcType="DECIMAL" property="waitCapital" />
+    <result column="wait_interest" jdbcType="DECIMAL" property="waitInterest" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, user_id, total, available_balance, recharge, tender_freeze, withdraw_freeze, 
+    accumulated_income, wait_capital, wait_interest
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.user.Account">
+    <!--
+      @create by mybatis
+    -->
+    insert into account (id, user_id, total, 
+      available_balance, recharge, tender_freeze, 
+      withdraw_freeze, accumulated_income, wait_capital, 
+      wait_interest)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{total,jdbcType=DECIMAL}, 
+      #{availableBalance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, #{tenderFreeze,jdbcType=DECIMAL}, 
+      #{withdrawFreeze,jdbcType=DECIMAL}, #{accumulatedIncome,jdbcType=DECIMAL}, #{waitCapital,jdbcType=DECIMAL}, 
+      #{waitInterest,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.user.Account">
+    <!--
+      @create by mybatis
+    -->
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="availableBalance != null">
+        available_balance,
+      </if>
+      <if test="recharge != null">
+        recharge,
+      </if>
+      <if test="tenderFreeze != null">
+        tender_freeze,
+      </if>
+      <if test="withdrawFreeze != null">
+        withdraw_freeze,
+      </if>
+      <if test="accumulatedIncome != null">
+        accumulated_income,
+      </if>
+      <if test="waitCapital != null">
+        wait_capital,
+      </if>
+      <if test="waitInterest != null">
+        wait_interest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null">
+        #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderFreeze != null">
+        #{tenderFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFreeze != null">
+        #{withdrawFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="accumulatedIncome != null">
+        #{accumulatedIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="waitCapital != null">
+        #{waitCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="waitInterest != null">
+        #{waitInterest,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.user.Account">
+    <!--
+      @create by mybatis
+    -->
+    update account
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        available_balance = #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null">
+        recharge = #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderFreeze != null">
+        tender_freeze = #{tenderFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFreeze != null">
+        withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="accumulatedIncome != null">
+        accumulated_income = #{accumulatedIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="waitCapital != null">
+        wait_capital = #{waitCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="waitInterest != null">
+        wait_interest = #{waitInterest,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.Account">
+    <!--
+      @create by mybatis
+    -->
+    update account
+    set user_id = #{userId,jdbcType=INTEGER},
+      total = #{total,jdbcType=DECIMAL},
+      available_balance = #{availableBalance,jdbcType=DECIMAL},
+      recharge = #{recharge,jdbcType=DECIMAL},
+      tender_freeze = #{tenderFreeze,jdbcType=DECIMAL},
+      withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
+      accumulated_income = #{accumulatedIncome,jdbcType=DECIMAL},
+      wait_capital = #{waitCapital,jdbcType=DECIMAL},
+      wait_interest = #{waitInterest,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

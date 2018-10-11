@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.user.UserExtendMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.user.UserExtend">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="integral_num" jdbcType="INTEGER" property="integralNum" />
+    <result column="cash_num" jdbcType="SMALLINT" property="cashNum" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, user_id, avatar, real_name, id_card, integral_num, cash_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from user_extend
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getByUserId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from user_extend where user_id = #{userId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from user_extend
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.user.UserExtend">
+    <!--
+      @create by mybatis
+    -->
+    insert into user_extend (id, user_id, avatar, 
+      real_name, id_card, integral_num, 
+      cash_num)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{integralNum,jdbcType=INTEGER}, 
+      #{cashNum,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.user.UserExtend">
+    <!--
+      @create by mybatis
+    -->
+    insert into user_extend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="integralNum != null">
+        integral_num,
+      </if>
+      <if test="cashNum != null">
+        cash_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="integralNum != null">
+        #{integralNum,jdbcType=INTEGER},
+      </if>
+      <if test="cashNum != null">
+        #{cashNum,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.user.UserExtend">
+    <!--
+      @create by mybatis
+    -->
+    update user_extend
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="integralNum != null">
+        integral_num = #{integralNum,jdbcType=INTEGER},
+      </if>
+      <if test="cashNum != null">
+        cash_num = #{cashNum,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.UserExtend">
+    <!--
+      @create by mybatis
+    -->
+    update user_extend
+    set user_id = #{userId,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      integral_num = #{integralNum,jdbcType=INTEGER},
+      cash_num = #{cashNum,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateScore">
+       update user_extend set integral_num =  #{score} where  user_id = #{userId}
+    </update>
+</mapper>
