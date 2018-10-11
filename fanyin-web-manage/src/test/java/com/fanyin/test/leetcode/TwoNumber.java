@@ -4,7 +4,7 @@ import com.fanyin.test.leetcode.assist.ListNode;
 import org.springframework.security.access.method.P;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/25 13:52
  */
 public class TwoNumber {

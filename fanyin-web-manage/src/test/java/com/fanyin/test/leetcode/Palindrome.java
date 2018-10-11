@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/28 11:03
  */
 public class Palindrome {

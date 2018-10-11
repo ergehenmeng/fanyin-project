@@ -1,7 +1,7 @@
 package com.fanyin.test.leetcode;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/25 11:37
  */
 public class TwoSum {

@@ -1,13 +1,10 @@
 package com.fanyin.test.leetcode;
 
-import com.google.common.collect.Maps;
-
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/9/25 14:48
  */
 public class ZigZagConversion {

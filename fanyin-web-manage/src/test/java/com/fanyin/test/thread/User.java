@@ -3,7 +3,7 @@ package com.fanyin.test.thread;
 import java.io.Serializable;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/10/8 18:03
  */
 public class User implements Serializable {

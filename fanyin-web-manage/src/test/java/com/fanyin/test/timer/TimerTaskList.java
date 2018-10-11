@@ -45,10 +45,6 @@ public class TimerTaskList implements Delayed {
         return unit.convert(Long.max(expire,0),TimeUnit.MILLISECONDS);
     }
 
-    public static void main(String[] args) {
-        long convert = TimeUnit.NANOSECONDS.convert(127, TimeUnit.MILLISECONDS);
-        System.out.println(convert);
-    }
 
     @Override
     public int compareTo(@Nonnull Delayed o) {
