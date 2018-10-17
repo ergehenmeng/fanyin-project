@@ -1,7 +1,7 @@
 package com.fanyin.test.jvm;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/10/12 10:21
  */
 public class ClassForName {

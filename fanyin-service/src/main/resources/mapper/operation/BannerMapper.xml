@@ -34,8 +34,8 @@
     <select id="getBannerList" resultMap="BaseResultMap">
        select <include refid="BaseColumnList"/>
        from banner where
-      <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 -->
-      (end_time &lt;= now() or end_time is null)
+      <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间 -->
+      (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
        and client_type = {clientType} and type = #{type}
     </select>
 

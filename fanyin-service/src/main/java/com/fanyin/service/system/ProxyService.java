@@ -6,7 +6,7 @@ import com.fanyin.dto.AccessToken;
  * @author 二哥很猛
  * @date 2018/10/11 13:47
  */
-public interface AopProxyService {
+public interface ProxyService {
 
     /**
      * 创建登陆后的token,并将token放入缓存中
