@@ -21,14 +21,13 @@ public class ResultJson<T> implements Serializable {
     private String msg;
 
     /**
-     * 结果集
+     * 结果集 键值对或者非基本类型对象
      */
     private T data;
 
     public static <T> ResultJson<T> getInstance(){
         return new ResultJson<>();
     }
-
 
     public T getData() {
         return data;

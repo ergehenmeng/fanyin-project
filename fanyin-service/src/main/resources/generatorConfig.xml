@@ -21,7 +21,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-            connectionURL="jdbc:mysql://127.0.0.1:3306/p2p" userId="root" password="root">
+            connectionURL="jdbc:mysql://127.0.0.1:3306/p2p?tinyInt1isBit=false" userId="root" password="root">
         </jdbcConnection>
         
         <javaTypeResolver>
@@ -32,13 +32,13 @@
         
         
         <!-- 生成模型的包位置 -->
-        <javaModelGenerator targetPackage="com.fanyin.model.system"
+        <javaModelGenerator targetPackage="com.fanyin.model.operation"
             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成mapper.xml文件位置 -->
-        <sqlMapGenerator targetPackage="mapper.system"
+        <sqlMapGenerator targetPackage="mapper.operation"
             targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"  />
 
@@ -46,16 +46,15 @@
         
         <!-- 生成mapper的接口位置 -->
         <javaClientGenerator type="XMLMAPPER"
-            targetPackage="com.fanyin.mapper.system"  targetProject="src/main/java">
+            targetPackage="com.fanyin.mapper.operation"  targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="system_menu" domainObjectName="SystemMenu"
+        <table tableName="banner" domainObjectName="Banner"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" >
-            <columnRenamingRule searchString="t_" replaceString=""/>
         </table>
     </context>
 </generatorConfiguration>
