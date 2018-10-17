@@ -35,12 +35,15 @@ public class BitCalc {
 		System.out.println("1<<12结果:" + (1 << 12));
 		System.out.println("c>>d结果:" + Integer.toBinaryString(c >> d));
 		System.out.println("c>>>d结果:" + Integer.toBinaryString(c >>> d));
-        a &= 8;
-        System.out.println("a&=8结果:" + (a));
-        a |=8;
-        System.out.println("a|=的结果:" + a);
-        a ^= 8;
-        System.out.println("a^=8的结果:" + a);
+        int g = 6;
+		g &= 8;
+        System.out.println("g&=8结果:" + (g));
+        int e = 7;
+        e |=8;
+        System.out.println("e|=的结果:" + e);
+        int m = 8;
+        m ^= 8;
+        System.out.println("m^=8的结果:" + m);
 
 		//负数二进制 最高位1为负数 0为整数
 		// -5:先取绝对值之后的数 0000 0000 0000 0000 0000 0000 0000 0101
