@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 public class ApacheCurator {
     public static void main(String[] args)throws Exception {
         RetryPolicy policy = new ExponentialBackoffRetry(1000,3);
-        CuratorFramework curator = CuratorFrameworkFactory.newClient("72.127.2.8:21811",30 * 1000,3 * 1000,policy);
+        CuratorFramework curator = CuratorFrameworkFactory.newClient("127.0.0.1:21811",30 * 1000,3 * 1000,policy);
         curator.start();
         //curator.create().forPath("/curator2","hello world".getBytes());
         //curator.create().withMode(CreateMode.EPHEMERAL).forPath("/curator3","hello".getBytes());
