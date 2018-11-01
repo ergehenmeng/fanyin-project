@@ -1,9 +1,9 @@
 package com.fanyin.test.leetcode;
 
 import com.fanyin.test.leetcode.assist.ListNode;
+import com.fanyin.test.leetcode.assist.TreeNode;
 import org.assertj.core.util.Lists;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -264,7 +264,102 @@ public class Parenthesis {
         return high;
     }
 
+    /**
+     * 爬楼梯的方法数 斐波那契数列
+     * @param n
+     * @return
+     */
+    public static int climbStairs(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int first = 1;
+        int second = 2;
+        for (int i = 3; i <= n; i++) {
+            int third = first + second;
+            first = second;
+            second = third;
+        }
+        return second;
+    }
+
+    /**
+     * 链表中删除重复数据
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode header = new ListNode(head.val);
+        ListNode headerNext = header;
+        ListNode current = head.next;
+
+        while (current != null){
+            if(headerNext.val == current.val){
+                current = current.next;
+                continue;
+            }
+            headerNext =  headerNext.next = new ListNode(current.val);
+            current = current.next;
+        }
+        return header;
+    }
+
+    /**
+     * 链表中删除重复数据
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDuplicates2(ListNode head) {
+
+        ListNode cur = head;
+        while(cur != null){
+            while(cur.next != null && cur.val==cur.next.val ){
+                cur.next=cur.next.next;
+            }
+            cur=cur.next;
+        }
+        return head;
+    }
+
+
+    /**
+     * 两个树是否值是否一样
+     * @param p
+     * @param q
+     * @return
+     */
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        return (p == null || q == null) ? p == q : (p.val == q.val && isSameTree(p.left , q.left) && isSameTree(p.right,q.right));
+    }
+
+    public static boolean isSymmetric(TreeNode root) {
+
+        return isLeftSameRight(root.left,root.right);
+    }
+
+    private static boolean isLeftSameRight(TreeNode left,TreeNode right){
+        if(left == null && right == null){
+            return true;
+        }
+        if(left == null || right == null){
+            return false;
+        }
+        if(left.val == right.val){
+            return isLeftSameRight(left.left,right.right) && isLeftSameRight(left.right,right.left);
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {
+
+
+
+        System.out.println("爬楼梯:");
+        System.out.println(climbStairs(6));
 
         System.out.println("字符串二进制加减");
         System.out.println(addBinary("1010","1011"));
@@ -286,13 +381,19 @@ public class Parenthesis {
 
         ListNode node = new ListNode(1);
         ListNode node1 = new ListNode(2);
-        ListNode node2 = new ListNode(4);
+        ListNode node2 = new ListNode(2);
         ListNode node3 = new ListNode(7);
         ListNode node4 = new ListNode(7);
+        ListNode node9 = new ListNode(8);
+        ListNode node10 = new ListNode(9);
+        ListNode node11 = new ListNode(9);
         node.next = node1;
         node1.next = node2;
         node2.next = node3;
         node3.next = node4;
+        node4.next = node9;
+        node9.next = node10;
+        node10.next = node11;
 
         ListNode nodes = new ListNode(3);
         ListNode node5 = new ListNode(5);
@@ -319,6 +420,9 @@ public class Parenthesis {
         for (int i : ints){
             System.out.print(i + ",");
         }
+
+        System.out.println("去除重复");
+        System.out.println(deleteDuplicates2(node));
     }
 
 }
