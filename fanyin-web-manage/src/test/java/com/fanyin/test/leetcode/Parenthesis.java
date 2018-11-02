@@ -4,9 +4,7 @@ import com.fanyin.test.leetcode.assist.ListNode;
 import com.fanyin.test.leetcode.assist.TreeNode;
 import org.assertj.core.util.Lists;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 王艳兵
@@ -335,28 +333,290 @@ public class Parenthesis {
         return (p == null || q == null) ? p == q : (p.val == q.val && isSameTree(p.left , q.left) && isSameTree(p.right,q.right));
     }
 
+    /**
+     * 树是否镜像相同
+     * @param root
+     * @return
+     */
     public static boolean isSymmetric(TreeNode root) {
-
-        return isLeftSameRight(root.left,root.right);
+        return root == null || isLeftSameRight(root.left,root.right);
     }
 
     private static boolean isLeftSameRight(TreeNode left,TreeNode right){
-        if(left == null && right == null){
-            return true;
+        return (left == null || right == null) ? left == right : (left.val == right.val && isLeftSameRight(left.left,right.right) && isLeftSameRight(left.right,right.left));
+    }
+
+    /**
+     * 数的最大深度
+     * @param root
+     * @return
+     */
+    public static int maxDepth(TreeNode root) {
+        return depth(root);
+    }
+    private static int depth(TreeNode depth){
+        if(depth == null){
+            return 0;
         }
-        if(left == null || right == null){
-            return false;
+        return Math.max(depth(depth.left),depth(depth.right)) + 1;
+    }
+
+    /**
+     *
+     * @param depth
+     * @param height
+     * @return
+     */
+    private static int depth2(TreeNode depth,int height){
+        if(depth == null){
+            return height;
         }
-        if(left.val == right.val){
-            return isLeftSameRight(left.left,right.right) && isLeftSameRight(left.right,right.left);
+        return Math.max(depth2(depth.left,height + 1),depth2(depth.right,height + 1));
+    }
+
+
+    /**
+     * 将数的同一级的书放入数组中
+     * @param root
+     * @return
+     */
+    private static List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> integerList = new ArrayList<>();
+        if(root == null){
+            return integerList;
+        }
+        dfs(root,integerList,0);
+        return integerList;
+    }
+
+    /**
+     *     3
+     *    / \
+     *   9  20
+     *     /  \
+     *    15   7
+     * @param root
+     * @param list
+     * @param depth
+     */
+    private static void dfs(TreeNode root,List<List<Integer>> list,int depth){
+        if(root == null){
+            return;
+        }
+        if(list.size()  == depth){
+            List<Integer> integerList = new ArrayList<>();
+            integerList.add(root.val);
+            list.add(0,integerList);
+        }else{
+            list.get(list.size() - 1 - depth).add(root.val);
+        }
+        dfs(root.left,list,depth + 1);
+        dfs(root.right,list, depth +1);
+    }
+
+    /**
+     * 数组转BST二叉树 左右节点不能超过一深度
+     * @param nums
+     * @return
+     */
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return helper(nums, 0, nums.length-1);
+    }
+
+    private static TreeNode helper(int[] nums,int left,int right){
+        if(left > right){
+            return null;
+        }
+        int mid = (left + right + 1) / 2 ;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left =  helper(nums,left,mid - 1);
+        root.right = helper(nums,mid + 1,right);
+        return root;
+    }
+
+    /**
+     * 是否为平衡二叉树
+     * @param root
+     * @return
+     */
+    public static boolean isBalanced(TreeNode root) {
+        return height(root) >= 0;
+    }
+
+    /**
+     * [1,2,2,3,3,null,null,4,4]
+     *      1
+     *    2   2
+     *  3  3
+     *4  4
+     * @param root
+     * @return
+     */
+    public static int height(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int lh = height(root.left);
+        int rh = height(root.right);
+        if(lh == -1 || rh == -1 || Math.abs(lh - rh) > 1){
+            return -1;
+        }
+        return Math.max(lh,rh) + 1;
+    }
+
+    public static int minDepth(TreeNode root) {
+        return minDepth(root,0);
+    }
+    public static int minDepth(TreeNode root,int minDepth){
+        if(root == null){
+            return minDepth;
         }
 
-        return false;
+        minDepth = Math.min(minDepth(root.left,minDepth),minDepth);
+        minDepth = Math.min(minDepth(root.right,minDepth),minDepth);
+        return minDepth;
+    }
+
+    public static boolean hasPathSum(TreeNode root, int sum) {
+        if(root == null){
+            return false;
+        }
+        int sub = sum - root.val;
+        if(root.left == null && root.right == null && sub == 0){
+            return true;
+        }
+        boolean leftFlag = hasPathSum(root.left,sub);
+        boolean rightFlag = hasPathSum(root.right,sub);
+        return leftFlag || rightFlag;
+    }
+
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> listList = new ArrayList<>();
+        List<Integer> list;
+        for (int i = 1 ;i <= numRows;i++){
+            if(i == 1){
+                list = new ArrayList<>();
+                list.add(1);
+                listList.add(list);
+                continue;
+            }
+            if(i == 2){
+                list = new ArrayList<>();
+                list.add(1);
+                list.add(1);
+                listList.add(list);
+                continue;
+            }
+            list = new ArrayList<>();
+            List<Integer> integerList = listList.get(i - 2);
+            setValue(integerList,list,i);
+            listList.add(list);
+        }
+        return listList;
+    }
+
+    private static void setValue(List<Integer> beforeList,List<Integer> nowList,int size){
+        for (int i = 0 ;i < size; i++){
+            if(i == 0 || i == size - 1){
+                nowList.add(1);
+                continue;
+            }
+            int first = beforeList.get(i);
+            int second = beforeList.get(i -1 );
+            nowList.add(first + second);
+        }
+    }
+
+    /**
+     * 股票最大价格
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int[] prices) {
+        int max = 0;
+        for (int i = 0 ; i < prices.length;i++){
+            for (int j = i + 1; j < prices.length;j++){
+                max = Math.max(prices[j] - prices[i],max) ;
+            }
+        }
+        return Math.max(max,0);
+    }
+
+    public int maxProfit2(int[] prices) {
+        //买入价格
+        int minPrice = Integer.MAX_VALUE;
+        //利润
+        int maxProfit = 0;
+
+        for(int i=0;i < prices.length;i++){
+            if(prices[i] < minPrice){
+                minPrice = prices[i];
+            }else if(prices[i] - minPrice > maxProfit){
+                maxProfit = prices[i] - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+
+    public int maxProfit3(int[] prices) {
+        int max = 0;
+        for (int i = 0, j = 1; j < prices.length; j++) {
+            if (prices[j] < prices[i]) {
+                i = j;
+            } else {
+                max = Math.max(max, prices[j] - prices[i]);
+            }
+        }
+        return max;
+    }
+    public int singleNumber(int[] nums) {
+
+        int x = 0;
+        for (int a : nums) {
+            x = x ^ a;
+        }
+        return x;
     }
 
     public static void main(String[] args) {
 
+        System.out.println("帕斯卡三角形");
+        List<List<Integer>> generate = generate(5);
+        for (List<Integer> list : generate){
+            for (int i : list){
+                System.out.print(i + ", " );
+            }
+            System.out.println("");
+        }
 
+        System.out.println("数的同行列表");
+        TreeNode root = new TreeNode(3);
+        TreeNode left = new TreeNode(9);
+        TreeNode right = new TreeNode(20);
+        TreeNode ll = new TreeNode(15);
+        TreeNode rr = new TreeNode(7);
+        root.left = left;
+        root.right =right;
+        right.left = ll;
+        right.right = rr;
+        levelOrderBottom(root);
+        System.out.println("是否平衡");
+        TreeNode first = new TreeNode(1);
+        TreeNode a = new TreeNode(2);
+        TreeNode b = new TreeNode(2);
+        TreeNode c = new TreeNode(3);
+        TreeNode d = new TreeNode(3);
+        TreeNode e = new TreeNode(4);
+        TreeNode f = new TreeNode(4);
+        TreeNode g = new TreeNode(4);
+        TreeNode h = new TreeNode(4);
+        first.left = a; first.right = b;
+        a.left = c; a.right = d;
+        c.left = e;c.right = f;
+        b.right = g;
+        g.right = h;
+        boolean balanced = isBalanced(first);
+        System.out.println(balanced);
 
         System.out.println("爬楼梯:");
         System.out.println(climbStairs(6));
