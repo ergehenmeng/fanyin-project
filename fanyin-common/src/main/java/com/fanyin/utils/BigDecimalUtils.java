@@ -17,20 +17,20 @@ public class BigDecimalUtils {
     /**
      * 乘法精度
      */
-    private static final int MUL_SCALE = 2;
+    private static final int MUL_SCALE = 4;
     /**
      * 加法精度
      */
-    private static final int ADD_SCALE = 2;
+    private static final int ADD_SCALE = 4;
     /**
      * 减法精度
      */
-    private static final int SUB_SCALE = 2;
+    private static final int SUB_SCALE = 4;
 
     /**
-     * 四舍五入由于程序中计算均为分单位 因此默认为0
+     * 四舍五入由于程序中计算均为元单位 因此默认为2
      */
-    private static final int ROUND_SCALE = 0;
+    private static final int ROUND_SCALE = 2;
 
     /**
      * 除法 默认精确10位

@@ -19,52 +19,48 @@ public class BorrowUtils {
     /**
      * 期限单位:天
      */
-    private static final int BORROW_TYPE_DAY = 0;
+    private static final int TYPE_DAY = 0;
 
     /**
      * 期限单位:月
      */
-    private static final int BORROW_TYPE_MONTH = 1;
+    private static final int TYPE_MONTH = 1;
     /**
      * 期限单位:年
      */
-    private static final int BORROW_TYPE_YEAR = 2;
+    private static final int TYPE_YEAR = 2;
 
+    /**
+     * 精度保留10位
+     */
+    private static final int SCALE = 10;
 
 
     /**
      * 等额本息获取收益
      * @param money  投资金额
      * @param period 投资期数 月
-     * @param apr 收益 %;
+     * @param apr 利率
      * @param type  期限类型:0:天 1:月 2:年
      * @return divisor
      */
     public static double fixedPaymentMortgage(double money,int period,double apr,int type){
+
         double monthApr = getMonthApr(apr,type);
+
         double monthMoney = getMonthMoney(monthApr,period,money);
         //剩余本金
         double residueMoney = money;
         //总利息
         double totalInterest = 0;
 
-        for (int i = 0; i < period; i++){
-            //利息
-            double interest = 0 ;
-            //本金
-            double capital = 0;
-            //最后一期
-            if(i == (period - 1)){
-                interest = BigDecimalUtils.mul(residueMoney,monthApr);
-                capital = residueMoney;
-            }else{
-                //本期还款利息
-                interest = BigDecimalUtils.mul(residueMoney ,monthApr);
-                // 本期还款本金
-                capital = BigDecimalUtils.sub(monthMoney,interest);
+        for (int i = 1; i <= period; i++){
+            //当期利息
+            double interest = BigDecimalUtils.mul(residueMoney,monthApr);
+            if(i < period){
+                //剩余本金 = 原剩余本金-(月还款金额-月还款利息) = 原剩余本金-本期还款本金
+                residueMoney = BigDecimalUtils.sub(residueMoney,BigDecimalUtils.sub(monthMoney,interest));
             }
-            //剩余本金
-            residueMoney = BigDecimalUtils.sub(residueMoney,capital);
             totalInterest = BigDecimalUtils.add(interest,totalInterest);
         }
         return BigDecimalUtils.round(totalInterest);
@@ -75,15 +71,15 @@ public class BorrowUtils {
      * @param monthApr 月利息
      * @param period 期数
      * @param money 金额
-     * @return 月还款金额
+     * @return 月还款金额 保留两位小数
      */
     private static double getMonthMoney(double monthApr,int period,double money){
         //公用的
-        double common = Math.pow(BigDecimalUtils.add(1,monthApr,10),period);
+        double common = Math.pow(BigDecimalUtils.add(1,monthApr,SCALE),period);
         //除数
         double divisor = BigDecimalUtils.mul(money,monthApr,common);
         //被除数
-        double dividend = BigDecimalUtils.sub(common , 1,10);
+        double dividend = BigDecimalUtils.sub(common , 1,SCALE);
         //被除数为0 直接返回0
         if (dividend == 0){
             return 0D;
@@ -99,21 +95,21 @@ public class BorrowUtils {
      * @return divisor
      */
     public static double fixedPaymentMortgage(double money,int period,double apr){
-        return fixedPaymentMortgage(money,period,apr,BORROW_TYPE_MONTH);
+        return fixedPaymentMortgage(money,period,apr,TYPE_MONTH);
     }
     /**
      * 获取月利息
      * @param apr 年化利息
      * @param type 期限类型:0:天 1:月 2:年
-     * @return
+     * @return 月利息
      */
     private static double getMonthApr(double apr,int type){
         //转换为标准的利率
         apr = BigDecimalUtils.centToYuan(apr);
-        if(BORROW_TYPE_DAY == type){
+        if(TYPE_DAY == type){
             return BigDecimalUtils.div(apr,365);
         }
-        if(BORROW_TYPE_YEAR == type){
+        if(TYPE_YEAR == type){
             return apr;
         }
         //月利息
@@ -142,7 +138,7 @@ public class BorrowUtils {
      * @return
      */
     public static double perMonth(double money,int period,double apr){
-        return perMonth(money,period,apr,BORROW_TYPE_MONTH);
+        return perMonth(money,period,apr,TYPE_MONTH);
 
     }
 
@@ -157,7 +153,7 @@ public class BorrowUtils {
      * @return
      */
     public static List<BorrowList> collectionFixedPaymentMortgage(int periods, double money, double apr, double platformApr, double couponApr, Date start){
-        return collectionFixedPaymentMortgage(periods,money,apr,platformApr,couponApr,start,BORROW_TYPE_MONTH);
+        return collectionFixedPaymentMortgage(periods,money,apr,platformApr,couponApr,start,TYPE_MONTH);
     }
 
     /**
@@ -241,11 +237,11 @@ public class BorrowUtils {
      * @return
      */
     private static Date getRepaymentDate(Date startTime,int period,int periodUnit){
-        if(periodUnit == BORROW_TYPE_DAY){
+        if(periodUnit == TYPE_DAY){
             return DateUtil.addDays(startTime,period);
-        }else if(periodUnit == BORROW_TYPE_MONTH){
+        }else if(periodUnit == TYPE_MONTH){
             return DateUtil.addMonths(startTime,period);
-        }else if(periodUnit == BORROW_TYPE_YEAR){
+        }else if(periodUnit == TYPE_YEAR){
             return DateUtil.addYears(startTime,period);
         }
         return startTime;
@@ -261,7 +257,7 @@ public class BorrowUtils {
      * @return
      */
     public static List<BorrowList> collectionPerMonth(int periods,double money,double apr,double platformApr,double couponApr,Date start){
-        return collectionPerMonth(periods,money,apr,platformApr,couponApr,start,BORROW_TYPE_MONTH);
+        return collectionPerMonth(periods,money,apr,platformApr,couponApr,start,TYPE_MONTH);
     }
 
     /**
@@ -344,7 +340,7 @@ public class BorrowUtils {
      * @return
      */
     public static double preDaily(double money,int periods,double apr){
-        double interest =  BigDecimalUtils.mul(getMonthApr(apr,BORROW_TYPE_DAY),money,periods);
+        double interest =  BigDecimalUtils.mul(getMonthApr(apr,TYPE_DAY),money,periods);
         return BigDecimalUtils.round(interest);
     }
 
@@ -383,7 +379,7 @@ public class BorrowUtils {
 
 
     public static void main(String[] args) {
-        List<BorrowList> list = collectionFixedPaymentMortgage(3,100000,10,0,0,new Date());
+        /*List<BorrowList> list = collectionFixedPaymentMortgage(3,100000,10,0,0,new Date());
         list.forEach(borrowPlan -> System.out.println(borrowPlan));
         System.out.println(fixedPaymentMortgage(100000,3,10));;
 
@@ -393,7 +389,8 @@ public class BorrowUtils {
         System.out.println(perMonth(100000,3,10));;
 
         List<BorrowList> plans1 = collectionPreDaily(15, 10000, 10, 2, 0);
-        plans1.forEach(borrowPlan -> System.out.println(borrowPlan));
+        plans1.forEach(borrowPlan -> System.out.println(borrowPlan));*/
+        System.out.println(fixedPaymentMortgage(10000,6,10,1));
     }
  
 }
