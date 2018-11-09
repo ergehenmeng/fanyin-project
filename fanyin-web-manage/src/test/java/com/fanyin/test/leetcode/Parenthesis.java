@@ -569,6 +569,12 @@ public class Parenthesis {
         }
         return max;
     }
+
+    /**
+     * 数组中是否有单独存在的数字
+     * @param nums
+     * @return
+     */
     public int singleNumber(int[] nums) {
 
         int x = 0;
@@ -578,7 +584,464 @@ public class Parenthesis {
         return x;
     }
 
+
+    /**
+     * 查看是否有循环依赖
+     * @param head
+     * @return
+     */
+    public static boolean hasCycle(ListNode head) {
+        if(head == null || head.next == null){
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 数组中两个数相加等于指定的数并返回下标
+     * @param numbers
+     * @param target
+     * @return
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        int len = numbers.length;
+        if(len < 2 ){
+            return null;
+        }
+        if( len == 2){
+            return new int[]{1,2};
+        }
+        for (int i = 0,length = numbers.length - 1 ; i < length ; ){
+            int sum = numbers[i] + numbers[length];
+            if(target == sum){
+                return new int[]{i+1,length+1};
+            }
+            if(target < sum){
+                length --;
+            }else{
+                i++;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * excel列转ABC
+     * @param n
+     * @return
+     */
+    public static String convertToTitle(int n) {
+
+        StringBuilder builder = new StringBuilder();
+        if(n <= 26){
+            return builder.append(toChar(n)).toString();
+        }
+        int i = 0;
+        while(n > 26){
+            int mod = n % 26;
+            n /= 26;
+            if(mod == 0){
+                if(i == 0){
+                    builder.insert(0,toChar(26));
+                    n--;
+                }else{
+                    builder.insert(0,toChar(1));
+                }
+            }else{
+                builder.insert(0,toChar(mod));
+            }
+            i++;
+        }
+        builder.insert(0,toChar(n));
+        return builder.toString();
+    }
+
+    public static String convertToTitle2(int n) {
+        String str = "";
+        while(n!=0){
+            int rem = (n-1)%26;
+            str = (char)(rem + 'A') + str ;
+            n=(n-1)/26;
+        }
+        return str;
+    }
+
+    private static char toChar(int n){
+        return (char)(64 + n);
+    }
+
+    /**
+     * 与上面相反
+     * @param s
+     * @return
+     */
+    public static int titleToNumber(String s) {
+        int result = 0;
+        int mult = 1;
+        for (int i = s.length() - 1;i >= 0;i--){
+            int var = s.charAt(i) - 64;
+            result += var * mult;
+            mult *= 26;
+        }
+        return result;
+    }
+
+    /**
+     * 阶乘结果尾数含多少个零
+     * @param n
+     * @return
+     */
+    public static int trailingZeroes(int n) {
+        int x = 0;
+        while(n/5 > 0){
+            n /= 5;
+            x += n;
+        }
+        return x;
+    }
+
+    /**
+     * 从右侧进行反转
+     * @param nums
+     * @param k
+     */
+    public static void rotate(int[] nums, int k) {
+        for (int i = 0 ;i < k;i ++){
+            int last = nums[nums.length - 1];
+            int temp;
+            for (int j = 0 ; j < nums.length;j++){
+                temp = nums[j];
+                nums[j] = last;
+                last = temp;
+            }
+        }
+    }
+
+    public static void rotate2(int[] nums, int k) {
+        k = k % nums.length;
+        int count = 0;
+        for (int start = 0; count < nums.length; start++) {
+            int current = start;
+            int prev = nums[start];
+            do {
+                int next = (current + k) % nums.length;
+                int temp = nums[next];
+                nums[next] = prev;
+                prev = temp;
+                current = next;
+                count++;
+            } while (start != current);
+        }
+    }
+
+    /**
+     * 二进制中公有多少个零
+     * @param n
+     * @return
+     */
+    public static int hammingWeight(int n) {
+        int sum = 0;
+        while (n != 0) {
+            sum++;
+            n &= (n - 1);
+        }
+        return sum;
+    }
+
+    public static int hammingWeight2(int n) {
+        int ones = 0;
+        while(n!=0) {
+            ones = ones + (n & 1);
+            n = n>>>1;
+        }
+        return ones;
+    }
+
+    public int titleToNumber2(String s) {
+        if(s.length() == 1) {
+            return (s.charAt(0) - 'A' + 1);
+        }
+        int columnValue = 0;
+        for(int i = 0; i < s.length(); i++) {
+            columnValue = (s.charAt(i) - 'A' + 1 + columnValue * 26 );
+        }
+        return columnValue;
+    }
+
+    /**
+     * 出现最多的元素 大于一半
+     * @param nums
+     * @return
+     */
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+
+
+
+    public static int rob2(int[] nums) {
+        if(nums==null || nums.length<1){
+            return 0;
+        }
+        if(nums.length==1){
+            return nums[0];
+        }
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(dp[0], nums[1]);
+        for(int i=2; i<nums.length; i++){
+            dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i]);
+        }
+        return dp[nums.length-1];
+    }
+
+    public static boolean isHappy(int n) {
+        while (n != 1){
+            int calc = calc(n);
+            if(calc == 4){
+                return false;
+            }
+            n = calc;
+        }
+        return true;
+    }
+    private static int calc(int n){
+        int x = 0;
+        while (n > 0){
+            int mid = n % 10;
+            x += Math.pow(mid,2);
+            n /= 10;
+        }
+        return x;
+    }
+
+    public static ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        while (pre.next != null){
+            if(pre.next.val == val){
+                pre.next = pre.next.next;
+            }else {
+                pre = pre.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 素数的个数
+     * @param n
+     * @return
+     */
+    public static int countPrimes(int n) {
+        boolean[] notPrime = new boolean[n];
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (!notPrime[i]) {
+                count++;
+                for (int j = 2; i*j < n; j++) {
+                    notPrime[i*j] = true;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static ListNode reverseList(ListNode head) {
+        ListNode footer = null;
+        ListNode current = head;
+        while (current != null){
+            if(footer == null){
+                footer = new ListNode(current.val);
+            }else{
+                ListNode now = new ListNode(current.val);
+                now.next = footer;
+                footer = now;
+            }
+            current = current.next;
+        }
+        return footer;
+    }
+    public static ListNode reverseList2(ListNode head) {
+        if(head == null){
+            return null;
+        }
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next;
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+        return head;
+    }
+
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Set<Integer> set = new HashSet<Integer>();
+        for(int i = 0; i < nums.length; i++){
+            if(i > k) set.remove(nums[i-k-1]);
+            if(!set.add(nums[i])) return true;
+        }
+        return false;
+    }
+
+    /**
+     * 反转树 左右反转
+     * @param root
+     * @return
+     */
+    public static TreeNode invertTree(TreeNode root) {
+        if(root != null){
+            TreeNode left = root.left;
+            root.left = root.right;
+            root.right = left;
+            invertTree(root.left);
+            invertTree(root.right);
+        }
+        return root;
+    }
+
+    /**
+     * 给定的数是否是2的幂次方
+     * @param n
+     * @return
+     */
+    public static boolean isPowerOfTwo(int n) {
+
+        while (n != 0  && n % 2 == 0){
+            if(n == 1){
+                return true;
+            }
+            n /= 2;
+        }
+        return n == 1;
+    }
+
+    public boolean isPowerOfTwo2(int n) {
+        return n>0 && Integer.bitCount(n) == 1;
+    }
+
+    /**
+     * 检查链表是否是回文
+     * @param head
+     * @return
+     */
+    public static boolean isPalindrome(ListNode head) {
+
+        ListNode pre = null;
+        ListNode current = head;
+        ListNode next;
+        while (current != null){
+            next = current.next;
+            current.next = pre;
+            pre = current;
+            current = next;
+            if(current != null && pre.val == current.val){
+                return isSame(pre,current);
+            }
+        }
+        return false;
+    }
+
+    private static boolean isSame(ListNode pre,ListNode current){
+        if(pre == null && current == null){
+            return true;
+        }
+        if(pre != null && current != null){
+            return pre.val == current.val && isSame(pre.next,current.next);
+        }
+        return false;
+    }
+
+
+    public boolean isPalindrome2(ListNode head) {
+        ref = head;
+        return check(head);
+    }
+
+    ListNode ref;
+    /**
+     * 1-> 2-> 3-> 4-> 3-> 2-> 1
+     * @param node
+     * @return
+     */
+    public boolean check(ListNode node){
+        if(node == null){
+            return true;
+        }
+        boolean ans = check(node.next);
+        boolean isEqual = ref.val == node.val;
+        ref = ref.next;
+        return ans && isEqual;
+    }
+
+    public boolean isPalindrome3(ListNode head) {
+        if (head == null || head.next == null) return true;
+        ListNode fast = head;
+        ListNode newHead = null;
+        while (fast != null) {
+            if (fast.next == null) {
+                head = head.next;
+                break;
+            }else {
+                fast = fast.next.next;
+            }
+
+            ListNode next = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = next;
+        }
+
+        while (newHead != null) {
+            if (newHead.val != head.val) return false;
+            newHead = newHead.next;
+            head = head.next;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
+        System.out.println(isPowerOfTwo(218));
+
+        System.out.println((char)256);
+        ListNode rootFirst = new ListNode(1);
+        ListNode next = new ListNode(2);
+        ListNode next2 = new ListNode(3);
+        rootFirst.next = next;
+        next.next = next2;
+
+        System.out.println(reverseList(rootFirst));
+        System.out.println(removeElements(rootFirst,1));
+        System.out.println(isHappy(19));
+        System.out.println(rob2(new int[]{7,2,2, 7, 1}));
+
+        System.out.println(hammingWeight(11));
+        System.out.println(hammingWeight2(11));
+        rotate(new int[]{1,2,3,4,5,6,7,8,9},4);
+        rotate2(new int[]{1,2,3,4,5,6,7,8},4);
+
+        System.out.println(convertToTitle(701));
+        System.out.println(convertToTitle2(701));
+        System.out.println(titleToNumber("AAA"));
+
+        System.out.println(trailingZeroes(25));
 
         System.out.println("帕斯卡三角形");
         List<List<Integer>> generate = generate(5);

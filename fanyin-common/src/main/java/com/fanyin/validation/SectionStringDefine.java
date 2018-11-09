@@ -1,20 +1,20 @@
 package com.fanyin.validation;
 
-import com.fanyin.validation.annotation.Section;
+import com.fanyin.validation.annotation.SectionString;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛
- * @date 2018/8/14 13:46
+ * @date 2018/11/9 10:36
  */
-public class SectionDefine implements ConstraintValidator<Section,Integer> {
+public class SectionStringDefine implements ConstraintValidator<SectionString,String> {
 
     /**
      * 取值列表
      */
-    private int[] values;
+    private String[] values;
 
     /**
      * 是否必填
@@ -22,18 +22,18 @@ public class SectionDefine implements ConstraintValidator<Section,Integer> {
     private boolean required;
 
     @Override
-    public void initialize(Section constraintAnnotation) {
+    public void initialize(SectionString constraintAnnotation) {
         this.values = constraintAnnotation.value();
         this.required = constraintAnnotation.required();
     }
 
     @Override
-    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+    public boolean isValid(String value, ConstraintValidatorContext context) {
         if(!required && value == null){
             return true;
         }
-        for (int v : values){
-            if(v == value){
+        for (String v : values){
+            if(v.equals(value)){
                 return true;
             }
         }

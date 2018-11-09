@@ -1,6 +1,6 @@
 package com.fanyin.validation.annotation;
 
-import com.fanyin.validation.MobileDefine;
+import com.fanyin.validation.SectionIntDefine;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,22 +13,28 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 手机号码校验 只适用字符串
+ * 参数范围拦截 只适用int
  * @author 二哥很猛
- * @date 2018/8/14 11:39
+ * @date 2018/8/14 13:40
  */
 @Documented
-@Constraint(validatedBy = MobileDefine.class)
+@Constraint(validatedBy = SectionIntDefine.class)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @ReportAsSingleViolation
-public @interface Mobile {
+public @interface SectionInt {
 
     /**
      * 错误信息 必须包含该属性
      * @return 错误信息
      */
     String message() default "非法参数";
+
+    /**
+     * 取值列表
+     * @return 列表
+     */
+    int[] value() default {};
 
     /**
      * 是否必填
@@ -47,4 +53,6 @@ public @interface Mobile {
      * @return 自定义校验必须包含该属性
      */
     Class<? extends Payload>[] payload() default {};
+
 }
+

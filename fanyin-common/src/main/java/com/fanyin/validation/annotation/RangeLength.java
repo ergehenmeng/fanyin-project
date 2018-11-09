@@ -1,6 +1,6 @@
 package com.fanyin.validation.annotation;
 
-import com.fanyin.validation.RangeDoubleDefine;
+import com.fanyin.validation.RangeLengthDefine;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,7 +10,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
@@ -19,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @date 2018/8/14 11:24
  */
 @Documented
-@Constraint(validatedBy = RangeDoubleDefine.class)
+@Constraint(validatedBy = RangeLengthDefine.class)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @ReportAsSingleViolation
