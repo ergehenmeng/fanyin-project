@@ -1,5 +1,6 @@
 package com.fanyin.dto;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -10,9 +11,10 @@ import java.util.Date;
  * @date 2018/11/9 16:54
  */
 @Slf4j
+@Data
 public class BorrowList {
     /**
-     * 期数
+     * 当前期数
      */
     private int period;
 
@@ -22,124 +24,33 @@ public class BorrowList {
     private int periods;
 
     /**
-     * 预计回款时间 非交易中心使用
-     */
-    private Date preTime;
-
-    /**
      * 预计回款月
      */
-    private String preMonth;
+    private String month;
 
     /**
      * 预计回款利息 总利息
      */
-    private BigDecimal preInterest;
+    private BigDecimal baseInterest;
 
     /**
      * 预计回款本金
      */
-    private BigDecimal preCapital;
+    private BigDecimal capital;
 
     /**
      * 当期加息券收益
      */
-    private BigDecimal preCouponInterest;
+    private BigDecimal couponInterest;
 
     /**
      * 平台加息收益
      */
-    private BigDecimal prePlatformInterest;
+    private BigDecimal platformInterest;
 
     /**
-     * 回款时间
+     * 回款时间 精确到天 yyyy-MM-dd
      */
-    private Date preCollectionTime;
+    private Date day;
 
-    public String getPreMonth() {
-        return preMonth;
-    }
-
-    public void setPreMonth(String preMonth) {
-        this.preMonth = preMonth;
-    }
-
-    public Date getPreCollectionTime() {
-        return preCollectionTime;
-    }
-
-    public void setPreCollectionTime(Date preCollectionTime) {
-        this.preCollectionTime = preCollectionTime;
-    }
-
-    public int getPeriods() {
-        return periods;
-    }
-
-    public void setPeriods(int periods) {
-        this.periods = periods;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public Date getPreTime() {
-        return preTime;
-    }
-
-    public void setPreTime(Date preTime) {
-        this.preTime = preTime;
-    }
-
-    public BigDecimal getPreInterest() {
-        return preInterest;
-    }
-
-    public void setPreInterest(BigDecimal preInterest) {
-        this.preInterest = preInterest;
-    }
-
-    public BigDecimal getPreCapital() {
-        return preCapital;
-    }
-
-    public void setPreCapital(BigDecimal preCapital) {
-        this.preCapital = preCapital;
-    }
-
-    public BigDecimal getPreCouponInterest() {
-        return preCouponInterest;
-    }
-
-    public void setPreCouponInterest(BigDecimal preCouponInterest) {
-        this.preCouponInterest = preCouponInterest;
-    }
-
-    public BigDecimal getPrePlatformInterest() {
-        return prePlatformInterest;
-    }
-
-    public void setPrePlatformInterest(BigDecimal prePlatformInterest) {
-        this.prePlatformInterest = prePlatformInterest;
-    }
-
-    @Override
-    public String toString() {
-        return "BorrowPlan{" +
-                "period=" + period +
-                ", periods=" + periods +
-                ", preTime=" + preTime +
-                ", preMonth='" + preMonth + '\'' +
-                ", preInterest=" + preInterest +
-                ", preCapital=" + preCapital +
-                ", preCouponInterest=" + preCouponInterest +
-                ", prePlatformInterest=" + prePlatformInterest +
-                ", preCollectionTime=" + preCollectionTime +
-                '}';
-    }
 }
