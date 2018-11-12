@@ -1,4 +1,4 @@
-package com.fanyin.dto;
+package com.fanyin.model.project;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Slf4j
 @Data
-public class BorrowList {
+public class BorrowPlan {
     /**
      * 当前期数
      */

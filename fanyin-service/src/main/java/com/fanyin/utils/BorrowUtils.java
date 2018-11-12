@@ -1,13 +1,11 @@
 package com.fanyin.utils;
 
 
-import com.fanyin.dto.BorrowList;
+import com.fanyin.model.project.BorrowPlan;
+import com.google.common.collect.Maps;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -126,7 +124,7 @@ public class BorrowUtils {
      * @param type   期限单位:0:天 1:月 2:年
      * @return 按月付息总收益
      */
-    public static double perMonthInterest(double money,int period,double apr,int type){
+    public static double monthlyInterest(double money,int period,double apr,int type){
         double interest =  BigDecimalUtils.mul(getMonthApr(apr,type),money,period);
         return BigDecimalUtils.round(interest);
     }
@@ -138,8 +136,8 @@ public class BorrowUtils {
      * @param apr 利息 %
      * @return 按月付息总收益
      */
-    public static double perMonthInterest(double money,int period,double apr){
-        return perMonthInterest(money,period,apr,TYPE_MONTH);
+    public static double monthlyInterest(double money,int period,double apr){
+        return monthlyInterest(money,period,apr,TYPE_MONTH);
     }
 
 
@@ -152,8 +150,8 @@ public class BorrowUtils {
      * @param couponApr 加息券
      * @return 回款列表
      */
-    public static List<BorrowList> equalAmountOfInterestList(int periods, double money, double apr, double platformApr, double couponApr){
-        return equalAmountOfInterestList(periods,money,apr,platformApr,couponApr,TYPE_MONTH);
+    public static List<BorrowPlan> equalAmountRecoverList(int periods, double money, double apr, double platformApr, double couponApr){
+        return equalAmountRecoverList(periods,money,apr,platformApr,couponApr,TYPE_MONTH);
     }
 
     /**
@@ -166,7 +164,7 @@ public class BorrowUtils {
      * @param type 期限类型:0:天 1:月 2:年
      * @return 回款列表
      */
-    public static List<BorrowList> equalAmountOfInterestList(int periods,double money,double apr,double platformApr,double couponApr,int type){
+    public static List<BorrowPlan> equalAmountRecoverList(int periods, double money, double apr, double platformApr, double couponApr, int type){
         Date start = DateUtil.getNow();
         //基础平台月利率
         double baseMonthApr = getMonthApr(apr,type);
@@ -178,10 +176,10 @@ public class BorrowUtils {
         double baseMonthMoney = getMonthMoney(baseMonthApr,periods,money);
         //剩余本金
         double residueMoney = money;
-        List<BorrowList> list = new ArrayList<>();
-        BorrowList plan;
+        List<BorrowPlan> list = new ArrayList<>();
+        BorrowPlan plan;
         for (int i = 1; i <= periods; i++){
-            plan = new BorrowList();
+            plan = new BorrowPlan();
 
             //基础收益
             double baseInterest = BigDecimalUtils.round(BigDecimalUtils.mul(residueMoney,baseMonthApr));
@@ -246,8 +244,8 @@ public class BorrowUtils {
      * @param couponApr 个人加息券
      * @return 按月付息回款计划
      */
-    public static List<BorrowList> monthlyPaymentsList(int periods,double money,double apr,double platformApr,double couponApr,Date start){
-        return monthlyPaymentsList(periods,money,apr,platformApr,couponApr,start,TYPE_MONTH);
+    public static List<BorrowPlan> monthlyRecoverList(int periods, double money, double apr, double platformApr, double couponApr){
+        return monthlyRecoverList(periods,money,apr,platformApr,couponApr,TYPE_MONTH);
     }
 
     /**
@@ -257,11 +255,10 @@ public class BorrowUtils {
      * @param apr 基础利息
      * @param platformApr 平台加息
      * @param couponApr 个人加息券
-     * @param start  生成还款计划的开始时间
      * @param type 类型:0:按天计息 1:按月计息 2:按年计息
      * @return 按月付息回款计划
      */
-    public static List<BorrowList> monthlyPaymentsList(int periods,double money,double apr,double platformApr,double couponApr,Date start,int type){
+    public static List<BorrowPlan> monthlyRecoverList(int periods, double money, double apr, double platformApr, double couponApr, int type){
         //基础平台利息
         double baseMonthApr = getMonthApr(apr,type);
         //平台加息
@@ -270,14 +267,14 @@ public class BorrowUtils {
         double couponMonthApr = getMonthApr(couponApr,type);
 
         //由于生成回款记录时,总收益计算不一定等于每期回款收益相加总额 (四舍五入导致的),因此 最后一期需要额外计算
-        double baseTotal = perMonthInterest(money, periods, apr, type);
-        double platformTotal = perMonthInterest(money, periods, platformApr, type);
-        double couponTotal = perMonthInterest(money, periods, couponApr, type);
-
-        List<BorrowList> list = new ArrayList<>();
-        BorrowList plan;
+        double baseTotal = monthlyInterest(money, periods, apr, type);
+        double platformTotal = monthlyInterest(money, periods, platformApr, type);
+        double couponTotal = monthlyInterest(money, periods, couponApr, type);
+        Date start = DateUtil.getNow();
+        List<BorrowPlan> list = new ArrayList<>();
+        BorrowPlan plan;
         for(int i = 1; i <= periods; i++){
-            plan = new BorrowList();
+            plan = new BorrowPlan();
 
             plan.setDay(getRepaymentDate(start,i,type));
             plan.setMonth(DateUtil.formatMin(plan.getDay()));
@@ -317,7 +314,7 @@ public class BorrowUtils {
      * @param apr 利息 %
      * @return 天总利息
      */
-    public static double preDaily(double money,int periods,double apr){
+    public static double dailyInterest(double money,int periods,double apr){
         double interest =  BigDecimalUtils.mul(getMonthApr(apr,TYPE_DAY),money,periods);
         return BigDecimalUtils.round(interest);
     }
@@ -331,41 +328,75 @@ public class BorrowUtils {
      * @param couponApr 加息券奖励
      * @return 还款计划
      */
-    public static List<BorrowList> dailyInterestList(int periods,double money,double apr,double platformApr,double couponApr){
+    public static List<BorrowPlan> dailyRecoverList(int periods, double money, double apr, double platformApr, double couponApr){
         double totalApr = BigDecimalUtils.add(BigDecimalUtils.add(apr, platformApr), couponApr);
         //总利息 = 平台加息+基础+加息券
-        double interest = preDaily(money,periods,totalApr);
+        double interest = dailyInterest(money,periods,totalApr);
         //平台加息
-        double platformInterest = preDaily(money,periods,platformApr);
+        double platformInterest = dailyInterest(money,periods,platformApr);
         //加息券
-        double couponInterest = preDaily(money,periods,couponApr);
+        double couponInterest = dailyInterest(money,periods,couponApr);
 
-        BorrowList borrowList = new BorrowList();
-        borrowList.setPeriod(1);
-        borrowList.setPeriods(1);
-        borrowList.setBaseInterest(BigDecimal.valueOf(interest));
-        borrowList.setCouponInterest(BigDecimal.valueOf(couponInterest));
-        borrowList.setPlatformInterest(BigDecimal.valueOf(platformInterest));
-        borrowList.setDay(DateUtil.addDays(new Date(),periods));
-        borrowList.setMonth(DateUtil.formatMin(borrowList.getDay()));
-        borrowList.setCapital(BigDecimal.valueOf(money));
-        return Collections.singletonList(borrowList);
+        BorrowPlan borrowPlan = new BorrowPlan();
+        borrowPlan.setPeriod(1);
+        borrowPlan.setPeriods(1);
+        borrowPlan.setBaseInterest(BigDecimal.valueOf(interest));
+        borrowPlan.setCouponInterest(BigDecimal.valueOf(couponInterest));
+        borrowPlan.setPlatformInterest(BigDecimal.valueOf(platformInterest));
+        borrowPlan.setDay(DateUtil.addDays(new Date(),periods));
+        borrowPlan.setMonth(DateUtil.formatMin(borrowPlan.getDay()));
+        borrowPlan.setCapital(BigDecimal.valueOf(money));
+        return Collections.singletonList(borrowPlan);
+    }
+
+    /**
+     * 根据回款计划生成还款计划
+     * @param borrowPlans 单个人的回款计划
+     * @param paymentMap 还款计划
+     */
+    public static void repaymentList(List<BorrowPlan> borrowPlans, Map<Integer,BorrowPlan> paymentMap){
+        borrowPlans.forEach(borrowPlan -> {
+            BorrowPlan plan = paymentMap.get(borrowPlan.getPeriod());
+            if(plan == null){
+                BorrowPlan copy = BeanCopyUtil.copy(borrowPlan, BorrowPlan.class);
+                paymentMap.put(copy.getPeriod(),copy);
+            }else{
+                plan.setBaseInterest(plan.getBaseInterest().add(borrowPlan.getBaseInterest()));
+                plan.setCapital(plan.getCapital().add(borrowPlan.getCapital()));
+                plan.setCouponInterest(plan.getCouponInterest().add(borrowPlan.getCouponInterest()));
+                plan.setPlatformInterest(plan.getPlatformInterest().add(borrowPlan.getPlatformInterest()));
+            }
+        });
     }
 
 
+
     public static void main(String[] args) {
-        /*List<BorrowList> list = collectionFixedPaymentMortgage(3,100000,10,0,0,new Date());
-        list.forEach(borrowPlan -> System.out.println(borrowPlan));
-        System.out.println(fixedPaymentMortgage(100000,3,10));;
+        List<BorrowPlan> list = equalAmountRecoverList(3,100000,10,0,0);
 
-        List<BorrowList> plans = collectionPerMonth(3,100000,10,0,0,new Date());
-        plans.forEach(borrowPlan -> System.out.println(borrowPlan));
+        list.forEach(System.out::println);
 
-        System.out.println(perMonth(100000,3,10));;
+        System.out.println(equalAmountOfInterest(100000,3,10));
 
-        List<BorrowList> plans1 = collectionPreDaily(15, 10000, 10, 2, 0);
-        plans1.forEach(borrowPlan -> System.out.println(borrowPlan));*/
+        List<BorrowPlan> plans = monthlyRecoverList(3,100000,10,0,0);
+
+        plans.forEach(System.out::println);
+
+        Map<Integer,BorrowPlan> repaymentMap = Maps.newHashMap();
+        repaymentList(list,repaymentMap);
+        System.out.println("还款计划");
+        repaymentMap.values().forEach(System.out::println);
+
+
+
+        System.out.println(monthlyInterest(100000,3,10));
+
+        List<BorrowPlan> plans1 = dailyRecoverList(15, 10000, 10, 2, 0);
+
+        plans1.forEach(System.out::println);
+
         System.out.println(equalAmountOfInterest(10000,6,10,1));
+        System.out.println(new BorrowPlan());
     }
  
 }
