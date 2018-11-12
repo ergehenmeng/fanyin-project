@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * @author 二哥很猛
  * @date 2018/1/26 10:30
  */
-public class WebUtils {
+public class WebUtil {
 
     /**
      * 直接返回前台json格式信息

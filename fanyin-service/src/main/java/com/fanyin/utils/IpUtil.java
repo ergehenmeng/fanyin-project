@@ -8,7 +8,7 @@ import static com.fanyin.constant.CommonConstant.UNKNOWN;
  * @author 二哥很猛
  * @date 2018/1/18 18:39
  */
-public class IpUtils {
+public class IpUtil {
 
 
     /**

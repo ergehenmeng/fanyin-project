@@ -12,7 +12,7 @@ import java.util.*;
  * @author 二哥很猛
  * @date 2017/8/14 11:10:55
  */
-public class BorrowUtils {
+public class ProjectUtil {
 
     /**
      * 期限单位:天

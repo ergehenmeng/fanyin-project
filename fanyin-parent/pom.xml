@@ -45,7 +45,7 @@
       <skipTests>true</skipTests>
       <netty.version>4.1.22.Final</netty.version>
       <asm.version>5.1</asm.version>
-      <dubbo.version>2.5.10</dubbo.version>
+
       <!--生产消费者-->
       <disruptor.version>3.4.2</disruptor.version>
       <akka.version>2.5.13</akka.version>
@@ -165,11 +165,6 @@
                 <groupId>com.lmax</groupId>
                 <artifactId>disruptor</artifactId>
                 <version>${disruptor.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>${dubbo.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.typesafe.akka</groupId>

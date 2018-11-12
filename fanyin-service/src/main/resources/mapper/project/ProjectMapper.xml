@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.project.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.project.Project">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="borrower_id" jdbcType="INTEGER" property="borrowerId" />
+    <result column="nid" jdbcType="VARCHAR" property="nid" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="raise_amount" jdbcType="DECIMAL" property="raiseAmount" />
+    <result column="min_tender" jdbcType="DECIMAL" property="minTender" />
+    <result column="apr" jdbcType="DECIMAL" property="apr" />
+    <result column="platform_apr" jdbcType="DECIMAL" property="platformApr" />
+    <result column="period" jdbcType="TINYINT" property="period" />
+    <result column="repayment_type" jdbcType="TINYINT" property="repaymentType" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="presell_time" jdbcType="TIMESTAMP" property="presellTime" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="recheck_time" jdbcType="TIMESTAMP" property="recheckTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    id, borrower_id, nid, status, type, name, amount, raise_amount, min_tender, apr,
+    platform_apr, period, repayment_type, add_time, presell_time, publish_time, recheck_time, 
+    end_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getByNid" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from project where nid = #{nid}
+    </select>
+    <select id="getNewestProject" resultType="java.lang.String">
+      select nid from project order by id desc limit 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.project.Project">
+    <!--
+      @create by mybatis
+    -->
+    insert into project (id, borrower_id, nid, 
+      status, type, name, 
+      amount, raise_amount, min_tender, 
+      apr, platform_apr, period, 
+      repayment_type, add_time, presell_time, 
+      publish_time, recheck_time, end_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{borrowerId,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{raiseAmount,jdbcType=DECIMAL}, #{minTender,jdbcType=DECIMAL}, 
+      #{apr,jdbcType=DECIMAL}, #{platformApr,jdbcType=DECIMAL}, #{period,jdbcType=TINYINT}, 
+      #{repaymentType,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{presellTime,jdbcType=TIMESTAMP}, 
+      #{publishTime,jdbcType=TIMESTAMP}, #{recheckTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.project.Project">
+    <!--
+      @create by mybatis
+    -->
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="borrowerId != null">
+        borrower_id,
+      </if>
+      <if test="nid != null">
+        nid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="raiseAmount != null">
+        raise_amount,
+      </if>
+      <if test="minTender != null">
+        min_tender,
+      </if>
+      <if test="apr != null">
+        apr,
+      </if>
+      <if test="platformApr != null">
+        platform_apr,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="repaymentType != null">
+        repayment_type,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="presellTime != null">
+        presell_time,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="recheckTime != null">
+        recheck_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerId != null">
+        #{borrowerId,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null">
+        #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="raiseAmount != null">
+        #{raiseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minTender != null">
+        #{minTender,jdbcType=DECIMAL},
+      </if>
+      <if test="apr != null">
+        #{apr,jdbcType=DECIMAL},
+      </if>
+      <if test="platformApr != null">
+        #{platformApr,jdbcType=DECIMAL},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=TINYINT},
+      </if>
+      <if test="repaymentType != null">
+        #{repaymentType,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presellTime != null">
+        #{presellTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recheckTime != null">
+        #{recheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.project.Project">
+    <!--
+      @create by mybatis
+    -->
+    update project
+    <set>
+      <if test="borrowerId != null">
+        borrower_id = #{borrowerId,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null">
+        nid = #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="raiseAmount != null">
+        raise_amount = #{raiseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minTender != null">
+        min_tender = #{minTender,jdbcType=DECIMAL},
+      </if>
+      <if test="apr != null">
+        apr = #{apr,jdbcType=DECIMAL},
+      </if>
+      <if test="platformApr != null">
+        platform_apr = #{platformApr,jdbcType=DECIMAL},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=TINYINT},
+      </if>
+      <if test="repaymentType != null">
+        repayment_type = #{repaymentType,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presellTime != null">
+        presell_time = #{presellTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recheckTime != null">
+        recheck_time = #{recheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.Project">
+    <!--
+      @create by mybatis
+    -->
+    update project
+    set borrower_id = #{borrowerId,jdbcType=INTEGER},
+      nid = #{nid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      name = #{name,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      raise_amount = #{raiseAmount,jdbcType=DECIMAL},
+      min_tender = #{minTender,jdbcType=DECIMAL},
+      apr = #{apr,jdbcType=DECIMAL},
+      platform_apr = #{platformApr,jdbcType=DECIMAL},
+      period = #{period,jdbcType=TINYINT},
+      repayment_type = #{repaymentType,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      presell_time = #{presellTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      recheck_time = #{recheckTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
