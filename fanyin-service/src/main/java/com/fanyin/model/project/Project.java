@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Project implements Serializable {
     /**
-     * 主键标的ID<br>
+     * 主键产品ID<br>
      * 表 : project<br>
      * 对应字段 : id<br>
      */
@@ -24,28 +24,28 @@ public class Project implements Serializable {
     private Integer borrowerId;
 
     /**
-     * 标的编号<br>
+     * 产品编号<br>
      * 表 : project<br>
      * 对应字段 : nid<br>
      */
     private String nid;
 
     /**
-     * 标的状态:-2:废弃-1:标的撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清<br>
+     * 产品状态:-2:废弃-1:产品撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清<br>
      * 表 : project<br>
      * 对应字段 : status<br>
      */
     private Byte status;
 
     /**
-     * 标的类型 0:个人贷,1:企业贷<br>
+     * 产品类型 0:个人贷,1:企业贷<br>
      * 表 : project<br>
      * 对应字段 : type<br>
      */
     private Byte type;
 
     /**
-     * 标的名称<br>
+     * 产品名称<br>
      * 表 : project<br>
      * 对应字段 : name<br>
      */
@@ -73,7 +73,7 @@ public class Project implements Serializable {
     private BigDecimal minTender;
 
     /**
-     * 标的基础利息 单位%<br>
+     * 产品基础利息 单位%<br>
      * 表 : project<br>
      * 对应字段 : apr<br>
      */
@@ -101,21 +101,21 @@ public class Project implements Serializable {
     private Byte repaymentType;
 
     /**
-     * 标的信息录入时间<br>
+     * 产品信息录入时间<br>
      * 表 : project<br>
      * 对应字段 : add_time<br>
      */
     private Date addTime;
 
     /**
-     * 预售时间(默认标的发布时间)<br>
+     * 预售时间(默认产品发布时间)<br>
      * 表 : project<br>
      * 对应字段 : presell_time<br>
      */
     private Date presellTime;
 
     /**
-     * 标的发布时间(复审通过时间)<br>
+     * 产品发布时间(复审通过时间)<br>
      * 表 : project<br>
      * 对应字段 : publish_time<br>
      */
@@ -129,7 +129,7 @@ public class Project implements Serializable {
     private Date recheckTime;
 
     /**
-     * 标的完结时间(废弃,撤标,还款完成,逾期结清)等<br>
+     * 产品完结时间(废弃,撤标,还款完成,逾期结清)等<br>
      * 表 : project<br>
      * 对应字段 : end_time<br>
      */
@@ -138,14 +138,14 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @return 主键标的ID
+     * @return 主键产品ID
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * @param id  主键标的ID
+     * @param id  主键产品ID
      */
     public void setId(Integer id) {
         this.id = id;
@@ -166,56 +166,56 @@ public class Project implements Serializable {
     }
 
     /**
-     * @return 标的编号
+     * @return 产品编号
      */
     public String getNid() {
         return nid;
     }
 
     /**
-     * @param nid  标的编号
+     * @param nid  产品编号
      */
     public void setNid(String nid) {
         this.nid = nid == null ? null : nid.trim();
     }
 
     /**
-     * @return 标的状态:-2:废弃-1:标的撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清
+     * @return 产品状态:-2:废弃-1:产品撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清
      */
     public Byte getStatus() {
         return status;
     }
 
     /**
-     * @param status  标的状态:-2:废弃-1:标的撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清
+     * @param status  产品状态:-2:废弃-1:产品撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清
      */
     public void setStatus(Byte status) {
         this.status = status;
     }
 
     /**
-     * @return 标的类型 0:个人贷,1:企业贷
+     * @return 产品类型 0:个人贷,1:企业贷
      */
     public Byte getType() {
         return type;
     }
 
     /**
-     * @param type  标的类型 0:个人贷,1:企业贷
+     * @param type  产品类型 0:个人贷,1:企业贷
      */
     public void setType(Byte type) {
         this.type = type;
     }
 
     /**
-     * @return 标的名称
+     * @return 产品名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name  标的名称
+     * @param name  产品名称
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
@@ -264,14 +264,14 @@ public class Project implements Serializable {
     }
 
     /**
-     * @return 标的基础利息 单位%
+     * @return 产品基础利息 单位%
      */
     public BigDecimal getApr() {
         return apr;
     }
 
     /**
-     * @param apr  标的基础利息 单位%
+     * @param apr  产品基础利息 单位%
      */
     public void setApr(BigDecimal apr) {
         this.apr = apr;
@@ -320,42 +320,42 @@ public class Project implements Serializable {
     }
 
     /**
-     * @return 标的信息录入时间
+     * @return 产品信息录入时间
      */
     public Date getAddTime() {
         return addTime;
     }
 
     /**
-     * @param addTime  标的信息录入时间
+     * @param addTime  产品信息录入时间
      */
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
     /**
-     * @return 预售时间(默认标的发布时间)
+     * @return 预售时间(默认产品发布时间)
      */
     public Date getPresellTime() {
         return presellTime;
     }
 
     /**
-     * @param presellTime  预售时间(默认标的发布时间)
+     * @param presellTime  预售时间(默认产品发布时间)
      */
     public void setPresellTime(Date presellTime) {
         this.presellTime = presellTime;
     }
 
     /**
-     * @return 标的发布时间(复审通过时间)
+     * @return 产品发布时间(复审通过时间)
      */
     public Date getPublishTime() {
         return publishTime;
     }
 
     /**
-     * @param publishTime  标的发布时间(复审通过时间)
+     * @param publishTime  产品发布时间(复审通过时间)
      */
     public void setPublishTime(Date publishTime) {
         this.publishTime = publishTime;
@@ -376,14 +376,14 @@ public class Project implements Serializable {
     }
 
     /**
-     * @return 标的完结时间(废弃,撤标,还款完成,逾期结清)等
+     * @return 产品完结时间(废弃,撤标,还款完成,逾期结清)等
      */
     public Date getEndTime() {
         return endTime;
     }
 
     /**
-     * @param endTime  标的完结时间(废弃,撤标,还款完成,逾期结清)等
+     * @param endTime  产品完结时间(废弃,撤标,还款完成,逾期结清)等
      */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;

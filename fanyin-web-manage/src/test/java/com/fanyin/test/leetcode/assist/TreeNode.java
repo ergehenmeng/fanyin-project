@@ -1,7 +1,7 @@
 package com.fanyin.test.leetcode.assist;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/1 17:46
  */
 public class TreeNode {

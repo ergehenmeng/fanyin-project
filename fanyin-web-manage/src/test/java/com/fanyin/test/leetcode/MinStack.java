@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/5 9:34
  */
 public class MinStack {

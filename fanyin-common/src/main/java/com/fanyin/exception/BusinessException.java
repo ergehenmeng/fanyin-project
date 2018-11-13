@@ -13,4 +13,8 @@ public class BusinessException extends SystemException {
     public BusinessException(ErrorCodeEnum error) {
         super(error);
     }
+
+    public BusinessException(int code, String msg) {
+        super(code, msg);
+    }
 }

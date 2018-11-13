@@ -160,6 +160,16 @@ public enum ErrorCodeEnum {
      * 可用积分不足
      */
     INTEGRAL_NOT_ENOUGH(3011,"可用积分不足"),
+
+    /**
+     * 产品信息不存在
+     */
+    PROJECT_NOT_FOUND(3012,"产品信息不存在"),
+
+    /**
+     * 产品状态错误
+     */
+    PROJECT_STATUS_ERROR(3013,"产品状态错误"),
     ;
     /**
      * 构造方法

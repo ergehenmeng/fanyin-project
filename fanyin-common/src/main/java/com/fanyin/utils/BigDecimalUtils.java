@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 上午11:11:38
  */
 public class BigDecimalUtils {
