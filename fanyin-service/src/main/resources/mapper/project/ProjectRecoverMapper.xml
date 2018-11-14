@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.project.ProjectRecoverMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.project.ProjectRecover">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="period" jdbcType="TINYINT" property="period" />
+    <result column="periods" jdbcType="TINYINT" property="periods" />
+    <result column="capital" jdbcType="DECIMAL" property="capital" />
+    <result column="interest" jdbcType="DECIMAL" property="interest" />
+    <result column="platform_interest" jdbcType="DECIMAL" property="platformInterest" />
+    <result column="coupon_interest" jdbcType="DECIMAL" property="couponInterest" />
+    <result column="receive_time" jdbcType="DATE" property="receiveTime" />
+    <result column="real_receive_time" jdbcType="TIMESTAMP" property="realReceiveTime" />
+    <result column="receive_month" jdbcType="CHAR" property="receiveMonth" />
+    <result column="real_receive_month" jdbcType="CHAR" property="realReceiveMonth" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, user_id, status, tender_id, project_id, period, periods, capital, interest, platform_interest, 
+    coupon_interest, receive_time, real_receive_time, receive_month, real_receive_month, 
+    add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from project_recover
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from project_recover
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.project.ProjectRecover">
+    <!--
+      @create by mybatis
+    -->
+    insert into project_recover (id, user_id, status, 
+      tender_id, project_id, period, 
+      periods, capital, interest, 
+      platform_interest, coupon_interest, receive_time, 
+      real_receive_time, receive_month, real_receive_month, 
+      add_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{tenderId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{period,jdbcType=TINYINT}, 
+      #{periods,jdbcType=TINYINT}, #{capital,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, 
+      #{platformInterest,jdbcType=DECIMAL}, #{couponInterest,jdbcType=DECIMAL}, #{receiveTime,jdbcType=DATE}, 
+      #{realReceiveTime,jdbcType=TIMESTAMP}, #{receiveMonth,jdbcType=CHAR}, #{realReceiveMonth,jdbcType=CHAR}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectRecover">
+    <!--
+      @create by mybatis
+    -->
+    insert into project_recover
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="periods != null">
+        periods,
+      </if>
+      <if test="capital != null">
+        capital,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="platformInterest != null">
+        platform_interest,
+      </if>
+      <if test="couponInterest != null">
+        coupon_interest,
+      </if>
+      <if test="receiveTime != null">
+        receive_time,
+      </if>
+      <if test="realReceiveTime != null">
+        real_receive_time,
+      </if>
+      <if test="receiveMonth != null">
+        receive_month,
+      </if>
+      <if test="realReceiveMonth != null">
+        real_receive_month,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=TINYINT},
+      </if>
+      <if test="periods != null">
+        #{periods,jdbcType=TINYINT},
+      </if>
+      <if test="capital != null">
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="platformInterest != null">
+        #{platformInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="couponInterest != null">
+        #{couponInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=DATE},
+      </if>
+      <if test="realReceiveTime != null">
+        #{realReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveMonth != null">
+        #{receiveMonth,jdbcType=CHAR},
+      </if>
+      <if test="realReceiveMonth != null">
+        #{realReceiveMonth,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+    <insert id="insertBatchRecover" >
+        insert into project_recover(user_id,
+                                    status,
+                                    tender_id,
+                                    project_id,
+                                    period,
+                                    periods,
+                                    capital,
+                                    interest,
+                                    platform_interest,
+                                    coupon_interest,
+                                    receive_time,
+                                    receive_month)values
+        <foreach collection="list" open="(" close=")" item="item" index="index" separator=",">
+            #{userId},
+            0,
+            #{tenderId},
+            #{projectId},
+            #{item.period},
+            #{item.periods},
+            #{item.capital}
+            #{item.baseInterest},
+            #{item.platformInterest},
+            #{item.couponInterest},
+            #{item.day},
+            #{item.month}
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.project.ProjectRecover">
+    <!--
+      @create by mybatis
+    -->
+    update project_recover
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=TINYINT},
+      </if>
+      <if test="periods != null">
+        periods = #{periods,jdbcType=TINYINT},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="platformInterest != null">
+        platform_interest = #{platformInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="couponInterest != null">
+        coupon_interest = #{couponInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveTime != null">
+        receive_time = #{receiveTime,jdbcType=DATE},
+      </if>
+      <if test="realReceiveTime != null">
+        real_receive_time = #{realReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveMonth != null">
+        receive_month = #{receiveMonth,jdbcType=CHAR},
+      </if>
+      <if test="realReceiveMonth != null">
+        real_receive_month = #{realReceiveMonth,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectRecover">
+    <!--
+      @create by mybatis
+    -->
+    update project_recover
+    set user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      period = #{period,jdbcType=TINYINT},
+      periods = #{periods,jdbcType=TINYINT},
+      capital = #{capital,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      platform_interest = #{platformInterest,jdbcType=DECIMAL},
+      coupon_interest = #{couponInterest,jdbcType=DECIMAL},
+      receive_time = #{receiveTime,jdbcType=DATE},
+      real_receive_time = #{realReceiveTime,jdbcType=TIMESTAMP},
+      receive_month = #{receiveMonth,jdbcType=CHAR},
+      real_receive_month = #{realReceiveMonth,jdbcType=CHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -2,9 +2,9 @@ package com.fanyin.service.system;
 
 
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.request.system.config.ConfigInsertRequest;
-import com.fanyin.request.system.config.ConfigSelectRequest;
-import com.fanyin.request.system.config.ConfigUpdateRequest;
+import com.fanyin.dto.system.config.ConfigInsertRequest;
+import com.fanyin.dto.system.config.ConfigSelectRequest;
+import com.fanyin.dto.system.config.ConfigUpdateRequest;
 import com.github.pagehelper.PageInfo;
 
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 审核记录信息
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/12 17:33
  */
 @Service("projectAuditLogService")

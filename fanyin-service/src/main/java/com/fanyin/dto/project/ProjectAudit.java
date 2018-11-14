@@ -1,4 +1,4 @@
-package com.fanyin.request.project;
+package com.fanyin.dto.project;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.dto.AccessToken;
+import com.fanyin.dto.security.AccessToken;
 import com.fanyin.service.system.AccessTokenService;
 import com.fanyin.service.system.ProxyService;
 import com.fanyin.utils.Sha256Util;

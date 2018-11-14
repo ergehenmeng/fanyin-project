@@ -2,8 +2,8 @@ package com.fanyin.controller.system;
 
 import com.fanyin.ext.ResultJson;
 import com.fanyin.model.system.SystemMenu;
-import com.fanyin.request.system.menu.MenuInsertRequest;
-import com.fanyin.request.system.menu.MenuUpdateRequest;
+import com.fanyin.dto.system.menu.MenuInsertRequest;
+import com.fanyin.dto.system.menu.MenuUpdateRequest;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,8 +1,8 @@
 package com.fanyin.service.system;
 
 import com.fanyin.model.system.SystemMenu;
-import com.fanyin.request.system.menu.MenuInsertRequest;
-import com.fanyin.request.system.menu.MenuUpdateRequest;
+import com.fanyin.dto.system.menu.MenuInsertRequest;
+import com.fanyin.dto.system.menu.MenuUpdateRequest;
 
 import java.util.List;
 

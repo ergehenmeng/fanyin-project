@@ -1,7 +1,11 @@
 package com.fanyin.service.project;
 
+import com.fanyin.dto.project.ProjectAudit;
 import com.fanyin.model.project.Project;
-import com.fanyin.request.project.ProjectAudit;
+import com.fanyin.model.project.ProjectPlan;
+import com.fanyin.model.project.ProjectTender;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -55,6 +59,15 @@ public interface ProjectService {
      * @return 产品编号
      */
     String createNid();
+
+    /**
+     * 生成投资人回款计划
+     * @param tender 投资记录
+     * @param project 产品信息
+     * @return 回款列表
+     */
+    List<ProjectPlan> createRecoverList(ProjectTender tender, Project project);
+
 
 }
 

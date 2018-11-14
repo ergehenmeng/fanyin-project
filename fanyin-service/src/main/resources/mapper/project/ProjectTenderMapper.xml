@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.project.ProjectTenderMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.project.ProjectTender">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="base_interest" jdbcType="DECIMAL" property="baseInterest" />
+    <result column="platform_interest" jdbcType="DECIMAL" property="platformInterest" />
+    <result column="coupon_interest" jdbcType="DECIMAL" property="couponInterest" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="channel" jdbcType="CHAR" property="channel" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, user_id, project_id, account, base_interest, platform_interest, coupon_interest, 
+    status, channel, ip, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from project_tender
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from project_tender
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.project.ProjectTender">
+    <!--
+      @create by mybatis
+    -->
+    insert into project_tender (id, user_id, project_id, 
+      account, base_interest, platform_interest, 
+      coupon_interest, status, channel, 
+      ip, add_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{account,jdbcType=DECIMAL}, #{baseInterest,jdbcType=DECIMAL}, #{platformInterest,jdbcType=DECIMAL}, 
+      #{couponInterest,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, #{channel,jdbcType=CHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectTender">
+    <!--
+      @create by mybatis
+    -->
+    insert into project_tender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="baseInterest != null">
+        base_interest,
+      </if>
+      <if test="platformInterest != null">
+        platform_interest,
+      </if>
+      <if test="couponInterest != null">
+        coupon_interest,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="baseInterest != null">
+        #{baseInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="platformInterest != null">
+        #{platformInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="couponInterest != null">
+        #{couponInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=CHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.project.ProjectTender">
+    <!--
+      @create by mybatis
+    -->
+    update project_tender
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="baseInterest != null">
+        base_interest = #{baseInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="platformInterest != null">
+        platform_interest = #{platformInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="couponInterest != null">
+        coupon_interest = #{couponInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=CHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectTender">
+    <!--
+      @create by mybatis
+    -->
+    update project_tender
+    set user_id = #{userId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      account = #{account,jdbcType=DECIMAL},
+      base_interest = #{baseInterest,jdbcType=DECIMAL},
+      platform_interest = #{platformInterest,jdbcType=DECIMAL},
+      coupon_interest = #{couponInterest,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      channel = #{channel,jdbcType=CHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+    <resultMap id="resultMapCoupon" type="com.fanyin.model.project.ProjectTender" extends="BaseResultMap">
+        <collection property="couponList" ofType="com.fanyin.model.user.DiscountCoupon" >
+            <id column="discount_coupon_id" property="id"/>
+            <result column="type" property="type"/>
+            <result column="discount_coupon_status" property="status"/>
+            <result column="face_value" property="faceValue"/>
+            <result column="period_limit" property="periodLimit"/>
+            <result column="amount_limit" property="amountLimit"/>
+        </collection>
+    </resultMap>
+    <select id="getByProjectId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from project_tender where project_id = #{projectId}
+    </select>
+
+    <select id="getByProjectIdWithCoupon" resultMap="resultMapCoupon">
+        select t.id,t.user_id,t.project_id,t.account,t.base_interest,t.platform_interest,t.coupon_interest,t.status,t.channel,
+            t.ip,t.add_time,t.update_time,s.id as discount_coupon_id ,s.type,s.status as discount_coupon_status,s.face_value,s.period_limit,s.amount_limit
+        from project_tender t
+            left join discount_coupon_tender r on t.id = r.tender_id
+            left join discount_coupon s on r.discount_coupon_id = s.id
+        where t.project_id = #{projectId}
+    </select>
+
+    <select id="getByIdWithCoupon" resultMap="resultMapCoupon">
+        select t.id,t.user_id,t.project_id,t.account,t.base_interest,t.platform_interest,t.coupon_interest,t.status,t.channel,
+            t.ip,t.add_time,t.update_time,s.id as discount_coupon_id ,s.type,s.status as discount_coupon_status,s.face_value,s.period_limit,s.amount_limit
+        from project_tender t
+            left join discount_coupon_tender r on t.id = r.tender_id
+            left join discount_coupon s on r.discount_coupon_id = s.id
+        where t.id = #{id} and t.user_id = #{userId}
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from project_tender where id = #{id} and user_id = #{userId}
+    </select>
+
+
+</mapper>

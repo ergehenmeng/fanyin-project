@@ -1,28 +1,36 @@
-package com.fanyin.request.system.menu;
+package com.fanyin.dto.system.menu;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * 菜单添加
  * @author 二哥很猛
- * @date  2018/1/30 11:36
  */
 @Data
-public class MenuInsertRequest implements Serializable {
+public class MenuUpdateRequest implements Serializable {
 
-    private static final long serialVersionUID = 8515421119279590820L;
+    private static final long serialVersionUID = 6714241304584747778L;
 
     /**
-     * 名称
+     * 主键
+     */
+    private Integer id;
+
+    /**
+     * 菜单名称
      */
     private String name;
 
     /**
-     * 标示符
+     * 菜单标示符
      */
     private String nid;
+
+    /**
+     * 菜单父id
+     */
+    private String pid;
 
     /**
      * 菜单url
@@ -35,9 +43,9 @@ public class MenuInsertRequest implements Serializable {
     private String subUrl;
 
     /**
-     * 父id
+     * 是否为左侧主菜单
      */
-    private Integer pid;
+    private Boolean mainMenu;
 
     /**
      * 排序
@@ -45,13 +53,9 @@ public class MenuInsertRequest implements Serializable {
     private Integer sort;
 
     /**
-     * 备注信息
+     * 备注
      */
     private String remark;
 
-    /**
-     * 是否为主菜单
-     */
-    private Boolean mainMenu;
 
 }

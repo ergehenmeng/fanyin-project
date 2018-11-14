@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Slf4j
 @Data
-public class BorrowPlan {
+public class ProjectPlan {
     /**
      * 当前期数
      */
@@ -29,7 +29,7 @@ public class BorrowPlan {
     private String month;
 
     /**
-     * 预计回款利息 总利息
+     * 预计回款利息基础利息
      */
     private BigDecimal baseInterest;
 

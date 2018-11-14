@@ -1,4 +1,4 @@
-package com.fanyin.request.system.config;
+package com.fanyin.dto.system.config;
 
 import lombok.Data;
 

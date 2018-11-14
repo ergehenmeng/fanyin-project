@@ -1,4 +1,4 @@
-package com.fanyin.dto;
+package com.fanyin.dto.security;
 
 import lombok.Getter;
 import lombok.Setter;
