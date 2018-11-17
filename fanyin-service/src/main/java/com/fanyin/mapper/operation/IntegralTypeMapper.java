@@ -61,4 +61,5 @@ public interface IntegralTypeMapper {
      * @return 影响条数
      */
     IntegralType getByNid(@Param("nid")String nid);
+
 }

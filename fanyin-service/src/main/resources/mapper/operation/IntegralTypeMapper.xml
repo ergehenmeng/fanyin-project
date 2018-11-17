@@ -14,12 +14,13 @@
     <result column="random" jdbcType="BIT" property="random" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, nid, name, status, score, type, random, add_time, update_time
+    id, nid, name, status, score, type, random, add_time, update_time,remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -36,6 +37,7 @@
         from integral_type where status = true and nid = #{nid}
     </select>
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       @create by mybatis
@@ -49,10 +51,10 @@
     -->
     insert into integral_type (id, nid, name, 
       status, score, type, random, 
-      add_time, update_time)
+      add_time, update_time,remark)
     values (#{id,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{status,jdbcType=BIT}, #{score,jdbcType=SMALLINT}, #{type,jdbcType=BIT}, #{random,jdbcType=BIT}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{update_timeTime,jdbcType=TIMESTAMP})
+      #{addTime,jdbcType=TIMESTAMP}, #{update_timeTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.IntegralType">
     <!--
@@ -87,6 +89,9 @@
       <if test="updateTime != null">
         update_time,
       </if>
+        <if test="remark != null">
+            remark,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -116,6 +121,9 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="remark != null">
+            #{remark,jdbcType=VARCHAR},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.operation.IntegralType">
@@ -148,6 +156,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="remark != null">
+          remark = #{remark,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -163,7 +174,8 @@
       type = #{type,jdbcType=BIT},
       random = #{random,jdbcType=BIT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

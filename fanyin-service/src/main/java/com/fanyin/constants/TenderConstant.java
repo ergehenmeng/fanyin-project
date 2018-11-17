@@ -21,4 +21,19 @@ public class TenderConstant {
      * 还款完成
      */
     public static final byte TENDER_STATUS_2 = 2;
+
+    /**
+     * 首投
+     */
+    public static final byte TENDER_FIRST = 0;
+
+    /**
+     * 最高
+     */
+    public static final byte TENDER_MAX = 1;
+
+    /**
+     * 扫尾
+     */
+    public static final byte TENDER_LAST = 2;
 }

@@ -12,6 +12,7 @@
     <result column="base_interest" jdbcType="DECIMAL" property="baseInterest" />
     <result column="platform_interest" jdbcType="DECIMAL" property="platformInterest" />
     <result column="coupon_interest" jdbcType="DECIMAL" property="couponInterest" />
+    <result column="voucher_interest" jdbcType="DECIMAL" property="voucherInterest" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="channel" jdbcType="CHAR" property="channel" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
@@ -22,7 +23,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, project_id, account, base_interest, platform_interest, coupon_interest, 
+    id, user_id, project_id, account, base_interest, platform_interest, coupon_interest, voucher_interest,
     status, channel, ip, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -48,13 +49,13 @@
       @create by mybatis
     -->
     insert into project_tender (id, user_id, project_id, 
-      account, base_interest, platform_interest, 
+      account, base_interest, platform_interest, voucher_interest,
       coupon_interest, status, channel, 
       ip, add_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
       #{account,jdbcType=DECIMAL}, #{baseInterest,jdbcType=DECIMAL}, #{platformInterest,jdbcType=DECIMAL}, 
-      #{couponInterest,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, #{channel,jdbcType=CHAR}, 
+      #{couponInterest,jdbcType=DECIMAL},#{voucherInterest,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, #{channel,jdbcType=CHAR},
       #{ip,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -85,6 +86,9 @@
       <if test="couponInterest != null">
         coupon_interest,
       </if>
+        <if test="voucherInterest != null">
+            voucher_interest,
+        </if>
       <if test="status != null">
         status,
       </if>
@@ -123,6 +127,9 @@
       <if test="couponInterest != null">
         #{couponInterest,jdbcType=DECIMAL},
       </if>
+        <if test="voucherInterest != null">
+            #{voucherInterest,jdbcType=DECIMAL},
+        </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
@@ -164,6 +171,9 @@
       <if test="couponInterest != null">
         coupon_interest = #{couponInterest,jdbcType=DECIMAL},
       </if>
+        <if test="voucherInterest != null">
+            voucher_interest = #{voucherInterest,jdbcType=DECIMAL},
+        </if>
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
       </if>
@@ -193,6 +203,7 @@
       base_interest = #{baseInterest,jdbcType=DECIMAL},
       platform_interest = #{platformInterest,jdbcType=DECIMAL},
       coupon_interest = #{couponInterest,jdbcType=DECIMAL},
+      voucher_interest = #{voucherInterest,jdbcType=DECIMAL},
       status = #{status,jdbcType=TINYINT},
       channel = #{channel,jdbcType=CHAR},
       ip = #{ip,jdbcType=VARCHAR},

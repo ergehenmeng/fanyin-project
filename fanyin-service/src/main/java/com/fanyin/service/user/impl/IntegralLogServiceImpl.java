@@ -1,10 +1,12 @@
 package com.fanyin.service.user.impl;
 
+import com.fanyin.constants.ConfigConstant;
 import com.fanyin.enums.Integral;
 import com.fanyin.mapper.user.IntegralLogMapper;
 import com.fanyin.model.operation.IntegralType;
 import com.fanyin.model.user.IntegralLog;
 import com.fanyin.service.operation.IntegralTypeService;
+import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.service.user.IntegralLogService;
 import com.fanyin.service.user.UserExtendService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,22 +33,26 @@ public class IntegralLogServiceImpl implements IntegralLogService {
     @Autowired
     private IntegralLogMapper integralLogMapper;
 
-    @Override
-    public int grantScore(int userId, Integral integral) {
+    @Autowired
+    private SystemConfigApi systemConfigApi;
 
-        IntegralType integralType = integralTypeService.getByNid(integral);
-        if(integralType == null){
-            log.warn("积分类型未查询到,不奖励或扣除积分,nid:{}",integral.name());
-            return 0;
+    @Override
+    public void awardScore(int userId, int score, Integral integral) {
+        if(score == 0){
+            log.warn("积分奖励为零,userId:{},type:{}",userId,integral);
+            return;
         }
-        int score = this.calcScore(integralType);
         userExtendService.updateScore(userId,score);
-        this.addScoreLog(userId,score,integralType.getId());
-        return score;
+        this.addScoreLog(userId,score,integral.name().toLowerCase());
     }
 
     @Override
-    public int calcScore(IntegralType integralType) {
+    public int calcScore(Integral integral) {
+        IntegralType integralType = integralTypeService.getByNid(integral);
+        if(integralType == null){
+            log.warn("积分类型未查询到,nid:{}", integral.name());
+            return 0;
+        }
         int score = integralType.getScore();
         if(integralType.getRandom()){
             Random random = new Random();
@@ -58,11 +64,24 @@ public class IntegralLogServiceImpl implements IntegralLogService {
     }
 
     @Override
-    public void addScoreLog(int userId, int score, int type) {
+    public int calcTenderScore(double amount) {
+        int multiple = this.calcScore(Integral.TENDER);
+        int tenderAmount = systemConfigApi.getIntByNid(ConfigConstant.INTEGRAL_TENDER);
+        int score = (int) amount / tenderAmount;
+        return score * multiple;
+    }
+
+    /**
+     * 添加积分日志信息
+     * @param userId 用户id
+     * @param score 发放或扣除的积分数
+     * @param nid 积分类型
+     */
+    private void addScoreLog(int userId, int score, String nid) {
         IntegralLog log = new IntegralLog();
         log.setAddTime(new Date());
         log.setNum(score);
-        log.setType(type);
+        log.setType(nid);
         log.setUserId(userId);
         integralLogMapper.insertSelective(log);
     }

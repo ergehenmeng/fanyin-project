@@ -20,11 +20,15 @@ public class UserExtendServiceImpl implements UserExtendService {
 
     @Override
     public synchronized void updateScore(int userId, int score) {
+
         UserExtend userExtend = userExtendMapper.getByUserId(userId);
+
         int surplus = userExtend.getIntegralNum() + score;
+
         if(surplus < 0){
             throw new BusinessException(ErrorCodeEnum.INTEGRAL_NOT_ENOUGH);
         }
+
         userExtendMapper.updateScore(userId, surplus);
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProjectRecoverService {
 
     /**
-     * 批量插入回款计划
+     * 批量插入回款计划,只适用满标复审
      * @param list 回款列表
      * @param userId 用户id
      * @param projectId 产品id

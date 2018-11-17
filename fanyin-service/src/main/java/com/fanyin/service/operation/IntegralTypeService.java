@@ -15,5 +15,6 @@ public interface IntegralTypeService {
      * @return 积分类型信息
      */
     IntegralType getByNid(Integral integral);
+
 }
 

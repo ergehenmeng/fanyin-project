@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.project.ProjectTenderStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.project.ProjectTenderStatistics">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, project_id, user_id, tender_id, type, add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from project_tender_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from project_tender_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
+    <!--
+      @create by mybatis
+    -->
+    insert into project_tender_statistics (id, project_id, user_id, 
+      tender_id, type, add_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{tenderId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
+    <!--
+      @create by mybatis
+    -->
+    insert into project_tender_statistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
+    <!--
+      @create by mybatis
+    -->
+    update project_tender_statistics
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
+    <!--
+      @create by mybatis
+    -->
+    update project_tender_statistics
+    set project_id = #{projectId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <insert id="insertBatchStatistics" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
+        insert into project_tender_statistics (
+         project_id, user_id, tender_id, type
+        ) values
+        <foreach collection="list" open="(" close=")" item="item" separator=",">
+            #{item.projectId},
+            #{item.userId},
+            #{item.tenderId},
+            #{item.type}
+        </foreach>
+    </insert>
+</mapper>

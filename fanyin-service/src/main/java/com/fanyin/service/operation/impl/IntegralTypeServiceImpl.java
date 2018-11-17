@@ -1,11 +1,13 @@
 package com.fanyin.service.operation.impl;
 
 
+import com.fanyin.constant.RedisConstant;
 import com.fanyin.enums.Integral;
 import com.fanyin.mapper.operation.IntegralTypeMapper;
 import com.fanyin.model.operation.IntegralType;
 import com.fanyin.service.operation.IntegralTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +21,8 @@ public class IntegralTypeServiceImpl implements IntegralTypeService {
     private IntegralTypeMapper integralTypeMapper;
 
     @Override
+    @Cacheable(cacheNames = RedisConstant.INTEGRAL_TYPE,key = "#integral.name()")
     public IntegralType getByNid(Integral integral) {
-        return integralTypeMapper.getByNid(integral.name().toUpperCase());
+        return integralTypeMapper.getByNid(integral.name().toLowerCase());
     }
 }

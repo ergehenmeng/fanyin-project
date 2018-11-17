@@ -1,7 +1,6 @@
 package com.fanyin.service.user;
 
 import com.fanyin.enums.Integral;
-import com.fanyin.model.operation.IntegralType;
 
 /**
  * @author 二哥很猛
@@ -9,28 +8,30 @@ import com.fanyin.model.operation.IntegralType;
  */
 public interface IntegralLogService {
 
+
     /**
-     * 给用户发放或扣除积分
-     * @param userId 用户id
+     * 积分奖励发放,直接发放积分
+     * @param userId   用户id
+     * @param score 发放的积分
      * @param integral 积分类型
-     * @return 发放或扣除的积分数
      */
-    int grantScore(int userId, Integral integral);
+    void awardScore(int userId,int score, Integral integral);
 
     /**
      * 根据积分类型计算应该发放或者扣除的积分,<br>
      * 主要是处理随机产生积分(例如签到积分等)
-     * @param integralType 积分类型
+     * @param integral 积分类型
      * @return 积分数
      */
-    int calcScore(IntegralType integralType);
+    int calcScore(Integral integral);
 
     /**
-     * 添加积分日志信息
-     * @param userId 用户id
-     * @param score 发放或扣除的积分数
-     * @param type 积分类型
+     * 计算投标应奖励的积分数=积分配置倍数 * 投标奖励积分
+     * @param amount 投标金额
+     * @return 积分个数
      */
-    void addScoreLog(int userId,int score,int type);
+    int calcTenderScore(double amount);
+
+
 }
 

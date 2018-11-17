@@ -9,6 +9,10 @@ package com.fanyin.enums;
 public enum Integral {
 
     /**
+     * 投资积分奖励
+     */
+    TENDER,
+    /**
      * 签到积分奖励
      */
     SIGN_IN,
@@ -16,6 +20,16 @@ public enum Integral {
      * 首投积分奖励
      */
     FIRST_TENDER,
+
+    /**
+     * 扫尾积分奖励
+     */
+    LAST_TENDER,
+
+    /**
+     * 最高投积分奖励
+     */
+    MAX_TENDER,
 
     /**
      * 开户积分奖励

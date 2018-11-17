@@ -21,4 +21,9 @@ public class RedisConstant {
      * 会话令牌缓存key前缀
      */
     public static final String ACCESS_TOKEN = "access_token";
+
+    /**
+     * 积分类型缓存
+     */
+    public static final String INTEGRAL_TYPE ="integral_type";
 }
