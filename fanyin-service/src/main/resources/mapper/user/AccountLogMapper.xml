@@ -9,22 +9,14 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="available_balance" jdbcType="DECIMAL" property="availableBalance" />
-    <result column="recharge" jdbcType="DECIMAL" property="recharge" />
-    <result column="tender_freeze" jdbcType="DECIMAL" property="tenderFreeze" />
-    <result column="withdraw_freeze" jdbcType="DECIMAL" property="withdrawFreeze" />
-    <result column="accumulated_income" jdbcType="DECIMAL" property="accumulatedIncome" />
-    <result column="wait_capital" jdbcType="DECIMAL" property="waitCapital" />
-    <result column="wait_interest" jdbcType="DECIMAL" property="waitInterest" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, user_id, amount, type, available_balance, recharge, tender_freeze, withdraw_freeze, 
-    accumulated_income, wait_capital, wait_interest, add_time, remark
+    id, user_id, amount, type, add_time, tender_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -47,15 +39,11 @@
       @create by mybatis
     -->
     insert into account_log (id, user_id, amount, 
-      type, available_balance, recharge, 
-      tender_freeze, withdraw_freeze, accumulated_income, 
-      wait_capital, wait_interest, add_time, 
-      remark)
+      type, add_time, tender_id
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
-      #{type,jdbcType=TINYINT}, #{availableBalance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, 
-      #{tenderFreeze,jdbcType=DECIMAL}, #{withdrawFreeze,jdbcType=DECIMAL}, #{accumulatedIncome,jdbcType=DECIMAL}, 
-      #{waitCapital,jdbcType=DECIMAL}, #{waitInterest,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR})
+      #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{tenderId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.user.AccountLog">
     <!--
@@ -75,32 +63,11 @@
       <if test="type != null">
         type,
       </if>
-      <if test="availableBalance != null">
-        available_balance,
-      </if>
-      <if test="recharge != null">
-        recharge,
-      </if>
-      <if test="tenderFreeze != null">
-        tender_freeze,
-      </if>
-      <if test="withdrawFreeze != null">
-        withdraw_freeze,
-      </if>
-      <if test="accumulatedIncome != null">
-        accumulated_income,
-      </if>
-      <if test="waitCapital != null">
-        wait_capital,
-      </if>
-      <if test="waitInterest != null">
-        wait_interest,
-      </if>
       <if test="addTime != null">
         add_time,
       </if>
-      <if test="remark != null">
-        remark,
+      <if test="tenderId != null">
+        tender_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -116,32 +83,11 @@
       <if test="type != null">
         #{type,jdbcType=TINYINT},
       </if>
-      <if test="availableBalance != null">
-        #{availableBalance,jdbcType=DECIMAL},
-      </if>
-      <if test="recharge != null">
-        #{recharge,jdbcType=DECIMAL},
-      </if>
-      <if test="tenderFreeze != null">
-        #{tenderFreeze,jdbcType=DECIMAL},
-      </if>
-      <if test="withdrawFreeze != null">
-        #{withdrawFreeze,jdbcType=DECIMAL},
-      </if>
-      <if test="accumulatedIncome != null">
-        #{accumulatedIncome,jdbcType=DECIMAL},
-      </if>
-      <if test="waitCapital != null">
-        #{waitCapital,jdbcType=DECIMAL},
-      </if>
-      <if test="waitInterest != null">
-        #{waitInterest,jdbcType=DECIMAL},
-      </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -160,32 +106,11 @@
       <if test="type != null">
         type = #{type,jdbcType=TINYINT},
       </if>
-      <if test="availableBalance != null">
-        available_balance = #{availableBalance,jdbcType=DECIMAL},
-      </if>
-      <if test="recharge != null">
-        recharge = #{recharge,jdbcType=DECIMAL},
-      </if>
-      <if test="tenderFreeze != null">
-        tender_freeze = #{tenderFreeze,jdbcType=DECIMAL},
-      </if>
-      <if test="withdrawFreeze != null">
-        withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
-      </if>
-      <if test="accumulatedIncome != null">
-        accumulated_income = #{accumulatedIncome,jdbcType=DECIMAL},
-      </if>
-      <if test="waitCapital != null">
-        wait_capital = #{waitCapital,jdbcType=DECIMAL},
-      </if>
-      <if test="waitInterest != null">
-        wait_interest = #{waitInterest,jdbcType=DECIMAL},
-      </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -198,15 +123,8 @@
     set user_id = #{userId,jdbcType=INTEGER},
       amount = #{amount,jdbcType=DECIMAL},
       type = #{type,jdbcType=TINYINT},
-      available_balance = #{availableBalance,jdbcType=DECIMAL},
-      recharge = #{recharge,jdbcType=DECIMAL},
-      tender_freeze = #{tenderFreeze,jdbcType=DECIMAL},
-      withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
-      accumulated_income = #{accumulatedIncome,jdbcType=DECIMAL},
-      wait_capital = #{waitCapital,jdbcType=DECIMAL},
-      wait_interest = #{waitInterest,jdbcType=DECIMAL},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
+      tender_id = #{tenderId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

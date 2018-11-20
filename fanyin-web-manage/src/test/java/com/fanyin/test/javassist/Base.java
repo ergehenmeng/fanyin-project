@@ -4,7 +4,7 @@ import org.apache.ibatis.javassist.ClassPool;
 import org.apache.ibatis.javassist.CtClass;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/19 9:45
  */
 public class Base {

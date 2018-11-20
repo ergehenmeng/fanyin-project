@@ -1,7 +1,7 @@
 package com.fanyin.test.javassist;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/19 10:06
  */
 public class Point {

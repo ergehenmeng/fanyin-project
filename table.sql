@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-10-11 16:54:31
+Date: 2018-11-20 11:30:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,14 +39,15 @@ CREATE TABLE `account` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for account_log
+-- Table structure for account_detail_log
 -- ----------------------------
-DROP TABLE IF EXISTS `account_log`;
-CREATE TABLE `account_log` (
+DROP TABLE IF EXISTS `account_detail_log`;
+CREATE TABLE `account_detail_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
   `amount` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '实际操作金额',
-  `type` tinyint(2) DEFAULT NULL COMMENT '资金详细类型',
+  `type` tinyint(2) DEFAULT NULL COMMENT '资金变动类型 0:充值 1:投资 2:回款 3:提现 4:平台奖励 5:承接奖励 6:转让回款 7:撤标 ',
+  `total` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '当前总金额',
   `available_balance` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '可用余额(已清算+未清算)',
   `recharge` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '充值金额(未清算)',
   `tender_freeze` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '投标冻结金额',
@@ -59,6 +60,24 @@ CREATE TABLE `account_log` (
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户资产变动详细记录表';
+
+-- ----------------------------
+-- Records of account_detail_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for account_log
+-- ----------------------------
+DROP TABLE IF EXISTS `account_log`;
+CREATE TABLE `account_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(10) DEFAULT NULL COMMENT '用户id',
+  `amount` decimal(12,2) DEFAULT '0.00' COMMENT '金额',
+  `type` tinyint(2) unsigned DEFAULT NULL COMMENT '资金变动类型 0:充值 1:投资 2:回款 3:提现 4:平台奖励 5:承接奖励 6:转让回款',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `tender_id` int(10) DEFAULT NULL COMMENT '投标id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account_log
@@ -163,20 +182,24 @@ DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(2) DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_type维护(不同模块的轮播均在该表中维护)',
-  `client_type` tinyint(1) DEFAULT NULL COMMENT '客户端类型 0:PC 1:APP',
+  `client_type` tinyint(1) unsigned DEFAULT '0' COMMENT '客户端类型 0:PC 1:APP',
   `img_url` varchar(500) NOT NULL COMMENT '轮播图片地址',
   `turn_url` varchar(500) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
-  `index` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(小<->大) 最小的在最前面',
+  `weight` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(小<->大) 最小的在最前面',
   `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
   `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
   `click` bit(1) DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='轮播图维护表';
+  PRIMARY KEY (`id`),
+  KEY `type_client_type_index` (`type`,`client_type`) USING BTREE COMMENT '组合索引',
+  KEY `type_index` (`type`),
+  KEY `client_type_index` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='轮播图维护表';
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
+INSERT INTO `banner` VALUES ('1', '1', '1', '1', '1', null, '2018-10-17 10:18:08', null, '', null);
 
 -- ----------------------------
 -- Table structure for borrower
@@ -199,6 +222,45 @@ CREATE TABLE `borrower` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for borrower_account
+-- ----------------------------
+DROP TABLE IF EXISTS `borrower_account`;
+CREATE TABLE `borrower_account` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `borrower_id` int(10) unsigned DEFAULT NULL COMMENT '借款人id',
+  `total` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '借款总额(该值只会累加)',
+  `available_balance` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '可用余额(清算+未清算)',
+  `recharge` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '充值金额',
+  `withdraw_freeze` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '提现冻结金额',
+  `repay` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '已还金额',
+  `un_repay` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '未还金额',
+  `pay` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '已缴费金额',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款人资产表';
+
+-- ----------------------------
+-- Records of borrower_account
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for borrower_account_log
+-- ----------------------------
+DROP TABLE IF EXISTS `borrower_account_log`;
+CREATE TABLE `borrower_account_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `borrower_id` int(10) DEFAULT NULL COMMENT '借款人id',
+  `amount` decimal(12,2) DEFAULT '0.00' COMMENT '资金金额',
+  `type` tinyint(2) DEFAULT NULL COMMENT '资金类型',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `project_id` int(10) DEFAULT NULL COMMENT '产品id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of borrower_account_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for borrower_extend
 -- ----------------------------
 DROP TABLE IF EXISTS `borrower_extend`;
@@ -218,6 +280,66 @@ CREATE TABLE `borrower_extend` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for discount_coupon
+-- ----------------------------
+DROP TABLE IF EXISTS `discount_coupon`;
+CREATE TABLE `discount_coupon` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(10) DEFAULT NULL COMMENT '用户id',
+  `name` varchar(100) DEFAULT NULL COMMENT '优惠券名称',
+  `status` tinyint(1) DEFAULT NULL COMMENT '优惠券状态 0:未使用 1:已使用 2:已冻结,3已过期',
+  `type` tinyint(1) DEFAULT NULL COMMENT '优惠券类型 0:抵扣券 1:加息券',
+  `face_value` decimal(10,2) DEFAULT NULL COMMENT '优惠券金额 抵扣券时表示元,加息券时表示%',
+  `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '有效开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '失效时间 如果为空则永久有效',
+  `period_limit` tinyint(2) unsigned DEFAULT '0' COMMENT '期限限制(月)',
+  `amount_limit` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '起投金额限制',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发放时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户优惠券表';
+
+-- ----------------------------
+-- Records of discount_coupon
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for discount_coupon_tender
+-- ----------------------------
+DROP TABLE IF EXISTS `discount_coupon_tender`;
+CREATE TABLE `discount_coupon_tender` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tender_id` int(10) DEFAULT NULL COMMENT '投标id',
+  `discount_coupon_id` int(10) unsigned DEFAULT NULL COMMENT '优惠券id',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(使用时间)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投标优惠券关联表';
+
+-- ----------------------------
+-- Records of discount_coupon_tender
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for help_instruction
+-- ----------------------------
+DROP TABLE IF EXISTS `help_instruction`;
+CREATE TABLE `help_instruction` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` tinyint(2) DEFAULT NULL COMMENT '帮助分类取system_dict表中help_type字段',
+  `status` tinyint(1) DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
+  `ask` varchar(50) DEFAULT NULL COMMENT '问',
+  `answer` varchar(2000) DEFAULT NULL COMMENT '答 支持',
+  `sort` tinyint(4) DEFAULT '0' COMMENT '排序(小<->大)',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='帮助说明信息表';
+
+-- ----------------------------
+-- Records of help_instruction
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for integral_log
 -- ----------------------------
 DROP TABLE IF EXISTS `integral_log`;
@@ -225,7 +347,7 @@ CREATE TABLE `integral_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` int(10) DEFAULT NULL,
   `num` smallint(6) unsigned DEFAULT '1' COMMENT '积分数',
-  `type` int(10) NOT NULL COMMENT '积分类型(表integral_type主键)',
+  `nid` char(20) NOT NULL COMMENT '积分类型(表integral_type nid)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '获取积分的时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='积分记录表';
@@ -240,7 +362,7 @@ CREATE TABLE `integral_log` (
 DROP TABLE IF EXISTS `integral_type`;
 CREATE TABLE `integral_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `nid` varchar(20) DEFAULT NULL COMMENT '积分类型nid',
+  `nid` char(20) DEFAULT NULL COMMENT '积分类型nid',
   `name` varchar(200) DEFAULT NULL COMMENT '积分类型名称',
   `status` bit(1) DEFAULT b'1' COMMENT '积分类型状态 0:不可用 1:可用',
   `score` smallint(6) DEFAULT NULL COMMENT '积分个数',
@@ -248,12 +370,18 @@ CREATE TABLE `integral_type` (
   `random` bit(1) DEFAULT b'0' COMMENT '是否为随机积分 0:不是 1:是',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='积分类型表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='积分类型表';
 
 -- ----------------------------
 -- Records of integral_type
 -- ----------------------------
+INSERT INTO `integral_type` VALUES ('1', 'first_tender', '首投奖励', '', '10', '0', '\0', '2018-11-15 16:41:42', null, null);
+INSERT INTO `integral_type` VALUES ('2', 'max_tender', '最高投奖励', '', '30', '0', '\0', '2018-11-15 16:42:45', null, null);
+INSERT INTO `integral_type` VALUES ('3', 'last_tender', '扫尾奖励', '', '5', '0', '\0', '2018-11-15 16:43:11', null, null);
+INSERT INTO `integral_type` VALUES ('4', 'sign_in', '签到奖励', '', '5', '0', '', '2018-11-15 16:44:45', null, null);
+INSERT INTO `integral_type` VALUES ('5', 'tender', '投资奖励', '', '1', '0', '\0', '2018-11-17 14:11:10', null, '积分由系统参数tender_integral来决定,奖励积分=奖励值*(投标金额/tender_integral)');
 
 -- ----------------------------
 -- Table structure for operation_data_log
@@ -312,30 +440,29 @@ DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键标的ID',
   `borrower_id` int(10) unsigned NOT NULL COMMENT '借款人ID',
-  `code` varchar(50) DEFAULT NULL COMMENT '标的编号',
-  `status` tinyint(2) DEFAULT '0' COMMENT '标的状态:-2:废弃-1:标的撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清',
-  `type` tinyint(2) DEFAULT '0' COMMENT '标的类型 0:个人车贷,1:企业车贷',
-  `name` varchar(50) DEFAULT NULL COMMENT '标的名称',
+  `nid` varchar(50) DEFAULT NULL COMMENT '产品编号',
+  `status` tinyint(2) DEFAULT '0' COMMENT '产品状态:-2:废弃-1:产品撤回,0:录入中,1待初审,2:待复审,3:募集中,4:满标待复审,5:还款中,6:还款完成,7:逾期结清',
+  `type` tinyint(2) DEFAULT '0' COMMENT '产品类型 0:个人贷,1:企业贷',
+  `name` varchar(50) DEFAULT NULL COMMENT '产品名称',
   `amount` decimal(12,2) DEFAULT '100.00' COMMENT '计划募集金额',
   `raise_amount` decimal(12,2) DEFAULT '0.00' COMMENT '已募集金额',
   `min_tender` decimal(12,2) DEFAULT '100.00' COMMENT '单次最小投标金额',
-  `max_tender` decimal(12,2) DEFAULT NULL COMMENT '单次最大投标金额',
-  `apr` decimal(3,1) DEFAULT '0.0' COMMENT '标的基础利息 单位%',
-  `platform_apr` decimal(2,1) DEFAULT '0.0' COMMENT '平台加息利息 单位%',
-  `period` tinyint(2) DEFAULT NULL COMMENT '期限(月)',
-  `repayment_type` tinyint(1) DEFAULT NULL COMMENT '还款方式,0:等额本息,1:按月付息,到期还本,2:按天计息',
+  `apr` decimal(3,1) DEFAULT '0.0' COMMENT '标的基础利率 单位%',
+  `platform_apr` decimal(2,1) DEFAULT '0.0' COMMENT '平台加息利率 单位%',
+  `period` tinyint(2) DEFAULT '1' COMMENT '期限(月)',
+  `repayment_type` tinyint(1) DEFAULT '0' COMMENT '还款方式,0:等额本息,1:按月付息,到期还本,2:按天计息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '标的信息录入时间',
   `presell_time` datetime DEFAULT NULL COMMENT '预售时间(默认标的发布时间)',
-  `publish_time` datetime DEFAULT NULL COMMENT '标的发布时间(复审通过时间)',
+  `publish_time` datetime DEFAULT NULL COMMENT '产品发布时间(复审通过时间)',
   `recheck_time` datetime DEFAULT NULL COMMENT '满标复审时间',
   `end_time` datetime DEFAULT NULL COMMENT '标的完结时间(废弃,撤标,还款完成,逾期结清)等',
   PRIMARY KEY (`id`),
   KEY `borrower_id_index` (`borrower_id`),
-  KEY `code_index` (`code`),
   KEY `status_index` (`status`),
   KEY `period_index` (`period`),
   KEY `name_index` (`name`),
-  KEY `repayment_type_index` (`repayment_type`)
+  KEY `repayment_type_index` (`repayment_type`),
+  KEY `nid_index` (`nid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
 
 -- ----------------------------
@@ -347,8 +474,9 @@ CREATE TABLE `project` (
 -- ----------------------------
 DROP TABLE IF EXISTS `project_audit_log`;
 CREATE TABLE `project_audit_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `project_id` int(10) unsigned DEFAULT NULL COMMENT '标的ID',
+  `status` tinyint(2) DEFAULT NULL COMMENT '审核状态 1:初审通过 2:初审打回 3:复审通过 4:复审拒绝 5:复审打回(直接回到录入中) 6:满标复审通过 7:产品撤回',
   `remark` varchar(200) DEFAULT NULL COMMENT '审核记录',
   `add_time` datetime DEFAULT NULL COMMENT '审核时间',
   `operator_id` int(10) unsigned DEFAULT NULL COMMENT '审核人',
@@ -388,12 +516,15 @@ CREATE TABLE `project_recover` (
   `project_id` int(10) DEFAULT NULL COMMENT '项目ID',
   `period` tinyint(2) DEFAULT NULL COMMENT '第几期回款',
   `periods` tinyint(2) DEFAULT NULL COMMENT '总期数',
-  `capital` decimal(12,2) DEFAULT NULL COMMENT '应还本金',
-  `interest` decimal(12,2) DEFAULT NULL COMMENT '预计回款利息(基础利息)',
+  `capital` decimal(12,2) DEFAULT '0.00' COMMENT '应还本金',
+  `interest` decimal(12,2) DEFAULT '0.00' COMMENT '预计回款利息(基础利息)',
   `platform_interest` decimal(12,2) DEFAULT '0.00' COMMENT '预计平台加息利息',
   `coupon_interest` decimal(12,2) DEFAULT '0.00' COMMENT '预计加息券利息',
   `receive_time` date DEFAULT NULL COMMENT '预计回款时间(精确到天)',
   `real_receive_time` datetime DEFAULT NULL COMMENT '实际回款时间',
+  `receive_month` char(12) DEFAULT NULL COMMENT '预计回款月yyyy-MM',
+  `real_receive_month` char(12) DEFAULT NULL COMMENT '实际回款月yyyy-MM',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人回款计划表';
 
@@ -407,19 +538,24 @@ CREATE TABLE `project_recover` (
 DROP TABLE IF EXISTS `project_repayment`;
 CREATE TABLE `project_repayment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '借款人ID',
+  `borrower_id` int(10) unsigned DEFAULT NULL COMMENT '借款人ID',
   `project_id` int(10) unsigned DEFAULT NULL COMMENT '标的ID',
-  `status` bit(1) DEFAULT b'0' COMMENT '是否还款 0:未还款 1:已还款',
-  `mode` tinyint(1) DEFAULT '0' COMMENT '还款方式 0:正常还款,1:提前还款,2:逾期还款',
+  `status` tinyint(1) DEFAULT '0' COMMENT '还款状态 0:未还款 1:正常还款,2:提前还款,3:部分还款,4:逾期还款',
   `period` tinyint(4) unsigned DEFAULT NULL COMMENT '第几期还款',
   `periods` tinyint(3) unsigned DEFAULT NULL COMMENT '总期数',
-  `capital` decimal(12,2) unsigned DEFAULT NULL COMMENT '预计还款本金',
-  `interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '预计还款利息',
+  `capital` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '预计还款本金',
+  `interest` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '基础利息',
+  `platform_interest` decimal(12,2) DEFAULT '0.00' COMMENT '平台加息利息',
+  `coupon_interest` decimal(12,2) DEFAULT '0.00' COMMENT '加息券利息',
   `repay_time` date DEFAULT NULL COMMENT '预计还款时间(精确到天)',
   `real_repay_time` datetime DEFAULT NULL COMMENT '实际还款时间(精确到秒)',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
+  `repay_month` char(12) DEFAULT NULL COMMENT '预计还款月',
+  `real_repay_month` char(12) DEFAULT NULL COMMENT '实际还款月',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `index_user_id` (`user_id`),
+  KEY `index_user_id` (`borrower_id`),
   KEY `index_project_id` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款人还款计划表';
 
@@ -432,19 +568,44 @@ CREATE TABLE `project_repayment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `project_tender`;
 CREATE TABLE `project_tender` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` int(10) DEFAULT NULL COMMENT '用户ID',
   `project_id` int(10) DEFAULT NULL COMMENT '标的id',
   `account` decimal(12,2) unsigned DEFAULT NULL COMMENT '投标金额(元)',
-  `base_interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '基础利息(预计利息)',
-  `platform_interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '平台加息利息(预计利息)',
-  `coupon_interest` decimal(12,2) unsigned DEFAULT NULL COMMENT '加息券利息(预计利息)',
+  `base_interest` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '基础收益(预计收益)',
+  `platform_interest` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '平台加息收益(预计收益)',
+  `coupon_interest` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '加息券收益(预计收益)',
+  `voucher_interest` decimal(12,2) DEFAULT '0.00' COMMENT '抵扣券收益',
   `status` tinyint(2) DEFAULT '0' COMMENT '投标状态:-3标的撤销,-2:已转让,-1:转让申请中,0:投标加入,1:回款中,2:还款完成',
+  `channel` char(10) DEFAULT 'pc' COMMENT '投标渠道 pc,android,ios,h5,other',
+  `ip` varchar(64) DEFAULT NULL COMMENT '投标ip',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '投标时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户投标表';
 
 -- ----------------------------
 -- Records of project_tender
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for project_tender_statistics
+-- ----------------------------
+DROP TABLE IF EXISTS `project_tender_statistics`;
+CREATE TABLE `project_tender_statistics` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `project_id` int(10) DEFAULT NULL COMMENT '产品id',
+  `user_id` int(10) DEFAULT NULL COMMENT '用户id',
+  `tender_id` int(10) DEFAULT NULL COMMENT '投标id',
+  `type` tinyint(1) DEFAULT NULL COMMENT '类型 0:首投 1:最高 2:扫尾',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  KEY `project_id_index` (`project_id`),
+  KEY `user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资统计信息表';
+
+-- ----------------------------
+-- Records of project_tender_statistics
 -- ----------------------------
 
 -- ----------------------------
@@ -502,7 +663,7 @@ INSERT INTO `system_config` VALUES ('10', 'max_tender_amount', '总最大投标�
 -- ----------------------------
 DROP TABLE IF EXISTS `system_dict`;
 CREATE TABLE `system_dict` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) DEFAULT NULL COMMENT '字典中文名称',
   `nid` varchar(50) DEFAULT NULL COMMENT '数据字典nid(英文名称)',
   `hidden_value` tinyint(2) DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
@@ -687,7 +848,7 @@ CREATE TABLE `user` (
   `deposit_no` varchar(64) DEFAULT NULL COMMENT '存管账号',
   `password` varchar(128) NOT NULL COMMENT '登陆密码',
   `status` bit(1) DEFAULT b'1' COMMENT '状态 1正常 0:锁定',
-  `channel` tinyint(3) unsigned DEFAULT '0' COMMENT '注册渠道0:pc,1:android,2:ios,3:h5,第三方渠道注册',
+  `channel` tinyint(3) unsigned DEFAULT '0' COMMENT '注册渠道 pc,android,ios,h5,other',
   `register_ip` varchar(32) DEFAULT NULL COMMENT '注册地址',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -739,6 +900,7 @@ CREATE TABLE `user_extend` (
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像地址',
   `real_name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
   `id_card` varchar(128) DEFAULT NULL COMMENT '身份证号码(前10位加密[18位身份证],前8位加密[15位身份证])',
+  `birthday` char(8) DEFAULT NULL COMMENT '生日yyyyMMdd',
   `integral_num` int(10) unsigned DEFAULT '0' COMMENT '可用积分总数',
   `cash_num` smallint(6) unsigned DEFAULT '0' COMMENT '免费提现次数',
   PRIMARY KEY (`id`)
@@ -747,3 +909,30 @@ CREATE TABLE `user_extend` (
 -- ----------------------------
 -- Records of user_extend
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for vip_config
+-- ----------------------------
+DROP TABLE IF EXISTS `vip_config`;
+CREATE TABLE `vip_config` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` char(20) DEFAULT NULL COMMENT '等级名称',
+  `level` tinyint(2) unsigned DEFAULT NULL COMMENT 'vip等级',
+  `sort` tinyint(2) DEFAULT NULL COMMENT '排序规则:小(前面)<->大(后面)',
+  `amount` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '当前等级最小待收金额',
+  `status` bit(1) DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
+  `withdraw` tinyint(2) unsigned DEFAULT NULL COMMENT '月免费提现次数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='vip等级配置表';
+
+-- ----------------------------
+-- Records of vip_config
+-- ----------------------------
+INSERT INTO `vip_config` VALUES ('1', '新手', '0', '0', '0.00', '', '0');
+INSERT INTO `vip_config` VALUES ('2', '青铜会员', '1', '1', '1000.00', '', '1');
+INSERT INTO `vip_config` VALUES ('3', '白银会员', '2', '2', '5000.00', '', '2');
+INSERT INTO `vip_config` VALUES ('4', '黄金会员', '3', '3', '10000.00', '', '3');
+INSERT INTO `vip_config` VALUES ('5', '铂金会员', '4', '4', '50000.00', '', '4');
+INSERT INTO `vip_config` VALUES ('6', '钻石会员', '5', '5', '200000.00', '', '5');
+INSERT INTO `vip_config` VALUES ('7', '至尊会员', '6', '6', '500000.00', '', '6');
+INSERT INTO `vip_config` VALUES ('8', '王者会员', '7', '7', '2000000.00', '', '7');

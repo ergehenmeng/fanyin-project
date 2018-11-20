@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * 投标统计信息
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/16 14:40
  */
 @Data

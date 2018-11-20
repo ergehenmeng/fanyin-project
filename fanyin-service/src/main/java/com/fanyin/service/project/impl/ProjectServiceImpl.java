@@ -14,12 +14,16 @@ import com.fanyin.model.project.ProjectTender;
 import com.fanyin.model.user.DiscountCoupon;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.IntegralAwardTask;
+import com.fanyin.service.borrower.BorrowerAccountLogService;
 import com.fanyin.service.project.*;
+import com.fanyin.service.user.AccountDetailLogService;
 import com.fanyin.service.user.IntegralLogService;
+import com.fanyin.service.user.UserExtendService;
 import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.ProjectUtil;
 import com.fanyin.utils.StringUtil;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 产品service
@@ -56,6 +61,15 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private IntegralLogService integralLogService;
+
+    @Autowired
+    private AccountDetailLogService accountDetailLogService;
+
+    @Autowired
+    private BorrowerAccountLogService borrowerAccountLogService;
+
+    @Autowired
+    private UserExtendService userExtendService;
 
     /**
      * 起始编号
@@ -89,23 +103,28 @@ public class ProjectServiceImpl implements ProjectService {
             //插入回款
             projectRecoverService.insertBatchRecover(recoverList,projectTender.getUserId(),project.getId(),projectTender.getId());
             //计算投标预计收益
-            projectTenderService.calcTenderInterest(projectTender, project);
+            projectTenderService.calcTenderInterest(projectTender, recoverList);
             projectTender.setUpdateTime(now);
             projectTender.setStatus(TenderConstant.TENDER_STATUS_1);
             //更新投标信息
             projectTenderService.updateTender(projectTender);
             //投标积分奖励
             this.awardTenderIntegral(projectTender);
+            //解冻投资人资金,待收增加
+            accountDetailLogService.fullAuditUnfreeze(projectTender);
         });
         //插入还款信息
         projectRepaymentService.insertBatchRepayment(repaymentMap.values(),project.getId(),project.getBorrowerId());
-        //计算首投,最高投 扫尾
+        //放款到借款人
+        borrowerAccountLogService.loanSuccess(project);
+        //计算首投,最高投,扫尾
         TenderStatistics tenderStatistics = projectTenderStatisticsService.calcTenderStatistics(tenderList);
         //插入首投,最高投,扫尾
         projectTenderStatisticsService.insertTenderStatistics(tenderStatistics);
         //奖励积分
         this.awardFirstMaxLastIntegral(tenderStatistics);
-
+        //更新用户等级
+        this.filterAndUpdateGrade(tenderList);
     }
 
 
@@ -114,6 +133,17 @@ public class ProjectServiceImpl implements ProjectService {
         this.awardIntegral(tenderStatistics.getFirst().getUserId(),Integral.FIRST_TENDER);
         this.awardIntegral(tenderStatistics.getMax().getUserId(),Integral.MAX_TENDER);
         this.awardIntegral(tenderStatistics.getLast().getUserId(),Integral.LAST_TENDER);
+    }
+
+    /**
+     * 过滤用户id,并更新用户vip等级,
+     * 一个用户投资一个产品多次,减少无用的更新次数
+     * @param tenderList 投标列表
+     */
+    private void filterAndUpdateGrade(List<ProjectTender> tenderList){
+        Set<Integer> userIds = Sets.newHashSet();
+        tenderList.forEach(tender -> userIds.add(tender.getUserId()));
+        userExtendService.updateGrades(userIds);
     }
 
     /**
@@ -172,14 +202,14 @@ public class ProjectServiceImpl implements ProjectService {
 
         ProjectAuditLog log = new ProjectAuditLog();
 
-        int passCode = ProjectAuditStatus.FULL_RECHECK_PASS.getCode();
+        byte passCode = ProjectAuditStatus.FULL_RECHECK_PASS.getCode();
 
         if(audit.getStatus() == passCode){
             this.fullAuditSuccess(project);
-            log.setStatus((byte)passCode);
+            log.setStatus(passCode);
         }else{
             this.fullAuditFail(project);
-            log.setStatus((byte)ProjectAuditStatus.REVOCATION.getCode());
+            log.setStatus(ProjectAuditStatus.REVOCATION.getCode());
         }
         log.setAddTime(DateUtil.getNow());
         log.setProjectId(audit.getId());

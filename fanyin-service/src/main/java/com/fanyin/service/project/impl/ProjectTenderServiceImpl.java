@@ -4,6 +4,7 @@ import com.fanyin.constants.ProjectConstant;
 import com.fanyin.enums.RepaymentType;
 import com.fanyin.mapper.project.ProjectTenderMapper;
 import com.fanyin.model.project.Project;
+import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.model.project.ProjectTender;
 import com.fanyin.model.user.DiscountCoupon;
 import com.fanyin.service.project.ProjectTenderService;
@@ -71,6 +72,23 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         tender.setBaseInterest(BigDecimal.valueOf(baseInterest));
         tender.setPlatformInterest(BigDecimal.valueOf(platformInterest));
         tender.setCouponInterest(BigDecimal.valueOf(couponInterest));
+    }
+
+    @Override
+    public void calcTenderInterest(ProjectTender tender, List<ProjectPlan> recoverList) {
+        BigDecimal voucher = this.getDiscountVoucher(tender.getCouponList());
+        tender.setVoucherInterest(voucher);
+        BigDecimal baseInterest = BigDecimal.ZERO;
+        BigDecimal platformInterest = BigDecimal.ZERO;
+        BigDecimal couponInterest = BigDecimal.ZERO;
+        for (ProjectPlan projectPlan : recoverList) {
+            baseInterest = baseInterest.add(projectPlan.getBaseInterest());
+            platformInterest = platformInterest.add(projectPlan.getPlatformInterest());
+            couponInterest = couponInterest.add(projectPlan.getCouponInterest());
+        }
+        tender.setBaseInterest(baseInterest);
+        tender.setPlatformInterest(platformInterest);
+        tender.setCouponInterest(couponInterest);
     }
 
     /**

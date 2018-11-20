@@ -170,6 +170,14 @@ public enum ErrorCodeEnum {
      * 产品状态错误
      */
     PROJECT_STATUS_ERROR(3013,"产品状态错误"),
+    /**
+     * 用户资金信息更新异常
+     */
+    ACCOUNT_UPDATE_ERROR(3014,"资金信息更新错误"),
+    /**
+     * 资金校验错误
+     */
+    ACCOUNT_CHECK_ERROR(3015,"资金校验错误"),
     ;
     /**
      * 构造方法

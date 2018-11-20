@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.borrower.BorrowerAccountMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.borrower.BorrowerAccount">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="borrower_id" jdbcType="INTEGER" property="borrowerId" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
+    <result column="available_balance" jdbcType="DECIMAL" property="availableBalance" />
+    <result column="recharge" jdbcType="DECIMAL" property="recharge" />
+    <result column="withdraw_freeze" jdbcType="DECIMAL" property="withdrawFreeze" />
+    <result column="repay" jdbcType="DECIMAL" property="repay" />
+    <result column="un_repay" jdbcType="DECIMAL" property="unRepay" />
+    <result column="pay" jdbcType="DECIMAL" property="pay" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, borrower_id, total, available_balance, recharge, withdraw_freeze, repay, un_repay, 
+    pay
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from borrower_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getByBorrowerId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from borrower_account where borrower_id = #{borrowerId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from borrower_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.borrower.BorrowerAccount">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrower_account (id, borrower_id, total, 
+      available_balance, recharge, withdraw_freeze, 
+      repay, un_repay, pay
+      )
+    values (#{id,jdbcType=INTEGER}, #{borrowerId,jdbcType=INTEGER}, #{total,jdbcType=DECIMAL}, 
+      #{availableBalance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, #{withdrawFreeze,jdbcType=DECIMAL}, 
+      #{repay,jdbcType=DECIMAL}, #{unRepay,jdbcType=DECIMAL}, #{pay,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.borrower.BorrowerAccount">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrower_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="borrowerId != null">
+        borrower_id,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="availableBalance != null">
+        available_balance,
+      </if>
+      <if test="recharge != null">
+        recharge,
+      </if>
+      <if test="withdrawFreeze != null">
+        withdraw_freeze,
+      </if>
+      <if test="repay != null">
+        repay,
+      </if>
+      <if test="unRepay != null">
+        un_repay,
+      </if>
+      <if test="pay != null">
+        pay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerId != null">
+        #{borrowerId,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null">
+        #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFreeze != null">
+        #{withdrawFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="repay != null">
+        #{repay,jdbcType=DECIMAL},
+      </if>
+      <if test="unRepay != null">
+        #{unRepay,jdbcType=DECIMAL},
+      </if>
+      <if test="pay != null">
+        #{pay,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.borrower.BorrowerAccount">
+    <!--
+      @create by mybatis
+    -->
+    update borrower_account
+    <set>
+      <if test="borrowerId != null">
+        borrower_id = #{borrowerId,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        available_balance = #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null">
+        recharge = #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFreeze != null">
+        withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="repay != null">
+        repay = #{repay,jdbcType=DECIMAL},
+      </if>
+      <if test="unRepay != null">
+        un_repay = #{unRepay,jdbcType=DECIMAL},
+      </if>
+      <if test="pay != null">
+        pay = #{pay,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.borrower.BorrowerAccount">
+    <!--
+      @create by mybatis
+    -->
+    update borrower_account
+    set borrower_id = #{borrowerId,jdbcType=INTEGER},
+      total = #{total,jdbcType=DECIMAL},
+      available_balance = #{availableBalance,jdbcType=DECIMAL},
+      recharge = #{recharge,jdbcType=DECIMAL},
+      withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
+      repay = #{repay,jdbcType=DECIMAL},
+      un_repay = #{unRepay,jdbcType=DECIMAL},
+      pay = #{pay,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,80 +1,74 @@
 package com.fanyin.enums;
 
 /**
- * 资产变动详细记录类型 包含借款人和投资人(平台账户以银行为准)
+ * 资产变动类型 投资人
  * @author 二哥很猛
  * @date 2018/8/8 11:52
  */
-public enum AccountLogType {
+public  enum AccountLogType {
 
     /**
      * 投资人充值
      */
-    RECHARGE(0,"充值"),
+    RECHARGE((byte)0,"充值"),
 
     /**
-     * 投资人投标
+     * 投资人投资
      */
-    TENDER(1,"投标"),
+    TENDER((byte)1,"投资"),
 
     /**
-     * 投资人待收本金增加
+     * 投资人回款
      */
-    RECEIVE_ADD(2,"待收增加"),
+    RECEIVE((byte)2,"回款"),
 
     /**
-     * 回款
+     * 投资人提现
      */
-    RECEIVE(3,"回款"),
+    WITHDRAW((byte)3,"提现"),
 
     /**
-     * 投资人提现冻结
+     * 平台奖励
      */
-    WITHDRAW_FREEZE(4,"提现冻结"),
+    PLATFORM_AWARD((byte)4,"平台奖励"),
 
     /**
-     * 提现成功
+     * 转让承接奖励
      */
-    WITHDRAW(5,"提现"),
-
-
-    /**
-     *借款人充值
-     */
-    BORROWER_RECHARGE(6,"借款人充值"),
+    AWARD((byte)5,"承接奖励"),
 
     /**
-     * 借款人还款
+     * 债权转让回款
      */
-    REPAYMENT(7,"还款"),
+    TRANSFER((byte)6,"转让"),
 
     /**
-     * 借款人提现冻结
+     * 撤标
      */
-    BORROWER_WITHDRAW_FREEZE(8,"借款人提现冻结"),
+    REVOCATION((byte)7,"撤标"),
 
     /**
-     * 借款人提现成功
+     * 满标复审 待收本息早呢更加
      */
-    BORROWER_WITHDRAW(9,"提现成功"),
-    ;
+    FULL_AUDIT((byte)11,"待收本息增加");
 
     /**
      * 资金变动类型
      */
-    private int type;
+    private byte type;
 
     /**
      * 资金变动说明
      */
     private String msg;
 
-    AccountLogType(int type, String msg) {
+
+    AccountLogType(byte type, String msg) {
         this.type = type;
         this.msg = msg;
     }
 
-    public int getType() {
+    public byte getType() {
         return type;
     }
 

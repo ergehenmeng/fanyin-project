@@ -64,6 +64,14 @@ public interface UserExtendMapper {
     int updateScore(@Param("userId") int userId, @Param("score") int score);
 
     /**
+     * 更新用户vip等级
+     * @param userId 用户id
+     * @param grade 新等级
+     * @return 影响条数
+     */
+    int updateGrade(@Param("userId")int userId,@Param("grade")byte grade);
+
+    /**
      * 根据userId查询用户附件信息
      * @param userId 用户id
      * @return 附件信息

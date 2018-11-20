@@ -1,6 +1,7 @@
 package com.fanyin.mapper.user;
 
 import com.fanyin.model.user.Account;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author 二哥很猛
@@ -47,4 +48,11 @@ public interface AccountMapper {
      * @param record
      */
     int updateByPrimaryKey(Account record);
+
+    /**
+     * 查询投资人资产信息
+     * @param userId 用户id
+     * @return 资产信息
+     */
+    Account getByUserId(@Param("userId")int userId);
 }

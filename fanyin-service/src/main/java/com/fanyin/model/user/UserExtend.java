@@ -55,11 +55,11 @@ public class UserExtend implements Serializable {
     private Integer integralNum;
 
     /**
-     * 免费提现次数<br>
+     * 用户等级<br>
      * 表 : user_extend<br>
-     * 对应字段 : cash_num<br>
+     * 对应字段 : grade<br>
      */
-    private Short cashNum;
+    private Byte grade;
 
 
 

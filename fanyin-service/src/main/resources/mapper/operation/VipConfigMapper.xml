@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.operation.VipConfigMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.operation.VipConfig">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="CHAR" property="name" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="sort" jdbcType="TINYINT" property="sort" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="withdraw" jdbcType="TINYINT" property="withdraw" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, name, level, sort, amount, status, withdraw
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from vip_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getByLevel" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from vip_config where level = #{level}
+    </select>
+
+    <select id="getConfigs" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from vip_config where status = 1 order by sort #{orderType,typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from vip_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.operation.VipConfig">
+    <!--
+      @create by mybatis
+    -->
+    insert into vip_config (id, name, level, 
+      sort, amount, status, withdraw
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=CHAR}, #{level,jdbcType=TINYINT}, 
+      #{sort,jdbcType=TINYINT}, #{amount,jdbcType=DECIMAL}, #{status,jdbcType=BIT}, #{withdraw,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.operation.VipConfig">
+    <!--
+      @create by mybatis
+    -->
+    insert into vip_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="withdraw != null">
+        withdraw,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="withdraw != null">
+        #{withdraw,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.operation.VipConfig">
+    <!--
+      @create by mybatis
+    -->
+    update vip_config
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="withdraw != null">
+        withdraw = #{withdraw,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.operation.VipConfig">
+    <!--
+      @create by mybatis
+    -->
+    update vip_config
+    set name = #{name,jdbcType=CHAR},
+      level = #{level,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=TINYINT},
+      amount = #{amount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=BIT},
+      withdraw = #{withdraw,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

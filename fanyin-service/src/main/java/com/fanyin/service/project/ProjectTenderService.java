@@ -2,6 +2,7 @@ package com.fanyin.service.project;
 
 
 import com.fanyin.model.project.Project;
+import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.model.project.ProjectTender;
 import com.fanyin.model.user.DiscountCoupon;
 
@@ -22,12 +23,23 @@ public interface ProjectTenderService {
 
     /**
      * 计算投标产生的利息 基础利息,平台加息,加息券加息<br>
-     * 将计算的结果放入到tender对象指定字段内
-     * 注意投标信息必须关联优惠券 可通过{@link ProjectTenderService#getByIdWithCoupon(int, int)}查询
+     * 将计算的结果放入到tender对象指定字段内<br>
+     * tender必须关联优惠券 可通过{@link ProjectTenderService#getByIdWithCoupon(int, int)}查询<br>
+     * 注意 利息可能与回款总和不一致(四舍五入导致的)
      * @param tender 投标信息
      * @param project 产品信息
      */
     void calcTenderInterest(ProjectTender tender, Project project);
+
+    /**
+     * 计算投标产生的利息 基础利息,平台加息,加息券加息<br>
+     * 将计算的结果放入到tender对象指定字段内<br>
+     * <strong>通过回款列表计算</strong><br>
+     * tender必须关联优惠券 可通过{@link ProjectTenderService#getByIdWithCoupon(int, int)}查询<br>
+     * @param tender 投标信息
+     * @param recoverList 回款列表
+     */
+    void calcTenderInterest(ProjectTender tender, List<ProjectPlan> recoverList);
 
     /**
      * 获取优惠券中加息券利率
