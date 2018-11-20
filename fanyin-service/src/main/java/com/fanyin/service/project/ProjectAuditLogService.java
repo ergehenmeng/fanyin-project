@@ -12,7 +12,7 @@ public interface ProjectAuditLogService {
      * 不为空插入产品审核记录
      * @param log 日志
      */
-    void insertSelective(ProjectAuditLog log);
+    void addProjectAuditLog(ProjectAuditLog log);
 
 }
 

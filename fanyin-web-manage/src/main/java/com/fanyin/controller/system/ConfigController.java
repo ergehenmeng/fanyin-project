@@ -5,9 +5,9 @@ import com.fanyin.controller.AbstractController;
 import com.fanyin.ext.Paging;
 import com.fanyin.ext.ResultJson;
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigInsertRequest;
-import com.fanyin.dto.system.config.ConfigSelectRequest;
-import com.fanyin.dto.system.config.ConfigUpdateRequest;
+import com.fanyin.dto.system.config.ConfigAddRequest;
+import com.fanyin.dto.system.config.ConfigQueryRequest;
+import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.fanyin.service.system.SystemConfigService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ConfigController extends AbstractController {
 
     @PostMapping("/system/config/edit_config")
     @ResponseBody
-    public ResultJson editConfig(ConfigUpdateRequest request){
+    public ResultJson editConfig(ConfigEditRequest request){
         systemConfigService.updateConfig(request);
         return ResultJson.getInstance();
     }
@@ -55,7 +55,7 @@ public class ConfigController extends AbstractController {
      */
     @PostMapping("/system/config/config_list")
     @ResponseBody
-    public Paging<SystemConfig> systemConfigList(ConfigSelectRequest request){
+    public Paging<SystemConfig> systemConfigList(ConfigQueryRequest request){
         PageInfo<SystemConfig> listByPage = systemConfigService.getListByPage(request);
         return new Paging<>(listByPage);
     }
@@ -66,7 +66,7 @@ public class ConfigController extends AbstractController {
      */
     @PostMapping("/system/config/add_config")
     @ResponseBody
-    public ResultJson<String> addConfig(ConfigInsertRequest request){
+    public ResultJson<String> addConfig(ConfigAddRequest request){
         systemConfigService.addConfig(request);
         return ResultJson.getInstance();
     }

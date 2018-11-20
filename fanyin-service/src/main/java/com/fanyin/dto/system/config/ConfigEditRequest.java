@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2018/1/12 17:37
  */
 @Data
-public class ConfigUpdateRequest {
+public class ConfigEditRequest {
 
     /**
      * 参数名称

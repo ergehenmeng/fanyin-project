@@ -20,6 +20,11 @@ public class RegExpUtil {
     private static final String REGEXP_MOBILE = "^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8])|(19[7,9]))\\\\d{8}$";
 
     /**
+     * 隐藏字符串要替换的正则表达式值
+     */
+    static final String HIDDEN_REGEXP_VALUE = "$1****$2";
+
+    /**
      * 校验身份证是否合法 只做较为基础的校验
      * @param idCard 身份证编号 15位或18位
      * @return boolean true:合法 false:不合法

@@ -1,6 +1,7 @@
 package com.fanyin.mapper.project;
 
 import com.fanyin.model.project.ProjectTenderStatistics;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -56,4 +57,11 @@ public interface ProjectTenderStatisticsMapper {
      * @return 插入条数
      */
     int insertBatchStatistics(List<ProjectTenderStatistics> statistics);
+
+    /**
+     * 根据产品id查询投标统计信息,包含用户手机号
+     * @param projectId 产品id
+     * @return 产品投标统计信息
+     */
+    List<ProjectTenderStatistics> getByProjectId(@Param("projectId")int projectId);
 }

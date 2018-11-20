@@ -23,10 +23,7 @@ public class BankCardUtil {
      */
     private static final int BIRTH_DAY_SHORT = 6;
 
-    /**
-     * 隐藏身份证要替换的正则表达式值
-     */
-    private static final String HIDDEN_REGEXP_VALUE = "$1****$2";
+
     /**
      * 18位身份证隐藏需要的正则表达式
      */
@@ -108,9 +105,9 @@ public class BankCardUtil {
      */
     public static String hiddenIdCard(String idCard){
         if (idCard.length() == ID_CARD_LENGTH){
-            return idCard.replaceAll(HIDDEN_REGEXP_LONG,HIDDEN_REGEXP_VALUE);
+            return idCard.replaceAll(HIDDEN_REGEXP_LONG,RegExpUtil.HIDDEN_REGEXP_VALUE);
         }
-        return idCard.replaceAll(HIDDEN_REGEXP_SHORT,HIDDEN_REGEXP_VALUE);
+        return idCard.replaceAll(HIDDEN_REGEXP_SHORT,RegExpUtil.HIDDEN_REGEXP_VALUE);
     }
 
     /**

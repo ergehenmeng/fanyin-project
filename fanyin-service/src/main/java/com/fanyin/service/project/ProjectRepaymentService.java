@@ -17,7 +17,7 @@ public interface ProjectRepaymentService {
      * @param projectId 产品id
      * @param borrowerId 用户id
      */
-    void insertBatchRepayment(Collection<ProjectPlan> planList, int projectId, int borrowerId);
+    void addBatchRepayment(Collection<ProjectPlan> planList, int projectId, int borrowerId);
 
 }
 

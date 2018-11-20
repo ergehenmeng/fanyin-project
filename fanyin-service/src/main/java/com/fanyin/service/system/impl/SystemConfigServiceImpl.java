@@ -7,9 +7,9 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.SystemException;
 import com.fanyin.mapper.system.SystemConfigMapper;
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigInsertRequest;
-import com.fanyin.dto.system.config.ConfigSelectRequest;
-import com.fanyin.dto.system.config.ConfigUpdateRequest;
+import com.fanyin.dto.system.config.ConfigAddRequest;
+import com.fanyin.dto.system.config.ConfigQueryRequest;
+import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.fanyin.service.system.SystemConfigService;
 import com.fanyin.utils.BeanCopyUtil;
 import com.github.pagehelper.PageHelper;
@@ -36,7 +36,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @CacheEvict(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "#request.nid")
-    public void updateConfig(ConfigUpdateRequest request) {
+    public void updateConfig(ConfigEditRequest request) {
         int i = systemConfigMapper.updateConfig(request);
         if(i != 1){
             throw new SystemException(ErrorCodeEnum.UPDATE_CONFIG_ERROR);
@@ -45,7 +45,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public PageInfo<SystemConfig> getListByPage(ConfigSelectRequest request) {
+    public PageInfo<SystemConfig> getListByPage(ConfigQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getRows());
         List<SystemConfig> list = systemConfigMapper.getList(request);
         return new PageInfo<>(list);
@@ -64,7 +64,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
-    public void addConfig(ConfigInsertRequest request) {
+    public void addConfig(ConfigAddRequest request) {
         SystemConfig copy = BeanCopyUtil.copy(request, SystemConfig.class);
         systemConfigMapper.insertSelective(copy);
     }

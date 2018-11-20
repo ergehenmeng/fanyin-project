@@ -18,7 +18,7 @@ public class ProjectAuditLogServiceImpl implements ProjectAuditLogService {
     private ProjectAuditLogMapper projectAuditLogMapper;
 
     @Override
-    public void insertSelective(ProjectAuditLog log) {
+    public void addProjectAuditLog(ProjectAuditLog log) {
         projectAuditLogMapper.insertSelective(log);
     }
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class BaseRequest implements Serializable{
+public class PageQuery implements Serializable{
 
     private static final long serialVersionUID = 9015209122071749218L;
 

@@ -22,7 +22,7 @@ public class BorrowerAccountServiceImpl implements BorrowerAccountService {
     private BorrowerAccountMapper borrowerAccountMapper;
 
     @Override
-    public void insertAccount(int borrowerId) {
+    public void addAccount(int borrowerId) {
         BorrowerAccount account = new BorrowerAccount();
         account.setBorrowerId(borrowerId);
         borrowerAccountMapper.insertSelective(account);

@@ -1,8 +1,8 @@
 package com.fanyin.mapper.system;
 
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigSelectRequest;
-import com.fanyin.dto.system.config.ConfigUpdateRequest;
+import com.fanyin.dto.system.config.ConfigQueryRequest;
+import com.fanyin.dto.system.config.ConfigEditRequest;
 
 
 import java.util.List;
@@ -24,7 +24,7 @@ public interface SystemConfigMapper {
      * @param request 查询条件
      * @return
      */
-    List<SystemConfig> getList(ConfigSelectRequest request);
+    List<SystemConfig> getList(ConfigQueryRequest request);
     /**
      * 插入数据库记录
      *
@@ -77,5 +77,5 @@ public interface SystemConfigMapper {
      * @param request 待更新参数
      * @return
      */
-    int updateConfig(ConfigUpdateRequest request);
+    int updateConfig(ConfigEditRequest request);
 }

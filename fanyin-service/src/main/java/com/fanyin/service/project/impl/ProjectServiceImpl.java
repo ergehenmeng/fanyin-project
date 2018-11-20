@@ -101,7 +101,7 @@ public class ProjectServiceImpl implements ProjectService {
             //通过回款列表生成还款列表
             ProjectUtil.repaymentList(recoverList,repaymentMap);
             //插入回款
-            projectRecoverService.insertBatchRecover(recoverList,projectTender.getUserId(),project.getId(),projectTender.getId());
+            projectRecoverService.addBatchRecover(recoverList,projectTender.getUserId(),project.getId(),projectTender.getId());
             //计算投标预计收益
             projectTenderService.calcTenderInterest(projectTender, recoverList);
             projectTender.setUpdateTime(now);
@@ -114,13 +114,13 @@ public class ProjectServiceImpl implements ProjectService {
             accountDetailLogService.fullAuditUnfreeze(projectTender);
         });
         //插入还款信息
-        projectRepaymentService.insertBatchRepayment(repaymentMap.values(),project.getId(),project.getBorrowerId());
+        projectRepaymentService.addBatchRepayment(repaymentMap.values(),project.getId(),project.getBorrowerId());
         //放款到借款人
         borrowerAccountLogService.loanSuccess(project);
         //计算首投,最高投,扫尾
         TenderStatistics tenderStatistics = projectTenderStatisticsService.calcTenderStatistics(tenderList);
         //插入首投,最高投,扫尾
-        projectTenderStatisticsService.insertTenderStatistics(tenderStatistics);
+        projectTenderStatisticsService.addTenderStatistics(tenderStatistics);
         //奖励积分
         this.awardFirstMaxLastIntegral(tenderStatistics);
         //更新用户等级
@@ -215,7 +215,7 @@ public class ProjectServiceImpl implements ProjectService {
         log.setProjectId(audit.getId());
         log.setRemark(audit.getRemark());
         log.setOperatorId(audit.getOperatorId());
-        projectAuditLogService.insertSelective(log);
+        projectAuditLogService.addProjectAuditLog(log);
     }
 
     /**

@@ -166,11 +166,11 @@
         from system_config WHERE nid = #{nid}
     </select>
     
-    <update id="updateConfig" parameterType="com.fanyin.dto.system.config.ConfigUpdateRequest">
+    <update id="updateConfig" parameterType="com.fanyin.dto.system.config.ConfigEditRequest">
         update system_config SET name = #{name},type = #{type},value = #{value},remark = #{remark},update_time = now(),locked = #{locked} where locked = false and nid = #{nid}
     </update>
     
-    <select id="getList" parameterType="com.fanyin.dto.system.config.ConfigUpdateRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.fanyin.dto.system.config.ConfigEditRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_config
         <where>

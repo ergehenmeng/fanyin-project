@@ -1,5 +1,6 @@
 package com.fanyin.model.project;
 
+import com.fanyin.model.user.User;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -54,5 +55,9 @@ public class ProjectTenderStatistics implements Serializable {
      */
     private Date addTime;
 
+    /**
+     * 用户手机号
+     */
+    private String mobile;
 
 }

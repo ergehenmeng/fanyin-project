@@ -2,9 +2,9 @@ package com.fanyin.service.system;
 
 
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigInsertRequest;
-import com.fanyin.dto.system.config.ConfigSelectRequest;
-import com.fanyin.dto.system.config.ConfigUpdateRequest;
+import com.fanyin.dto.system.config.ConfigAddRequest;
+import com.fanyin.dto.system.config.ConfigQueryRequest;
+import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.github.pagehelper.PageInfo;
 
 
@@ -18,14 +18,14 @@ public interface SystemConfigService {
      * 更新系统参数
      * @param request 待更新的参数对象
      */
-    void updateConfig(ConfigUpdateRequest request);
+    void updateConfig(ConfigEditRequest request);
 
     /**
      * 分页查询系统配置信息
      * @param request 查询条件
      * @return 分页结果集
      */
-    PageInfo<SystemConfig> getListByPage(ConfigSelectRequest request);
+    PageInfo<SystemConfig> getListByPage(ConfigQueryRequest request);
 
     /**
      * 根据nid获取系统配置信息
@@ -45,7 +45,7 @@ public interface SystemConfigService {
      * 新增系统参数
      * @param request 必填选项
      */
-    void addConfig(ConfigInsertRequest request);
+    void addConfig(ConfigAddRequest request);
 
 
 }

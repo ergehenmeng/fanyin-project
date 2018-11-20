@@ -12,7 +12,7 @@ public interface BorrowerAccountService {
      * 初始化借款人资金账户
      * @param borrowerId 借款人id
      */
-    void insertAccount(int borrowerId);
+    void addAccount(int borrowerId);
 
     /**
      * 更新借款人资金账户信息

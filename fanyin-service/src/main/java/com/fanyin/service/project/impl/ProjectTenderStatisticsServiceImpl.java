@@ -1,13 +1,16 @@
 package com.fanyin.service.project.impl;
 
 import com.fanyin.constants.TenderConstant;
+import com.fanyin.dto.project.ProjectStatistics;
 import com.fanyin.dto.project.TenderStatistics;
 import com.fanyin.mapper.project.ProjectTenderStatisticsMapper;
 import com.fanyin.model.project.ProjectTender;
 import com.fanyin.model.project.ProjectTenderStatistics;
 import com.fanyin.service.project.ProjectTenderStatisticsService;
+import com.fanyin.utils.StringUtil;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,13 +20,14 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/11/15 15:44
  */
+@Service("projectTenderStatisticsService")
 public class ProjectTenderStatisticsServiceImpl implements ProjectTenderStatisticsService {
 
     @Autowired
     private ProjectTenderStatisticsMapper projectTenderStatisticsMapper;
 
     @Override
-    public void insertTenderStatistics(TenderStatistics tenderStatistics) {
+    public void addTenderStatistics(TenderStatistics tenderStatistics) {
         List<ProjectTenderStatistics> arrayList = Lists.newArrayList();
         arrayList.add(transferObject(tenderStatistics.getFirst(),TenderConstant.TENDER_FIRST));
         arrayList.add(transferObject(tenderStatistics.getMax(),TenderConstant.TENDER_MAX));
@@ -38,6 +42,27 @@ public class ProjectTenderStatisticsServiceImpl implements ProjectTenderStatisti
         ProjectTender maxTender = getMaxTender(tenderList);
         ProjectTender lastTender = tenderList.get(tenderList.size() - 1);
         return new TenderStatistics(firstTender,maxTender,lastTender);
+    }
+
+    @Override
+    public ProjectStatistics getProjectStatistics(int projectId) {
+        ProjectStatistics projectStatistics = new ProjectStatistics();
+        List<ProjectTenderStatistics> statisticsList = projectTenderStatisticsMapper.getByProjectId(projectId);
+        if(statisticsList != null && statisticsList.size() > 0){
+            statisticsList.forEach(statistics -> {
+                String hiddenMobile = StringUtil.hiddenMobile(statistics.getMobile());
+                if(statistics.getType() == TenderConstant.TENDER_FIRST){
+                    projectStatistics.setFirst(hiddenMobile);
+                }
+                if(statistics.getType() == TenderConstant.TENDER_MAX){
+                    projectStatistics.setMax(hiddenMobile);
+                }
+                if(statistics.getType() == TenderConstant.TENDER_LAST){
+                    projectStatistics.setLast(hiddenMobile);
+                }
+            });
+        }
+        return projectStatistics;
     }
 
     /**

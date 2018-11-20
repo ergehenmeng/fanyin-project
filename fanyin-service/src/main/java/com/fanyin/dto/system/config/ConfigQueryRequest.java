@@ -1,7 +1,7 @@
 package com.fanyin.dto.system.config;
 
 
-import com.fanyin.ext.BaseRequest;
+import com.fanyin.ext.PageQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ConfigSelectRequest extends BaseRequest implements Serializable {
+public class ConfigQueryRequest extends PageQuery implements Serializable {
 
     private static final long serialVersionUID = -2384592001035426711L;
 

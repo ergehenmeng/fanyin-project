@@ -19,7 +19,7 @@ public class ProjectRecoverServiceImpl implements ProjectRecoverService {
     private ProjectRecoverMapper projectRecoverMapper;
 
     @Override
-    public void insertBatchRecover(List<ProjectPlan> list, int userId, int projectId, int tenderId) {
+    public void addBatchRecover(List<ProjectPlan> list, int userId, int projectId, int tenderId) {
         projectRecoverMapper.insertBatchRecover(list, userId, projectId, tenderId);
     }
 }

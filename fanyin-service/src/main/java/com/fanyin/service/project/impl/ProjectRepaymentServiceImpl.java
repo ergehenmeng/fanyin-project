@@ -20,7 +20,7 @@ public class ProjectRepaymentServiceImpl implements ProjectRepaymentService {
 
 
     @Override
-    public void insertBatchRepayment(Collection<ProjectPlan> planList, int projectId, int borrowerId) {
+    public void addBatchRepayment(Collection<ProjectPlan> planList, int projectId, int borrowerId) {
         projectRepaymentMapper.insertBatchRepayment(planList,projectId,borrowerId);
     }
 }

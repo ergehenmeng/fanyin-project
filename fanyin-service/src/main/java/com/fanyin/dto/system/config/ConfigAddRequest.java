@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @date 2018/1/29 16:07
  */
 @Data
-public class ConfigInsertRequest implements Serializable{
+public class ConfigAddRequest implements Serializable{
 
     private static final long serialVersionUID = -5215129909970715975L;
 

@@ -18,7 +18,7 @@ public interface ProjectRecoverService {
      * @param projectId 产品id
      * @param tenderId 投标id
      */
-    void insertBatchRecover(List<ProjectPlan> list,
+    void addBatchRecover(List<ProjectPlan> list,
                             int userId,
                             int projectId,
                             int tenderId);

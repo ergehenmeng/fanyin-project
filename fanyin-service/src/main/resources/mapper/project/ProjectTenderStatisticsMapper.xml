@@ -11,6 +11,7 @@
     <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
@@ -27,7 +28,11 @@
     from project_tender_statistics
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getByProjectId" resultMap="BaseResultMap">
+        select t.id, t.project_id, t.user_id, t.tender_id, t.type, t.add_time,r.mobile from project_tender_statistics t
+            inner join user r on t.user_id = r.id
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       @create by mybatis
     -->

@@ -24,6 +24,10 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
      */
     private static final int DEFAULT_RANDOM_LENGTH = 4;
 
+    /**
+     * 手机号码隐藏
+     */
+    private static final String HIDDEN_REGEXP_MOBILE = "(\\d{3})\\d{4}(\\d{4})";
 
 
     /**
@@ -79,5 +83,13 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
         return randomNumber(DEFAULT_RANDOM_LENGTH);
     }
 
+    /**
+     * 隐藏手机号中间
+     * @param mobile 手机号码
+     * @return 137****1234
+     */
+    public static String hiddenMobile(String mobile){
+        return mobile.replaceAll(HIDDEN_REGEXP_MOBILE,RegExpUtil.HIDDEN_REGEXP_VALUE);
+    }
 
 }

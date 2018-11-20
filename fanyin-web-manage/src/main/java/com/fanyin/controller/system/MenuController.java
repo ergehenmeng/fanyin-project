@@ -2,8 +2,8 @@ package com.fanyin.controller.system;
 
 import com.fanyin.ext.ResultJson;
 import com.fanyin.model.system.SystemMenu;
-import com.fanyin.dto.system.menu.MenuInsertRequest;
-import com.fanyin.dto.system.menu.MenuUpdateRequest;
+import com.fanyin.dto.system.menu.MenuAddRequest;
+import com.fanyin.dto.system.menu.MenuEditRequest;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,7 +54,7 @@ public class MenuController {
      */
     @PostMapping("/system/menu/add_menu")
     @ResponseBody
-    public ResultJson addMenu(MenuInsertRequest request){
+    public ResultJson addMenu(MenuAddRequest request){
         systemMenuService.addMenu(request);
         return ResultJson.getInstance();
     }
@@ -66,7 +66,7 @@ public class MenuController {
      */
     @PostMapping("/system/menu/edit_menu")
     @ResponseBody
-    public ResultJson editMenu(MenuUpdateRequest request){
+    public ResultJson editMenu(MenuEditRequest request){
         systemMenuService.updateMenu(request);
         return ResultJson.getInstance();
     }
