@@ -261,7 +261,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         tender.setVoucherInterest(voucherValue);
         //冻结资金
         accountDetailLogService.tenderFreeze(tender);
-
+        this.packageResponse(project,tender,request.getKey());
     }
 
     /**
@@ -279,7 +279,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         response.setUserId(tender.getUserId());
         response.setProjectId(project.getId());
         response.setRealAmount(tender.getAccount().subtract(tender.getVoucherInterest()).doubleValue());
-        redisCacheService.cacheTenderResponse (response);
+        redisCacheService.cacheTenderResponse(response);
     }
 
 }
