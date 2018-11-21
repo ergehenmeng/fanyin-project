@@ -59,7 +59,11 @@
       #{ip,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectTender">
+  <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectTender" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.Integer" keyColumn="id" keyProperty="id" order="AFTER">
+        select LAST_INSERT_ID()
+    </selectKey>
+
     <!--
       @create by mybatis
     -->

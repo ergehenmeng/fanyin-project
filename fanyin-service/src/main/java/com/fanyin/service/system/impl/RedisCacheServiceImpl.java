@@ -16,6 +16,6 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     @Cacheable(cacheNames = RedisConstant.TENDER_ASYNC,key = "#response.key",cacheManager = "shortCacheManager")
-    public void cacheTenderAsyncResponse(TenderResponse response) {
+    public void cacheTenderResponse(TenderResponse response) {
     }
 }

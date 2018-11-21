@@ -22,7 +22,7 @@ public class IntegralAwardTask extends AbstractTask<IntegralAward> {
     protected void execute(IntegralAward data) {
         try {
             IntegralLogService  integralLogService = (IntegralLogService)SpringContextUtil.getBean("integralLogService");
-            integralLogService.awardScore(data.getUserId(),data.getScore(),data.getIntegral());
+            integralLogService.doAwardScore(data.getUserId(),data.getScore(),data.getIntegral());
         }catch (Exception e){
             log.error("积分发放任务异常",e);
         }

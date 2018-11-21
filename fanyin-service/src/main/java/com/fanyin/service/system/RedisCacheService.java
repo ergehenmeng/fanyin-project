@@ -12,6 +12,6 @@ public interface RedisCacheService {
      * 缓存投标异步结果
      * @param response 对象
      */
-    void cacheTenderAsyncResponse(TenderResponse response);
+    void cacheTenderResponse(TenderResponse response);
 }
 

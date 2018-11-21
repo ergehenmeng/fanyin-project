@@ -31,7 +31,7 @@ public class TenderTask extends AbstractTask<Tender> {
             TenderResponse response = new TenderResponse();
             super.exceptionParse(e,ErrorCodeEnum.TENDER_SYSTEM_ERROR,response);
             RedisCacheService redisCacheService = (RedisCacheService) SpringContextUtil.getBean("redisCacheService");
-            redisCacheService.cacheTenderAsyncResponse(response);
+            redisCacheService.cacheTenderResponse(response);
         }
     }
 }

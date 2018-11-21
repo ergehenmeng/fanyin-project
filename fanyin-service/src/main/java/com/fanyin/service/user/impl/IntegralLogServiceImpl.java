@@ -37,7 +37,7 @@ public class IntegralLogServiceImpl implements IntegralLogService {
     private SystemConfigApi systemConfigApi;
 
     @Override
-    public void awardScore(int userId, int score, Integral integral) {
+    public void doAwardScore(int userId, int score, Integral integral) {
         if(score == 0){
             log.warn("积分奖励为零,userId:{},type:{}",userId,integral);
             return;

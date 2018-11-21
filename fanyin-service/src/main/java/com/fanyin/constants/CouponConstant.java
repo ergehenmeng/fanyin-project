@@ -20,4 +20,9 @@ public class CouponConstant {
      * 优惠券状态 0 未使用
      */
     public static final byte COUPON_STATUS_0 = 0;
+
+    /**
+     * 优惠券状态 1 已使用
+     */
+    public static final byte COUPON_STATUS_1 = 1;
 }

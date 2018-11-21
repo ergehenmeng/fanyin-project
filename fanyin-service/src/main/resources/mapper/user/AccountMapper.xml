@@ -15,13 +15,14 @@
     <result column="accumulated_income" jdbcType="DECIMAL" property="accumulatedIncome" />
     <result column="wait_capital" jdbcType="DECIMAL" property="waitCapital" />
     <result column="wait_interest" jdbcType="DECIMAL" property="waitInterest" />
+    <result column="version" jdbcType="INTEGER" property="version" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
     id, user_id, total, available_balance, recharge, tender_freeze, withdraw_freeze, 
-    accumulated_income, wait_capital, wait_interest
+    accumulated_income, wait_capital, wait_interest,version
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -50,11 +51,11 @@
     insert into account (id, user_id, total, 
       available_balance, recharge, tender_freeze, 
       withdraw_freeze, accumulated_income, wait_capital, 
-      wait_interest)
+      wait_interest,version)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{total,jdbcType=DECIMAL}, 
       #{availableBalance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, #{tenderFreeze,jdbcType=DECIMAL}, 
       #{withdrawFreeze,jdbcType=DECIMAL}, #{accumulatedIncome,jdbcType=DECIMAL}, #{waitCapital,jdbcType=DECIMAL}, 
-      #{waitInterest,jdbcType=DECIMAL})
+      #{waitInterest,jdbcType=DECIMAL},#{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.user.Account">
     <!--
@@ -92,6 +93,9 @@
       <if test="waitInterest != null">
         wait_interest,
       </if>
+        <if test="version != null">
+            version,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,6 +128,9 @@
       <if test="waitInterest != null">
         #{waitInterest,jdbcType=DECIMAL},
       </if>
+        <if test="version != null">
+            #{version,jdbcType=INTEGER},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.user.Account">
@@ -159,8 +166,9 @@
       <if test="waitInterest != null">
         wait_interest = #{waitInterest,jdbcType=DECIMAL},
       </if>
+      version = verison + 1
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where version = #{version} and id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.Account">
     <!--
@@ -175,7 +183,8 @@
       withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
       accumulated_income = #{accumulatedIncome,jdbcType=DECIMAL},
       wait_capital = #{waitCapital,jdbcType=DECIMAL},
-      wait_interest = #{waitInterest,jdbcType=DECIMAL}
+      wait_interest = #{waitInterest,jdbcType=DECIMAL},
+      version = #{version,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

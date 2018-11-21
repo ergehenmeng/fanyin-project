@@ -76,11 +76,27 @@ public interface ProjectService {
      */
     void awardFirstMaxLastIntegral(TenderStatistics tenderStatistics);
 
+
     /**
-     * 投标 校验产品信息
+     * 投标 产品信息校验
+     * @param project 产品信息
+     * @param request 投标信息
+     */
+    void verifyProject(Project project, Tender request);
+
+    /**
+     * 投标 产品信息校验
+     *
      * @param project 产品信息
      * @param request 投标信息
      */
     void verifyTenderProject(Project project, Tender request);
+
+
+    /**
+     * 更新产品信息
+     * @param project 产品信息
+     */
+    void updateProject(Project project);
 }
 

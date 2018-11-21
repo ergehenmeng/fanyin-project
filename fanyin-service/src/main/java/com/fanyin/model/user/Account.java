@@ -82,4 +82,11 @@ public class Account implements Serializable {
      */
     private BigDecimal waitInterest = BigDecimal.ZERO;;
 
+    /**
+     * 乐观锁版本号<br>
+     * 表 : account<br>
+     * 对应字段 : version<br>
+     */
+    private Integer version;
+
 }

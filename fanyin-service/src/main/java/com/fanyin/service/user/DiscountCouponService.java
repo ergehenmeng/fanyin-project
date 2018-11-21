@@ -2,6 +2,7 @@ package com.fanyin.service.user;
 
 import com.fanyin.dto.user.CouponQueryRequest;
 import com.fanyin.model.user.DiscountCoupon;
+import com.fanyin.model.user.DiscountCouponTender;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -44,5 +45,17 @@ public interface DiscountCouponService {
      * @param period 投标期限
      */
     void verifyDiscountCoupon(DiscountCoupon coupon,double amount,int period);
+
+    /**
+     * 更新优惠券
+     * @param coupon 优惠券
+     */
+    void updateDiscountCoupon(DiscountCoupon coupon);
+
+    /**
+     * 插入投标优惠券关联信息
+     * @param discountCouponTender 关联信息
+     */
+    void addDiscountCouponTender(DiscountCouponTender discountCouponTender);
 }
 

@@ -36,5 +36,13 @@ public class Tender extends Key implements Serializable {
      */
     private Double amount;
 
+    /**
+     * ip地址
+     */
+    private String ip;
 
+    /**
+     * 投标渠道 pc ios android h5 other
+     */
+    private String channel;
 }

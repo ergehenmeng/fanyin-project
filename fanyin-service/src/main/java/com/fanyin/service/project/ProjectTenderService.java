@@ -95,18 +95,13 @@ public interface ProjectTenderService {
      */
     ProjectTender selectByPrimaryKey(int tenderId);
 
-    /**
-     * 用户实际投标冻结金额
-     * @param request 前台参数
-     * @return 金额-投标后需要冻结的金额
-     */
-    BigDecimal getTenderAmount(Tender request);
 
     /**
      * 投标
      * @param request 前台请求参数
+     * @return 结果查询唯一key
      */
-    void invest(Tender request);
+    String invest(Tender request);
 
     /**
      * 投标 队列处理

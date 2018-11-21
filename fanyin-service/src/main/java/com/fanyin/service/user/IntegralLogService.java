@@ -15,7 +15,7 @@ public interface IntegralLogService {
      * @param score 发放的积分
      * @param integral 积分类型
      */
-    void awardScore(int userId,int score, Integral integral);
+    void doAwardScore(int userId,int score, Integral integral);
 
     /**
      * 根据积分类型计算应该发放或者扣除的积分,<br>

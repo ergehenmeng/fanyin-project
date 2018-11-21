@@ -30,7 +30,7 @@ public class TaskQueue {
      * 积分奖励发放
      * @param task 待执行的任务
      */
-    public static void pointAwardOffer(AbstractTask task){
+    public static void executePointAward(AbstractTask task){
         TaskQueueHolder.POINT_AWARD.execute(task);
     }
 
@@ -38,7 +38,7 @@ public class TaskQueue {
      * 投标
      * @param task 任务
      */
-    public static void tenderOffer(AbstractTask task){
+    public static void executeTender(AbstractTask task){
         TaskQueueHolder.TENDER.execute(task);
     }
 

@@ -141,16 +141,28 @@ public class ProjectServiceImpl implements ProjectService {
         this.awardIntegral(tenderStatistics.getLast().getUserId(),Integral.LAST_TENDER);
     }
 
+
+
     /**
      * 投标 校验产品信息
      * @param project 产品信息
      */
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public void verifyTenderProject(Project project, Tender request) {
+    public void verifyProject(Project project, Tender request) {
         if(project == null){
             throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_FOUND);
         }
+        //预售时间
+        if(project.getPreSaleTime().after(DateUtil.getNow())){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_PRE_SALE);
+        }
+        this.verifyTenderProject(project,request);
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    public void verifyTenderProject(Project project, Tender request) {
         //满标状态
         if(project.getStatus() == ProjectStatus.FULL.getCode()){
             throw new BusinessException(ErrorCodeEnum.PROJECT_FULL_ERROR);
@@ -159,10 +171,7 @@ public class ProjectServiceImpl implements ProjectService {
         if(project.getStatus() != ProjectStatus.RAISE.getCode()){
             throw new BusinessException(ErrorCodeEnum.PROJECT_STATUS_ERROR);
         }
-        //预售时间
-        if(project.getPreSaleTime().after(DateUtil.getNow())){
-            throw new BusinessException(ErrorCodeEnum.PROJECT_PRE_SALE);
-        }
+
         BigDecimal tenderAmount = BigDecimal.valueOf(request.getAmount());
         //最小投标
         if(project.getMinTender().compareTo(tenderAmount) > 0 ){
@@ -172,6 +181,11 @@ public class ProjectServiceImpl implements ProjectService {
         if(project.getRaiseAmount().add(tenderAmount).compareTo(project.getAmount()) > 0){
             throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_ENOUGH);
         }
+    }
+
+    @Override
+    public void updateProject(Project project) {
+        projectMapper.updateByPrimaryKeySelective(project);
     }
 
     /**
@@ -193,7 +207,7 @@ public class ProjectServiceImpl implements ProjectService {
     private void awardIntegral(int userId,Integral integral){
         int score = integralLogService.calcScore(integral);
         IntegralAward award = new IntegralAward(userId,score,integral);
-        TaskQueue.pointAwardOffer(new IntegralAwardTask(award));
+        TaskQueue.executePointAward(new IntegralAwardTask(award));
     }
 
     /**
@@ -207,7 +221,7 @@ public class ProjectServiceImpl implements ProjectService {
             return;
         }
         IntegralAward award = new IntegralAward(tender.getUserId(),score,Integral.TENDER);
-        TaskQueue.pointAwardOffer(new IntegralAwardTask(award));
+        TaskQueue.executePointAward(new IntegralAwardTask(award));
     }
 
 

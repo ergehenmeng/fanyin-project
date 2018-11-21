@@ -5,7 +5,9 @@ import com.fanyin.dto.user.CouponQueryRequest;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.user.DiscountCouponMapper;
+import com.fanyin.mapper.user.DiscountCouponTenderMapper;
 import com.fanyin.model.user.DiscountCoupon;
+import com.fanyin.model.user.DiscountCouponTender;
 import com.fanyin.service.user.DiscountCouponService;
 import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
@@ -28,6 +30,9 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
 
     @Autowired
     private DiscountCouponMapper discountCouponMapper;
+
+    @Autowired
+    private DiscountCouponTenderMapper discountCouponTenderMapper;
 
     @Override
     public PageInfo<DiscountCoupon> getByPage(CouponQueryRequest request) {
@@ -88,5 +93,15 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
                 throw new BusinessException(ErrorCodeEnum.COUPON_PERIOD_ERROR);
             }
         }
+    }
+
+    @Override
+    public void updateDiscountCoupon(DiscountCoupon coupon) {
+        discountCouponMapper.updateByPrimaryKeySelective(coupon);
+    }
+
+    @Override
+    public void addDiscountCouponTender(DiscountCouponTender discountCouponTender) {
+        discountCouponTenderMapper.insertSelective(discountCouponTender);
     }
 }

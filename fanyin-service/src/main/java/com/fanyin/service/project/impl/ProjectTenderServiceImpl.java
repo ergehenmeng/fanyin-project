@@ -1,8 +1,11 @@
 package com.fanyin.service.project.impl;
 
 import com.fanyin.constants.CouponConstant;
+import com.fanyin.constants.TenderConstant;
 import com.fanyin.dto.tender.Tender;
+import com.fanyin.dto.tender.TenderResponse;
 import com.fanyin.enums.ErrorCodeEnum;
+import com.fanyin.enums.ProjectStatus;
 import com.fanyin.enums.RepaymentType;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.project.ProjectTenderMapper;
@@ -11,17 +14,25 @@ import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.model.project.ProjectTender;
 import com.fanyin.model.user.Account;
 import com.fanyin.model.user.DiscountCoupon;
+import com.fanyin.model.user.DiscountCouponTender;
+import com.fanyin.queue.TaskQueue;
+import com.fanyin.queue.task.TenderTask;
 import com.fanyin.service.project.ProjectService;
 import com.fanyin.service.project.ProjectTenderService;
 import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.service.user.AccountDetailLogService;
 import com.fanyin.service.user.AccountService;
 import com.fanyin.service.user.DiscountCouponService;
+import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.ProjectUtil;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 投标
@@ -45,6 +56,10 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
 
     @Autowired
     private RedisCacheService redisCacheService;
+
+    @Autowired
+    private AccountDetailLogService accountDetailLogService;
+
 
     @Override
     public List<ProjectTender> getByProjectIdWithCoupon(int projectId) {
@@ -157,21 +172,12 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         return projectTenderMapper.selectByPrimaryKey(tenderId);
     }
 
-    @Override
-    public BigDecimal getTenderAmount(Tender request) {
-        if(request.getCouponId() == null){
-            return BigDecimal.valueOf(request.getAmount());
-        }
-        DiscountCoupon coupon = discountCouponService.getById(request.getCouponId(), request.getUserId());
-
-        return null;
-    }
 
     @Override
-    public void invest(Tender request) {
+    public String invest(Tender request) {
         Project project = projectService.getById(request.getProjectId());
         //产品校验
-        projectService.verifyTenderProject(project,request);
+        projectService.verifyProject(project,request);
         //实际冻结金额
         BigDecimal realAmount = BigDecimal.valueOf(request.getAmount());
         if(request.getCouponId() != null){
@@ -186,12 +192,94 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         if(account.getAvailableBalance().compareTo(realAmount) < 0){
             throw new BusinessException(ErrorCodeEnum.ACCOUNT_NOT_ENOUGH);
         }
-
-
+        String key = UUID.randomUUID().toString();
+        request.setKey(key);
+        TaskQueue.executePointAward(new TenderTask(request));
+        return key;
     }
 
     @Override
     public void doInvest(Tender request) {
+        Project project = projectService.getById(request.getProjectId());
+        //产品额度校验
+        projectService.verifyTenderProject(project,request);
+        //实际付款金额
+        BigDecimal realAmount = BigDecimal.valueOf(request.getAmount());
+        //优惠券
+        DiscountCoupon coupon = null;
+        //抵扣金额
+        BigDecimal voucherValue = BigDecimal.ZERO;
+        if(request.getCouponId() != null){
+            //再次校验
+            coupon = discountCouponService.getById(request.getCouponId(), request.getUserId());
+            discountCouponService.verifyDiscountCoupon(coupon,request.getAmount(),project.getPeriod());
+            if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
+                realAmount = realAmount.subtract(coupon.getFaceValue());
+                voucherValue = coupon.getFaceValue();
+            }
+        }
+        //可用余额校验
+        Account account = accountService.getByUserId(request.getUserId());
+        if(account.getAvailableBalance().compareTo(realAmount) < 0){
+            throw new BusinessException(ErrorCodeEnum.ACCOUNT_NOT_ENOUGH);
+        }
+
+        //投标金额
+        BigDecimal tenderAmount = BigDecimal.valueOf(request.getAmount());
+        Date now = DateUtil.getNow();
+        //插入投标信息
+        ProjectTender tender = new ProjectTender();
+        tender.setStatus(TenderConstant.TENDER_STATUS_0);
+        tender.setUserId(request.getUserId());
+        tender.setAddTime(now);
+        tender.setAccount(tenderAmount);
+        tender.setProjectId(request.getProjectId());
+        tender.setIp(request.getIp());
+        tender.setChannel(request.getChannel());
+        projectTenderMapper.insertSelective(tender);
+
+        if(coupon != null){
+            coupon.setStatus(CouponConstant.COUPON_STATUS_1);
+            //更新优惠券状态
+            discountCouponService.updateDiscountCoupon(coupon);
+            DiscountCouponTender couponTender = new DiscountCouponTender();
+            couponTender.setAddTime(now);
+            couponTender.setDiscountCouponId(coupon.getId());
+            couponTender.setTenderId(tender.getId());
+            //插入优惠券关联信息
+            discountCouponService.addDiscountCouponTender(couponTender);
+
+            tender.setCouponList(Lists.newArrayList(coupon));
+        }
+
+        project.setRaiseAmount(project.getRaiseAmount().add(tenderAmount));
+        if(project.getAmount().compareTo(project.getRaiseAmount()) == 0){
+            project.setType(ProjectStatus.FULL.getCode());
+        }
+        projectService.updateProject(project);
+        //此处设置抵扣券金额,在实际冻结金额时使用,
+        tender.setVoucherInterest(voucherValue);
+        //冻结资金
+        accountDetailLogService.tenderFreeze(tender);
 
     }
+
+    /**
+     * 将投标结果组装并保存在缓存中,以便于前台查询获取结果
+     * @param project 产品信息
+     * @param tender 投标信息
+     * @param key 结果唯一key
+     */
+    private void packageResponse(Project project,ProjectTender tender,String key){
+        TenderResponse response = new TenderResponse();
+        response.setKey(key);
+        response.setCode(200);
+        response.setAmount(tender.getAccount().doubleValue());
+        response.setDiscountCoupon(tender.getCouponList());
+        response.setUserId(tender.getUserId());
+        response.setProjectId(project.getId());
+        response.setRealAmount(tender.getAccount().subtract(tender.getVoucherInterest()).doubleValue());
+        redisCacheService.cacheTenderResponse (response);
+    }
+
 }
