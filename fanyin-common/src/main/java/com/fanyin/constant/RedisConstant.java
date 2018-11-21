@@ -31,4 +31,9 @@ public class RedisConstant {
      * vip等级配置信息
      */
     public static final String VIP_CONFIG = "vip_config";
+
+    /**
+     * 投标异步结果
+     */
+    public static final String TENDER_ASYNC = "tender_async";
 }

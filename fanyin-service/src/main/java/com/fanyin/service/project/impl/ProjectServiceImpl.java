@@ -3,6 +3,7 @@ package com.fanyin.service.project.impl;
 import com.fanyin.constants.TenderConstant;
 import com.fanyin.dto.project.ProjectAudit;
 import com.fanyin.dto.project.TenderStatistics;
+import com.fanyin.dto.tender.Tender;
 import com.fanyin.dto.user.IntegralAward;
 import com.fanyin.enums.*;
 import com.fanyin.exception.BusinessException;
@@ -27,7 +28,9 @@ import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +42,7 @@ import java.util.Set;
  */
 @Service("projectService")
 @Slf4j
+@Transactional(rollbackFor = RuntimeException.class)
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
@@ -77,18 +81,20 @@ public class ProjectServiceImpl implements ProjectService {
     private int startPoint = 1;
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public Project getByNid(String nid) {
         return projectMapper.getByNid(nid);
     }
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public Project getById(int id) {
         return projectMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public void fullAuditSuccess(Project project) {
-        this.checkProject(project);
+        this.verifyFullProject(project);
         //查询投标信息 必须包含加息券 这样计算利息才正常
         List<ProjectTender> tenderList = projectTenderService.getByProjectIdWithCoupon(project.getId());
         //还款列表
@@ -133,6 +139,39 @@ public class ProjectServiceImpl implements ProjectService {
         this.awardIntegral(tenderStatistics.getFirst().getUserId(),Integral.FIRST_TENDER);
         this.awardIntegral(tenderStatistics.getMax().getUserId(),Integral.MAX_TENDER);
         this.awardIntegral(tenderStatistics.getLast().getUserId(),Integral.LAST_TENDER);
+    }
+
+    /**
+     * 投标 校验产品信息
+     * @param project 产品信息
+     */
+    @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    public void verifyTenderProject(Project project, Tender request) {
+        if(project == null){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_FOUND);
+        }
+        //满标状态
+        if(project.getStatus() == ProjectStatus.FULL.getCode()){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_FULL_ERROR);
+        }
+        //募集中状态
+        if(project.getStatus() != ProjectStatus.RAISE.getCode()){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_STATUS_ERROR);
+        }
+        //预售时间
+        if(project.getPreSaleTime().after(DateUtil.getNow())){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_PRE_SALE);
+        }
+        BigDecimal tenderAmount = BigDecimal.valueOf(request.getAmount());
+        //最小投标
+        if(project.getMinTender().compareTo(tenderAmount) > 0 ){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_MIN_TENDER);
+        }
+        //剩余可投
+        if(project.getRaiseAmount().add(tenderAmount).compareTo(project.getAmount()) > 0){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_ENOUGH);
+        }
     }
 
     /**
@@ -193,7 +232,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void fullAuditFail(Project project) {
-        this.checkProject(project);
+        //TODO 撤销投标
     }
 
     @Override
@@ -222,7 +261,7 @@ public class ProjectServiceImpl implements ProjectService {
      * 检查产品信息是否合法
      * @param project 产品
      */
-    private void checkProject(Project project){
+    private void verifyFullProject(Project project){
         if(project == null){
             log.error("满标复审,产品信息未查询到");
             throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_FOUND);
@@ -234,6 +273,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public synchronized String createNid() {
         String yyyyMMdd = DateUtil.format(DateUtil.getNow(), "yyyyMMdd0");
 

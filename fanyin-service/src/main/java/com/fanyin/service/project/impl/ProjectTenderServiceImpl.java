@@ -1,13 +1,21 @@
 package com.fanyin.service.project.impl;
 
 import com.fanyin.constants.CouponConstant;
+import com.fanyin.dto.tender.Tender;
+import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.enums.RepaymentType;
+import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.project.ProjectTenderMapper;
 import com.fanyin.model.project.Project;
 import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.model.project.ProjectTender;
+import com.fanyin.model.user.Account;
 import com.fanyin.model.user.DiscountCoupon;
+import com.fanyin.service.project.ProjectService;
 import com.fanyin.service.project.ProjectTenderService;
+import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.service.user.AccountService;
+import com.fanyin.service.user.DiscountCouponService;
 import com.fanyin.utils.ProjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +33,18 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
 
     @Autowired
     private ProjectTenderMapper projectTenderMapper;
+
+    @Autowired
+    private DiscountCouponService discountCouponService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private RedisCacheService redisCacheService;
 
     @Override
     public List<ProjectTender> getByProjectIdWithCoupon(int projectId) {
@@ -135,5 +155,43 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
     @Override
     public ProjectTender selectByPrimaryKey(int tenderId) {
         return projectTenderMapper.selectByPrimaryKey(tenderId);
+    }
+
+    @Override
+    public BigDecimal getTenderAmount(Tender request) {
+        if(request.getCouponId() == null){
+            return BigDecimal.valueOf(request.getAmount());
+        }
+        DiscountCoupon coupon = discountCouponService.getById(request.getCouponId(), request.getUserId());
+
+        return null;
+    }
+
+    @Override
+    public void invest(Tender request) {
+        Project project = projectService.getById(request.getProjectId());
+        //产品校验
+        projectService.verifyTenderProject(project,request);
+        //实际冻结金额
+        BigDecimal realAmount = BigDecimal.valueOf(request.getAmount());
+        if(request.getCouponId() != null){
+            DiscountCoupon coupon = discountCouponService.getById(request.getCouponId(), request.getUserId());
+            //优惠券校验
+            discountCouponService.verifyDiscountCoupon(coupon,request.getAmount(),project.getPeriod());
+            if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
+                realAmount = realAmount.subtract(coupon.getFaceValue());
+            }
+        }
+        Account account = accountService.getByUserId(request.getUserId());
+        if(account.getAvailableBalance().compareTo(realAmount) < 0){
+            throw new BusinessException(ErrorCodeEnum.ACCOUNT_NOT_ENOUGH);
+        }
+
+
+    }
+
+    @Override
+    public void doInvest(Tender request) {
+
     }
 }

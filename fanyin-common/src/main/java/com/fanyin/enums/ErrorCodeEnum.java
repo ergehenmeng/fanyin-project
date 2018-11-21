@@ -178,6 +178,47 @@ public enum ErrorCodeEnum {
      * 资金校验错误
      */
     ACCOUNT_CHECK_ERROR(3015,"资金校验错误"),
+    /**
+     * 优惠券不存在
+     */
+    COUPON_NOT_FOUND(3016,"优惠券不存在"),
+    /**
+     * 优惠券不在有效期
+     */
+    COUPON_TIME_ERROR(3017,"优惠券不在有效期"),
+
+    /**
+     * 优惠券使用额度不符
+     */
+    COUPON_LIMIT_ERROR(3018,"优惠券使用额度不符"),
+    /**
+     * 优惠券使用期限不符
+     */
+    COUPON_PERIOD_ERROR(3019,"优惠券使用期限不符"),
+    /**
+     * 产品额度已投满
+     */
+    PROJECT_FULL_ERROR(3020,"产品额度已投满"),
+    /**
+     * 产品预售时间未到
+     */
+    PROJECT_PRE_SALE(3021,"产品预售时间未到"),
+    /**
+     * 最小投标金额不足
+     */
+    PROJECT_MIN_TENDER(3022,"最小投标金额不足"),
+    /**
+     * 产品剩余可投不足
+     */
+    PROJECT_NOT_ENOUGH(3021,"产品剩余可投不足"),
+    /**
+     * 账户可用余额不足
+     */
+    ACCOUNT_NOT_ENOUGH(3022,"账户可用余额不足"),
+    /**
+     * 投标人数过多,请稍后再试
+     */
+    TENDER_SYSTEM_ERROR(3023,"投标人数过多,请稍后再试"),
     ;
     /**
      * 构造方法

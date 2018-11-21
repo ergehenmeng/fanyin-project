@@ -114,9 +114,9 @@ public class Project implements Serializable {
     /**
      * 预售时间(默认产品发布时间)<br>
      * 表 : project<br>
-     * 对应字段 : presell_time<br>
+     * 对应字段 : pre_sale_time<br>
      */
-    private Date presellTime;
+    private Date preSaleTime;
 
     /**
      * 产品发布时间(复审通过时间)<br>

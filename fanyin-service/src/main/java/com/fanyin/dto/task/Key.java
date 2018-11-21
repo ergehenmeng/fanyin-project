@@ -1,0 +1,19 @@
+package com.fanyin.dto.task;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * @author 王艳兵
+ * @date 2018/11/21 17:34
+ */
+@Data
+public class Key implements Serializable {
+    private static final long serialVersionUID = -3523695195544460695L;
+
+    /**
+     * 异步结果唯一key
+     */
+    private String key;
+}

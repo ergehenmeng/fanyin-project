@@ -216,5 +216,9 @@
 
     </select>
 
+    <select id="getById" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from discount_coupon where user_id = #{userId} and id = #{id}
+    </select>
 
 </mapper>

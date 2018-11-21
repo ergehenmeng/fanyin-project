@@ -7,5 +7,13 @@ package com.fanyin.constants;
  */
 public class TaskConstant {
 
+    /**
+     * 积分奖励线程名称
+     */
     public static final String POINT_AWARD_THREAD = "积分奖励";
+
+    /**
+     * 投标线程名称
+     */
+    public static final String TENDER_THREAD = "投标";
 }

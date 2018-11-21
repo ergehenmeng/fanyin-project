@@ -1,7 +1,9 @@
 package com.fanyin.dto.user;
 
+import com.fanyin.dto.task.Key;
 import com.fanyin.enums.Integral;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -10,7 +12,8 @@ import java.io.Serializable;
  * @date 2018/11/17 13:54
  */
 @Data
-public class IntegralAward implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class IntegralAward extends Key implements Serializable {
 
     private static final long serialVersionUID = -5492737328249661504L;
 

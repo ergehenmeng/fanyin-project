@@ -1,6 +1,7 @@
 package com.fanyin.service.project;
 
 
+import com.fanyin.dto.tender.Tender;
 import com.fanyin.model.project.Project;
 import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.model.project.ProjectTender;
@@ -93,5 +94,24 @@ public interface ProjectTenderService {
      * @return 投标信息
      */
     ProjectTender selectByPrimaryKey(int tenderId);
+
+    /**
+     * 用户实际投标冻结金额
+     * @param request 前台参数
+     * @return 金额-投标后需要冻结的金额
+     */
+    BigDecimal getTenderAmount(Tender request);
+
+    /**
+     * 投标
+     * @param request 前台请求参数
+     */
+    void invest(Tender request);
+
+    /**
+     * 投标 队列处理
+     * @param request 投标参数
+     */
+    void doInvest(Tender request);
 }
 

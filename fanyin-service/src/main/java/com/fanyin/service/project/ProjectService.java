@@ -2,6 +2,7 @@ package com.fanyin.service.project;
 
 import com.fanyin.dto.project.ProjectAudit;
 import com.fanyin.dto.project.TenderStatistics;
+import com.fanyin.dto.tender.Tender;
 import com.fanyin.model.project.Project;
 import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.model.project.ProjectTender;
@@ -75,5 +76,11 @@ public interface ProjectService {
      */
     void awardFirstMaxLastIntegral(TenderStatistics tenderStatistics);
 
+    /**
+     * 投标 校验产品信息
+     * @param project 产品信息
+     * @param request 投标信息
+     */
+    void verifyTenderProject(Project project, Tender request);
 }
 

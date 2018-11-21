@@ -2,6 +2,7 @@ package com.fanyin.mapper.user;
 
 import com.fanyin.dto.user.CouponQueryRequest;
 import com.fanyin.model.user.DiscountCoupon;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,4 +58,12 @@ public interface DiscountCouponMapper {
      * @return 列表
      */
     List<DiscountCoupon> getList(CouponQueryRequest request);
+
+    /**
+     * 根据主键查询用户优惠券信息
+     * @param id 主键id
+     * @param userId 用户id
+     * @return 优惠券信息
+     */
+    DiscountCoupon getById(@Param("id")Integer id,@Param("userId")Integer userId);
 }
