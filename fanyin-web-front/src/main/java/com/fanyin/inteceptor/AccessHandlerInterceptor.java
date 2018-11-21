@@ -91,10 +91,10 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
     /**
      * 检查header请求参数是否过长,防止恶意攻击导致服务器挂掉,最大长度不能超过256
      * @param headerValue 字符串
-     * @return true合法 false不合法
+     * @return true不合法 false合法
      */
     private boolean checkHeaderLength(String headerValue){
-        return headerValue != null && headerValue.length() <= MAX_HEADER_LENGTH;
+        return headerValue != null && headerValue.length() > MAX_HEADER_LENGTH;
     }
 
 

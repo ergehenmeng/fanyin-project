@@ -25,14 +25,14 @@ public class AbstractController {
 
     /**
      * 前后端分离方式:获取访问来源
-     * @return android ios h5
+     * @return android ios h5 pc
      */
     protected String getSource(){
         return AccessHandlerInterceptor.getMessage().getSource();
     }
 
     /**
-     * 前后端分离方式:获取软件版本号
+     * 前后端分离方式:获取软件版本号 针对android和ios
      * @return v1.0.0
      */
     protected String getVersion(){

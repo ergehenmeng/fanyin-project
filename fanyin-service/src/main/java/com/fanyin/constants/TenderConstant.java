@@ -36,4 +36,6 @@ public class TenderConstant {
      * 扫尾
      */
     public static final byte TENDER_LAST = 2;
+
+
 }

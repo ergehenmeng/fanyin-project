@@ -1,6 +1,6 @@
 package com.fanyin.service.project.impl;
 
-import com.fanyin.constants.ProjectConstant;
+import com.fanyin.constants.CouponConstant;
 import com.fanyin.enums.RepaymentType;
 import com.fanyin.mapper.project.ProjectTenderMapper;
 import com.fanyin.model.project.Project;
@@ -102,7 +102,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             return 0D;
         }
         for (DiscountCoupon coupon : couponList) {
-            if(coupon.getType() == ProjectConstant.TYPE_INTEREST){
+            if(coupon.getType() == CouponConstant.TYPE_INTEREST){
                 return coupon.getFaceValue().doubleValue();
             }
         }
@@ -115,7 +115,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             return BigDecimal.ZERO;
         }
         for (DiscountCoupon coupon : couponList) {
-            if(coupon.getType() == ProjectConstant.TYPE_DEDUCTION){
+            if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
                 return coupon.getFaceValue();
             }
         }

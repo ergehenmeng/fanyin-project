@@ -29,7 +29,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     @Override
     public void addNotice(NoticeAddRequest request) {
         SystemNotice systemNotice = BeanCopyUtil.copy(request, SystemNotice.class);
-        //默认状态正常
+        //默认正常
         systemNotice.setDeleted(false);
         systemNotice.setAddTime(DateUtil.getNow());
         systemNoticeMapper.insertSelective(systemNotice);
@@ -47,6 +47,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
         SystemNotice notice = new SystemNotice();
         notice.setId(request.getId());
         notice.setUpdateTime(DateUtil.getNow());
+        //删除
         notice.setDeleted(true);
         systemNoticeMapper.updateByPrimaryKeySelective(notice);
     }

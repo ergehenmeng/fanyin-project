@@ -7,13 +7,5 @@ package com.fanyin.constants;
  */
 public class ProjectConstant {
 
-    /**
-     * 抵扣券类型 0
-     */
-    public static final int TYPE_DEDUCTION = 0;
 
-    /**
-     * 加息券类型 1
-     */
-    public static final int TYPE_INTEREST = 1;
 }

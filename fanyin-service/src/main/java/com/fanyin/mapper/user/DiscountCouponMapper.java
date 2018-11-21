@@ -1,6 +1,9 @@
 package com.fanyin.mapper.user;
 
+import com.fanyin.dto.user.CouponQueryRequest;
 import com.fanyin.model.user.DiscountCoupon;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -47,4 +50,11 @@ public interface DiscountCouponMapper {
      * @param record
      */
     int updateByPrimaryKey(DiscountCoupon record);
+
+    /**
+     * 根据条件查询优惠券信息
+     * @param request 请求参数
+     * @return 列表
+     */
+    List<DiscountCoupon> getList(CouponQueryRequest request);
 }
