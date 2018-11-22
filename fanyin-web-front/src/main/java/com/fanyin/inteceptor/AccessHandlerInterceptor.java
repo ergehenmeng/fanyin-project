@@ -8,7 +8,9 @@ import com.fanyin.dto.security.AccessToken;
 import com.fanyin.dto.security.DataMessage;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.enums.Source;
+import com.fanyin.exception.ParameterException;
 import com.fanyin.exception.SystemException;
+import com.fanyin.exception.TokenException;
 import com.fanyin.service.system.AccessTokenService;
 import com.fanyin.utils.SignatureUtil;
 import com.google.common.collect.Lists;
@@ -126,12 +128,12 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
     private void accessTokenVerify(String accessKey,String accessToken,DataMessage message){
         if (accessKey == null || accessToken == null){
             log.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
-            throw new SystemException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
+            throw new ParameterException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         AccessToken token = accessTokenService.getAccessToken(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken())){
             log.error("令牌无效,accessKey:{}",accessKey);
-            throw new SystemException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
+            throw new ParameterException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         token.setSource(message.getSource());
         //重新放入刷新超时时间
@@ -150,12 +152,12 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
      */
     private void signVerify(String sign,String timestamp){
         if(sign == null){
-            throw new SystemException(ErrorCodeEnum.SIGN_NULL_ERROR);
+            throw new TokenException(ErrorCodeEnum.SIGN_NULL_ERROR);
         }
         String serverSign = SignatureUtil.sign(timestamp);
         if (sign.equals(serverSign)){
             log.warn("签名错误,sign:{},timestamp:{}",sign,timestamp);
-            throw new SystemException(ErrorCodeEnum.SIGN_ERROR);
+            throw new TokenException(ErrorCodeEnum.SIGN_ERROR);
         }
     }
 

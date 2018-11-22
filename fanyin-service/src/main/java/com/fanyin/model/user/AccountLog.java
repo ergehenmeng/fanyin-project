@@ -55,5 +55,10 @@ public class AccountLog implements Serializable {
      */
     private Integer tenderId;
 
-
+    /**
+     * 备注信息<br>
+     * 表 : account_log<br>
+     * 对应字段 : remark<br>
+     */
+    private String remark;
 }

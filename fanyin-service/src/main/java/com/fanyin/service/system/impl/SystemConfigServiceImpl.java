@@ -3,13 +3,13 @@ package com.fanyin.service.system.impl;
 
 import com.alicp.jetcache.anno.Cached;
 import com.fanyin.constant.RedisConstant;
+import com.fanyin.dto.system.config.ConfigAddRequest;
+import com.fanyin.dto.system.config.ConfigEditRequest;
+import com.fanyin.dto.system.config.ConfigQueryRequest;
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.exception.SystemException;
+import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.system.SystemConfigMapper;
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigAddRequest;
-import com.fanyin.dto.system.config.ConfigQueryRequest;
-import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.fanyin.service.system.SystemConfigService;
 import com.fanyin.utils.BeanCopyUtil;
 import com.github.pagehelper.PageHelper;
@@ -39,7 +39,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     public void updateConfig(ConfigEditRequest request) {
         int i = systemConfigMapper.updateConfig(request);
         if(i != 1){
-            throw new SystemException(ErrorCodeEnum.UPDATE_CONFIG_ERROR);
+            throw new BusinessException(ErrorCodeEnum.UPDATE_CONFIG_ERROR);
         }
     }
 

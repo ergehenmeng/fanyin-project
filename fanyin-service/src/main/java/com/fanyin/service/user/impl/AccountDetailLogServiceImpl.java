@@ -1,8 +1,10 @@
 package com.fanyin.service.user.impl;
 
+import com.fanyin.dto.account.PlatformAward;
 import com.fanyin.enums.AccountLogType;
 import com.fanyin.mapper.user.AccountDetailLogMapper;
 import com.fanyin.model.project.ProjectTender;
+import com.fanyin.model.recharge.RechargeLog;
 import com.fanyin.model.user.Account;
 import com.fanyin.model.user.AccountDetailLog;
 import com.fanyin.model.user.AccountLog;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -52,6 +55,7 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         BigDecimal amount = tender.getAccount().add(interest);
         log.setAmount(amount);
         log.setTotal(amount);
+        log.setAddTime(DateUtil.getNow());
         this.capitalOperation(log);
     }
 
@@ -71,14 +75,15 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         accountService.updateAccount(account);
         //写入详细资金日志,记录此时的账户资金金额
         AccountDetailLog log = BeanCopyUtil.copy(account, AccountDetailLog.class,"id");
-        log.setAddTime(DateUtil.getNow());
         log.setType(detailLog.getType());
+        log.setAddTime(detailLog.getAddTime());
         accountDetailLogMapper.insertSelective(log);
     }
 
     @Override
     public void tenderFreeze(ProjectTender tender) {
         AccountDetailLog log = new AccountDetailLog();
+        Date now = DateUtil.getNow();
         log.setUserId(tender.getUserId());
         log.setType(AccountLogType.TENDER.getType());
         BigDecimal freeze = tender.getAccount().subtract(tender.getVoucherInterest());
@@ -86,6 +91,7 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         log.setAmount(freeze);
         log.setAvailableBalance(BigDecimalUtils.negation(freeze));
         log.setTotal(BigDecimalUtils.negation(freeze));
+        log.setAddTime(now);
         this.capitalOperation(log);
 
         AccountLog accountLog = new AccountLog();
@@ -94,6 +100,49 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         accountLog.setAmount(freeze);
         accountLog.setAddTime(log.getAddTime());
         accountLog.setType(log.getType());
+        accountLog.setAddTime(now);
+        accountLogService.insertAccountLog(accountLog);
+    }
+
+    @Override
+    public void rechargeSuccess(RechargeLog rechargeLog) {
+        AccountDetailLog log = new AccountDetailLog();
+        Date now = DateUtil.getNow();
+        log.setUserId(rechargeLog.getUserId());
+        log.setType(AccountLogType.RECHARGE.getType());
+        BigDecimal recharge = rechargeLog.getRealAmount();
+        log.setAvailableBalance(recharge);
+        log.setRecharge(recharge);
+        log.setTotal(recharge);
+        this.capitalOperation(log);
+
+        AccountLog accountLog = new AccountLog();
+        accountLog.setType(log.getType());
+        accountLog.setAddTime(now);
+        accountLog.setAmount(recharge);
+        accountLog.setUserId(log.getUserId());
+        accountLogService.insertAccountLog(accountLog);
+    }
+
+    @Override
+    public void platformAward(PlatformAward award) {
+        AccountDetailLog log = new AccountDetailLog();
+        Date now = DateUtil.getNow();
+        log.setUserId(award.getUserId());
+        log.setType(award.getAccountLogType().getType());
+        BigDecimal awardAmount = BigDecimal.valueOf(award.getAmount());
+        log.setAvailableBalance(awardAmount);
+        log.setRecharge(awardAmount);
+        log.setTotal(awardAmount);
+        log.setRemark(award.getRemark());
+        this.capitalOperation(log);
+
+        AccountLog accountLog = new AccountLog();
+        accountLog.setType(log.getType());
+        accountLog.setAddTime(now);
+        accountLog.setAmount(awardAmount);
+        accountLog.setUserId(log.getUserId());
+        accountLog.setRemark(log.getRemark());
         accountLogService.insertAccountLog(accountLog);
     }
 

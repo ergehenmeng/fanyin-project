@@ -1,6 +1,8 @@
 package com.fanyin.service.user;
 
+import com.fanyin.dto.account.PlatformAward;
 import com.fanyin.model.project.ProjectTender;
+import com.fanyin.model.recharge.RechargeLog;
 import com.fanyin.model.user.AccountDetailLog;
 
 /**
@@ -28,5 +30,18 @@ public interface AccountDetailLogService {
      * @param tender 投标信息
      */
     void tenderFreeze(ProjectTender tender);
+
+    /**
+     * 充值成功
+     * @param rechargeLog 充值记录
+     */
+    void rechargeSuccess(RechargeLog rechargeLog);
+
+    /**
+     * 各种奖励发放,
+     * 注意涉及其他资金变动,请勿调用该接口
+     * @param award 奖励信息
+     */
+    void platformAward(PlatformAward award);
 }
 

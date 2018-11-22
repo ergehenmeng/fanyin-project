@@ -2,7 +2,7 @@ package com.fanyin.service.system.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.exception.SystemException;
+import com.fanyin.exception.ParameterException;
 import com.fanyin.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class SystemConfigApi {
     public String getStringByNid(String nid){
         SystemConfig config = systemConfigService.getConfigByNid(nid);
         if (config == null){
-            throw new SystemException(ErrorCodeEnum.CONFIG_NOT_FOUND_ERROR);
+            throw new ParameterException(ErrorCodeEnum.CONFIG_NOT_FOUND_ERROR);
         }
         return config.getValue();
     }
@@ -75,7 +75,7 @@ public class SystemConfigApi {
             return JSONObject.parseObject(value);
         }catch (Exception e){
             log.error("字符串转json异常",e);
-            throw new SystemException(ErrorCodeEnum.JSON_FORMAT_ERROR);
+            throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }
 
@@ -91,7 +91,7 @@ public class SystemConfigApi {
             return JSONObject.parseObject(value,cls);
         }catch (Exception e){
             log.error("字符串转对象异常",e);
-            throw new SystemException(ErrorCodeEnum.JSON_FORMAT_ERROR);
+            throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }
 }

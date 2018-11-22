@@ -54,7 +54,7 @@ public class Banner implements Serializable {
      * 表 : banner<br>
      * 对应字段 : index<br>
      */
-    private Byte weight;
+    private Byte sort;
 
     /**
      * 开始展示时间(可在指定时间后开始展示)<br>
@@ -83,5 +83,19 @@ public class Banner implements Serializable {
      * 对应字段 : remark<br>
      */
     private String remark;
+
+    /**
+     * 添加时间<br>
+     * 表 : banner<br>
+     * 对应字段 : add_time<br>
+     */
+    private Date addTime;
+
+    /**
+     * 更新时间<br>
+     * 表 : banner<br>
+     * 对应字段 : update_time<br>
+     */
+    private Date updateTime;
 
 }

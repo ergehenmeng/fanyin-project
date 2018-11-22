@@ -11,12 +11,13 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, user_id, amount, type, add_time, tender_id
+    id, user_id, amount, type, add_time, tender_id,remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -39,10 +40,11 @@
       @create by mybatis
     -->
     insert into account_log (id, user_id, amount, 
-      type, add_time, tender_id
+      type, add_time, tender_id,remark
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
-      #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{tenderId,jdbcType=INTEGER}
+      #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{tenderId,jdbcType=INTEGER},
+      #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.user.AccountLog">
@@ -69,6 +71,9 @@
       <if test="tenderId != null">
         tender_id,
       </if>
+        <if test="remark != null">
+            remark,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -89,6 +94,9 @@
       <if test="tenderId != null">
         #{tenderId,jdbcType=INTEGER},
       </if>
+        <if test="remark != null">
+            #{remark,jdbcType=VARCHAR},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.user.AccountLog">
@@ -112,6 +120,9 @@
       <if test="tenderId != null">
         tender_id = #{tenderId,jdbcType=INTEGER},
       </if>
+        <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -124,7 +135,8 @@
       amount = #{amount,jdbcType=DECIMAL},
       type = #{type,jdbcType=TINYINT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      tender_id = #{tenderId,jdbcType=INTEGER}
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

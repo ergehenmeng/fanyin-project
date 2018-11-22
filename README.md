@@ -20,8 +20,8 @@
 * 参数校验,管理后台默认不进行校验,前台PC,APP,H5可通过@Validation开启校验  
 * 登陆拦截:@Access
 * APP端 请求:/mobile/**
-* H5端 请求:/html5/**
-* PC端(前台,后台) 请求:/json/**
+* H5端 请求:/h5/json/**
+* PC端(前台) 请求:/json/**
 * 后台管理页面 请求:/bg/**
 * 后台管理页面json请求:/bg/json/**
 
