@@ -63,17 +63,11 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter {
         DataMessage message = new DataMessage(version,requestType,osVersion);
         TOKEN_LOCAL.set(message);
 
-        //文件上传过滤掉
-        if(ServletFileUpload.isMultipartContent(request)){
-            log.debug("文件上传请求,不做处理");
-            return true;
-        }
         //访问来源
         if(!requestType(handler,requestType)){
             log.error("请求接口非法,requestType:{}",requestType);
             throw new SystemException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
-
         boolean haveGroup = haveGroup(handler);
         //签名
         if(haveGroup || sign(handler)){

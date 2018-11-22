@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/21 17:34
  */
 @Data
