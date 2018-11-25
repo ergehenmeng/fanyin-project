@@ -6,11 +6,15 @@ import com.fanyin.mapper.borrower.BorrowerAccountLogMapper;
 import com.fanyin.model.borrower.BorrowerAccount;
 import com.fanyin.model.borrower.BorrowerAccountLog;
 import com.fanyin.model.project.Project;
+import com.fanyin.model.withdraw.WithdrawLog;
 import com.fanyin.service.borrower.BorrowerAccountLogService;
 import com.fanyin.service.borrower.BorrowerAccountService;
+import com.fanyin.utils.BigDecimalUtils;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 /**
  * 借款人资金记录
@@ -59,5 +63,17 @@ public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService 
         accountLog.setAmount(accountDetailLog.getAmount());
         accountLog.setAddTime(DateUtil.getNow());
         borrowerAccountLogMapper.insertSelective(accountLog);
+    }
+
+    @Override
+    public void withdrawFreeze(WithdrawLog log) {
+        BorrowerAccountDetailLog accountDetailLog = new BorrowerAccountDetailLog();
+        accountDetailLog.setType(BorrowerAccountLogType.BORROWER_WITHDRAW.getType());
+        accountDetailLog.setBorrowerId(log.getUserId());
+        accountDetailLog.setAvailableBalance(BigDecimalUtils.negation(log.getAmount()));
+        accountDetailLog.setAmount(log.getAmount());
+        accountDetailLog.setWithdrawFreeze(log.getAmount());
+        accountDetailLog.setOrderNo(log.getOrderNo());
+        this.capitalOperation(accountDetailLog);
     }
 }

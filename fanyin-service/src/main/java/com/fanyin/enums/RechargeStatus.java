@@ -25,19 +25,19 @@ public enum  RechargeStatus {
     /**
      * 状态
      */
-    private int code;
+    private byte code;
 
     /**
      * msg
      */
     private String msg;
 
-    RechargeStatus(int code, String msg) {
+    RechargeStatus(byte code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode() {
+    public byte getCode() {
         return code;
     }
 

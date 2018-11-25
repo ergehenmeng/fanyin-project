@@ -34,6 +34,11 @@ public class UserExtendServiceImpl implements UserExtendService {
     private VipConfigService vipConfigService;
 
     @Override
+    public UserExtend getByUserId(int userId) {
+        return userExtendMapper.getByUserId(userId);
+    }
+
+    @Override
     public synchronized void updateScore(int userId, int score) {
         UserExtend userExtend = userExtendMapper.getByUserId(userId);
         int surplus = userExtend.getIntegralNum() + score;

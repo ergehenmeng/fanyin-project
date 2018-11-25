@@ -172,6 +172,11 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         return projectTenderMapper.selectByPrimaryKey(tenderId);
     }
 
+    @Override
+    public BigDecimal getTotalTender(int userId) {
+        return projectTenderMapper.getTotalTender(userId);
+    }
+
 
     @Override
     public String invest(Tender request) {

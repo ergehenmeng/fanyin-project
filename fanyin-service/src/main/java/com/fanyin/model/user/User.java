@@ -41,6 +41,13 @@ public class User implements Serializable {
     private String depositNo;
 
     /**
+     * 存管状态 0:待开户<br>
+     * 表 : user<br>
+     * 对应字段 : deposit_status<br>
+     */
+    private Byte depositStatus;
+
+    /**
      * 登陆密码<br>
      * 表 : user<br>
      * 对应字段 : password<br>

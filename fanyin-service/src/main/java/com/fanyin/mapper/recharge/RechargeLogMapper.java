@@ -1,8 +1,10 @@
 package com.fanyin.mapper.recharge;
 
-import com.fanyin.dto.recharge.RechargeLogRequest;
+import com.fanyin.dto.recharge.RechargeRequest;
 import com.fanyin.model.recharge.RechargeLog;
+import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -63,5 +65,12 @@ public interface RechargeLogMapper {
      * @param request 查询条件
      * @return 列表
      */
-    List<RechargeLog> getList(RechargeLogRequest request);
+    List<RechargeLog> getList(RechargeRequest request);
+
+    /**
+     * 投资用户总充值金额查询
+     * @param userId 用户id
+     * @return 总充值金额 元
+     */
+    BigDecimal getTotalRecharge(@Param("userId")int userId);
 }

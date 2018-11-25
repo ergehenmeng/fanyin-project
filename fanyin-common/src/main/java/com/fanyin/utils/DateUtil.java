@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -196,6 +197,34 @@ public class DateUtil extends DateUtils {
         return null;
     }
 
+    /**
+     * 获取指定时间的月的第一天 00:00:00
+     * @param now 指定时间
+     * @return 日期
+     */
+    public static Date firstDayOfMonth(Date now){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.set(Calendar.DAY_OF_MONTH,1);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        return calendar.getTime();
+    }
 
+    /**
+     * 获取指定时间的月最后一天 23:59:59
+     * @param now 时间
+     * @return 日期
+     */
+    public static Date lastDayOfMonth(Date now){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE,59);
+        calendar.set(Calendar.SECOND,59);
+        return calendar.getTime();
+    }
 
 }

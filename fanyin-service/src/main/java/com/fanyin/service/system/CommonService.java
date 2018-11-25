@@ -13,4 +13,16 @@ public interface CommonService {
      * @return 二次加密后字符串
      */
     String encryptPassword(String password, String random);
+
+    /**
+     * 生成全局唯一订单号
+     * @return 订单号
+     */
+    String getOrderNo();
+
+    /**
+     * 生成全局存管号
+     * @return 存管号
+     */
+    String getDepositNo();
 }

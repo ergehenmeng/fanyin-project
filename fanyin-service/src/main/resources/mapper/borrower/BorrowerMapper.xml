@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.borrower.BorrowerMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.borrower.Borrower">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="deposit_no" jdbcType="VARCHAR" property="depositNo" />
+    <result column="deposit_status" jdbcType="TINYINT" property="depositStatus" />
+    <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, mobile, password, deposit_no, deposit_status, locked, deleted, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from borrower
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from borrower
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fanyin.model.borrower.Borrower">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrower (id, mobile, password, 
+      deposit_no, deposit_status, locked, 
+      deleted, add_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=CHAR}, #{password,jdbcType=VARCHAR}, 
+      #{depositNo,jdbcType=VARCHAR}, #{depositStatus,jdbcType=TINYINT}, #{locked,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fanyin.model.borrower.Borrower">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrower
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="depositNo != null">
+        deposit_no,
+      </if>
+      <if test="depositStatus != null">
+        deposit_status,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="depositNo != null">
+        #{depositNo,jdbcType=VARCHAR},
+      </if>
+      <if test="depositStatus != null">
+        #{depositStatus,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.borrower.Borrower">
+    <!--
+      @create by mybatis
+    -->
+    update borrower
+    <set>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="depositNo != null">
+        deposit_no = #{depositNo,jdbcType=VARCHAR},
+      </if>
+      <if test="depositStatus != null">
+        deposit_status = #{depositStatus,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.borrower.Borrower">
+    <!--
+      @create by mybatis
+    -->
+    update borrower
+    set mobile = #{mobile,jdbcType=CHAR},
+      password = #{password,jdbcType=VARCHAR},
+      deposit_no = #{depositNo,jdbcType=VARCHAR},
+      deposit_status = #{depositStatus,jdbcType=TINYINT},
+      locked = #{locked,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

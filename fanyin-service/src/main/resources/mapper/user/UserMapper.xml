@@ -9,6 +9,7 @@
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="deposit_no" jdbcType="VARCHAR" property="depositNo" />
+    <result column="deposit_status" jdbcType="TINYINT" property="depositStatus" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="channel" jdbcType="TINYINT" property="channel" />
@@ -20,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, mobile, email, deposit_no, password, status, channel, register_ip, add_time, 
+    id, mobile, email, deposit_no,deposit_status ,password, status, channel, register_ip, add_time,
     update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -44,11 +45,11 @@
       @create by mybatis
     -->
     insert into user (id, mobile, email, 
-      deposit_no, password, status, 
+      deposit_no,deposit_status, password, status,
       channel, register_ip, add_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{depositNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{depositNo,jdbcType=VARCHAR},#{depositStatus,jdbcType=TINYINT}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=BIT},
       #{channel,jdbcType=TINYINT}, #{registerIp,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -70,6 +71,9 @@
       <if test="depositNo != null">
         deposit_no,
       </if>
+        <if test="depositStatus != null">
+            deposit_status,
+        </if>
       <if test="password != null">
         password,
       </if>
@@ -102,6 +106,9 @@
       <if test="depositNo != null">
         #{depositNo,jdbcType=VARCHAR},
       </if>
+        <if test="depositStatus != null">
+            #{depositStatus,jdbcType=TINYINT},
+        </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
@@ -137,6 +144,9 @@
       <if test="depositNo != null">
         deposit_no = #{depositNo,jdbcType=VARCHAR},
       </if>
+        <if test="depositStatus != null">
+            deposit_status = #{depositStatus,jdbcType=TINYINT},
+        </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -166,6 +176,7 @@
     set mobile = #{mobile,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       deposit_no = #{depositNo,jdbcType=VARCHAR},
+      deposit_status = #{depositStatus,jdbcType=TINYINT},
       password = #{password,jdbcType=VARCHAR},
       status = #{status,jdbcType=BIT},
       channel = #{channel,jdbcType=TINYINT},

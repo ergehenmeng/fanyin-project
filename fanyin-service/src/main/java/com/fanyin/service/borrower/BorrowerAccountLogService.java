@@ -1,8 +1,8 @@
 package com.fanyin.service.borrower;
 
 import com.fanyin.dto.borrower.BorrowerAccountDetailLog;
-import com.fanyin.model.borrower.BorrowerAccountLog;
 import com.fanyin.model.project.Project;
+import com.fanyin.model.withdraw.WithdrawLog;
 
 /**
  * @author 二哥很猛
@@ -23,5 +23,12 @@ public interface BorrowerAccountLogService {
      * @param accountDetailLog 资金信息
      */
     void capitalOperation(BorrowerAccountDetailLog accountDetailLog);
+
+    /**
+     * 借款人提现冻结
+     * 总金额减少 冻结增加
+     * @param log 提现记录
+     */
+    void withdrawFreeze(WithdrawLog log);
 }
 

@@ -1,13 +1,13 @@
 package com.fanyin.service.recharge.impl;
 
 import com.fanyin.dto.recharge.RechargeAsync;
-import com.fanyin.dto.recharge.RechargeLogRequest;
+import com.fanyin.dto.recharge.RechargeRequest;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.enums.RechargeStatus;
 import com.fanyin.exception.DepositoryException;
 import com.fanyin.mapper.recharge.RechargeLogMapper;
 import com.fanyin.model.recharge.RechargeLog;
-import com.fanyin.service.recharge.RechargeLogService;
+import com.fanyin.service.recharge.RechargeService;
 import com.fanyin.service.user.AccountDetailLogService;
 import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Service("rechargeLogService")
 @Slf4j
-public class RechargeLogServiceImpl implements RechargeLogService {
+public class RechargeServiceImpl implements RechargeService {
 
     @Autowired
     private RechargeLogMapper rechargeLogMapper;
@@ -40,7 +40,12 @@ public class RechargeLogServiceImpl implements RechargeLogService {
     }
 
     @Override
-    public PageInfo<RechargeLog> getByPage(RechargeLogRequest request) {
+    public BigDecimal getTotalRecharge(int userId) {
+        return rechargeLogMapper.getTotalRecharge(userId);
+    }
+
+    @Override
+    public PageInfo<RechargeLog> getByPage(RechargeRequest request) {
         PageHelper.startPage(request.getPage(),request.getRows());
         List<RechargeLog> list = rechargeLogMapper.getList(request);
         return new PageInfo<>(list);

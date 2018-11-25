@@ -95,6 +95,12 @@ public interface ProjectTenderService {
      */
     ProjectTender selectByPrimaryKey(int tenderId);
 
+    /**
+     * 获取用户总投资本息,募集中的只统计本金
+     * @param userId 用户id
+     * @return 总投资本息 元
+     */
+    BigDecimal getTotalTender(int userId);
 
     /**
      * 投标

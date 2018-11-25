@@ -255,5 +255,7 @@
         from project_tender where id = #{id} and user_id = #{userId}
     </select>
 
-
+    <select id="getTotalTender" resultType="java.math.BigDecimal">
+        select IFNULL(sum(account + base_interest + platform_interest),0) from project_tender where status &gt;= 0 and user_id = #{userId}
+    </select>
 </mapper>

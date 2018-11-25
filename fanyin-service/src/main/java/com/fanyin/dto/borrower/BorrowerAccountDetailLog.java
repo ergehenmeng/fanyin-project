@@ -71,4 +71,9 @@ public class BorrowerAccountDetailLog implements Serializable {
      * 产品id
      */
     private Integer projectId;
+
+    /**
+     * 订单编号
+     */
+    private String orderNo;
 }

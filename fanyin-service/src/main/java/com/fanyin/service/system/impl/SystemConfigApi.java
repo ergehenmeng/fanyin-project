@@ -50,6 +50,21 @@ public class SystemConfigApi {
     }
 
     /**
+     * 根据nid获取系统参数配置信息
+     * @param nid 唯一nid
+     * @return  系统参数结果 double
+     */
+    public double getDoubleByNid(String nid){
+        String value = this.getStringByNid(nid);
+        try {
+            return Double.parseDouble(value);
+        }catch (Exception e){
+            log.error("系统参数转double异常");
+        }
+        return 0D;
+    }
+
+    /**
      * 根据nid获取系统参数配置信息的值
      * @param nid 唯一nid
      * @return 系统参数结果值int 如果转换失败为0
@@ -59,7 +74,7 @@ public class SystemConfigApi {
         try {
             return Integer.parseInt(value);
         }catch (Exception e){
-            log.error("字符串转int异常",e);
+            log.error("系统参数转int异常",e);
             return 0;
         }
     }
@@ -74,7 +89,7 @@ public class SystemConfigApi {
         try {
             return JSONObject.parseObject(value);
         }catch (Exception e){
-            log.error("字符串转json异常",e);
+            log.error("系统参数转json异常",e);
             throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }
@@ -90,7 +105,7 @@ public class SystemConfigApi {
         try {
             return JSONObject.parseObject(value,cls);
         }catch (Exception e){
-            log.error("字符串转对象异常",e);
+            log.error("系统参数s转对象异常",e);
             throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }

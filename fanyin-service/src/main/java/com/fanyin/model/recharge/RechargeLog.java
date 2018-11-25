@@ -27,6 +27,14 @@ public class RechargeLog implements Serializable {
      */
     private Integer userId;
 
+
+    /**
+     * 用户类型 0:投资人 1:借款人<br>
+     * 表 : recharge_log<br>
+     * 对应字段 : user_type<br>
+     */
+    private Byte userType;
+
     /**
      * 充值方式 0:快捷充值 1:网银充值<br>
      * 表 : recharge_log<br>

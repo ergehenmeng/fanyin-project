@@ -3,6 +3,7 @@ package com.fanyin.mapper.project;
 import com.fanyin.model.project.ProjectTender;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -81,5 +82,12 @@ public interface ProjectTenderMapper {
      */
     ProjectTender getById(@Param("userId")int userId,@Param("id")int id);
 
+
+    /**
+     * 用户总投资本息
+     * @param userId 用户id
+     * @return 投资本息
+     */
+    BigDecimal getTotalTender(@Param("userId")int userId);
 
 }

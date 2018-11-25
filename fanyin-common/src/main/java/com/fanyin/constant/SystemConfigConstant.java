@@ -7,4 +7,13 @@ package com.fanyin.constant;
  */
 public class SystemConfigConstant {
 
+    /**
+     * 充值未投资部分收费比率 %
+     */
+    public static final String RECHARGE_NO_TENDER_RATE = "recharge_no_tender_rate";
+
+    /**
+     * 单次提现收费
+     */
+    public static final String ONCE_WITHDRAW_FEE = "once_withdraw_fee";
 }

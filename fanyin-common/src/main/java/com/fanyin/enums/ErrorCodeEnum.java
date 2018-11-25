@@ -221,9 +221,36 @@ public enum ErrorCodeEnum {
     TENDER_SYSTEM_ERROR(3023,"投标人数过多,请稍后再试"),
 
     /**
-     * 充值订单为查询到
+     * 请先开通存管
      */
-    RECHARGE_NOT_FOUND(4000,"充值订单为查询到"),
+    DEPOSIT_NOT_OPEN(3024,"请先开通存管"),
+
+    /**
+     * 存管激活中,无法操作
+     */
+    DEPOSIT_ACTIVATING(3025,"存管激活中,无法操作"),
+    /**
+     * 存管授权中,无法操作
+     */
+    DEPOSIT_AUTH(3026,"存管授权中,无法操作"),
+    /**
+     * 存管手机号变更中,无法操作
+     */
+    DEPOSIT_MOBILE_MODIFY(3027,"存管手机号变更中,无法操作"),
+    /**
+     * 存管银行卡变更中,无法操作
+     */
+    DEPOSIT_BANK_MODIFY(3028,"存管银行卡变更中,无法操作"),
+    /**
+     * 存管企业信息审核中,无法操作
+     */
+    DEPOSIT_ENTERPRISE_MODIFY(3028,"存管企业信息审核中,无法操作"),
+
+
+    /**
+     * 充值订单未查询到
+     */
+    RECHARGE_NOT_FOUND(4000,"充值订单未查询到"),
    ;
     /**
      * 构造方法

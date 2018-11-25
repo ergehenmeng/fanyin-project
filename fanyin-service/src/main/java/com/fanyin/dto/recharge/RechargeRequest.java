@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RechargeLogRequest extends PageQuery implements Serializable {
+public class RechargeRequest extends PageQuery implements Serializable {
 
     private static final long serialVersionUID = 3529685228136720003L;
 
@@ -27,6 +27,11 @@ public class RechargeLogRequest extends PageQuery implements Serializable {
      * 充值类型 0:快捷充值 1:网银充值
      */
     private Byte type;
+
+    /**
+     * 用户类型 0:投资人 1:借款人
+     */
+    private Byte userType;
 
     /**
      * 充值状态 0:订单生成 1:充值成功 2:充值失败
