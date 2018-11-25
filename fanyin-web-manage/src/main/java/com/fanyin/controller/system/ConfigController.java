@@ -43,7 +43,7 @@ public class ConfigController extends AbstractController {
      */
     @PostMapping("/public/system/config/edit_config_page")
     public String editConfigPage(HttpServletRequest request,Integer id){
-        SystemConfig config = systemConfigService.getConfigById(id);
+        SystemConfig config = systemConfigService.getById(id);
         request.setAttribute("config",config);
         return "public/system/config/edit_config_page";
     }
@@ -56,7 +56,7 @@ public class ConfigController extends AbstractController {
     @PostMapping("/system/config/config_list")
     @ResponseBody
     public Paging<SystemConfig> systemConfigList(ConfigQueryRequest request){
-        PageInfo<SystemConfig> listByPage = systemConfigService.getListByPage(request);
+        PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
         return new Paging<>(listByPage);
     }
 

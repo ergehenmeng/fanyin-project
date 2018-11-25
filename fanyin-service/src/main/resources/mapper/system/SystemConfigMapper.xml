@@ -14,12 +14,15 @@
     <result column="locked" jdbcType="BIT" property="locked" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="reserve_value" jdbcType="VARCHAR" property="reserveValue" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id,name, nid, value, remark, type, locked, add_time, update_time
+    id,name, nid, value, remark, type, locked, add_time, update_time,start_time,end_time,reserve_value
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -37,17 +40,6 @@
     delete from system_config
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.fanyin.model.system.SystemConfig">
-    <!--
-      @create by mybatis
-    -->
-    insert into system_config (id,name, nid, value,
-      remark, type, locked, add_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR}, #{nid,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR},
-      #{remark,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{locked,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemConfig">
     <!--
       @create by mybatis
@@ -81,6 +73,15 @@
       <if test="updateTime != null">
         update_time,
       </if>
+        <if test="startTime != null">
+          start_time,
+        </if>
+        <if test="endTime != null">
+            end_time,
+        </if>
+        <if test="reserveValue != null">
+            reserve_value
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -110,6 +111,15 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="startTime != null">
+            #{startTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="endTime != null">
+            #{endTime,jdbcType=TIMESTAMP}.
+        </if>
+        <if test="reserveValue != null">
+            #{reserveValue,jdbcType=VARCHAR},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemConfig">
@@ -142,32 +152,37 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="startTime != null">
+            start_time = #{startTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="endTime != null">
+            end_time = #{startTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="reserveValue != null">
+            reserve_value = #{reserveValue,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemConfig">
-    <!--
-      @create by mybatis
-    -->
-    update system_config
-    set name = #{name,jdbcType=VARCHAR},
-      nid = #{nid,jdbcType=VARCHAR},
-      value = #{value,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      type = #{type,jdbcType=TINYINT},
-      locked = #{locked,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 
-    <select id="getConfigByNid" resultMap="BaseResultMap">
+
+    <select id="getByNid" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_config WHERE nid = #{nid}
     </select>
     
     <update id="updateConfig" parameterType="com.fanyin.dto.system.config.ConfigEditRequest">
-        update system_config SET name = #{name},type = #{type},value = #{value},remark = #{remark},update_time = now(),locked = #{locked} where locked = false and nid = #{nid}
+        update system_config SET
+            name = #{name},
+            type = #{type},
+            value = #{value},
+            remark = #{remark},
+            update_time = now(),
+            start_time = #{startTime},
+            end_time = #{endTime},
+            reserve_value = #{reserveValue},
+            locked = #{locked}
+        where locked = false and nid = #{nid}
     </update>
     
     <select id="getList" parameterType="com.fanyin.dto.system.config.ConfigEditRequest" resultMap="BaseResultMap">
@@ -184,7 +199,5 @@
                 and locked = #{locked}
             </if>
         </where>
-
     </select>
-    
 </mapper>

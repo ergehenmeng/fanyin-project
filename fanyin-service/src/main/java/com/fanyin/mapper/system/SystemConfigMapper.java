@@ -25,13 +25,7 @@ public interface SystemConfigMapper {
      * @return
      */
     List<SystemConfig> getList(ConfigQueryRequest request);
-    /**
-     * 插入数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int insert(SystemConfig record);
+
 
     /**
      * 插入不为空的记录
@@ -57,20 +51,13 @@ public interface SystemConfigMapper {
      */
     int updateByPrimaryKeySelective(SystemConfig record);
 
-    /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKey(SystemConfig record);
 
     /**
      * 根据nid获取系统参数
      * @param nid
      * @return
      */
-    SystemConfig getConfigByNid(String nid);
+    SystemConfig getByNid(String nid);
 
     /**
      * 更新系统参数

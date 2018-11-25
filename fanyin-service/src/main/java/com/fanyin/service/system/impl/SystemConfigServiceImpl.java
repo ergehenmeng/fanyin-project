@@ -45,7 +45,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public PageInfo<SystemConfig> getListByPage(ConfigQueryRequest request) {
+    public PageInfo<SystemConfig> getByPage(ConfigQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getRows());
         List<SystemConfig> list = systemConfigMapper.getList(request);
         return new PageInfo<>(list);
@@ -53,13 +53,13 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @Cacheable(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "#p0")
-    public SystemConfig getConfigByNid(String nid) {
-        return systemConfigMapper.getConfigByNid(nid);
+    public SystemConfig getByNid(String nid) {
+        return systemConfigMapper.getByNid(nid);
     }
 
     @Override
     @Cached(name = RedisConstant.SYSTEM_CONFIG,key = "#id")
-    public SystemConfig getConfigById(Integer id) {
+    public SystemConfig getById(Integer id) {
         return systemConfigMapper.selectByPrimaryKey(id);
     }
 

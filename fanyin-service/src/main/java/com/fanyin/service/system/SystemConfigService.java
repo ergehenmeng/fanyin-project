@@ -25,21 +25,21 @@ public interface SystemConfigService {
      * @param request 查询条件
      * @return 分页结果集
      */
-    PageInfo<SystemConfig> getListByPage(ConfigQueryRequest request);
+    PageInfo<SystemConfig> getByPage(ConfigQueryRequest request);
 
     /**
      * 根据nid获取系统配置信息
      * @param nid 唯一nid
      * @return 参数配置独享
      */
-    SystemConfig getConfigByNid(String nid);
+    SystemConfig getByNid(String nid);
 
     /**
      * 根据主键获取系统参数
      * @param id 主键
      * @return 系统参数信息
      */
-    SystemConfig getConfigById(Integer id);
+    SystemConfig getById(Integer id);
 
     /**
      * 新增系统参数

@@ -5,11 +5,14 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
 import com.fanyin.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
+import com.fanyin.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * 系统参数公用Api接口
@@ -31,10 +34,18 @@ public class SystemConfigApi {
      * @param nid 唯一nid
      * @return 系统参数结果值string
      */
-    public String getStringByNid(String nid){
-        SystemConfig config = systemConfigService.getConfigByNid(nid);
+    public String getString(String nid){
+        SystemConfig config = systemConfigService.getByNid(nid);
         if (config == null){
             throw new ParameterException(ErrorCodeEnum.CONFIG_NOT_FOUND_ERROR);
+        }
+        //必须保证开始时间和结束时间都不为空,否则该选项无效
+        if(config.getStartTime() != null && config.getEndTime() != null){
+            Date now = DateUtil.getNow();
+            //不在有效期时 默认备选值有效
+            if(now.before(config.getStartTime()) || now.after(config.getEndTime())){
+                return config.getReserveValue();
+            }
         }
         return config.getValue();
     }
@@ -44,8 +55,8 @@ public class SystemConfigApi {
      * @param nid 唯一nid
      * @return 系统参数结果值boolean
      */
-    public boolean getBooleanByNid(String nid){
-        String value = this.getStringByNid(nid);
+    public boolean getBoolean(String nid){
+        String value = this.getString(nid);
         return BooleanUtils.toBoolean(value);
     }
 
@@ -55,7 +66,7 @@ public class SystemConfigApi {
      * @return  系统参数结果 double
      */
     public double getDoubleByNid(String nid){
-        String value = this.getStringByNid(nid);
+        String value = this.getString(nid);
         try {
             return Double.parseDouble(value);
         }catch (Exception e){
@@ -70,7 +81,7 @@ public class SystemConfigApi {
      * @return 系统参数结果值int 如果转换失败为0
      */
     public int getIntByNid(String nid){
-        String value = getStringByNid(nid);
+        String value = this.getString(nid);
         try {
             return Integer.parseInt(value);
         }catch (Exception e){
@@ -85,7 +96,7 @@ public class SystemConfigApi {
      * @return 系统参数结果值json,如果异常则抛出
      */
     public JSONObject getJsonByNid(String nid){
-        String value = getStringByNid(nid);
+        String value = this.getString(nid);
         try {
             return JSONObject.parseObject(value);
         }catch (Exception e){
@@ -101,7 +112,7 @@ public class SystemConfigApi {
      * @return 系统参数结果值class,如果异常则抛出
      */
     public <T> T getClassByNid(String nid, Class<T> cls){
-        String value = getStringByNid(nid);
+        String value = this.getString(nid);
         try {
             return JSONObject.parseObject(value,cls);
         }catch (Exception e){

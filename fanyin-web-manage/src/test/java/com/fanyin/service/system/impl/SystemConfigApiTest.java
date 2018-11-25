@@ -32,7 +32,7 @@ public class SystemConfigApiTest {
 
     @Test
     public void getConfigById() {
-        systemConfigService.getConfigById(5);
+        systemConfigService.getById(5);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class SystemConfigApiTest {
 
     @Test
     public void getStringByNid() {
-        String value = this.systemConfigApi.getStringByNid("company_email");
+        String value = this.systemConfigApi.getString("company_email");
         Assert.assertNotNull(value);
     }
 

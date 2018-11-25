@@ -9,6 +9,7 @@ import com.fanyin.service.operation.IntegralTypeService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.service.user.IntegralLogService;
 import com.fanyin.service.user.UserExtendService;
+import com.fanyin.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,7 +80,7 @@ public class IntegralLogServiceImpl implements IntegralLogService {
      */
     private void addScoreLog(int userId, int score, String nid) {
         IntegralLog log = new IntegralLog();
-        log.setAddTime(new Date());
+        log.setAddTime(DateUtil.getNow());
         log.setNum(score);
         log.setType(nid);
         log.setUserId(userId);

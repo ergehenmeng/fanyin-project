@@ -2,6 +2,8 @@ package com.fanyin.dto.system.config;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 更新系统配置信息的请求参数类
  * @author 二哥很猛
@@ -39,4 +41,18 @@ public class ConfigEditRequest {
      */
     private Boolean locked;
 
+    /**
+     * 启用时间
+     */
+    private Date startTime;
+
+    /**
+     * 结束时间
+     */
+    private Date endTime;
+
+    /**
+     * 备选值
+     */
+    private String reserveValue;
 }
