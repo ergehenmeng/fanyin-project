@@ -1,9 +1,11 @@
 package com.fanyin.controller.system;
 
-import com.fanyin.ext.ResultJson;
+import com.fanyin.controller.AbstractController;
+import com.fanyin.ext.ReturnJson;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
+import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,7 @@ import java.util.List;
  * @date 2018/1/30 09:30
  */
 @Controller
-public class MenuController {
+public class MenuController extends AbstractController {
 
     @Autowired
     private SystemMenuService systemMenuService;
@@ -42,9 +44,9 @@ public class MenuController {
      */
     @PostMapping("/system/menu/menu_list")
     @ResponseBody
-    public ResultJson<List<SystemMenu>> menuList(){
+    public ReturnJson<List<SystemMenu>> menuList(){
         List<SystemMenu> allList = systemMenuService.getAllList();
-        return ResultJson.<List<SystemMenu>>getInstance().setData(allList);
+        return ReturnJson.<List<SystemMenu>>getInstance().setData(allList);
     }
 
     /**
@@ -54,9 +56,9 @@ public class MenuController {
      */
     @PostMapping("/system/menu/add_menu")
     @ResponseBody
-    public ResultJson addMenu(MenuAddRequest request){
+    public ReturnJson addMenu(MenuAddRequest request){
         systemMenuService.addMenu(request);
-        return ResultJson.getInstance();
+        return ReturnJson.getInstance();
     }
 
     /**
@@ -66,9 +68,9 @@ public class MenuController {
      */
     @PostMapping("/system/menu/edit_menu")
     @ResponseBody
-    public ResultJson editMenu(MenuEditRequest request){
+    public ReturnJson editMenu(MenuEditRequest request){
         systemMenuService.updateMenu(request);
-        return ResultJson.getInstance();
+        return ReturnJson.getInstance();
     }
 
     /**
@@ -77,9 +79,21 @@ public class MenuController {
      * @return 成功后的返回信息
      */
     @PostMapping("/system/menu/delete_menu")
-    public ResultJson deleteMenu(Integer id){
+    public ReturnJson deleteMenu(Integer id){
         systemMenuService.deleteMenu(id);
-        return ResultJson.getInstance();
+        return ReturnJson.getInstance();
+    }
+
+    /**
+     * 查询管理人员自己所拥有的菜单
+     * @return 菜单列表
+     */
+    @PostMapping("/system/operator/menu_list")
+    @ResponseBody
+    public ReturnJson operatorMenuList(){
+        SystemOperator operator = super.getRequiredOperator();
+        List<SystemMenu> menuList = systemMenuService.getAllMenuList(operator.getId());
+        return ReturnJson.getInstance().setData(menuList);
     }
 
 }

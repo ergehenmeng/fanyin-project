@@ -1,6 +1,6 @@
 package com.fanyin.configuration.security;
 
-import com.fanyin.ext.ResultJson;
+import com.fanyin.ext.ReturnJson;
 import com.fanyin.utils.IpUtil;
 import com.fanyin.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         super.clearAuthenticationAttributes(request);
         SecurityOperator principal = (SecurityOperator)authentication.getPrincipal();
         log.debug("用户:[{}]登陆系统,登陆IP:[{}]",principal.getName(), IpUtil.getIpAddress(request));
-        WebUtil.printJson(response, ResultJson.getInstance());
+        WebUtil.printJson(response, ReturnJson.getInstance());
     }
 }

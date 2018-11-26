@@ -72,9 +72,9 @@ public interface SystemMenuMapper {
 
     /**
      * 获取某用户所能查看的菜单列表  只获取菜单 不进行排序菜单分组等
-     * @param userId 用户id
+     * @param operatorId 用户id
      * @param btnMenu 是否包含按钮菜单 true:全部菜单 false只包含主菜单
      * @return 用户所有可查看菜单列表
      */
-    List<SystemMenu> getUserMenuList(@Param("userId") Integer userId, @Param("btnMenu") boolean btnMenu);
+    List<SystemMenu> getMenuList(@Param("operatorId") Integer operatorId, @Param("btnMenu") boolean btnMenu);
 }

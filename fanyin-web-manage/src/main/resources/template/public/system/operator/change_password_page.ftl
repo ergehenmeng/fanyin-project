@@ -1,8 +1,9 @@
+<script type="text/javascript" src="/static/js/md5.min.js"  charset="UTF-8"></script>
 <script type="text/javascript">
     $(function() {
         $("#form").form({
-            url:"/public/system/user/change_password",
-            onSubmit:function(){
+            url:"/system/operator/change_password",
+            onSubmit:function(param){
                 parent.$.messager.progress({
                     title : '提示',
                     text : '数据处理中，请稍后....'
@@ -11,6 +12,8 @@
                 if (!isValid) {
                     parent.$.messager.progress('close');
                 }
+                param.oldPassword = md5($("#oldPassword").val());
+                param.newPassword = md5($("#newPassword").val());
                 return isValid;
             },
             success:function(data){
@@ -32,17 +35,17 @@
     <form id="form"  method="post">
         <div class="form_item">
             <label>原密码:</label>
-            <input title="原密码" maxlength="50" type="password" name="oldPassword" id="oldPassword" class="easyui-validatebox" data-options="required: true"  />
+            <input title="原密码" maxlength="50" type="password"  id="oldPassword" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form_item">
             <label>新密码:</label>
-            <input title="新密码" maxlength="50" type="password"   name="newPassword" id="newPassword" class="easyui-validatebox" data-options="required: true,validType:['regexPassword','notEqPwd[\'#oldPassword\']' ]"  />
+            <input title="新密码" maxlength="50" type="password"    id="newPassword" class="easyui-validatebox" data-options="required: true,validType:['regexPassword','notEqPwd[\'#oldPassword\']' ]"  />
             <small>*</small>
         </div>
         <div class="form_item">
             <label>确认新密码:</label>
-            <input title="确认新密码" maxlength="50" type="password" name="confirmPassword" class="easyui-validatebox" data-options="required: true,validType:'eqPwd[\'#newPassword\']'"  />
+            <input title="确认新密码" maxlength="50" type="password"  class="easyui-validatebox" data-options="required: true,validType:'eqPwd[\'#newPassword\']'"  />
             <small>*</small>
         </div>
     </form>

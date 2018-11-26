@@ -183,6 +183,6 @@ public class FileHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
                 || PATTERN.matcher(uri).matches()){
             return null;
         }
-        return System.getProperty("user.dir") + url + uri;
+        return System.getProperty("operator.dir") + url + uri;
     }
 }

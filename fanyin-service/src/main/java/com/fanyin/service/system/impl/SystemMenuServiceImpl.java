@@ -31,8 +31,8 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public List<SystemMenu> getUserMenuList(Integer userId) {
-        List<SystemMenu> list = systemMenuMapper.getUserMenuList(userId,false);
+    public List<SystemMenu> getMenuList(Integer operatorId) {
+        List<SystemMenu> list = systemMenuMapper.getMenuList(operatorId,false);
         List<SystemMenu> parentList = new ArrayList<>();
 
         for (SystemMenu parent : list) {
@@ -43,6 +43,11 @@ public class SystemMenuServiceImpl implements SystemMenuService {
         }
         parentList.sort(comparator);
         return parentList;
+    }
+
+    @Override
+    public List<SystemMenu> getAllMenuList(Integer operatorId) {
+        return systemMenuMapper.getMenuList(operatorId,true);
     }
 
     @Override

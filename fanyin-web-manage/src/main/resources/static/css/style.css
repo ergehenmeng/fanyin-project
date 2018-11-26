@@ -249,8 +249,11 @@ textarea{
 }
 .form_item input,select,textarea {
 	padding: 5px;
-	width:200px;
+	width:280px;
 	border: 1px solid #ccc;
+}
+.form_item input.small{
+    width:137px;
 }
 
 .inputTree {

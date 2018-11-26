@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/12 17:41
  */
-public class ResultJson<T> implements Serializable {
+public class ReturnJson<T> implements Serializable {
 
     private static final long serialVersionUID = 1574813862539970945L;
 
@@ -25,15 +25,15 @@ public class ResultJson<T> implements Serializable {
      */
     private T data;
 
-    public static <T> ResultJson<T> getInstance(){
-        return new ResultJson<>();
+    public static <T> ReturnJson<T> getInstance(){
+        return new ReturnJson<>();
     }
 
     public T getData() {
         return data;
     }
 
-    public ResultJson<T> setData(T data) {
+    public ReturnJson<T> setData(T data) {
         this.data = data;
         return this;
     }
@@ -42,7 +42,7 @@ public class ResultJson<T> implements Serializable {
         return msg;
     }
 
-    public ResultJson<T> setMsg(String msg) {
+    public ReturnJson<T> setMsg(String msg) {
         this.msg = msg;
         return this;
     }
@@ -51,7 +51,7 @@ public class ResultJson<T> implements Serializable {
         return code;
     }
 
-    public ResultJson<T> setCode(int code) {
+    public ReturnJson<T> setCode(int code) {
         this.code = code;
         return this;
     }

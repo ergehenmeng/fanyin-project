@@ -7,7 +7,7 @@
     <script type="text/javascript">
         var treeGrid;
 
-        var winWidth = 400;
+        var winWidth = 480;
         var winHeight = 450;
 
         var addTitle = "添加菜单";

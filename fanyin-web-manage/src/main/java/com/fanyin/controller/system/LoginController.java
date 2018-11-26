@@ -40,7 +40,7 @@ public class LoginController extends AbstractController {
     @GetMapping("/home")
     public String home(HttpServletRequest request){
         SystemOperator operator = getOperator();
-        List<SystemMenu> list = systemMenuService.getUserMenuList(operator.getId());
+        List<SystemMenu> list = systemMenuService.getMenuList(operator.getId());
         request.setAttribute("menuList", list);
         return "home";
     }

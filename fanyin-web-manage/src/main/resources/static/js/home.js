@@ -76,10 +76,10 @@ Accordion.prototype.dropdown = function(e) {
 var changePwd = function(isClose){
     $.windowDialog({
         title : "修改密码",
-        width : 400,
+        width : 480,
         height : 250,
         closable:isClose,
-        href : "/public/user/change_password_page",
+        href : "/public/system/operator/change_password_page",
         buttons : [{
             text : '确定',
             handler : function() {
@@ -111,10 +111,10 @@ var logout = function(){
 var roleMenu = function(){
     $.windowDialog({
         title : "菜单权限",
-        width : 400,
+        width : 350,
         height : 400,
         closable:true,
-        href : "/admin/mapper.system/p2p/userRoleMenuPage",
+        href : "/public/system/operator/role_menu_page",
         buttons : [{
             text : '关闭',
             handler : function() {

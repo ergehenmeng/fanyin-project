@@ -7,8 +7,8 @@
     <script type="text/javascript">
         var dataGrid;
 
-        var winWidth = 400;
-        var winHeight = 400;
+        var winWidth = 480;
+        var winHeight = 550;
 
         var addTitle = "添加系统参数";
         var addUrl = "/public/system/config/add_config_page";
@@ -53,16 +53,22 @@
                     {field : "nid",title : "参数标示",width : 150,align : "center"},
                     {field : "value",title : "参数值",width : 300,align : "center"},
                     {
-                        field: "locked", title: "是否锁定", width: 300, align: "center",
+                        field: "locked", title: "是否锁定", width: 60, align: "center",
                         formatter: function (value, rows, index) {
                             return value ? "是" : "否";
                         }
                     },
-                    {field : "addTime",title : "添加时间",width : 150,align : "center",
-                        formatter : function(value, rows, index) {
-                            return getLocalTime(value, 4);
+                    {field : "startTime",title : "有效起始时间",width : 150,align : "center",
+                        formatter:function(value,rows,index){
+                            return getLocalTime(value,4);
                         }
                     },
+                    {field : "endTime",title : "有效结束时间",width : 150,align : "center",
+                        formatter:function(value,rows,index){
+                            return getLocalTime(value,4);
+                        }
+                    },
+                    {field : "reserveValue",title : "备用值",width : 150,align : "center"},
                     {field : "updateTime",title : "更新时间",width : 150,align : "center",
                         formatter : function(value, rows, index) {
                             return getLocalTime(value, 4);
@@ -80,7 +86,7 @@
         <div class="layout_norths">
             <div class="left">
                 <form id="queryForm">
-                    <input name="queryName" placeholder="参数名称,参数标示、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
+                    <input name="queryName" placeholder="参数名称、参数标示、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
                 </form>
             </div>
             <div class="right">

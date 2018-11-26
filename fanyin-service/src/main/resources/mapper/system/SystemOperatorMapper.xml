@@ -186,7 +186,18 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getOperatorByMobile" resultMap="BaseResultMap">
+    <select id="getByMobile" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList" /> from system_operator where deleted = false and mobile = #{mobile}
+    </select>
+    
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.dto.system.operator.OperatorQueryRequest">
+        select <include refid="BaseColumnList" />
+        from system_operator where deleted = false
+        <if test="queryName != null">
+            and (name like concat('%',#{queryName},'%') or mobile like concat('%',#{queryName},'%'))
+        </if>
+        <if test="status != null">
+            status = #{status}
+        </if>
     </select>
 </mapper>

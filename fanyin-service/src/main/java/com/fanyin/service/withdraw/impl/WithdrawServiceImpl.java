@@ -2,7 +2,6 @@ package com.fanyin.service.withdraw.impl;
 
 import com.fanyin.constant.SystemConfigConstant;
 import com.fanyin.constants.SystemConstant;
-import com.fanyin.dto.borrower.BorrowerAccountDetailLog;
 import com.fanyin.dto.withdraw.WithdrawApply;
 import com.fanyin.enums.WithdrawStatus;
 import com.fanyin.mapper.withdraw.WithdrawLogMapper;
@@ -61,9 +60,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 
     @Autowired
     private SystemConfigApi systemConfigApi;
-
-    @Autowired
-    private BorrowerAccountDetailLog borrowerAccountDetailLog;
 
     @Override
     public void withdrawApply(WithdrawApply apply) {

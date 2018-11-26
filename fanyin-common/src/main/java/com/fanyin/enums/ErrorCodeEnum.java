@@ -246,6 +246,10 @@ public enum ErrorCodeEnum {
      */
     DEPOSIT_ENTERPRISE_MODIFY(3028,"存管企业信息审核中,无法操作"),
 
+    /**
+     * 旧密码输入错误
+     */
+    OPERATOR_PASSWORD_ERROR(3029,"旧密码输入错误"),
 
     /**
      * 充值订单未查询到

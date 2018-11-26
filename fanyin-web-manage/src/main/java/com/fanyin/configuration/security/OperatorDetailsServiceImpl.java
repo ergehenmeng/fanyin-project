@@ -1,10 +1,10 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.mapper.system.SystemMenuMapper;
-import com.fanyin.mapper.system.SystemOperatorMapper;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
+import com.fanyin.service.operator.SystemOperatorService;
+import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,21 +26,21 @@ import java.util.List;
 public class OperatorDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private SystemOperatorMapper systemOperatorMapper;
+    private SystemOperatorService systemOperatorService;
 
     @Autowired
-    private SystemMenuMapper systemMenuMapper;
+    private SystemMenuService systemMenuService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SystemOperator operator = systemOperatorMapper.getOperatorByMobile(username);
+        SystemOperator operator = systemOperatorService.getByMobile(username);
         if(operator == null){
             throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_NOT_FOUND);
         }
         if(!operator.getStatus()){
             throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_LOCKED_ERROR);
         }
-        List<SystemMenu> list = systemMenuMapper.getUserMenuList(operator.getId(),true);
+        List<SystemMenu> list = systemMenuService.getAllMenuList(operator.getId());
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(!CollectionUtils.isEmpty(list)){
             for (SystemMenu menu : list){

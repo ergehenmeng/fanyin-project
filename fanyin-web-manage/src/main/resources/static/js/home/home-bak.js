@@ -73,7 +73,7 @@ Accordion.prototype.dropdown = function(e) {
 
 /**
  * 修改密码
- * @param isClose是否显示关闭按钮
+ * @param isClose 是否关闭右上角按钮
  */
 var changePwd = function(isClose){
     $.windowDialog({
@@ -81,7 +81,7 @@ var changePwd = function(isClose){
         width : 400,
         height : 250,
         closable:isClose,
-        href : "/public/user/change_password_page",
+        href : "/public/system/operator/change_password_page",
         buttons : [{
             text : '确定',
             handler : function() {

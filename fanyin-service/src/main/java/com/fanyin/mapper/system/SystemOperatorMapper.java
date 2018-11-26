@@ -1,7 +1,10 @@
 package com.fanyin.mapper.system;
 
 
+import com.fanyin.dto.system.operator.OperatorQueryRequest;
 import com.fanyin.model.system.SystemOperator;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -60,5 +63,12 @@ public interface SystemOperatorMapper {
      * @param mobile 手机号码
      * @return
      */
-    SystemOperator getOperatorByMobile(String mobile);
+    SystemOperator getByMobile(String mobile);
+
+    /**
+     * 根据条件查询系统人员信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<SystemOperator> getList(OperatorQueryRequest request);
 }

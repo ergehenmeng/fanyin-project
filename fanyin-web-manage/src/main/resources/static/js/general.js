@@ -47,13 +47,22 @@ $.fn.dataGridOptions.confirm = function(id,url,msg,data){
 	parent.$.messager.confirm("提示",delMsg,function(r){
 		if(r){
 			data = $.extend({},{id:id},data);
-			$.post(url,data,function(data){
-				if(data.code === 200){
-                    dataGrid.datagrid('reload');
-				}else{
-					parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
-				}
-			},"json");
+			$.ajax({
+               type:"post",
+               dataType:"json",
+               data:data,
+               url:url,
+               success:function(data){
+                   if(data.code === 200){
+                       dataGrid.datagrid('reload');
+                   }else{
+                       parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
+                   }
+               },
+               error:function(){
+                   parent.$.messager.alert("提示","服务器超时,请重试","error");
+               }
+            });
 		}
 	});
 };
@@ -287,22 +296,22 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 	var nodes = [];
 	for(var s = 0,lens = rows.length; s < lens;s++){
         //一级节点
-		if(rows[s].parentId === "0"){
-			nodes.push({"id":row.id,"text":row.menuName});
+		if(rows[s].pid === 0){
+			nodes.push({"id":rows[s].id,"text":rows[s].name});
 		}
 	}
 	var topNodes = [];
 	for(var x = 0,len = nodes.length; x < len; x++){
         //数组复制引用会改变原数组数据,因此下面增加子元素数据是有效的
-		topNodes.push(nodes[i]);
+		topNodes.push(nodes[x]);
 	}
 	
 	while(topNodes.length){
 		var node = topNodes.shift();
 		for(var i = 0,rowLen = rows.length;i < rowLen; i++){
 			var row = rows[i];
-			if (row.parentId === node.id){
-				var child = {id:row.id,text:row.menuName,checked:isChecked(row.id,checkRow)};	
+			if (row.pid === node.id){
+				var child = {id:row.id,text:row.name,checked:isChecked(row.id,checkRow)};
 				if (node.children){
 					node.children.push(child);
 				} else {
@@ -462,7 +471,7 @@ Date.prototype.format = function (format){
 
 //时间戳转换
 var getLocalTime = function(value,type) {
-    if (value === null || value === '') {
+    if (!value) {
         return '';
     }
 	var dt;
@@ -470,12 +479,6 @@ var getLocalTime = function(value,type) {
 	    dt = value;
 	}else {
 	    dt = new Date(value);
-	    if (isNaN(dt)) {
-            //将那个长字符串的日期值转换成正常的JS日期格式
-	        value = value.replace(/\/Date\((-?\d+)\)\//, '$1');
-	        dt = new Date();
-	        dt.setTime(value);
-	    }
 	}
 	 switch (type){
 	 case 1:

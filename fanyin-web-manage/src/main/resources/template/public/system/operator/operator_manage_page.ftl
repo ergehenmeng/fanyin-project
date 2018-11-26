@@ -11,32 +11,32 @@
         var winHeight = 350;
 
         var addTitle = "添加用户";
-        var addUrl = "/system/user/add_page";
+        var addUrl = "/system/operator/add_operator_page";
 
         var editTitle = "编辑用户";
-        var editUrl = "/system/user/edit_page";
+        var editUrl = "/system/operator/edit_operator_page";
 
         var delMsg = "确定要执行删除操作?";
-        var delUrl = "/system/user/delete_operator";
+        var delUrl = "/system/operator/delete_operator";
 
         var lockMsg = "确定要执行锁定操作?";
-        var lockUrl = "/system/user/lock_operator";
+        var lockUrl = "/system/operator/lock_operator";
 
         var unlockMsg = "确定要执行解锁操作?";
-        var unlockUrl = "/system/user/unlock_operator";
+        var unlockUrl = "/system/operator/unlock_operator";
 
         var resetMsg = "确定要执行重置操作?";
-        var resetUrl = "/system/user/reset_password";
+        var resetUrl = "/system/operator/reset_password";
 
 
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
-                url : "getSysUserList",
+                url : "/system/operator/operator_list",
                 border : false,
                 fit : true,
                 fitColumns : false,
                 idField : 'id',
-                nowrap : false,//可以换行显示
+                nowrap : false,
                 pagination:true,
                 pageSize : pageSize,
                 pageList : pageList,
@@ -62,9 +62,8 @@
                             return str;
                         }
                     },
-                    {field : "accountName",title : "账户名称",width : 150,align : "center"},
-                    {field : "nickName",title : "用户姓名",width : 150,align : "center"},
-                    {field : "mobile",title : "手机号码",width : 130,align : "center"},
+                    {field : "name",title : "用户名称",width : 150,align : "center"},
+                    {field : "mobile",title : "手机号",width : 150,align : "center"},
                     {field : "status",title : "状态",width : 80,align : "center",
                         formatter:function(value){
                             if(value === 0){
@@ -74,17 +73,17 @@
                             }
                         }
                     },
-                    {field : "createdAt",title : "添加时间",width : 150,align : "center",
+                    {field : "addTime",title : "添加时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "updatedAt",title : "更新时间",width : 150,align : "center",
+                    {field : "updateTime",title : "更新时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "remarks",title : "备注",align : "center",width : 200 }
+                    {field : "remark",title : "备注",align : "center",width : 200 }
                 ] ]
             });
         });
@@ -96,7 +95,7 @@
         <div class="layout_norths">
             <div class="left">
                 <form id="queryForm">
-                    <input name="queryName" placeholder="账户名称、手机号" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
+                    <input name="queryName" placeholder="用户名称、手机号" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
                 </form>
             </div>
             <div class="right">

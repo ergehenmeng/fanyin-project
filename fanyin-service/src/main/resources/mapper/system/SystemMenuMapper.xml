@@ -192,7 +192,7 @@
         from system_menu t where t.deleted = false
     </select>
 
-    <select id="getUserMenuList" resultMap="BaseResultMap">
+    <select id="getMenuList" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList"/>
         from system_menu t
         LEFT JOIN system_role_menu s on t.id = s.menu_id
@@ -202,7 +202,7 @@
                 /*查询左侧主菜单,即屏蔽按钮菜单*/
                 t.main_menu = TRUE and
             </if>
-            o.user_id = #{userId}
+            o.user_id = #{operatorId}
         </where>
         order by t.pid = 0 desc,t.sort asc
     </select>

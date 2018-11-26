@@ -7,8 +7,8 @@
     <script type="text/javascript">
         var dataGrid;
 
-        var winWidth = 400;
-        var winHeight = 400;
+        var winWidth = 480;
+        var winHeight = 300;
 
         var addTitle = "添加角色";
         var addUrl = "/public/system/role/add_role_page";
@@ -17,11 +17,11 @@
         var editUrl = "/public/system/role/edit_role_page";
 
         var  delMsg = "删除角色可能导致相关人员无法使用系统,确定要执行该操作";
-        var delUrl = "/public/system/role/deleteSysRole";
+        var delUrl = "/system/role/delete_role";
 
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
-                url : "getSysRoleList",
+                url : "/system/role/role_list",
                 border : false,
                 fit : true,
                 fitColumns : false,
@@ -50,17 +50,18 @@
                         }
                     },
                     {field : "roleName",title : "角色名称",width : 150,align : "center"},
-                    {field : "createdAt",title : "添加时间",width : 150,align : "center",
+                    {field : "roleType",title : "角色类型",width : 150,align : "center"},
+                    {field : "addTime",title : "添加时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "updatedAt",title : "更新时间",width : 150,align : "center",
+                    {field : "updateTime",title : "更新时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "remarks",title : "备注",align : "center",width : 200 }
+                    {field : "remark",title : "备注",align : "center",width : 250 }
                 ] ]
             });
         });

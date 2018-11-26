@@ -10,7 +10,7 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2018/8/28 16:38
  */
-@WebFilter(filterName = "byteFilter",urlPatterns = {"/mobile/*","/html5/*","/json/*"})
+@WebFilter(filterName = "byteFilter",urlPatterns = {"/mobile/*","/h5/*","/json/*"})
 public class ByteFilter implements Filter {
 
     @Override

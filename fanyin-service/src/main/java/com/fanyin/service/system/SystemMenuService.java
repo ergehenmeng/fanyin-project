@@ -13,12 +13,18 @@ import java.util.List;
 public interface SystemMenuService {
 
     /**
-     * 获取用户菜单列表
-     * @param userId 用户id
+     * 获取用户菜单列表,不包含按钮菜单
+     * @param operatorId 用户id
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<SystemMenu> getUserMenuList(Integer userId);
+    List<SystemMenu> getMenuList(Integer operatorId);
 
+    /**
+     * 获取用户菜单列表,包含按钮菜单
+     * @param operatorId 用户id
+     * @return 菜单列表
+     */
+    List<SystemMenu> getAllMenuList(Integer operatorId);
     /**
      * 根据主键查询菜单
      * @param id 主键
