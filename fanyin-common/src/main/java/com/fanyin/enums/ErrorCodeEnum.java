@@ -99,6 +99,11 @@ public enum ErrorCodeEnum {
      */
     NOT_NULL_ERROR(2001,"对象不能为空"),
 
+    /**
+     * select指定nid不能为空
+     */
+    NID_IS_NULL(2002,"@select指定nid不能为空"),
+
 
 
     /**
@@ -250,6 +255,19 @@ public enum ErrorCodeEnum {
      * 旧密码输入错误
      */
     OPERATOR_PASSWORD_ERROR(3029,"旧密码输入错误"),
+
+    /**
+     * 上传文件过大
+     */
+    UPLOAD_TOO_BIG(3030,"上传文件过大"),
+    /**
+     * 文件保存失败
+     */
+    FILE_SAVE_ERROR(3031,"文件保存失败"),
+    /**
+     * 创建文件失败
+     */
+    FILE_CREATE_ERROR(3032,"创建文件失败"),
 
     /**
      * 充值订单未查询到

@@ -29,4 +29,8 @@ public class ApplicationProperties {
      */
     private String loginIgnoreUrl;
 
+    /**
+     * 上传文件保存目录
+     */
+    private String uploadDir;
 }

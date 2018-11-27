@@ -21,6 +21,7 @@ import java.util.Properties;
 @Configuration
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
+
     /**
      * 图形验证码
      * @return bean
@@ -61,4 +62,5 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         exporter.setBeans(map);
         return exporter;
     }
+
 }

@@ -4,6 +4,7 @@ package com.fanyin.controller;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -11,10 +12,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author 二哥很猛
- * @date 2018/1/12 17:59
  */
+@Slf4j
 public class AbstractController {
-
 
     /**
      * 存放session
@@ -50,4 +50,6 @@ public class AbstractController {
         }
         return operator;
     }
+
+
 }
