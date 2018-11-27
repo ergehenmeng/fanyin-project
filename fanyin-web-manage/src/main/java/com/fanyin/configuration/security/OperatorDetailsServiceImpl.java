@@ -1,19 +1,15 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,14 +36,8 @@ public class OperatorDetailsServiceImpl implements UserDetailsService {
         if(!operator.getStatus()){
             throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_LOCKED_ERROR);
         }
-        List<SystemMenu> list = systemMenuService.getAllMenuList(operator.getId());
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(list)){
-            for (SystemMenu menu : list){
-                GrantedAuthority authority = new SimpleGrantedAuthority(menu.getNid());
-                authorities.add(authority);
-            }
-        }
+        //查询并组织权限信息
+        List<GrantedAuthority> authorities = systemMenuService.getAuthorityByOperatorId(operator.getId());
         return new SecurityOperator(operator,authorities);
     }
 }

@@ -9,8 +9,11 @@ import com.fanyin.dto.system.menu.MenuEditRequest;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.utils.BeanCopyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -46,6 +49,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public List<SystemMenu> getAllMenuList(Integer operatorId) {
         return systemMenuMapper.getMenuList(operatorId,true);
     }
@@ -80,6 +84,19 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public void deleteMenu(Integer id) {
         systemMenuMapper.deleteById(id);
+    }
+
+    @Override
+    public List<GrantedAuthority> getAuthorityByOperatorId(Integer operator) {
+        List<SystemMenu> list = systemMenuMapper.getMenuList(operator,true);
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(list)){
+            for (SystemMenu menu : list){
+                GrantedAuthority authority = new SimpleGrantedAuthority(menu.getNid());
+                authorities.add(authority);
+            }
+        }
+        return authorities;
     }
 
     /**

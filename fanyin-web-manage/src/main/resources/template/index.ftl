@@ -3,7 +3,7 @@
 <head>
     <title>后台管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="/static/css/index.css?v=2018012060142" type="text/css">
+    <link rel="stylesheet" href="/static/css/index.css?v=${version!}" type="text/css">
 </head>
 <body>
     <div class="login_panel">

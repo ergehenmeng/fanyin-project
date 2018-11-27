@@ -34,7 +34,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     }
 
     @Override
-    public void updateLoginPassword(PasswordEditRequest request) {
+    public String updateLoginPassword(PasswordEditRequest request) {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
         String oldPassword = bCryptPasswordEncoder.encode(request.getOldPassword());
         if(!operator.getPassword().equals(oldPassword)){
@@ -43,6 +43,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         String newPassword = bCryptPasswordEncoder.encode(request.getNewPassword());
         operator.setPassword(newPassword);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
+        return newPassword;
     }
 
     @Override

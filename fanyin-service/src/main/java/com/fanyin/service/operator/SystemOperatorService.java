@@ -21,8 +21,9 @@ public interface SystemOperatorService {
     /**
      * 更新登陆密码
      * @param request 前台参数
+     * @return 新加密过的密码
      */
-    void updateLoginPassword(PasswordEditRequest request);
+    String updateLoginPassword(PasswordEditRequest request);
 
     /**
      * 分页查询系统人员信息

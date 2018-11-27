@@ -79,7 +79,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .failureHandler(customAuthenticationFailureHandler())
                 .and()
              .logout()
-                .logoutSuccessUrl("/index").permitAll()
+                .logoutSuccessHandler(logoutSuccessHandler())
+                .permitAll()
                 .invalidateHttpSession(true);
 
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry()).expiredUrl("/index");
@@ -135,6 +136,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Bean
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
+    }
+
+    /**
+     * 退出登陆
+     * @return bean
+     */
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler(){
+        return new LogoutSuccessHandler();
     }
 
     /**

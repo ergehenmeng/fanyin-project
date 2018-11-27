@@ -3,6 +3,7 @@ package com.fanyin.service.system;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
@@ -55,4 +56,11 @@ public interface SystemMenuService {
      * @param id 主键
      */
     void deleteMenu(Integer id);
+
+    /**
+     * 获取用户菜单权限 spring security
+     * @param operator 用户id
+     * @return 列表
+     */
+    List<GrantedAuthority> getAuthorityByOperatorId(Integer operator);
 }

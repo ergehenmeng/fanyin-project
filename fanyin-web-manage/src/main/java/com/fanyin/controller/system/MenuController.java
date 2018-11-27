@@ -1,18 +1,18 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.controller.AbstractController;
-import com.fanyin.ext.ReturnJson;
-import com.fanyin.model.system.SystemMenu;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
+import com.fanyin.ext.ReturnJson;
+import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,14 +27,14 @@ public class MenuController extends AbstractController {
 
     /**
      * 菜单编辑页面
-     * @param request 请求对象
+     * @param model model存放对象
      * @param id 菜单主键
      * @return 页面地址
      */
     @PostMapping("/public/system/menu/edit_menu_page")
-    public String editMenuPage(HttpServletRequest request,Integer id){
+    public String editMenuPage(Model model, Integer id){
         SystemMenu menu = systemMenuService.getMenuById(id);
-        request.setAttribute("menu",menu);
+        model.addAttribute("menu",menu);
         return "public/system/menu/edit_menu_page";
     }
 

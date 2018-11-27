@@ -1,17 +1,24 @@
 package com.fanyin.controller.operator;
 
+import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
-import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
+import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.ext.Paging;
 import com.fanyin.ext.ReturnJson;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author 二哥很猛
@@ -31,10 +38,18 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/change_password")
     @ResponseBody
-    public ReturnJson changePassword(PasswordEditRequest request){
-        SystemOperator operator = super.getRequiredOperator();
+    public ReturnJson changePassword(HttpSession session, PasswordEditRequest request){
+        SecurityOperator operator = super.getRequiredOperator();
         request.setOperatorId(operator.getId());
-        systemOperatorService.updateLoginPassword(request);
+        String newPassword = systemOperatorService.updateLoginPassword(request);
+        operator.setPassword(newPassword);
+        //更新用户权限
+        SecurityContext context = (SecurityContext)session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+        Authentication authentication = context.getAuthentication();
+        UsernamePasswordAuthenticationToken token =  new UsernamePasswordAuthenticationToken(operator,authentication,operator.getAuthorities());
+        token.setDetails(authentication.getDetails());
+        context.setAuthentication(token);
+
         return ReturnJson.getInstance();
     }
 

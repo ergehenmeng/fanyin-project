@@ -96,11 +96,19 @@ var changePwd = function(isClose){
 var logout = function(){
 	$.messager.confirm("提示","您确定要退出该系统吗?",function(r){
 		if(r){
-			$.post("/logout",function(data){
-				if(data.result){
-					window.location.href = "/";
-				}
-			},"json");
+		    $.ajax({
+                url:"/logout",
+                dataType:"json",
+                type:"post",
+                success:function(data){
+                    if(data.code === 200){
+                        window.location.href = "/";
+                    }
+                },
+                error:function(){
+                    $.messager.alert("服务器超时,请重试","warning");
+                }
+            });
 		}
 	});
 };

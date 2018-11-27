@@ -2,20 +2,19 @@ package com.fanyin.controller.system;
 
 
 import com.fanyin.controller.AbstractController;
+import com.fanyin.dto.system.config.ConfigAddRequest;
+import com.fanyin.dto.system.config.ConfigEditRequest;
+import com.fanyin.dto.system.config.ConfigQueryRequest;
 import com.fanyin.ext.Paging;
 import com.fanyin.ext.ReturnJson;
 import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigAddRequest;
-import com.fanyin.dto.system.config.ConfigQueryRequest;
-import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.fanyin.service.system.SystemConfigService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -37,14 +36,14 @@ public class ConfigController extends AbstractController {
 
     /**
      * 参数编辑页面
-     * @param request 请求对象
+     * @param model 存放参数对象
      * @param id 主键
      * @return 页面
      */
     @PostMapping("/public/system/config/edit_config_page")
-    public String editConfigPage(HttpServletRequest request,Integer id){
+    public String editConfigPage(Model model, Integer id){
         SystemConfig config = systemConfigService.getById(id);
-        request.setAttribute("config",config);
+        model.addAttribute("config",config);
         return "public/system/config/edit_config_page";
     }
 
