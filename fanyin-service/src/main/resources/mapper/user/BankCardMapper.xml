@@ -32,26 +32,7 @@
     from bank_card
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from bank_card
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.BankCard">
-    <!--
-      @create by mybatis
-    -->
-    insert into bank_card (id, user_id, user_type, 
-      bank_code, bank_num, mobile, 
-      deleted, add_time, update_time, 
-      remark)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userType,jdbcType=TINYINT}, 
-      #{bankCode,jdbcType=VARCHAR}, #{bankNum,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, 
-      #{deleted,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.BankCard">
     <!--
       @create by mybatis
@@ -158,22 +139,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.BankCard">
-    <!--
-      @create by mybatis
-    -->
-    update bank_card
-    set user_id = #{userId,jdbcType=INTEGER},
-      user_type = #{userType,jdbcType=TINYINT},
-      bank_code = #{bankCode,jdbcType=VARCHAR},
-      bank_num = #{bankNum,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=CHAR},
-      deleted = #{deleted,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getByUserType" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from bank_card where user_type = #{userType} and user_id = #{userId}

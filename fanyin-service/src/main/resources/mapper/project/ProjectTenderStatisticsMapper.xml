@@ -32,24 +32,7 @@
         select t.id, t.project_id, t.user_id, t.tender_id, t.type, t.add_time,r.mobile from project_tender_statistics t
             inner join user r on t.user_id = r.id
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from project_tender_statistics
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
-    <!--
-      @create by mybatis
-    -->
-    insert into project_tender_statistics (id, project_id, user_id, 
-      tender_id, type, add_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{tenderId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
     <!--
       @create by mybatis
@@ -120,18 +103,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
-    <!--
-      @create by mybatis
-    -->
-    update project_tender_statistics
-    set project_id = #{projectId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      tender_id = #{tenderId,jdbcType=INTEGER},
-      type = #{type,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <insert id="insertBatchStatistics" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
         insert into project_tender_statistics (
          project_id, user_id, tender_id, type

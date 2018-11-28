@@ -38,24 +38,6 @@
         from vip_config where status = 1 order by sort #{orderType,typeHandler=org.apache.ibatis.type.EnumTypeHandler}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from vip_config
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.operation.VipConfig">
-    <!--
-      @create by mybatis
-    -->
-    insert into vip_config (id, name, level, 
-      sort, amount, status, withdraw
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=CHAR}, #{level,jdbcType=TINYINT}, 
-      #{sort,jdbcType=TINYINT}, #{amount,jdbcType=DECIMAL}, #{status,jdbcType=BIT}, #{withdraw,jdbcType=TINYINT}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.VipConfig">
     <!--
       @create by mybatis
@@ -133,19 +115,6 @@
         withdraw = #{withdraw,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.operation.VipConfig">
-    <!--
-      @create by mybatis
-    -->
-    update vip_config
-    set name = #{name,jdbcType=CHAR},
-      level = #{level,jdbcType=TINYINT},
-      sort = #{sort,jdbcType=TINYINT},
-      amount = #{amount,jdbcType=DECIMAL},
-      status = #{status,jdbcType=BIT},
-      withdraw = #{withdraw,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

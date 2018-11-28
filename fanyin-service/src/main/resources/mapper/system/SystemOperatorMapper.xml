@@ -33,27 +33,7 @@
     from system_operator
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from system_operator
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.system.SystemOperator">
-    <!--
-      @create by mybatis
-    -->
-    insert into system_operator (id, name, mobile, 
-      status, password, init_password, department, deleted,
-      add_time, update_time, remark
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT}, #{password,jdbcType=VARCHAR}, #{initPassword,jdbcType=VARCHAR},
-      #{department,jdbcType=INTEGER}, #{deleted,jdbcType=BIT},
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemOperator">
     <!--
       @create by mybatis
@@ -169,23 +149,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemOperator">
-    <!--
-      @create by mybatis
-    -->
-    update system_operator
-    set name = #{name,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT},
-      password = #{password,jdbcType=VARCHAR},
-      init_password = #{initPassword,jdbcType=VARCHAR},
-      department = #{department,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getByMobile" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList" /> from system_operator where deleted = false and mobile = #{mobile}
     </select>

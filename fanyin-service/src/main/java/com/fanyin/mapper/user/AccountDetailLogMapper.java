@@ -2,20 +2,10 @@ package com.fanyin.mapper.user;
 
 import com.fanyin.model.user.AccountDetailLog;
 
+/**
+ * @author 二哥很猛
+ */
 public interface AccountDetailLogMapper {
-    /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id
-     */
-    int deleteByPrimaryKey(Integer id);
-
-    /**
-     * 插入数据库记录
-     *
-     * @param record
-     */
-    int insert(AccountDetailLog record);
 
     /**
      * 插入不为空的记录
@@ -38,10 +28,4 @@ public interface AccountDetailLogMapper {
      */
     int updateByPrimaryKeySelective(AccountDetailLog record);
 
-    /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record
-     */
-    int updateByPrimaryKey(AccountDetailLog record);
 }

@@ -32,24 +32,7 @@
         select <include refid="BaseColumnList"/>
         from user_extend where user_id = #{userId}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from user_extend
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.UserExtend">
-    <!--
-      @create by mybatis
-    -->
-    insert into user_extend (id, user_id, avatar, 
-      real_name, id_card, integral_num, 
-      grade)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{integralNum,jdbcType=INTEGER}, 
-      #{grade,jdbcType=TINYINT})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.UserExtend">
     <!--
       @create by mybatis
@@ -127,19 +110,6 @@
           grade = #{grade,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.UserExtend">
-    <!--
-      @create by mybatis
-    -->
-    update user_extend
-    set user_id = #{userId,jdbcType=INTEGER},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR},
-      integral_num = #{integralNum,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <update id="updateScore">

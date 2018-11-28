@@ -10,19 +10,6 @@ import java.util.Date;
  * @author 二哥很猛
  */
 public interface WithdrawLogMapper {
-    /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id
-     */
-    int deleteByPrimaryKey(Integer id);
-
-    /**
-     * 插入数据库记录
-     *
-     * @param record
-     */
-    int insert(WithdrawLog record);
 
     /**
      * 插入不为空的记录
@@ -44,13 +31,6 @@ public interface WithdrawLogMapper {
      * @param record
      */
     int updateByPrimaryKeySelective(WithdrawLog record);
-
-    /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record
-     */
-    int updateByPrimaryKey(WithdrawLog record);
 
     /**
      * 统计投资人 指定时间内已经免费提现的次数

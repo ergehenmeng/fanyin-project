@@ -32,13 +32,13 @@
         
         
         <!-- 生成模型的包位置 -->
-        <javaModelGenerator targetPackage="com.fanyin.model.user"
+        <javaModelGenerator targetPackage="com.fanyin.model.operation"
             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成mapper.xml文件位置 -->
-        <sqlMapGenerator targetPackage="mapper.user"
+        <sqlMapGenerator targetPackage="mapper.operation"
             targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"  />
 
@@ -46,15 +46,16 @@
         
         <!-- 生成mapper的接口位置 -->
         <javaClientGenerator type="XMLMAPPER"
-            targetPackage="com.fanyin.mapper.user"  targetProject="src/main/java">
+            targetPackage="com.fanyin.mapper.operation"  targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="user" domainObjectName="User"
+        <table tableName="project_tips" domainObjectName="ProjectTips"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
-            selectByExampleQueryId="false" >
+            selectByExampleQueryId="false" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="false" enableInsert="false" >
         </table>
     </context>
 </generatorConfiguration>

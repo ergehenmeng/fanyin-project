@@ -7,21 +7,6 @@ import org.apache.ibatis.annotations.Param;
  * @author 二哥很猛
  */
 public interface ProjectMapper {
-    /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id 主键
-     * @return 删除条数 1
-     */
-    int deleteByPrimaryKey(Integer id);
-
-    /**
-     * 插入数据库记录
-     *
-     * @param record 项目信息
-     * @return 插入条数
-     */
-    int insert(Project record);
 
     /**
      * 插入不为空的记录
@@ -46,14 +31,6 @@ public interface ProjectMapper {
      * @return 更新影响条数
      */
     int updateByPrimaryKeySelective(Project record);
-
-    /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record 产品信息
-     * @return 更新影响条数
-     */
-    int updateByPrimaryKey(Project record);
 
     /**
      * 根据产品编号查询,无状态过滤查询

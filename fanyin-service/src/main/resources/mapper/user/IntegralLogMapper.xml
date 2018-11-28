@@ -26,22 +26,7 @@
     from integral_log
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from integral_log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.IntegralLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into integral_log (id, user_id, num, 
-      type, add_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{num,jdbcType=SMALLINT}, 
-      #{type,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.IntegralLog">
     <!--
       @create by mybatis
@@ -103,15 +88,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.IntegralLog">
-    <!--
-      @create by mybatis
-    -->
-    update integral_log
-    set user_id = #{userId,jdbcType=INTEGER},
-      num = #{num,jdbcType=SMALLINT},
-      type = #{type,jdbcType=INTEGER},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

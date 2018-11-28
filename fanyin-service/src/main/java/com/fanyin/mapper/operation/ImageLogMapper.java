@@ -1,24 +1,15 @@
 package com.fanyin.mapper.operation;
 
+import com.fanyin.dto.operation.ImageLogQueryRequest;
 import com.fanyin.model.operation.ImageLog;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
  */
 public interface ImageLogMapper {
-    /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id
-     */
-    int deleteByPrimaryKey(Integer id);
 
-    /**
-     * 插入数据库记录
-     *
-     * @param record
-     */
-    int insert(ImageLog record);
 
     /**
      * 插入不为空的记录
@@ -41,10 +32,11 @@ public interface ImageLogMapper {
      */
     int updateByPrimaryKeySelective(ImageLog record);
 
+
     /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record
+     * 根据条件查询图片列表
+     * @param request 请求
+     * @return 列表
      */
-    int updateByPrimaryKey(ImageLog record);
+    List<ImageLog> getList(ImageLogQueryRequest request);
 }

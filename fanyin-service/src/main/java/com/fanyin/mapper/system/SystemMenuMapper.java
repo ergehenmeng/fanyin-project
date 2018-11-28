@@ -9,26 +9,7 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface SystemMenuMapper {
-    /**
-     * 根据主键删除数据库的记录 物理删除
-     * @param id 主键
-     * @return 成功的条数
-     */
-    int deleteByPrimaryKey(Integer id);
 
-    /**
-     * 根据主键删除数据库的记录 状态变更删除
-     * @param id 主键
-     * @return 成功的条数
-     */
-    int deleteById(Integer id);
-    /**
-     * 插入数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int insert(SystemMenu record);
 
     /**
      * 插入不为空的记录
@@ -56,19 +37,17 @@ public interface SystemMenuMapper {
     int updateByPrimaryKeySelective(SystemMenu record);
 
     /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKey(SystemMenu record);
-
-    /**
      * 查询所有可用的菜单
      * @return
      */
     List<SystemMenu> getAllList();
 
+    /**
+     * 删除菜单
+     * @param id 主键
+     * @return 影响条数
+     */
+    int deleteById(@Param("id")Integer id);
 
     /**
      * 获取某用户所能查看的菜单列表  只获取菜单 不进行排序菜单分组等

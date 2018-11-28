@@ -98,4 +98,10 @@ public class Banner implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 删除状态 0:未删除 1已删除<br>
+     * 表 : banner<br>
+     * 对应字段 : deleted<br>
+     */
+    private Boolean deleted;
 }

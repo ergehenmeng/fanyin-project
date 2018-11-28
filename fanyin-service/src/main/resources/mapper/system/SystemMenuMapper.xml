@@ -33,26 +33,7 @@
     from system_menu t
     where t.deleted = false and  t.id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from system_menu
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.system.SystemMenu">
-    <!--
-      @create by mybatis
-    -->
-    insert into system_menu (id, name, nid, 
-      pid, url,sub_url, main_menu, sort,
-      deleted, remark, add_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nid,jdbcType=VARCHAR}, 
-      #{pid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR},#{subUrl,jdbcType=VARCHAR}, #{mainMenu,jdbcType=BIT}, #{sort,jdbcType=INTEGER},
-      #{deleted,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemMenu">
     <!--
       @create by mybatis
@@ -169,24 +150,7 @@
     </set>
     where deleted = false and id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemMenu">
-    <!--
-      @create by mybatis
-    -->
-    update system_menu
-    set name = #{name,jdbcType=VARCHAR},
-      nid = #{nid,jdbcType=VARCHAR},
-      pid = #{pid,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR},
-      sub_url = #{subUrl,jdbcType=VARCHAR},
-      main_menu = #{mainMenu,jdbcType=BIT},
-      sort = #{sort,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=BIT},
-      remark = #{remark,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getAllList" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList"/>
         from system_menu t where t.deleted = false

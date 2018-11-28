@@ -7,21 +7,7 @@ import org.apache.ibatis.annotations.Param;
  * @author 二哥很猛
  */
 public interface UserExtendMapper {
-    /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id 主键
-     * @return 影响条数
-     */
-    int deleteByPrimaryKey(Integer id);
 
-    /**
-     * 插入数据库记录
-     *
-     * @param record 待插入数据
-     * @return 影响条数
-     */
-    int insert(UserExtend record);
 
     /**
      * 插入不为空的记录
@@ -46,14 +32,6 @@ public interface UserExtendMapper {
      * @return 影响条数
      */
     int updateByPrimaryKeySelective(UserExtend record);
-
-    /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record 待更新数据
-     * @return 影响条数
-     */
-    int updateByPrimaryKey(UserExtend record);
 
     /**
      * 更新用户可用积分

@@ -39,30 +39,7 @@
     from project_recover
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from project_recover
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.project.ProjectRecover">
-    <!--
-      @create by mybatis
-    -->
-    insert into project_recover (id, user_id, status, 
-      tender_id, project_id, period, 
-      periods, capital, interest, 
-      platform_interest, coupon_interest, receive_time, 
-      real_receive_time, receive_month, real_receive_month, 
-      add_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
-      #{tenderId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{period,jdbcType=TINYINT}, 
-      #{periods,jdbcType=TINYINT}, #{capital,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, 
-      #{platformInterest,jdbcType=DECIMAL}, #{couponInterest,jdbcType=DECIMAL}, #{receiveTime,jdbcType=DATE}, 
-      #{realReceiveTime,jdbcType=TIMESTAMP}, #{receiveMonth,jdbcType=CHAR}, #{realReceiveMonth,jdbcType=CHAR}, 
-      #{addTime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectRecover">
     <!--
       @create by mybatis
@@ -251,26 +228,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectRecover">
-    <!--
-      @create by mybatis
-    -->
-    update project_recover
-    set user_id = #{userId,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      tender_id = #{tenderId,jdbcType=INTEGER},
-      project_id = #{projectId,jdbcType=INTEGER},
-      period = #{period,jdbcType=TINYINT},
-      periods = #{periods,jdbcType=TINYINT},
-      capital = #{capital,jdbcType=DECIMAL},
-      interest = #{interest,jdbcType=DECIMAL},
-      platform_interest = #{platformInterest,jdbcType=DECIMAL},
-      coupon_interest = #{couponInterest,jdbcType=DECIMAL},
-      receive_time = #{receiveTime,jdbcType=DATE},
-      real_receive_time = #{realReceiveTime,jdbcType=TIMESTAMP},
-      receive_month = #{receiveMonth,jdbcType=CHAR},
-      real_receive_month = #{realReceiveMonth,jdbcType=CHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

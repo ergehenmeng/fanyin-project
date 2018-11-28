@@ -45,32 +45,6 @@
     <select id="getNewestProject" resultType="java.lang.String">
       select nid from project order by id desc limit 1
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from project
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.project.Project">
-    <!--
-      @create by mybatis
-    -->
-    insert into project (id, borrower_id, nid, 
-      status, type, name, 
-      amount, raise_amount, min_tender, 
-      apr, platform_apr, period, 
-      repayment_type, add_time, pre_sale_time,
-      publish_time, recheck_time, end_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{borrowerId,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, 
-      #{amount,jdbcType=DECIMAL}, #{raiseAmount,jdbcType=DECIMAL}, #{minTender,jdbcType=DECIMAL}, 
-      #{apr,jdbcType=DECIMAL}, #{platformApr,jdbcType=DECIMAL}, #{period,jdbcType=TINYINT}, 
-      #{repaymentType,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{preSaleTime,jdbcType=TIMESTAMP},
-      #{publishTime,jdbcType=TIMESTAMP}, #{recheckTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.project.Project">
     <!--
       @create by mybatis
@@ -249,28 +223,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.Project">
-    <!--
-      @create by mybatis
-    -->
-    update project
-    set borrower_id = #{borrowerId,jdbcType=INTEGER},
-      nid = #{nid,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      type = #{type,jdbcType=TINYINT},
-      name = #{name,jdbcType=VARCHAR},
-      amount = #{amount,jdbcType=DECIMAL},
-      raise_amount = #{raiseAmount,jdbcType=DECIMAL},
-      min_tender = #{minTender,jdbcType=DECIMAL},
-      apr = #{apr,jdbcType=DECIMAL},
-      platform_apr = #{platformApr,jdbcType=DECIMAL},
-      period = #{period,jdbcType=TINYINT},
-      repayment_type = #{repaymentType,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      pre_sale_time = #{preSaleTime,jdbcType=TIMESTAMP},
-      publish_time = #{publishTime,jdbcType=TIMESTAMP},
-      recheck_time = #{recheckTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

@@ -25,22 +25,7 @@
     from discount_coupon_tender
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from discount_coupon_tender
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.DiscountCouponTender">
-    <!--
-      @create by mybatis
-    -->
-    insert into discount_coupon_tender (id, tender_id, discount_coupon_id, 
-      add_time)
-    values (#{id,jdbcType=INTEGER}, #{tenderId,jdbcType=INTEGER}, #{discountCouponId,jdbcType=INTEGER}, 
-      #{addTime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.DiscountCouponTender">
     <!--
       @create by mybatis
@@ -93,14 +78,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.DiscountCouponTender">
-    <!--
-      @create by mybatis
-    -->
-    update discount_coupon_tender
-    set tender_id = #{tenderId,jdbcType=INTEGER},
-      discount_coupon_id = #{discountCouponId,jdbcType=INTEGER},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

@@ -35,26 +35,7 @@
     from withdraw_log
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from withdraw_log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.withdraw.WithdrawLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into withdraw_log (id, user_id, status, user_type,
-      amount, real_amount, fee,use_free,
-      bank_num, bank_code, add_time, 
-      update_time, order_no)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{userType,jdbcType=TINYINT},
-      #{amount,jdbcType=DECIMAL}, #{realAmount,jdbcType=DECIMAL},#{fee,jdbcType=DECIMAL}, #{useFree,jdbcType=BIT},
-      #{bankNum,jdbcType=CHAR}, #{bankCode,jdbcType=CHAR}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{orderNo,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.withdraw.WithdrawLog">
     <!--
       @create by mybatis
@@ -188,25 +169,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.withdraw.WithdrawLog">
-    <!--
-      @create by mybatis
-    -->
-    update withdraw_log
-    set user_id = #{userId,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      user_type = #{userType,jdbcType=TINYINT},
-      amount = #{amount,jdbcType=DECIMAL},
-      real_amount = #{realAmount,jdbcType=DECIMAL},
-      fee = #{fee,jdbcType=DECIMAL},
-      use_free = #{useFree,jdbcType=BIT},
-      bank_num = #{bankNum,jdbcType=CHAR},
-      bank_code = #{bankCode,jdbcType=CHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      order_no = #{orderNo,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="countFreeWithdraw" resultType="java.lang.Integer">
         select count(1) from withdraw_log
         where status in (1,2)

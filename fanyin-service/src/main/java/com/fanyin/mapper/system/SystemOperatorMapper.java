@@ -11,22 +11,6 @@ import java.util.List;
  */
 public interface SystemOperatorMapper {
     /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id
-     * @return
-     */
-    int deleteByPrimaryKey(Integer id);
-
-    /**
-     * 插入数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int insert(SystemOperator record);
-
-    /**
      * 插入不为空的记录
      *
      * @param record
@@ -49,14 +33,6 @@ public interface SystemOperatorMapper {
      * @return
      */
     int updateByPrimaryKeySelective(SystemOperator record);
-
-    /**
-     * 根据主键来更新数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKey(SystemOperator record);
 
     /**
      * 根据手机号码查询管理员信息

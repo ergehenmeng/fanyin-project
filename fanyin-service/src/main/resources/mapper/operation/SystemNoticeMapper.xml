@@ -60,24 +60,6 @@
     </select>
 
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from system_notice
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.operation.SystemNotice">
-    <!--
-      @create by mybatis
-    -->
-    insert into system_notice (id, title, type, 
-      deleted, add_time, update_time, 
-      content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{deleted,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{content,jdbcType=LONGVARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.SystemNotice">
     <!--
       @create by mybatis
@@ -157,29 +139,6 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fanyin.model.operation.SystemNotice">
-    <!--
-      @create by mybatis
-    -->
-    update system_notice
-    set title = #{title,jdbcType=VARCHAR},
-      type = #{type,jdbcType=TINYINT},
-      deleted = #{deleted,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.operation.SystemNotice">
-    <!--
-      @create by mybatis
-    -->
-    update system_notice
-    set title = #{title,jdbcType=VARCHAR},
-      type = #{type,jdbcType=TINYINT},
-      deleted = #{deleted,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
 </mapper>

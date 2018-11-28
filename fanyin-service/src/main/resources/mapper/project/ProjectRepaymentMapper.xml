@@ -39,31 +39,7 @@
     from project_repayment
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from project_repayment
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.project.ProjectRepayment">
-    <!--
-      @create by mybatis
-    -->
-    insert into project_repayment (id, borrower_id, project_id, 
-      status,  period, periods,
-      capital, interest, platform_interest, 
-      coupon_interest, repay_time, real_repay_time, 
-      remark, add_time, update_time,repay_month,real_repay_month
-      )
-    values (#{id,jdbcType=INTEGER}, #{borrowerId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
-      #{status,jdbcType=TINYINT}, #{period,jdbcType=TINYINT}, #{periods,jdbcType=TINYINT},
-      #{capital,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, #{platformInterest,jdbcType=DECIMAL}, 
-      #{couponInterest,jdbcType=DECIMAL}, #{repayTime,jdbcType=DATE}, #{realRepayTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-      #{repayMonth,jdbcType=CHAR},#{realRepayMonth,jdbcType=CHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectRepayment">
     <!--
       @create by mybatis
@@ -231,29 +207,6 @@
             real_repay_month = #{realRepayMonth,jdbcType=CHAR},
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectRepayment">
-    <!--
-      @create by mybatis
-    -->
-    update project_repayment
-    set borrower_id = #{borrowerId,jdbcType=INTEGER},
-      project_id = #{projectId,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      period = #{period,jdbcType=TINYINT},
-      periods = #{periods,jdbcType=TINYINT},
-      capital = #{capital,jdbcType=DECIMAL},
-      interest = #{interest,jdbcType=DECIMAL},
-      platform_interest = #{platformInterest,jdbcType=DECIMAL},
-      coupon_interest = #{couponInterest,jdbcType=DECIMAL},
-      repay_time = #{repayTime,jdbcType=DATE},
-      real_repay_time = #{realRepayTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      repay_month = #{repayMonth,jdbcType=CHAR},
-      real_repay_month = #{realRepayMonth,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <insert id="insertBatchRepayment">

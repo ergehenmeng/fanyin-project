@@ -38,24 +38,7 @@
     </select>
 
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from integral_type
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.operation.IntegralType">
-    <!--
-      @create by mybatis
-    -->
-    insert into integral_type (id, nid, name, 
-      status, score, type, random, 
-      add_time, update_time,remark)
-    values (#{id,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT}, #{score,jdbcType=SMALLINT}, #{type,jdbcType=BIT}, #{random,jdbcType=BIT}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{update_timeTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.IntegralType">
     <!--
       @create by mybatis
@@ -162,20 +145,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.operation.IntegralType">
-    <!--
-      @create by mybatis
-    -->
-    update integral_type
-    set nid = #{nid,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT},
-      score = #{score,jdbcType=SMALLINT},
-      type = #{type,jdbcType=BIT},
-      random = #{random,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

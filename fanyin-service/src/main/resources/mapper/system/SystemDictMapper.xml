@@ -30,26 +30,7 @@
     from system_dict
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from system_dict
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.system.SystemDict">
-    <!--
-      @create by mybatis
-    -->
-    insert into system_dict (id, name, nid, 
-      hidden_value, value, deleted, 
-      locked, add_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nid,jdbcType=VARCHAR}, 
-      #{hiddenValue,jdbcType=TINYINT}, #{value,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
-      #{locked,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemDict">
     <!--
       @create by mybatis
@@ -147,21 +128,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemDict">
-    <!--
-      @create by mybatis
-    -->
-    update system_dict
-    set name = #{name,jdbcType=VARCHAR},
-      nid = #{nid,jdbcType=VARCHAR},
-      hidden_value = #{hiddenValue,jdbcType=TINYINT},
-      value = #{value,jdbcType=VARCHAR},
-      deleted = #{deleted,jdbcType=BIT},
-      locked = #{locked,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getDictByNid" resultMap="BaseResultMap">
         select <include refid="BaseColumnList" />
         from system_dict where deleted = false and nid = #{nid}

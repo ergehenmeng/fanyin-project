@@ -28,25 +28,7 @@
     from account_log
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from account_log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.AccountLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into account_log (id, user_id, amount, 
-      type, add_time, tender_id,remark
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
-      #{type,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{tenderId,jdbcType=INTEGER},
-      #{remark,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.AccountLog">
     <!--
       @create by mybatis
@@ -126,17 +108,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.AccountLog">
-    <!--
-      @create by mybatis
-    -->
-    update account_log
-    set user_id = #{userId,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=DECIMAL},
-      type = #{type,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      tender_id = #{tenderId,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

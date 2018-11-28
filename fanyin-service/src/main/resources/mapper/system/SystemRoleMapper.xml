@@ -28,24 +28,7 @@
     from system_role
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from system_role
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.system.SystemRole">
-    <!--
-      @create by mybatis
-    -->
-    insert into system_role (id, role_name, role_type, 
-      add_time, update_time, deleted, 
-      remark)
-    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleType,jdbcType=VARCHAR}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
-      #{remark,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemRole">
     <!--
       @create by mybatis
@@ -125,19 +108,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.system.SystemRole">
-    <!--
-      @create by mybatis
-    -->
-    update system_role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      role_type = #{roleType,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      deleted = #{deleted,jdbcType=BIT},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getList" parameterType="com.fanyin.dto.system.role.RoleQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_role

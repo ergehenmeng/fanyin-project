@@ -11,13 +11,6 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface SystemConfigMapper {
-    /**
-     * 根据主键删除数据库的记录
-     *
-     * @param id
-     * @return
-     */
-    int deleteByPrimaryKey(Integer id);
 
     /**
      * 根据条件查询系统参数列表:参数类型,锁定状态,nid,备注信息

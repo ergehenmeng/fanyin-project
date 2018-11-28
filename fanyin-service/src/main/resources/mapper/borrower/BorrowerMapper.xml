@@ -30,26 +30,7 @@
     from borrower
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from borrower
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.borrower.Borrower">
-    <!--
-      @create by mybatis
-    -->
-    insert into borrower (id, mobile, password, 
-      deposit_no, deposit_status, locked, 
-      deleted, add_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=CHAR}, #{password,jdbcType=VARCHAR}, 
-      #{depositNo,jdbcType=VARCHAR}, #{depositStatus,jdbcType=TINYINT}, #{locked,jdbcType=BIT}, 
-      #{deleted,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.borrower.Borrower">
     <!--
       @create by mybatis
@@ -147,19 +128,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.borrower.Borrower">
-    <!--
-      @create by mybatis
-    -->
-    update borrower
-    set mobile = #{mobile,jdbcType=CHAR},
-      password = #{password,jdbcType=VARCHAR},
-      deposit_no = #{depositNo,jdbcType=VARCHAR},
-      deposit_status = #{depositStatus,jdbcType=TINYINT},
-      locked = #{locked,jdbcType=BIT},
-      deleted = #{deleted,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

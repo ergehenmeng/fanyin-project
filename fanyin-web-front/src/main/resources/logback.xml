@@ -67,6 +67,7 @@
     <logger name="jdbc.resultset" level="warn"/>
     <logger name="jdbc.sqltiming" level="warn"/>
     <logger name="jdbc.connection" level="warn"/>
-    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework" level="error"/>
+    <logger name="freemarker" level="error"/>
 
 </configuration>

@@ -33,26 +33,7 @@
     from discount_coupon
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from discount_coupon
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.DiscountCoupon">
-    <!--
-      @create by mybatis
-    -->
-    insert into discount_coupon (id, user_id, name, 
-      status,type, face_value, start_time,
-      end_time, period_limit, amount_limit, 
-      add_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT},#{type,jdbcType=TINYINT}, #{faceValue,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP},
-      #{endTime,jdbcType=TIMESTAMP}, #{periodLimit,jdbcType=TINYINT}, #{amountLimit,jdbcType=DECIMAL}, 
-      #{addTime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.DiscountCoupon">
     <!--
       @create by mybatis
@@ -166,23 +147,6 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.DiscountCoupon">
-    <!--
-      @create by mybatis
-    -->
-    update discount_coupon
-    set user_id = #{userId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      type = #{type,jdbcType=TINYINT},
-      face_value = #{faceValue,jdbcType=DECIMAL},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      period_limit = #{periodLimit,jdbcType=TINYINT},
-      amount_limit = #{amountLimit,jdbcType=DECIMAL},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

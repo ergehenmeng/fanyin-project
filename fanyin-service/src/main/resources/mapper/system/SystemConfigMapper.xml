@@ -33,13 +33,6 @@
     from system_config
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from system_config
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
   <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemConfig">
     <!--
       @create by mybatis

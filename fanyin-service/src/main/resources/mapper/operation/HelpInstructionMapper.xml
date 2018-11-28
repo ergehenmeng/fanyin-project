@@ -30,26 +30,7 @@
     from help_instruction
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from help_instruction
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.operation.HelpInstruction">
-    <!--
-      @create by mybatis
-    -->
-    insert into help_instruction (id, type, status, 
-      ask, answer, sort, 
-      add_time, update_time, deleted
-      )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
-      #{ask,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.HelpInstruction">
     <!--
       @create by mybatis
@@ -147,21 +128,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.operation.HelpInstruction">
-    <!--
-      @create by mybatis
-    -->
-    update help_instruction
-    set type = #{type,jdbcType=TINYINT},
-      status = #{status,jdbcType=TINYINT},
-      ask = #{ask,jdbcType=VARCHAR},
-      answer = #{answer,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      deleted = #{deleted,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getList" parameterType="com.fanyin.dto.operation.HelpQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList" />
         from help_instruction where deleted = false

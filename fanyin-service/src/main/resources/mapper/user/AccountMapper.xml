@@ -37,26 +37,7 @@
         select <include refid="BaseColumnList"/>
         from account where user_id = #{userId}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from account
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.user.Account">
-    <!--
-      @create by mybatis
-    -->
-    insert into account (id, user_id, total, 
-      available_balance, recharge, tender_freeze, 
-      withdraw_freeze, accumulated_income, wait_capital, 
-      wait_interest,version)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{total,jdbcType=DECIMAL}, 
-      #{availableBalance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, #{tenderFreeze,jdbcType=DECIMAL}, 
-      #{withdrawFreeze,jdbcType=DECIMAL}, #{accumulatedIncome,jdbcType=DECIMAL}, #{waitCapital,jdbcType=DECIMAL}, 
-      #{waitInterest,jdbcType=DECIMAL},#{version,jdbcType=INTEGER})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.user.Account">
     <!--
       @create by mybatis
@@ -170,21 +151,5 @@
     </set>
     where version = #{version} and id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.user.Account">
-    <!--
-      @create by mybatis
-    -->
-    update account
-    set user_id = #{userId,jdbcType=INTEGER},
-      total = #{total,jdbcType=DECIMAL},
-      available_balance = #{availableBalance,jdbcType=DECIMAL},
-      recharge = #{recharge,jdbcType=DECIMAL},
-      tender_freeze = #{tenderFreeze,jdbcType=DECIMAL},
-      withdraw_freeze = #{withdrawFreeze,jdbcType=DECIMAL},
-      accumulated_income = #{accumulatedIncome,jdbcType=DECIMAL},
-      wait_capital = #{waitCapital,jdbcType=DECIMAL},
-      wait_interest = #{waitInterest,jdbcType=DECIMAL},
-      version = #{version,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

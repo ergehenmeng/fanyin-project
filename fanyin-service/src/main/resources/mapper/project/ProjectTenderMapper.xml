@@ -35,30 +35,7 @@
     from project_tender
     where id = #{id,jdbcType=INTEGER}
   </select>
-    
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from project_tender
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fanyin.model.project.ProjectTender">
-    <!--
-      @create by mybatis
-    -->
-    insert into project_tender (id, user_id, project_id, 
-      account, base_interest, platform_interest, voucher_interest,
-      coupon_interest, status, channel, 
-      ip, add_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
-      #{account,jdbcType=DECIMAL}, #{baseInterest,jdbcType=DECIMAL}, #{platformInterest,jdbcType=DECIMAL}, 
-      #{couponInterest,jdbcType=DECIMAL},#{voucherInterest,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, #{channel,jdbcType=CHAR},
-      #{ip,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectTender" useGeneratedKeys="true">
     <selectKey resultType="java.lang.Integer" keyColumn="id" keyProperty="id" order="AFTER">
         select LAST_INSERT_ID()
@@ -196,26 +173,6 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.project.ProjectTender">
-    <!--
-      @create by mybatis
-    -->
-    update project_tender
-    set user_id = #{userId,jdbcType=INTEGER},
-      project_id = #{projectId,jdbcType=INTEGER},
-      account = #{account,jdbcType=DECIMAL},
-      base_interest = #{baseInterest,jdbcType=DECIMAL},
-      platform_interest = #{platformInterest,jdbcType=DECIMAL},
-      coupon_interest = #{couponInterest,jdbcType=DECIMAL},
-      voucher_interest = #{voucherInterest,jdbcType=DECIMAL},
-      status = #{status,jdbcType=TINYINT},
-      channel = #{channel,jdbcType=CHAR},
-      ip = #{ip,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-
 
     <resultMap id="resultMapCoupon" type="com.fanyin.model.project.ProjectTender" extends="BaseResultMap">
         <collection property="couponList" ofType="com.fanyin.model.user.DiscountCoupon" >

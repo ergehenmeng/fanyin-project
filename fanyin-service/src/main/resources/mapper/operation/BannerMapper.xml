@@ -17,12 +17,13 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+      <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, type, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time
+    id, type, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -33,6 +34,7 @@
     from banner
     where id = #{id,jdbcType=INTEGER}
   </select>
+
     <select id="getBannerList" resultMap="BaseResultMap">
        select <include refid="BaseColumnList"/>
        from banner where
@@ -48,19 +50,7 @@
     delete from banner
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.fanyin.model.operation.Banner">
-    <!--
-      @create by mybatis
-    -->
-    insert into banner (id, type, client_type, 
-      img_url, turn_url, sort,
-      start_time, end_time, click, 
-      remark,add_time,update_time)
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{clientType,jdbcType=BIT}, 
-      #{imgUrl,jdbcType=VARCHAR}, #{turnUrl,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT},
-      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{click,jdbcType=BIT}, 
-      #{remark,jdbcType=VARCHAR},#{addTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.Banner">
     <!--
       @create by mybatis
@@ -103,6 +93,9 @@
         <if test="updateTime != null">
             update_time,
         </if>
+        <if test="deleted != null">
+            deleted,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -140,6 +133,9 @@
         </if>
         <if test="updateTime != null">
             #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="deleted != null">
+            #{deleted,jdbcType=BIT},
         </if>
     </trim>
   </insert>
@@ -182,25 +178,10 @@
         <if test="updateTime != null">
             update_time = #{updateTime,jdbcType=TIMESTAMP},
         </if>
+        <if test="deleted != null">
+            deleted = #{deleted,jdbcType=BIT},
+        </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanyin.model.operation.Banner">
-    <!--
-      @create by mybatis
-    -->
-    update banner
-    set type = #{type,jdbcType=TINYINT},
-      client_type = #{clientType,jdbcType=BIT},
-      img_url = #{imgUrl,jdbcType=VARCHAR},
-      turn_url = #{turnUrl,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=TINYINT},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      click = #{click,jdbcType=BIT},
-      remark = #{remark,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
