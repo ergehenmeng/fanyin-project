@@ -8,7 +8,7 @@
     <link href="/static/css/home/home.css?v=${version!}" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/static/js/home.js?v=${version!}" ></script>
     <script type="text/javascript" >
-        var isInit = ${isInit!'false'};//0不是初始用户,1是初始用户
+        var isInit = ${isInit?c};//0不是初始用户,1是初始用户
     </script>
 </head>
 <body class="easyui-layout">
@@ -36,7 +36,7 @@
                     <#if menu.subList?? && menu.subList?size gt 0 >
                         <ul class="submenu">
                             <#list menu.subList as child >
-                                <li><a href="#" rel="${(child.url)!}">${(child.name)!}</a></li>
+                                <li><a href="javascript:void(0);" rel="${(child.url)!}">${(child.name)!}</a></li>
                             </#list>
                         </ul>
                     </#if>

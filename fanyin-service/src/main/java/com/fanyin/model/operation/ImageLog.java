@@ -74,4 +74,9 @@ public class ImageLog implements Serializable {
      * 对应字段 : deleted<br>
      */
     private Boolean deleted;
+
+    /**
+     * 类型名称 通过数据字典转换
+     */
+    private String typeName;
 }

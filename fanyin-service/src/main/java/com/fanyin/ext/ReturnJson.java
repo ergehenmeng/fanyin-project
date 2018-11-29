@@ -1,5 +1,7 @@
 package com.fanyin.ext;
 
+import com.fanyin.enums.ErrorCodeEnum;
+
 import java.io.Serializable;
 
 /**
@@ -27,6 +29,12 @@ public class ReturnJson<T> implements Serializable {
 
     public static <T> ReturnJson<T> getInstance(){
         return new ReturnJson<>();
+    }
+
+    public ReturnJson<T> setError(ErrorCodeEnum error){
+        this.code = error.getCode();
+        this.msg = error.getMsg();
+        return this;
     }
 
     public T getData() {

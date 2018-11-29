@@ -21,5 +21,13 @@ public interface AccessTokenService {
      * @param token token对象
      */
     void saveAccessToken(AccessToken token);
+
+    /**
+     * 创建登陆后的token,并将token放入缓存中
+     * @param userId 用户id
+     * @param source 登陆来源 ANDROID,IOS
+     * @return token
+     */
+    AccessToken createAccessToken(int userId, String source);
 }
 

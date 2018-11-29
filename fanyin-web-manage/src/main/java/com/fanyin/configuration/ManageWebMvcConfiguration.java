@@ -26,7 +26,7 @@ public class ManageWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**",applicationProperties.getUploadDir() + AbstractUploadController.DEFAULT_DIR);
+        registry.addResourceHandler("/upload/**").addResourceLocations(applicationProperties.getUploadDir() + AbstractUploadController.DEFAULT_DIR);
         super.addResourceHandlers(registry);
     }
 

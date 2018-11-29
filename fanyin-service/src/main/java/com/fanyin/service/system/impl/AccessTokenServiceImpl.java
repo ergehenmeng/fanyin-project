@@ -1,10 +1,10 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.constant.RedisConstant;
 import com.fanyin.dto.security.AccessToken;
 import com.fanyin.service.system.AccessTokenService;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.utils.Sha256Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,14 +14,28 @@ import org.springframework.stereotype.Service;
 @Service("accessTokenService")
 public class AccessTokenServiceImpl implements AccessTokenService {
 
+    @Autowired
+    private RedisCacheService redisCacheService;
+
     @Override
-    @Cacheable(cacheNames = RedisConstant.ACCESS_TOKEN,key = "#p0")
     public AccessToken getAccessToken(String accessKey) {
-        return null;
+        return redisCacheService.getAccessToken(accessKey);
     }
 
     @Override
-    @CachePut(cacheNames = RedisConstant.ACCESS_TOKEN,key = "#token.accessKey",cacheManager = "longCacheManager")
     public void saveAccessToken(AccessToken token) {
+        redisCacheService.cacheAccessToken(token);
+    }
+
+    @Override
+    public AccessToken createAccessToken(int userId, String source) {
+        String accessKey = Sha256Util.sha256Hmac(userId + source);
+        String accessToken = Sha256Util.sha256Hmac(userId + accessKey);
+        AccessToken token = new AccessToken();
+        token.setAccessKey(accessKey);
+        token.setAccessToken(accessToken);
+        token.setUserId(userId);
+        redisCacheService.cacheAccessToken(token);
+        return token;
     }
 }

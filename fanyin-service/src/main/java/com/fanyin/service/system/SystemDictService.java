@@ -20,4 +20,6 @@ public interface SystemDictService {
      */
     List<SystemDict> getDictByNid(String nid);
 
+
+
 }

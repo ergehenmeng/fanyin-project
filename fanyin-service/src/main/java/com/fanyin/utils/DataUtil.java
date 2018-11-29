@@ -12,7 +12,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/11/21 10:10
  */
-public class TransferUtil {
+public class DataUtil {
 
     /**
      * 分页数据格式转换
@@ -20,7 +20,7 @@ public class TransferUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S,T> Paging<T> transfer(PageInfo<S> pageInfo,Transfer<S,T> transfer){
+    public static <S,T> Paging<T> swith(PageInfo<S> pageInfo,Transfer<S,T> transfer){
 
         Paging<T> paging = new Paging<>();
 
@@ -48,7 +48,7 @@ public class TransferUtil {
      * @param <T> 目标数据类型
      * @return 结果数据列表
      */
-    public static <S,T> List<T> transfer(List<S> sourceList,Transfer<S,T> transfer){
+    public static <S,T> List<T> swith(List<S> sourceList,Transfer<S,T> transfer){
         List<T> resultList = Lists.newArrayList();
         sourceList.forEach(s -> resultList.add(transfer.transfer(s)));
         return resultList;

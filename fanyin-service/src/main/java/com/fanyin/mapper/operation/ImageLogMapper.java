@@ -1,6 +1,6 @@
 package com.fanyin.mapper.operation;
 
-import com.fanyin.dto.operation.ImageLogQueryRequest;
+import com.fanyin.dto.operation.ImageQueryRequest;
 import com.fanyin.model.operation.ImageLog;
 
 import java.util.List;
@@ -38,5 +38,5 @@ public interface ImageLogMapper {
      * @param request 请求
      * @return 列表
      */
-    List<ImageLog> getList(ImageLogQueryRequest request);
+    List<ImageLog> getList(ImageQueryRequest request);
 }

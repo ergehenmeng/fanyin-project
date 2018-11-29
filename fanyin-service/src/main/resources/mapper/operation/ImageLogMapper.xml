@@ -130,7 +130,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="getList" parameterType="com.fanyin.dto.operation.ImageLogQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.fanyin.dto.operation.ImageQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from image_log
         where deleted = false

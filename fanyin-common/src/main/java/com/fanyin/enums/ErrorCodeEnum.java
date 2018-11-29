@@ -11,6 +11,10 @@ package com.fanyin.enums;
 public enum ErrorCodeEnum {
 
     /**
+     * 系统服务异常
+     */
+    SYSTEM_ERROR(9999,"系统服务异常"),
+    /**
      * json转换异常
      */
     JSON_FORMAT_ERROR(1000,"json转换异常"),

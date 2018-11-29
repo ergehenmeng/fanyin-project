@@ -35,7 +35,7 @@ public abstract class AbstractUploadController extends AbstractController{
     /**
      * 默认配置,如果不指定则会自动创建文件
      */
-    public static final String DEFAULT_DIR = "/upload/";
+    public static final String DEFAULT_DIR = SPT + "upload" + SPT;
 
     /**
      * 单文件上传 最大5M
@@ -51,6 +51,11 @@ public abstract class AbstractUploadController extends AbstractController{
      * 默认文件类型
      */
     private static final String DEFAULT_FILE_TYPE = "img";
+
+    /**
+     * 绝对路径
+     */
+    private static final String ABSOLUTE_PATH = "file:///";
 
     /**
      * 保存单文件 最大默认5M
@@ -136,7 +141,7 @@ public abstract class AbstractUploadController extends AbstractController{
      */
     private File getChildFile(String parentPath,String fileName){
         //根目录+父级目录+文件名称 确认总路径
-        File parentFile = new File(applicationProperties.getUploadDir() + parentPath);
+        File parentFile = new File(getDir() + parentPath);
         if(!parentFile.exists()){
             boolean mkdirs = parentFile.mkdirs();
             if(!mkdirs){
@@ -147,6 +152,13 @@ public abstract class AbstractUploadController extends AbstractController{
         return new File(parentFile,fileName);
     }
 
+    private String getDir(){
+        String uploadDir = applicationProperties.getUploadDir();
+        if(uploadDir.startsWith(ABSOLUTE_PATH)){
+            uploadDir = uploadDir.replace(ABSOLUTE_PATH,"");
+        }
+        return uploadDir;
+    }
 
     /**
      * 生成文件保存路径 同时也是url路径

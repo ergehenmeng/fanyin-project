@@ -90,17 +90,17 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
             }
             if(NID.equals(key)){
                 nid = value.toString();
-            }else if(NAME.equals(value)){
-                builder.append("name='").append(value).append("' ");
-            }else if(CLS.equals(value)){
-                builder.append("class='").append(value).append("' ");
-            }else if(ID.equals(value)){
-                builder.append("id='").append(value).append("' ");
+            }else if(NAME.equals(key)){
+                builder.append(" name='").append(value).append("' ");
+            }else if(CLS.equals(key)){
+                builder.append(" class='").append(value).append("' ");
+            }else if(ID.equals(key)){
+                builder.append(" id='").append(value).append("' ");
             }else if(TITLE.equals(key)){
-                builder.append("title='").append(value).append("' ");
+                builder.append(" title='").append(value).append("' ");
             }else if(VALUE.equals(key)){
                 optionValue = value.toString();
-            }else if(TOTAL.equals(value)){
+            }else if(TOTAL.equals(key)){
                 total = value.toString();
             }
         }

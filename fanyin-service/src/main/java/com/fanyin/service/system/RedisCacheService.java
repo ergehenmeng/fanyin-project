@@ -1,5 +1,6 @@
 package com.fanyin.service.system;
 
+import com.fanyin.dto.security.AccessToken;
 import com.fanyin.dto.tender.TenderResponse;
 
 /**
@@ -13,5 +14,18 @@ public interface RedisCacheService {
      * @param response 对象
      */
     void cacheTenderResponse(TenderResponse response);
+
+    /**
+     * 根据accessKey查找token
+     * @param accessKey accessKey
+     * @return token
+     */
+    AccessToken getAccessToken(String accessKey);
+
+    /**
+     * 保存token 30分钟超时时间
+     * @param token token对象
+     */
+    void cacheAccessToken(AccessToken token);
 }
 

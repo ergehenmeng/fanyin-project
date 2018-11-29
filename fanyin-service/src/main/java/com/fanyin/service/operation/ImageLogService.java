@@ -1,6 +1,8 @@
 package com.fanyin.service.operation;
 
-import com.fanyin.dto.operation.ImageLogQueryRequest;
+import com.fanyin.dto.operation.ImageAddRequest;
+import com.fanyin.dto.operation.ImageEditRequest;
+import com.fanyin.dto.operation.ImageQueryRequest;
 import com.fanyin.model.operation.ImageLog;
 import com.github.pagehelper.PageInfo;
 
@@ -15,6 +17,24 @@ public interface ImageLogService {
      * @param request 查询条件
      * @return 结果
      */
-    PageInfo<ImageLog> getByPage(ImageLogQueryRequest request);
+    PageInfo<ImageLog> getByPage(ImageQueryRequest request);
+
+    /**
+     * 添加图片记录
+     * @param request 前台参数
+     */
+    void addImageLog(ImageAddRequest request);
+
+    /**
+     * 删除图片记录信息
+     * @param id id
+     */
+    void deleteImageLog(Integer id);
+
+    /**
+     * 更新图片信息
+     * @param request 前台参数
+     */
+    void updateImageLog(ImageEditRequest request);
 }
 

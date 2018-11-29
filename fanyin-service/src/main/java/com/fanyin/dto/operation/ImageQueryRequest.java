@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ImageLogQueryRequest extends PageQuery implements Serializable {
+public class ImageQueryRequest extends PageQuery implements Serializable {
 
     private static final long serialVersionUID = 4515347312371743977L;
 
