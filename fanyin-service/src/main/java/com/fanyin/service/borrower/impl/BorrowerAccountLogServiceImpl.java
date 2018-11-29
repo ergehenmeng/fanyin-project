@@ -14,8 +14,6 @@ import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 /**
  * 借款人资金记录
  * @author 二哥很猛

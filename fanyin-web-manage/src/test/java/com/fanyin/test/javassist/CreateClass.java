@@ -1,6 +1,9 @@
 package com.fanyin.test.javassist;
 
-import org.apache.ibatis.javassist.*;
+import org.apache.ibatis.javassist.ClassPool;
+import org.apache.ibatis.javassist.CtClass;
+import org.apache.ibatis.javassist.CtMethod;
+import org.apache.ibatis.javassist.CtNewMethod;
 
 import java.lang.reflect.Method;
 

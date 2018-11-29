@@ -1,6 +1,5 @@
 package com.fanyin.model.project;
 
-import com.fanyin.model.user.User;
 import lombok.Data;
 
 import java.io.Serializable;

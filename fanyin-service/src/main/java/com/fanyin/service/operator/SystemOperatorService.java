@@ -1,7 +1,7 @@
 package com.fanyin.service.operator;
 
-import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
+import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.model.system.SystemOperator;
 import com.github.pagehelper.PageInfo;
 

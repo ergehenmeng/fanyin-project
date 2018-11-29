@@ -1,7 +1,6 @@
 package com.fanyin.test.thread;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;

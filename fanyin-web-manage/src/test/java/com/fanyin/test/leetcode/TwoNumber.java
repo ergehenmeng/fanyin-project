@@ -1,7 +1,6 @@
 package com.fanyin.test.leetcode;
 
 import com.fanyin.test.leetcode.assist.ListNode;
-import org.springframework.security.access.method.P;
 
 /**
  * @author 二哥很猛

@@ -8,7 +8,6 @@ import org.springframework.aop.ClassFilter;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 
-
 import java.lang.reflect.Method;
 
 /**

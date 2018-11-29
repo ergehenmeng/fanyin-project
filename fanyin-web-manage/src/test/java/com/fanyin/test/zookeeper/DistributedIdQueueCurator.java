@@ -2,7 +2,10 @@ package com.fanyin.test.zookeeper;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.recipes.queue.*;
+import org.apache.curator.framework.recipes.queue.DistributedIdQueue;
+import org.apache.curator.framework.recipes.queue.QueueBuilder;
+import org.apache.curator.framework.recipes.queue.QueueConsumer;
+import org.apache.curator.framework.recipes.queue.QueueSerializer;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.CloseableUtils;

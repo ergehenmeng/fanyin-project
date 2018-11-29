@@ -1,10 +1,8 @@
 package com.fanyin.test.io.netty.websocket;
 
-import com.fanyin.exception.BusinessException;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.websocketx.*;
 
 import java.util.Date;

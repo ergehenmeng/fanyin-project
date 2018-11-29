@@ -2,7 +2,6 @@ package com.fanyin.test.aop.before;
 
 import com.fanyin.test.aop.advisor.StaticMethodAdvisor;
 import org.springframework.aop.BeforeAdvice;
-
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.framework.ProxyFactory;
 

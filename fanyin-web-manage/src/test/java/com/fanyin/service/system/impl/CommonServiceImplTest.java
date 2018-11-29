@@ -5,8 +5,6 @@ import com.fanyin.service.system.CommonService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
-
 public class CommonServiceImplTest extends AbstractTest {
 
     @Autowired

@@ -1,8 +1,8 @@
 package com.fanyin.service.operation;
 
 import com.fanyin.dto.operation.NoticeAddRequest;
-import com.fanyin.dto.operation.NoticeQueryRequest;
 import com.fanyin.dto.operation.NoticeEditRequest;
+import com.fanyin.dto.operation.NoticeQueryRequest;
 import com.fanyin.model.operation.SystemNotice;
 import com.github.pagehelper.PageInfo;
 

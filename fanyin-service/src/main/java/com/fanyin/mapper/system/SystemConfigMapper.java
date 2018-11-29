@@ -1,9 +1,8 @@
 package com.fanyin.mapper.system;
 
-import com.fanyin.model.system.SystemConfig;
-import com.fanyin.dto.system.config.ConfigQueryRequest;
 import com.fanyin.dto.system.config.ConfigEditRequest;
-
+import com.fanyin.dto.system.config.ConfigQueryRequest;
+import com.fanyin.model.system.SystemConfig;
 
 import java.util.List;
 

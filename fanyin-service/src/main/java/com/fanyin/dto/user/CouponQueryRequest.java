@@ -1,7 +1,6 @@
 package com.fanyin.dto.user;
 
 import com.fanyin.ext.PageQuery;
-import com.fanyin.utils.DateUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

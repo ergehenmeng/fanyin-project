@@ -1,7 +1,6 @@
 package com.fanyin.service.user.impl;
 
 import com.fanyin.mapper.user.AccountLogMapper;
-import com.fanyin.model.project.ProjectTender;
 import com.fanyin.model.user.AccountLog;
 import com.fanyin.service.user.AccountLogService;
 import org.springframework.beans.factory.annotation.Autowired;

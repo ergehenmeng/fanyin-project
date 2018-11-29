@@ -1,7 +1,7 @@
 package com.fanyin.service.operator.impl;
 
-import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
+import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.system.SystemOperatorMapper;

@@ -1,11 +1,11 @@
 package com.fanyin.service.system.impl;
 
+import com.fanyin.dto.system.menu.MenuAddRequest;
+import com.fanyin.dto.system.menu.MenuEditRequest;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.system.SystemMenuMapper;
 import com.fanyin.model.system.SystemMenu;
-import com.fanyin.dto.system.menu.MenuAddRequest;
-import com.fanyin.dto.system.menu.MenuEditRequest;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.utils.BeanCopyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
