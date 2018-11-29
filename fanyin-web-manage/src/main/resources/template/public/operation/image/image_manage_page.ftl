@@ -13,6 +13,9 @@
         var addTitle = "添加图片";
         var addUrl = "/public/operation/image/add_image_page";
 
+        var editTitle = "添加图片";
+        var editUrl = "/public/operation/image/edit_image_page";
+
         var  delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
         var delUrl = "/operation/image/delete_image";
 
@@ -39,15 +42,21 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑图片"> 编辑</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除图片"> 删除</a>';
                             str += '</dd>';
                             str += '</dl>';
                             return str;
                         }
                     },
-                    {field : "name",title : "名称",width : 150,align : "center"},
+                    {field : "name",title : "名称",width : 150,align : "center",
+                        formatter:function(value,rows){
+                            var url = rows.url.replace(/\\/g,"/");
+                            return '<a href="javascript:void(0);" onclick=parent.imagePreview(\''+ url +'\');>' + value + '</a>';
+                        }
+                    },
                     {field : "typeName",title : "分类",width : 150,align : "center"},
-                    {field : "url",title : "路径",width : 300,align : "center" },
+                    {field : "url",title : "路径",width : 600,align : "center" },
                     {field : "size",title : "大小",width : 100,align : "center",
                         formatter:function(value){
                             return (parseFloat(value) / (1024 * 1024)).toFixed(2) + "M";
@@ -63,7 +72,7 @@
                             return getLocalTime(value,4);
                         }
                     },
-                    {field : "remark",title : "备注",align : "center",width : 250 }
+                    {field : "remark",title : "备注",align : "center",width : 300 }
                 ] ]
             });
         });
