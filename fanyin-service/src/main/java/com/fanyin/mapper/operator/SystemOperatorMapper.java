@@ -1,4 +1,4 @@
-package com.fanyin.mapper.system;
+package com.fanyin.mapper.operator;
 
 
 import com.fanyin.dto.system.operator.OperatorQueryRequest;

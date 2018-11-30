@@ -21,7 +21,7 @@
 
         $(function() {
             treeGrid = $("#treeGrid").treegrid({
-                url : "/system/menu/menu_list",
+                url : "/system/menu/menu_list_page",
                 loadFilter : pageFilter,
                 border : false,
                 animate : true,

@@ -3,7 +3,9 @@ package com.fanyin.service.system.impl;
 import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
+import com.fanyin.mapper.system.SystemOperatorRoleMapper;
 import com.fanyin.mapper.system.SystemRoleMapper;
+import com.fanyin.model.system.SystemOperatorRole;
 import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.BeanCopyUtil;
@@ -24,6 +26,9 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Autowired
     private SystemRoleMapper systemRoleMapper;
+
+    @Autowired
+    private SystemOperatorRoleMapper systemOperatorRoleMapper;
 
     @Override
     public PageInfo<SystemRole> getByPage(RoleQueryRequest request) {
@@ -58,5 +63,16 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         role.setDeleted(false);
         role.setAddTime(DateUtil.getNow());
         systemRoleMapper.insertSelective(role);
+    }
+
+    @Override
+    public List<SystemRole> getList() {
+        RoleQueryRequest request = new RoleQueryRequest();
+        return systemRoleMapper.getList(request);
+    }
+
+    @Override
+    public List<Integer> getByOperatorId(Integer operatorId) {
+        return systemOperatorRoleMapper.getByOperatorId(operatorId);
     }
 }

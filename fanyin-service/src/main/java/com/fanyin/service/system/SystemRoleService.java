@@ -3,8 +3,11 @@ package com.fanyin.service.system;
 import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
+import com.fanyin.model.system.SystemOperatorRole;
 import com.fanyin.model.system.SystemRole;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,7 +35,6 @@ public interface SystemRoleService {
      */
     void updateRole(RoleEditRequest request);
 
-
     /**
      * 删除角色信息
      * @param id 主键
@@ -44,5 +46,18 @@ public interface SystemRoleService {
      * @param request 前台参数
      */
     void addRole(RoleAddRequest request);
+
+    /**
+     * 获取所有可用的用户角色
+     * @return 角色列表
+     */
+    List<SystemRole> getList();
+
+    /**
+     * 获取管理人员所拥有的角色id
+     * @param operatorId 管理人员id
+     * @return 角色id列表
+     */
+    List<Integer> getByOperatorId(Integer operatorId);
 }
 

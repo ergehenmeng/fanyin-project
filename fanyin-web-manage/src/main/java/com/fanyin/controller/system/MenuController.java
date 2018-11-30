@@ -42,9 +42,9 @@ public class MenuController extends AbstractController {
      * 获取所有可用的菜单列表
      * @return list
      */
-    @PostMapping("/system/menu/menu_list")
+    @PostMapping("/system/menu/menu_list_page")
     @ResponseBody
-    public ReturnJson<List<SystemMenu>> menuList(){
+    public ReturnJson<List<SystemMenu>> menuListPage(){
         List<SystemMenu> allList = systemMenuService.getAllList();
         return ReturnJson.<List<SystemMenu>>getInstance().setData(allList);
     }

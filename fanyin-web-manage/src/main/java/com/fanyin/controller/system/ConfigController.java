@@ -52,9 +52,9 @@ public class ConfigController extends AbstractController {
      * @param request 查询
      * @return 分页列表
      */
-    @PostMapping("/system/config/config_list")
+    @PostMapping("/system/config/config_list_page")
     @ResponseBody
-    public Paging<SystemConfig> systemConfigList(ConfigQueryRequest request){
+    public Paging<SystemConfig> configListPage(ConfigQueryRequest request){
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
         return new Paging<>(listByPage);
     }

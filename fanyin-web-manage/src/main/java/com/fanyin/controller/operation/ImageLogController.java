@@ -14,6 +14,7 @@ import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,9 +36,9 @@ public class ImageLogController extends AbstractUploadController {
      * 分页查询图片列表
      * @return 分页数据
      */
-    @RequestMapping("/operation/image/image_list")
+    @RequestMapping("/operation/image/image_list_page")
     @ResponseBody
-    public Paging<ImageLog> imageList(ImageQueryRequest request){
+    public Paging<ImageLog> imageListPage(ImageQueryRequest request){
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.swith(page, imageLog -> {
             //将数据字典类型转换实际类型
@@ -88,4 +89,14 @@ public class ImageLogController extends AbstractUploadController {
         return ReturnJson.getInstance();
     }
 
+    /**
+     * 图片编辑页面
+     * @return 图片地址
+     */
+    @RequestMapping("/public/operation/image/edit_image_page")
+    public String editImagePage(Model model, Integer id){
+        ImageLog log = imageLogService.getById(id);
+        model.addAttribute("log",log);
+        return "public/operation/image/edit_image_page";
+    }
 }

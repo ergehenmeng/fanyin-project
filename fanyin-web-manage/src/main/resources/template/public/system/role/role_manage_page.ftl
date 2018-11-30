@@ -21,7 +21,7 @@
 
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
-                url : "/system/role/role_list",
+                url : "/system/role/role_list_page",
                 border : false,
                 fit : true,
                 fitColumns : false,

@@ -1,5 +1,6 @@
 package com.fanyin.controller.system;
 
+import com.fanyin.dto.common.CheckBox;
 import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
@@ -7,12 +8,15 @@ import com.fanyin.ext.Paging;
 import com.fanyin.ext.ReturnJson;
 import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
+import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -29,11 +33,25 @@ public class RoleController {
      * @param request 查询条件
      * @return 列表
      */
-    @RequestMapping("/system/role/role_list")
+    @RequestMapping("/system/role/role_list_page")
     @ResponseBody
-    public Paging<SystemRole> roleList(RoleQueryRequest request){
+    public Paging<SystemRole> roleListPage(RoleQueryRequest request){
         PageInfo<SystemRole> page = systemRoleService.getByPage(request);
         return new Paging<>(page);
+    }
+
+    /**
+     * 获取所有可用的角色列表
+     * @return 角色列表
+     */
+    @RequestMapping("/system/role/role_list")
+    @ResponseBody
+    public ReturnJson<List<CheckBox>> roleList(){
+        List<SystemRole> list = systemRoleService.getList();
+        //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
+        return ReturnJson.<List<CheckBox>>getInstance().setData(
+                DataUtil.swith(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName()))
+        );
     }
 
     /**

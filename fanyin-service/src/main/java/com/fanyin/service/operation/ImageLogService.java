@@ -36,5 +36,12 @@ public interface ImageLogService {
      * @param request 前台参数
      */
     void updateImageLog(ImageEditRequest request);
+
+    /**
+     * 根据主键查询
+     * @param id 主键
+     * @return 图片上传记录
+     */
+    ImageLog getById(Integer id);
 }
 

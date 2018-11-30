@@ -1,3 +1,5 @@
+//loadSuccess数据结果应为
+//[{"hide":"","show":"1"},{....}]
 $.fn.multipleSelect = function(options){
     var opts = $.extend({
         target:"#target",//隐藏值保存的地方
@@ -13,7 +15,7 @@ $.fn.multipleSelect = function(options){
      * 格式必须为[{hide:1,show:'业务部'},{hide:2,show,'销售部'},{hide:3,show:'行政部'},]
      */
     checkboxSelect.getRemoteData = function () {
-        if(opts.url != ""){
+        if(opts.url){
             $.post(opts.url,{},function(data){
                 checkboxSelect.data = data;
                 if(typeof opts.loadSuccess === "function"){
@@ -25,7 +27,7 @@ $.fn.multipleSelect = function(options){
                 checkboxSelect.click();
             },"json");
         }
-    }
+    };
 
     /**
      * 绑定panel移动事件
@@ -35,7 +37,7 @@ $.fn.multipleSelect = function(options){
         $(".panel-title").mousemove(function(){
             checkboxSelect.position();
         })
-    }
+    };
 
     //checkbox选中
     checkboxSelect.add = function(hide,show){
@@ -48,18 +50,18 @@ $.fn.multipleSelect = function(options){
             $(opts.target).val(hideValue + "," + hide);
             self.val(showValue + "," + show);
         }
-    }
+    };
     checkboxSelect.remove =function(hide,show){
         var hideValue = $(opts.target).val().split(",");//隐藏的值
         var showValue = self.val().split(",");//显示的值
         var index = hideValue.indexOf(hide);
-        if(index != -1 ){ //为空
+        if(index !== -1 ){ //为空
             hideValue.removeValue(hide);
             $(opts.target).val(hideValue.join());
             showValue.removeValue(show);
             self.val(showValue.join());
         }
-    }
+    };
 
     /**
      * 定位下拉复选框要显示的位置
@@ -70,17 +72,17 @@ $.fn.multipleSelect = function(options){
         var y = self[0].getBoundingClientRect().bottom + document.documentElement.scrollTop;
         $(s).css("left",x);
         $(s).css("top",y);
-    }
+    };
 
     /**
      * 渲染存放checkbox的面板
      * @param options
      */
     checkboxSelect.panel = function () {
-        if($(s).length == 0){
+        if($(s).length === 0){
             $("<div class='multipleSelect' />").appendTo("body").append("<ul id='selectOption'></ul>");
         }
-    }
+    };
 
     /**
      * 渲染checkbox列表
@@ -102,7 +104,7 @@ $.fn.multipleSelect = function(options){
      * @param value
      */
     checkboxSelect.renderShowValue = function (checked,value) {
-        if(checked != ""){
+        if(checked){
             var showValue = $(self).val();
             if(showValue){
                 $(self).val(showValue + "," + value);
@@ -110,21 +112,20 @@ $.fn.multipleSelect = function(options){
                 $(self).val(value);
             }
         }
-    }
+    };
 
     /**
      * 绑定checkbox点击事件
      */
     checkboxSelect.binding = function () {
-        $("#selectOption input").off();
-        $("#selectOption input").on("click",function(event){
+        $("#selectOption input").off().on("click",function(event){
             if($(this).prop("checked")){
                 checkboxSelect.add($(this).val(),$(this).parent().text().trim());
             }else{
                 checkboxSelect.remove($(this).val(),$(this).parent().text().trim());
             }
         });
-    }
+    };
     /**
      *
      * 根据给定的v 查看是否在array中存在该对象
@@ -144,7 +145,7 @@ $.fn.multipleSelect = function(options){
             })
         }
         return check;
-    }
+    };
 
     /**
      * 获取存放隐藏值的input框的值
@@ -157,7 +158,7 @@ $.fn.multipleSelect = function(options){
             return targetValue.split(",");
         }
         return new Array();
-    }
+    };
 
     self.getRemoteData = checkboxSelect.getRemoteData;
     if(checkboxSelect.getRemoteData){
@@ -174,7 +175,7 @@ $.fn.multipleSelect = function(options){
                 event.stopPropagation();
             }
         });
-    }
+    };
 
     $(document).on("click",s,function(e) {
         e.stopPropagation();
@@ -182,11 +183,8 @@ $.fn.multipleSelect = function(options){
     $(document).click(function(event) {
         $(s).hide();
     });
-
-
-
     return self;
-}
+};
 
 
 
@@ -198,7 +196,7 @@ Array.prototype.indexOf=function(v){
         }
     }
     return -1;
-}
+};
 Array.prototype.removeValue = function (val) {
     var index = this.indexOf(val);
     if (index > -1) {

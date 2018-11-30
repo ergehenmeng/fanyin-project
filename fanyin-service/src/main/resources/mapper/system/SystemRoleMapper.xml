@@ -111,11 +111,9 @@
 
     <select id="getList" parameterType="com.fanyin.dto.system.role.RoleQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from system_role
-        <where>
-            <if test="queryName != null">
-                role_name like concat('%',#{queryName},'%')
-            </if>
-        </where>
+        from system_role where deleted = false
+        <if test="queryName != null">
+            role_name like concat('%',#{queryName},'%')
+        </if>
     </select>
 </mapper>

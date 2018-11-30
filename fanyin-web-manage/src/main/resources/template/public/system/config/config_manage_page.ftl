@@ -19,7 +19,7 @@
 
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
-                url : "/system/config/config_list",
+                url : "/system/config/config_list_page",
                 border : false,
                 fit : true,
                 fitColumns : false,

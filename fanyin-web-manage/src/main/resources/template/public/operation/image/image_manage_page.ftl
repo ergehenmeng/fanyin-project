@@ -13,7 +13,7 @@
         var addTitle = "添加图片";
         var addUrl = "/public/operation/image/add_image_page";
 
-        var editTitle = "添加图片";
+        var editTitle = "编辑图片";
         var editUrl = "/public/operation/image/edit_image_page";
 
         var  delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
@@ -21,7 +21,7 @@
 
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
-                url : "/operation/image/image_list",
+                url : "/operation/image/image_list_page",
                 border : false,
                 fit : true,
                 fitColumns : false,
@@ -51,8 +51,7 @@
                     },
                     {field : "name",title : "名称",width : 150,align : "center",
                         formatter:function(value,rows){
-                            var url = rows.url.replace(/\\/g,"/");
-                            return '<a href="javascript:void(0);" onclick=parent.imagePreview(\''+ url +'\');>' + value + '</a>';
+                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.url +'\');">' + value + '</a>';
                         }
                     },
                     {field : "typeName",title : "分类",width : 150,align : "center"},
@@ -85,7 +84,7 @@
         <div class="layout_norths">
             <div class="left">
                 <form id="queryForm">
-                    <input name="queryName" placeholder="名称、路径、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
+                    <input name="queryName" placeholder="名称、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
                     <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
                 </form>
             </div>
@@ -97,19 +96,7 @@
                     <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
                     <li>
                         <span>下拉列表</span>
-                        <select name="city" class="type" id="city" title="城市列表">
-                            <option value="">--请选择--</option>
-                        </select>
-                    </li>
-                    <li><span>创建时间</span>
-                        <input type="text"
-                               name="startTime" id="startTime"
-                               onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})"
-                               class="searchTime" title="开始时间"/>&nbsp;-&nbsp;
-                        <input type="text"
-                               name="endTime" id="endTime"
-                               onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})"
-                               class="searchTime" title="结束时间"/>
+                        <@select name="type" total="true"  title="图片分类" nid="image_log_type"/>
                     </li>
                     <li>
                         <div class="submitBtn">

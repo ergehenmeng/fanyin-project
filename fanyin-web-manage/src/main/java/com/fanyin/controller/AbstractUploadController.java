@@ -86,7 +86,6 @@ public abstract class AbstractUploadController extends AbstractController{
      * @return 保存文件后的相对路径
      */
     private String doSave(MultipartFile file){
-
         String parentPath = createPath(getType());
         String fileName = createFileName(file.getOriginalFilename());
         try {
@@ -95,7 +94,7 @@ public abstract class AbstractUploadController extends AbstractController{
             log.warn("上传文件保存失败:{}",e.getMessage());
             throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
         }
-        return parentPath + fileName;
+        return (parentPath + fileName).replaceAll("\\\\","/");
     }
 
 
@@ -195,4 +194,6 @@ public abstract class AbstractUploadController extends AbstractController{
     protected String getType(){
         return DEFAULT_FILE_TYPE;
     }
+
+
 }

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.treeGridOptions.formSubmit("#form",'/operation/image/add_image',"上传图片成功");
+        $.fn.dataGridOptions.formSubmit("#form",'/operation/image/add_image',"上传图片成功");
     });
 </script>
 <div class="platform_form">

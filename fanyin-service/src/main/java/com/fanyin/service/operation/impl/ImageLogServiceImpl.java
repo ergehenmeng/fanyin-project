@@ -55,4 +55,9 @@ public class ImageLogServiceImpl implements ImageLogService {
         log.setUpdateTime(DateUtil.getNow());
         imageLogMapper.updateByPrimaryKeySelective(log);
     }
+
+    @Override
+    public ImageLog getById(Integer id) {
+        return imageLogMapper.selectByPrimaryKey(id);
+    }
 }
