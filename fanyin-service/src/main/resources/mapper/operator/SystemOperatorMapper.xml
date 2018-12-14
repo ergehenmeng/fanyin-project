@@ -11,7 +11,7 @@
     <result column="status" jdbcType="BIT" property="status" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="init_password" jdbcType="VARCHAR" property="initPassword" />
-    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -97,7 +97,7 @@
         #{initPassword,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
-        #{department,jdbcType=INTEGER},
+        #{department,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -135,7 +135,7 @@
         init_password = #{initPassword,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
-        department = #{department,jdbcType=INTEGER},
+        department = #{department,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},

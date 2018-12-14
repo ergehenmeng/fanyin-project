@@ -4,6 +4,7 @@ import com.fanyin.utils.SpringContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 程序启动入口
  * @author 二哥很猛
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = SolrAutoConfiguration.class)
 @EnableTransactionManagement
 @EnableAsync
 @EnableAspectJAutoProxy

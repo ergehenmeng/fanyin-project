@@ -1,3 +1,4 @@
+
 package com.fanyin.model.system;
 
 import lombok.Getter;
@@ -62,7 +63,7 @@ public class SystemOperator implements Serializable {
      * 表 : system_operator<br>
      * 对应字段 : department<br>
      */
-    private Integer department;
+    private String department;
 
     /**
      * 删除状态 0:正常,1:已删除<br>

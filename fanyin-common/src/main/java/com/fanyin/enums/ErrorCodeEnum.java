@@ -2,6 +2,7 @@ package com.fanyin.enums;
 
 /**
  * 系统错误信息枚举 包含系统所以的异常信息
+ * 404 500等标准错误码返回前台时,可做特殊处理(多个业务共用一个错误码)
  * 2000-3000 数据格式异常
  * 3000-4000 业务异常
  * 4000-5000 存管异常
@@ -9,6 +10,12 @@ package com.fanyin.enums;
  * @date 2018/1/12 16:46
  */
 public enum ErrorCodeEnum {
+
+
+    /**
+     * 标的信息不存在
+     */
+    PROJECT_NOT_FOUND(404,"标的信息不存在"),
 
     /**
      * 系统服务异常
@@ -171,9 +178,9 @@ public enum ErrorCodeEnum {
     INTEGRAL_NOT_ENOUGH(3011,"可用积分不足"),
 
     /**
-     * 产品信息不存在
+     * 产品信息不存在 业务上
      */
-    PROJECT_NOT_FOUND(3012,"产品信息不存在"),
+    PROJECT_FOUND_ERROR(3012,"产品信息不存在"),
 
     /**
      * 产品状态错误

@@ -151,7 +151,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public void verifyProject(Project project, Tender request) {
         if(project == null){
-            throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_FOUND);
+            throw new BusinessException(ErrorCodeEnum.PROJECT_FOUND_ERROR);
         }
         //预售时间
         if(project.getPreSaleTime().after(DateUtil.getNow())){
@@ -278,7 +278,7 @@ public class ProjectServiceImpl implements ProjectService {
     private void verifyFullProject(Project project){
         if(project == null){
             log.error("满标复审,产品信息未查询到");
-            throw new BusinessException(ErrorCodeEnum.PROJECT_NOT_FOUND);
+            throw new BusinessException(ErrorCodeEnum.PROJECT_FOUND_ERROR);
         }
         if(project.getStatus() != ProjectStatus.FULL.getCode()){
             throw new BusinessException(ErrorCodeEnum.PROJECT_STATUS_ERROR.getCode(),"产品状态异常:" + ProjectStatus.equalsCode(project.getStatus()).getName());
