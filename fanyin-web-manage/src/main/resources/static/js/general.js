@@ -3,12 +3,12 @@
 $(function(){
 
 });
+//全局默认页容量
 var pageSize = 20;
+//全局默认页容量列表
 var pageList = [20, 30, 40, 50 ];
-
 $.fn.dataGridOptions = function(){};
 $.fn.treeGridOptions = function(){};
-$.fn.formOptions = function(){};
 /**
  * data弹出层
  */
@@ -132,6 +132,7 @@ $.fn.dataGridOptions.submit = function(formId,url,callback){
         }
     });
 };
+
 /**
  * treeGrid的询问操作 一般为删除
  * @param id 待删除的数据主键
@@ -215,36 +216,6 @@ $.fn.treeGridOptions.formSubmit = function(formId,url,success){
 		}
 	});
 };
-/**
- * 普通表单提交 不刷新任何dataGrid treeGrid
- * @param formId
- * @param url
- */
-$.fn.formOptions.formSubmit = function (formId,url) {
-    $(formId).form({
-        url:url,
-        onSubmit:function(){
-            parent.$.messager.progress({
-                title : '提示',
-                text : '数据处理中，请稍后....'
-            });
-            var isValid = $(this).form('validate');
-            if (!isValid) {
-                parent.$.messager.progress('close');
-            }
-            return isValid;
-        },
-        success:function(data){
-            parent.$.messager.progress('close');
-            data = (typeof data === 'object') ? data: $.parseJSON(data);
-            if(data.code === 200){
-                parent.$.windowDialog.handler.dialog('close');
-            }else{
-                parent.$.messager.alert('提示', data.msg, 'warning');
-            }
-        }
-    });
-};
 
 /**
  * 普通get请求
@@ -285,7 +256,7 @@ $.fn.dataGridOptions.searchFun = function (formId) {
 
 //树形数据查询
 $.fn.treeGridOptions.searchFun = function (formId) {
-    dataGrid.datagrid('load', $.serializeObject($(formId)));
+    treeGrid.datagrid('load', $.serializeObject($(formId)));
 };
 /**
  * 普通数据结构转tree结构
@@ -342,8 +313,9 @@ function isChecked(id,checkRow){
 }
 
 /**
- * 注意:treeObj必须在调用该方法的地方声明
  * 方法作用:点击树形复选框时返回所有选中的值
+ * @param treeObj treeObj必须在调用该方法的地方声明
+ * @return {string} 选中的值
  */
 $.fn.treeGridOptions.checkNode = function(treeObj){
 	var nodes = treeObj.tree("getChecked");
@@ -372,6 +344,11 @@ String.prototype.endWith=function(str){
   return reg.test(this);       
 };
 
+/**
+ * 所有弹框
+ * @param opts panel参数,详细配置见easyUI API
+ * @returns {jQuery} jquery panel对象
+ */
 $.windowDialog = function(opts){
 	if($.windowDialog.handler === undefined){
 		var options = $.extend({
@@ -491,9 +468,3 @@ var getLocalTime = function(value,type) {
 		 return dt.format("yyyy-MM-dd hh:mm:ss");
 	 }
 };
-
-
-
-
-
-
