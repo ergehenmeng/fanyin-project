@@ -16,12 +16,12 @@ public class ImageEditRequest implements Serializable {
     /**
      * 图片名称
      */
-    private String name;
+    private String title;
 
     /**
      * 投标类型
      */
-    private Byte bype;
+    private Byte classify;
 
     /**
      * 备注信息

@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="period" jdbcType="TINYINT" property="period" />
@@ -26,7 +26,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, status, tender_id, project_id, period, periods, capital, interest, platform_interest, 
+    id, user_id, state, tender_id, project_id, period, periods, capital, interest, platform_interest,
     coupon_interest, receive_time, real_receive_time, receive_month, real_receive_month, 
     add_time
   </sql>
@@ -52,8 +52,8 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="tenderId != null">
         tender_id,
@@ -102,8 +102,8 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
       <if test="tenderId != null">
         #{tenderId,jdbcType=INTEGER},
@@ -148,7 +148,7 @@
   </insert>
     <insert id="insertBatchRecover" >
         insert into project_recover(user_id,
-                                    status,
+                                    state,
                                     tender_id,
                                     project_id,
                                     period,
@@ -183,8 +183,8 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
       <if test="tenderId != null">
         tender_id = #{tenderId,jdbcType=INTEGER},

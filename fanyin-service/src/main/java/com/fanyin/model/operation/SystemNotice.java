@@ -29,9 +29,9 @@ public class SystemNotice implements Serializable {
     /**
      * 公告类型(数据字典表system_notice_type)<br>
      * 表 : system_notice<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 删除状态 0:正常 1:删除<br>

@@ -29,9 +29,9 @@ public class ProjectAuditLog implements Serializable {
     /**
      * 审核状态 1:初审通过 2:初审打回 3:复审通过 4:复审打回 5:满标复审通过 6:产品撤回<br>
      * 表 : project_audit_log<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 审核记录<br>

@@ -18,9 +18,9 @@ public class OperatorEditRequest implements Serializable {
     private Integer id;
 
     /**
-     * 名称
+     * 用户姓名
      */
-    private String name;
+    private String operatorName;
 
     /**
      * 手机号

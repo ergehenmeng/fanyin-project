@@ -6,11 +6,11 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="status" jdbcType="BIT" property="status" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="init_password" jdbcType="VARCHAR" property="initPassword" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="init_pwd" jdbcType="VARCHAR" property="initPwd" />
     <result column="department" jdbcType="VARCHAR" property="department" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -21,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, name, mobile, status, password, init_password, department, deleted,
+    id, operator_name, mobile, state, pwd, init_pwd, department, deleted,
     add_time, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -46,20 +46,20 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="operatorName != null">
+          operator_name,
       </if>
       <if test="mobile != null">
         mobile,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
-      <if test="password != null">
-        password,
+      <if test="pwd != null">
+        pwd,
       </if>
-      <if test="initPassword != null">
-        init_password,
+      <if test="initPwd != null">
+        init_pwd,
       </if>
       <if test="department != null">
         department,
@@ -81,20 +81,20 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
         #{mobile,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
+      <if test="state != null">
+        #{state,jdbcType=BIT},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
       </if>
-      <if test="initPassword != null">
-        #{initPassword,jdbcType=VARCHAR},
+      <if test="initPwd != null">
+        #{initPwd,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
         #{department,jdbcType=VARCHAR},
@@ -119,20 +119,20 @@
     -->
     update system_operator
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="operatorName != null">
+          operator_name = #{operatorName,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
       </if>
-      <if test="initPassword != null">
-        init_password = #{initPassword,jdbcType=VARCHAR},
+      <if test="initPwd != null">
+        init_pwd = #{initPwd,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
         department = #{department,jdbcType=VARCHAR},
@@ -161,10 +161,10 @@
         select <include refid="BaseColumnList" />
         from system_operator where deleted = false
         <if test="queryName != null">
-            and (name like concat('%',#{queryName},'%') or mobile like concat('%',#{queryName},'%'))
+            and (operator_name like concat('%',#{queryName},'%') or mobile like concat('%',#{queryName},'%'))
         </if>
-        <if test="status != null">
-            status = #{status}
+        <if test="state != null">
+            state = #{state}
         </if>
     </select>
 </mapper>

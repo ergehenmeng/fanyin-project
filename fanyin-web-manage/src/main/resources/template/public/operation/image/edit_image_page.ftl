@@ -7,12 +7,12 @@
     <form id="form"  method="post" >
         <div class="form_item">
             <label>图片名称:</label>
-            <input title="菜单名称" maxlength="8" name="name" value="${(log.name)}" class="easyui-validatebox" data-options="required: true"  />
+            <input title="菜单名称" maxlength="8" name="title" value="${(log.title)}" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form_item">
             <label>图片分类:</label>
-            <@select nid='image_log_type' title='菜单类型' name='type' value="${(log.type)!}"/>
+            <@select nid='image_classify' title='菜单类型' name='classify' value="${(log.classify)!}"/>
         </div>
         <div class="form_item">
             <label>备注:</label>

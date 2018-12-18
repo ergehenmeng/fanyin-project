@@ -23,11 +23,11 @@ public class SystemOperator implements Serializable {
     private Integer id;
 
     /**
-     * 用户名称<br>
+     * 用户姓名<br>
      * 表 : system_operator<br>
-     * 对应字段 : name<br>
+     * 对应字段 : operator_name<br>
      */
-    private String name;
+    private String operatorName;
 
     /**
      * 手机号码(登陆账户)<br>
@@ -39,23 +39,23 @@ public class SystemOperator implements Serializable {
     /**
      * 用户状态:0:锁定,1:正常<br>
      * 表 : system_operator<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Boolean status;
+    private Boolean state;
 
     /**
      * 登陆密码MD5<br>
      * 表 : system_operator<br>
-     * 对应字段 : password<br>
+     * 对应字段 : pwd<br>
      */
-    private String password;
+    private String pwd;
 
     /**
      * 初始密码<br>
      * 表 : system_operator<br>
-     * 对应字段 : init_password<br>
+     * 对应字段 : init_pwd<br>
      */
-    private String initPassword;
+    private String initPwd;
 
 
     /**

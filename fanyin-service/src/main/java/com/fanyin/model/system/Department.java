@@ -27,18 +27,18 @@ public class Department implements Serializable {
     private String parentCode;
 
     /**
-     * 角色编号<br>
+     * 部门编号<br>
      * 表 : system_department<br>
      * 对应字段 : code<br>
      */
     private String code;
 
     /**
-     * 角色名称<br>
+     * 部门名称<br>
      * 表 : system_department<br>
      * 对应字段 : name<br>
      */
-    private String name;
+    private String title;
 
     /**
      * 添加时间<br>

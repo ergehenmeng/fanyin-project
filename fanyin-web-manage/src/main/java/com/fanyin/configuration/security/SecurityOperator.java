@@ -26,7 +26,7 @@ public class SecurityOperator extends SystemOperator implements UserDetails{
 
     @Override
     public String getPassword() {
-        return super.getPassword();
+        return super.getPwd();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SecurityOperator extends SystemOperator implements UserDetails{
 
     @Override
     public boolean isAccountNonLocked() {
-        return super.getStatus();
+        return super.getState();
     }
 
     @Override

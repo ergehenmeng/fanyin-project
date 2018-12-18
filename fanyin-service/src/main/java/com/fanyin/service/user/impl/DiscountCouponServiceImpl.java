@@ -48,7 +48,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
         Date now = DateUtil.getNow();
         request.setNow(now);
         request.setUserId(userId);
-        request.setStatus(CouponConstant.COUPON_STATUS_0);
+        request.setState(CouponConstant.COUPON_STATUS_0);
         List<DiscountCoupon> couponList = discountCouponMapper.getList(request);
 
         ArrayList<DiscountCoupon> arrayList = Lists.newArrayList();
@@ -58,7 +58,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
                 //优惠券必选在有效期内
                 //加息券直接使用,抵扣券额度和期限必选符合
                 boolean flag = coupon.getStartTime().before(now) &&
-                        (coupon.getType() == CouponConstant.TYPE_INTEREST
+                        (coupon.getClassify() == CouponConstant.CLASSIFY_INTEREST
                                || (coupon.getFaceValue().compareTo(BigDecimal.valueOf(amount)) <= 0 && coupon.getPeriodLimit() <= period));
                 if(flag){
                     arrayList.add(coupon);
@@ -71,7 +71,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
     @Override
     public DiscountCoupon getById(int id, int userId) {
         DiscountCoupon coupon = discountCouponMapper.getById(id, userId);
-        if(coupon == null || coupon.getStatus() != CouponConstant.COUPON_STATUS_0){
+        if(coupon == null || coupon.getState() != CouponConstant.COUPON_STATUS_0){
             throw new BusinessException(ErrorCodeEnum.COUPON_NOT_FOUND);
         }
         return coupon;
@@ -85,7 +85,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
             throw new BusinessException(ErrorCodeEnum.COUPON_TIME_ERROR);
         }
         //抵扣券校验,加息券没有限制
-        if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
+        if(coupon.getClassify() == CouponConstant.CLASSIFY_DEDUCTION){
             if(coupon.getFaceValue().compareTo(BigDecimal.valueOf(amount)) > 0){
                 throw new BusinessException(ErrorCodeEnum.COUPON_LIMIT_ERROR);
             }

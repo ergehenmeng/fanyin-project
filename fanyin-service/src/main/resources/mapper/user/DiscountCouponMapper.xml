@@ -7,9 +7,9 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="face_value" jdbcType="DECIMAL" property="faceValue" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
@@ -21,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, name, status,type, face_value, start_time, end_time, period_limit, amount_limit,
+    id, user_id, title, state,classify, face_value, start_time, end_time, period_limit, amount_limit,
     add_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -46,14 +46,14 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="title != null">
+        title,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
-      <if test="type != null">
-          type,
+      <if test="classify != null">
+          classify,
       </if>
       <if test="faceValue != null">
         face_value,
@@ -81,14 +81,14 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
-      <if test="type != null">
-          #{type,jdbcType=VARCHAR},
+      <if test="classify != null">
+          #{classify,jdbcType=VARCHAR},
       </if>
       <if test="faceValue != null">
         #{faceValue,jdbcType=DECIMAL},
@@ -119,14 +119,14 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
-      <if test="type != null">
-          type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="faceValue != null">
         face_value = #{faceValue,jdbcType=DECIMAL},
@@ -155,21 +155,21 @@
         from discount_coupon
         <where>
             <if test="type != null">
-                and type = #{type}
+                and classify = #{classify}
             </if>
-            <if test="status != null">
+            <if test="state != null">
                 <choose>
-                    <when test="status == 0">
+                    <when test="state == 0">
                         /*未使用必须要没有过期*/
-                        and status = 0 and end_time &gt; #{now}
+                        and state = 0 and end_time &gt; #{now}
                     </when>
-                    <when test="status == 1">
+                    <when test="state == 1">
                         /*冻结,已使用都默认为使用*/
-                        and status in (1,2)
+                        and state in (1,2)
                     </when>
                     <otherwise>
                         /*过期*/
-                        and status = 3 or end_time &lt;= #{now}
+                        and state = 3 or end_time &lt;= #{now}
                     </otherwise>
                 </choose>
             </if>

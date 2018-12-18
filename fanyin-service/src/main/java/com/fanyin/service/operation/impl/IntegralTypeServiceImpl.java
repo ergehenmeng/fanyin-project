@@ -21,7 +21,7 @@ public class IntegralTypeServiceImpl implements IntegralTypeService {
     private IntegralTypeMapper integralTypeMapper;
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.INTEGRAL_TYPE,key = "#integral.name()")
+    @Cacheable(cacheNames = RedisConstant.INTEGRAL_CLASSIFY,key = "#integral.name()")
     public IntegralType getByNid(Integral integral) {
         return integralTypeMapper.getByNid(integral.name().toLowerCase());
     }

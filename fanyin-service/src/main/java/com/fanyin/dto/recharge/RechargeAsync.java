@@ -22,7 +22,7 @@ public class RechargeAsync implements Serializable {
     /**
      * 订单处理结果状态
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 实际充值金额

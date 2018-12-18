@@ -26,7 +26,7 @@ public class RedisCacheProxyServiceImpl implements RedisCacheProxyService {
         List<SystemDict> dictList = systemDictService.getDictByNid(nid);
         for (SystemDict dict : dictList){
             if(dict.getHiddenValue().equals(hiddenValue)){
-                return dict.getValue();
+                return dict.getShowValue();
             }
         }
         return null;

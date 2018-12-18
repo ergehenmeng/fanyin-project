@@ -55,7 +55,7 @@ public class UserExtendServiceImpl implements UserExtendService {
         List<VipConfig> configs = vipConfigService.getConfigs(OrderType.DESC);
 
         VipConfig config = getSuitableConfig(totalAwait, configs);
-        userExtendMapper.updateGrade(userId,config.getLevel());
+        userExtendMapper.updateGrade(userId,config.getGrade());
     }
 
     /**

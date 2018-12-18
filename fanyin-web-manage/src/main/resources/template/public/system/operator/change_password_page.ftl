@@ -12,8 +12,8 @@
                 if (!isValid) {
                     parent.$.messager.progress('close');
                 }
-                param.oldPassword = md5($("#oldPassword").val());
-                param.newPassword = md5($("#newPassword").val());
+                param.oldPwd = md5($("#oldPassword").val());
+                param.newPwd = md5($("#newPassword").val());
                 return isValid;
             },
             success:function(data){

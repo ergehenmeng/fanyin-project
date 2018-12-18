@@ -36,9 +36,9 @@ public class IntegralLog implements Serializable {
     /**
      * 积分类型(表integral_type主键)<br>
      * 表 : integral_log<br>
-     * 对应字段 : type<br>
+     * 对应字段 : nid<br>
      */
-    private String type;
+    private String nid;
 
     /**
      * 获取积分的时间<br>

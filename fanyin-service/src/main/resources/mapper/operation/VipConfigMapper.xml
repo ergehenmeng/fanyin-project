@@ -6,18 +6,18 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="CHAR" property="name" />
-    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="title" jdbcType="CHAR" property="title" />
+    <result column="grade" jdbcType="TINYINT" property="grade" />
     <result column="sort" jdbcType="TINYINT" property="sort" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="state" jdbcType="BIT" property="state" />
     <result column="withdraw" jdbcType="TINYINT" property="withdraw" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, name, level, sort, amount, status, withdraw
+    id, title, grade, sort, amount, state, withdraw
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -35,7 +35,7 @@
 
     <select id="getConfigs" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from vip_config where status = 1 order by sort #{orderType,typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+        from vip_config where state = 1 order by sort #{orderType,typeHandler=org.apache.ibatis.type.EnumTypeHandler}
     </select>
 
   <insert id="insertSelective" parameterType="com.fanyin.model.operation.VipConfig">
@@ -47,11 +47,11 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="title != null">
+        title,
       </if>
-      <if test="level != null">
-        level,
+      <if test="grade != null">
+          grade
       </if>
       <if test="sort != null">
         sort,
@@ -59,8 +59,8 @@
       <if test="amount != null">
         amount,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="withdraw != null">
         withdraw,
@@ -70,11 +70,11 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=CHAR},
+      <if test="title != null">
+        #{title,jdbcType=CHAR},
       </if>
-      <if test="level != null">
-        #{level,jdbcType=TINYINT},
+      <if test="grade != null">
+        #{grade,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=TINYINT},
@@ -82,8 +82,8 @@
       <if test="amount != null">
         #{amount,jdbcType=DECIMAL},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
+      <if test="state != null">
+        #{state,jdbcType=BIT},
       </if>
       <if test="withdraw != null">
         #{withdraw,jdbcType=TINYINT},
@@ -96,11 +96,11 @@
     -->
     update vip_config
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=CHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=CHAR},
       </if>
-      <if test="level != null">
-        level = #{level,jdbcType=TINYINT},
+      <if test="grade != null">
+        grade = #{grade,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=TINYINT},
@@ -108,8 +108,8 @@
       <if test="amount != null">
         amount = #{amount,jdbcType=DECIMAL},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
       </if>
       <if test="withdraw != null">
         withdraw = #{withdraw,jdbcType=TINYINT},

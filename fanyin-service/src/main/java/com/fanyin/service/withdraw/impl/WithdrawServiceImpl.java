@@ -72,7 +72,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         log.setUserType(apply.getUserType());
         log.setAddTime(DateUtil.getNow());
         log.setAmount(BigDecimal.valueOf(apply.getAmount()));
-        log.setStatus(WithdrawStatus.ENTRY.getCode());
+        log.setState(WithdrawStatus.ENTRY.getCode());
         //借款人免费提现
         if(SystemConstant.BORROWER == apply.getUserType()){
             log.setUseFree(true);

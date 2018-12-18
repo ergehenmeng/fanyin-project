@@ -22,16 +22,16 @@ public class HelpInstruction implements Serializable {
     /**
      * 帮助分类取system_dict表中help_type字段<br>
      * 表 : help_instruction<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 状态 0:不显示 1:显示<br>
      * 表 : help_instruction<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 问<br>

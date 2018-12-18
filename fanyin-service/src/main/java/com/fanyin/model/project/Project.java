@@ -37,23 +37,23 @@ public class Project implements Serializable {
     /**
      * 产品状态:-2:废弃-1:产品撤回,0待初审,1:待复审,2:募集中,3:满标待复审,4:还款中,5:还款完成,6:逾期结清<br>
      * 表 : project<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 产品类型 0:个人贷,1:企业贷<br>
      * 表 : project<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 产品名称<br>
      * 表 : project<br>
-     * 对应字段 : name<br>
+     * 对应字段 : title<br>
      */
-    private String name;
+    private String title;
 
     /**
      * 计划募集金额<br>

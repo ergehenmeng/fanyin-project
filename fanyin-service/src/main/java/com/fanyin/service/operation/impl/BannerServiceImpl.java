@@ -1,7 +1,7 @@
 package com.fanyin.service.operation.impl;
 
 import com.fanyin.enums.Source;
-import com.fanyin.enums.SourceKind;
+import com.fanyin.enums.SourceClassify;
 import com.fanyin.mapper.operation.BannerMapper;
 import com.fanyin.model.operation.Banner;
 import com.fanyin.service.operation.BannerService;
@@ -23,7 +23,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public List<Banner> getBanner(Source source, Byte type) {
-        byte clientType = SourceKind.getType(source);
+        byte clientType = SourceClassify.getType(source);
         return bannerMapper.getBannerList(type,clientType);
     }
 }

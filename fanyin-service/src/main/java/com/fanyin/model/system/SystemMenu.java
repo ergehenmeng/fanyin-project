@@ -23,9 +23,9 @@ public class SystemMenu implements Serializable {
     /**
      * 菜单名称<br>
      * 表 : system_menu<br>
-     * 对应字段 : name<br>
+     * 对应字段 : title<br>
      */
-    private String name;
+    private String title;
 
     /**
      * 菜单标示符 唯一<br>

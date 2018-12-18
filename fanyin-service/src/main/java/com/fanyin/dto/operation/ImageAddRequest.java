@@ -15,12 +15,12 @@ public class ImageAddRequest implements Serializable {
     /**
      * 图片名称
      */
-    private String name;
+    private String title;
 
     /**
      * 图片分类
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 图片大小

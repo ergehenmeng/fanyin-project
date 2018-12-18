@@ -7,7 +7,7 @@
     <form id="form"  method="post">
         <div class="form_item">
             <label>参数名称:</label>
-            <input title="参数名称" maxlength="50" value="${(config.name)!}" name="name" class="easyui-validatebox" data-options="required: true"  />
+            <input title="参数名称" maxlength="50" value="${(config.title)!}" name="name" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form_item">
@@ -30,7 +30,7 @@
         </div>
         <div class="form_item">
             <label>参数值:</label>
-            <textarea title="参数值" name="value"  class="easyui-validatebox h100" data-options="required: true" maxlength="500">${(config.value)!}</textarea>
+            <textarea title="参数值" name="content"  class="easyui-validatebox h100" data-options="required: true" maxlength="500">${(config.content)!}</textarea>
             <small>*</small>
         </div>
         <div class="form_item">

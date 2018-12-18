@@ -7,12 +7,12 @@
     <form id="form"  method="post" enctype="multipart/form-data">
         <div class="form_item">
             <label>图片名称:</label>
-            <input title="菜单名称" maxlength="8" name="name" class="easyui-validatebox" data-options="required: true"  />
+            <input title="菜单名称" maxlength="8" name="title" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form_item">
             <label>图片分类:</label>
-            <@select nid='image_log_type' title='菜单类型' name='type'/>
+            <@select nid='image_classify' title='菜单类型' name='classify'/>
         </div>
         <div class="form_item">
             <label>图片:</label>

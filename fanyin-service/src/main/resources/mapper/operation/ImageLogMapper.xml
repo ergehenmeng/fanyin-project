@@ -6,8 +6,8 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="size" jdbcType="BIGINT" property="size" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -19,7 +19,7 @@
     <!--
       @create by mybatis
     -->
-    id, name, type, url, size, remark, add_time, update_time,deleted
+    id, title, classify, url, size, remark, add_time, update_time,deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -41,11 +41,11 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="title != null">
+        title,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
       <if test="url != null">
         url,
@@ -70,11 +70,11 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
@@ -102,11 +102,11 @@
     -->
     update image_log
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{type,jdbcType=TINYINT},
       </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
@@ -135,10 +135,10 @@
         from image_log
         where deleted = false
         <if test="queryName != null">
-            and (name like concat('%',#{queryName},'%')  or remark like concat('%',#{queryName},'%'))
+            and (title like concat('%',#{queryName},'%')  or remark like concat('%',#{queryName},'%'))
         </if>
-        <if test="type != null">
-            and type = #{type}
+        <if test="classify != null">
+            and classify = #{classify}
         </if>
         order by add_time desc
     </select>

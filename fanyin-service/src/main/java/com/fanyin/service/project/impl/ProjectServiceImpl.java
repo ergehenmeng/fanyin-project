@@ -111,7 +111,7 @@ public class ProjectServiceImpl implements ProjectService {
             //计算投标预计收益
             projectTenderService.calcTenderInterest(projectTender, recoverList);
             projectTender.setUpdateTime(now);
-            projectTender.setStatus(TenderConstant.TENDER_STATUS_1);
+            projectTender.setState(TenderConstant.TENDER_STATUS_1);
             //更新投标信息
             projectTenderService.updateTender(projectTender);
             //投标积分奖励
@@ -164,11 +164,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public void verifyTenderProject(Project project, Tender request) {
         //满标状态
-        if(project.getStatus() == ProjectStatus.FULL.getCode()){
+        if(project.getState() == ProjectStatus.FULL.getCode()){
             throw new BusinessException(ErrorCodeEnum.PROJECT_FULL_ERROR);
         }
         //募集中状态
-        if(project.getStatus() != ProjectStatus.RAISE.getCode()){
+        if(project.getState() != ProjectStatus.RAISE.getCode()){
             throw new BusinessException(ErrorCodeEnum.PROJECT_STATUS_ERROR);
         }
 
@@ -257,12 +257,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         byte passCode = ProjectAuditStatus.FULL_RECHECK_PASS.getCode();
 
-        if(audit.getStatus() == passCode){
+        if(audit.getState() == passCode){
             this.fullAuditSuccess(project);
-            log.setStatus(passCode);
+            log.setState(passCode);
         }else{
             this.fullAuditFail(project);
-            log.setStatus(ProjectAuditStatus.REVOCATION.getCode());
+            log.setState(ProjectAuditStatus.REVOCATION.getCode());
         }
         log.setAddTime(DateUtil.getNow());
         log.setProjectId(audit.getId());
@@ -280,8 +280,8 @@ public class ProjectServiceImpl implements ProjectService {
             log.error("满标复审,产品信息未查询到");
             throw new BusinessException(ErrorCodeEnum.PROJECT_FOUND_ERROR);
         }
-        if(project.getStatus() != ProjectStatus.FULL.getCode()){
-            throw new BusinessException(ErrorCodeEnum.PROJECT_STATUS_ERROR.getCode(),"产品状态异常:" + ProjectStatus.equalsCode(project.getStatus()).getName());
+        if(project.getState() != ProjectStatus.FULL.getCode()){
+            throw new BusinessException(ErrorCodeEnum.PROJECT_STATUS_ERROR.getCode(),"产品状态异常:" + ProjectStatus.equalsCode(project.getState()).getName());
         }
     }
 

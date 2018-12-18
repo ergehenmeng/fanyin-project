@@ -13,10 +13,7 @@ import java.util.Date;
 public class SystemConfig implements Serializable {
 
     private static final long serialVersionUID = -3006821887681558075L;
-    /**
-     * 参数名称
-     */
-    private String name;
+
     /**
      * 主键<br>
      * 表 : system_config<br>
@@ -32,11 +29,18 @@ public class SystemConfig implements Serializable {
     private String nid;
 
     /**
+     * 参数名称<br>
+     * 表 : system_config<br>
+     * 对应字段 : title<br>
+     */
+    private String title;
+
+    /**
      * 参数值<br>
      * 表 : system_config<br>
-     * 对应字段 : value<br>
+     * 对应字段 : content<br>
      */
-    private String value;
+    private String content;
 
     /**
      * 备注信息<br>
@@ -46,11 +50,11 @@ public class SystemConfig implements Serializable {
     private String remark;
 
     /**
-     * 参数类型,见system_dict表nid=system_config_type<br>
+     * 参数类型,见system_dict表nid=config_classify<br>
      * 表 : system_config<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 锁定状态(禁止编辑) 0:未锁定,1:锁定<br>
@@ -90,7 +94,7 @@ public class SystemConfig implements Serializable {
     /**
      * 系统参数备用值,在有效期之外自动切换该值<br>
      * 表 : system_config<br>
-     * 对应字段 : reserve_value<br>
+     * 对应字段 : reserve_content<br>
      */
-    private String reserveValue;
+    private String reserveContent;
 }

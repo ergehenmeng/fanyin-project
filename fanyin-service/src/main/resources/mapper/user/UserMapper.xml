@@ -11,7 +11,7 @@
     <result column="deposit_no" jdbcType="VARCHAR" property="depositNo" />
     <result column="deposit_status" jdbcType="TINYINT" property="depositStatus" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="state" jdbcType="BIT" property="state" />
     <result column="channel" jdbcType="TINYINT" property="channel" />
     <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -21,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, mobile, email, deposit_no,deposit_status ,password, status, channel, register_ip, add_time,
+    id, mobile, email, deposit_no,deposit_status ,password, state, channel, register_ip, add_time,
     update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -58,8 +58,8 @@
       <if test="password != null">
         password,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="channel != null">
         channel,
@@ -93,8 +93,8 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
+      <if test="state != null">
+        #{state,jdbcType=BIT},
       </if>
       <if test="channel != null">
         #{channel,jdbcType=TINYINT},
@@ -131,8 +131,8 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
       </if>
       <if test="channel != null">
         channel = #{channel,jdbcType=TINYINT},

@@ -17,7 +17,7 @@ public class MenuAddRequest implements Serializable {
     /**
      * 名称
      */
-    private String name;
+    private String title;
 
     /**
      * 标示符

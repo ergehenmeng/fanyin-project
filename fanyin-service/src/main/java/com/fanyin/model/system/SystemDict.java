@@ -22,9 +22,9 @@ public class SystemDict implements Serializable {
     /**
      * 字典中文名称<br>
      * 表 : system_dict<br>
-     * 对应字段 : name<br>
+     * 对应字段 : title<br>
      */
-    private String name;
+    private String title;
 
     /**
      * 数据字典nid(英文名称)<br>
@@ -43,9 +43,9 @@ public class SystemDict implements Serializable {
     /**
      * 显示值<br>
      * 表 : system_dict<br>
-     * 对应字段 : value<br>
+     * 对应字段 : show_value<br>
      */
-    private String value;
+    private String showValue;
 
     /**
      * 删除状态 0:正常,1:已删除<br>

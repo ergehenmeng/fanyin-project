@@ -30,7 +30,7 @@ public class BorrowerAccountDetailLog implements Serializable {
     /**
      * 资金变动类型
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 借款总额(该值只会累加)

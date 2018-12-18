@@ -62,9 +62,9 @@
                             return str;
                         }
                     },
-                    {field : "name",title : "用户名称",width : 150,align : "center"},
+                    {field : "operatorName",title : "用户名称",width : 150,align : "center"},
                     {field : "mobile",title : "手机号",width : 150,align : "center"},
-                    {field : "status",title : "状态",width : 80,align : "center",
+                    {field : "state",title : "状态",width : 80,align : "center",
                         formatter:function(value){
                             if(value === 0){
                                 return "锁定";

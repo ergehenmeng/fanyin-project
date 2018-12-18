@@ -52,7 +52,7 @@ public class OperatorController extends AbstractController {
         SecurityOperator operator = super.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = systemOperatorService.updateLoginPassword(request);
-        operator.setPassword(newPassword);
+        operator.setPwd(newPassword);
         //更新用户权限
         SecurityContext context = (SecurityContext)session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
         Authentication authentication = context.getAuthentication();

@@ -29,16 +29,16 @@ public class IntegralType implements Serializable {
     /**
      * 积分类型名称<br>
      * 表 : integral_type<br>
-     * 对应字段 : name<br>
+     * 对应字段 : type_name<br>
      */
-    private String name;
+    private String typeName;
 
     /**
      * 积分类型状态 0:不可用 1:可用<br>
      * 表 : integral_type<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Boolean status;
+    private Boolean state;
 
     /**
      * 积分个数<br>
@@ -50,9 +50,9 @@ public class IntegralType implements Serializable {
     /**
      * 积分类型 0:收入 1:支出<br>
      * 表 : integral_type<br>
-     * 对应字段 : type<br>
+     * 对应字段 : mode<br>
      */
-    private Boolean type;
+    private Boolean manner;
 
     /**
      * 是否为随机积分 0:不是 1:是<br>

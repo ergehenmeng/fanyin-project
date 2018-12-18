@@ -282,7 +282,7 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 		for(var i = 0,rowLen = rows.length;i < rowLen; i++){
 			var row = rows[i];
 			if (row.pid === node.id){
-				var child = {id:row.id,text:row.name,checked:isChecked(row.id,checkRow)};
+				var child = {id:row.id,text:row.title,checked:isChecked(row.id,checkRow)};
 				if (node.children){
 					node.children.push(child);
 				} else {

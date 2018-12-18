@@ -9,7 +9,7 @@
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
   </resultMap>
@@ -17,7 +17,7 @@
     <!--
       @create by mybatis
     -->
-    id, project_id, user_id, tender_id, type, add_time
+    id, project_id, user_id, tender_id, classify, add_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
     <select id="getByProjectId" resultMap="BaseResultMap">
-        select t.id, t.project_id, t.user_id, t.tender_id, t.type, t.add_time,r.mobile from project_tender_statistics t
+        select t.id, t.project_id, t.user_id, t.tender_id, t.classify, t.add_time,r.mobile from project_tender_statistics t
             inner join user r on t.user_id = r.id
     </select>
 
@@ -51,8 +51,8 @@
       <if test="tenderId != null">
         tender_id,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
       <if test="addTime != null">
         add_time,
@@ -71,8 +71,8 @@
       <if test="tenderId != null">
         #{tenderId,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -94,8 +94,8 @@
       <if test="tenderId != null">
         tender_id = #{tenderId,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -106,13 +106,13 @@
 
     <insert id="insertBatchStatistics" parameterType="com.fanyin.model.project.ProjectTenderStatistics">
         insert into project_tender_statistics (
-         project_id, user_id, tender_id, type
+         project_id, user_id, tender_id, classify
         ) values
         <foreach collection="list" open="(" close=")" item="item" separator=",">
             #{item.projectId},
             #{item.userId},
             #{item.tenderId},
-            #{item.type}
+            #{item.classify}
         </foreach>
     </insert>
 </mapper>

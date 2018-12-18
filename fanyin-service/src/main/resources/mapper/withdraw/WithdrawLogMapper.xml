@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="user_type" jdbcType="TINYINT" property="userType" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="real_amount" jdbcType="DECIMAL" property="realAmount" />
@@ -23,7 +23,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, status,user_type, amount, real_amount,fee, use_free, bank_num, bank_code, add_time, update_time,
+    id, user_id, state,user_type, amount, real_amount,fee, use_free, bank_num, bank_code, add_time, update_time,
     order_no
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -48,8 +48,8 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
         <if test="userType != null">
             user_type,
@@ -89,8 +89,8 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
         <if test="userType != null">
             #{userType,jdbcType=TINYINT},
@@ -133,8 +133,8 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
         <if test="userType != null">
             user_type =#{userType,jdbcType=TINYINT},
@@ -172,7 +172,7 @@
 
     <select id="countFreeWithdraw" resultType="java.lang.Integer">
         select count(1) from withdraw_log
-        where status in (1,2)
+        where state in (1,2)
               and use_free = true
               and update_time &gt;= #{starTime}
               and update_time &lt;= #{endTime}
@@ -180,6 +180,6 @@
               and user_id =#{userId}
     </select>
     <select id="getTotalWithdraw" resultType="java.math.BigDecimal">
-        select IFNULL(sum(amount),0) from withdraw_log where status in (1,2) and user_type = 0 and user_id = #{userId}
+        select IFNULL(sum(amount),0) from withdraw_log where state in (1,2) and user_type = 0 and user_id = #{userId}
     </select>
 </mapper>

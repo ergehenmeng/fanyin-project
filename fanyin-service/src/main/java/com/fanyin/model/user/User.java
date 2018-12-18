@@ -57,9 +57,9 @@ public class User implements Serializable {
     /**
      * 状态 1正常 0:锁定<br>
      * 表 : user<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Boolean status;
+    private Boolean state;
 
     /**
      * 注册渠道 pc,android,ios,h5,other<br>

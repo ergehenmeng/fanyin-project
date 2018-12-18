@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
@@ -16,7 +16,7 @@
     <!--
       @create by mybatis
     -->
-    id, project_id, status, remark, add_time, operator_id
+    id, project_id, state, remark, add_time, operator_id
   </sql>
 
   <insert id="insertSelective" parameterType="com.fanyin.model.project.ProjectAuditLog">
@@ -31,8 +31,8 @@
       <if test="projectId != null">
         project_id,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="remark != null">
         remark,
@@ -51,8 +51,8 @@
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},

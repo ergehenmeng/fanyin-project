@@ -72,9 +72,9 @@ public class ProjectTender implements Serializable {
     /**
      * 投标状态:-3标的撤销,-2:已转让,-1:转让申请中,0:投标加入,1:回款中,2:还款完成<br>
      * 表 : project_tender<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 投标渠道 pc,android,ios,h5,other<br>

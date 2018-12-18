@@ -22,7 +22,7 @@ public class DepartmentAddRequest implements Serializable {
     /**
      * 部门名称
      */
-    private String name;
+    private String title;
 
 
 }

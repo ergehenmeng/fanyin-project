@@ -19,12 +19,12 @@ public class HelpQueryRequest extends PageQuery implements Serializable {
     /**
      * 帮助说明类型
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 是否显示 0:不显示 1:显示
      */
-    private Byte status;
+    private Byte state;
 
 
     /**

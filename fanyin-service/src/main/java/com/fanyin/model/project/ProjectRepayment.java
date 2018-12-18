@@ -36,9 +36,9 @@ public class ProjectRepayment implements Serializable {
     /**
      * 还款状态 0:未还款 1:正常还款,2:提前还款,3:部分还款,4:逾期还款<br>
      * 表 : project_repayment<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Boolean status;
+    private Boolean state;
 
     /**
      * 第几期还款<br>

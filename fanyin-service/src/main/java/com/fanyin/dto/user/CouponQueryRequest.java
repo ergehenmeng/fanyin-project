@@ -25,12 +25,12 @@ public class CouponQueryRequest extends PageQuery implements Serializable {
     /**
      * 优惠券类型 0:抵扣券 1:加息券
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 优惠券状态 0:未使用 1:已使用 2:已冻结,3已过期
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 当前时间

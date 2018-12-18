@@ -42,7 +42,7 @@ public class LoginController extends AbstractController {
         SystemOperator operator = getRequiredOperator();
         List<SystemMenu> list = systemMenuService.getMenuList(operator.getId());
         model.addAttribute("menuList", list);
-        model.addAttribute("isInit",operator.getPassword().equals(operator.getInitPassword()));
+        model.addAttribute("isInit",operator.getPwd().equals(operator.getInitPwd()));
         return "home";
     }
 

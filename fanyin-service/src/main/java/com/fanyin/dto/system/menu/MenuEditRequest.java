@@ -20,7 +20,7 @@ public class MenuEditRequest implements Serializable {
     /**
      * 菜单名称
      */
-    private String name;
+    private String title;
 
     /**
      * 菜单标示符

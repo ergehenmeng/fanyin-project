@@ -25,7 +25,7 @@ public class NoticeQueryRequest extends PageQuery implements Serializable {
     /**
      * 公告类型
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 查询开始时间

@@ -16,6 +16,6 @@ public class ImageQueryRequest extends PageQuery implements Serializable {
 
     private static final long serialVersionUID = 4515347312371743977L;
 
-    private Byte type;
+    private Byte classify;
 
 }

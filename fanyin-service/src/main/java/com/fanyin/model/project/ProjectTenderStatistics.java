@@ -43,9 +43,9 @@ public class ProjectTenderStatistics implements Serializable {
     /**
      * 类型 0:首投 1:最高 2:扫尾<br>
      * 表 : project_tender_statistics<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 添加时间<br>

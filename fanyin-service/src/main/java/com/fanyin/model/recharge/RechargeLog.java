@@ -38,16 +38,16 @@ public class RechargeLog implements Serializable {
     /**
      * 充值方式 0:快捷充值 1:网银充值<br>
      * 表 : recharge_log<br>
-     * 对应字段 : type<br>
+     * 对应字段 : manner<br>
      */
-    private Byte type;
+    private Byte manner;
 
     /**
      * 状态 0:订单生成 1:充值成功 2:充值失败<br>
      * 表 : recharge_log<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 充值金额<br>

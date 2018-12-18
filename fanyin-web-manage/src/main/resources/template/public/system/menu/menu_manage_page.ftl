@@ -87,7 +87,7 @@
                 if (row.pid === 0) {
                     nodes.push({
                         "id" : row.id,
-                        "text" : row.name,
+                        "text" : row.title,
                         "nid" : row.nid,
                         "pid" : row.pid,
                         "url" : row.url,
@@ -112,7 +112,7 @@
                     if (childRow.pid === node.id) {
                         var child = {
                             "id" : childRow.id,
-                            "text" : childRow.name,
+                            "text" : childRow.title,
                             "nid" : childRow.nid,
                             "pid" : childRow.pid,
                             "url" : childRow.url,

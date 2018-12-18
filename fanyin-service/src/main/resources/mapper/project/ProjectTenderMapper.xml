@@ -13,7 +13,7 @@
     <result column="platform_interest" jdbcType="DECIMAL" property="platformInterest" />
     <result column="coupon_interest" jdbcType="DECIMAL" property="couponInterest" />
     <result column="voucher_interest" jdbcType="DECIMAL" property="voucherInterest" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="channel" jdbcType="CHAR" property="channel" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -24,7 +24,7 @@
       @create by mybatis
     -->
     id, user_id, project_id, account, base_interest, platform_interest, coupon_interest, voucher_interest,
-    status, channel, ip, add_time, update_time
+    state, channel, ip, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -70,8 +70,8 @@
         <if test="voucherInterest != null">
             voucher_interest,
         </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="channel != null">
         channel,
@@ -111,8 +111,8 @@
         <if test="voucherInterest != null">
             #{voucherInterest,jdbcType=DECIMAL},
         </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
       <if test="channel != null">
         #{channel,jdbcType=CHAR},
@@ -155,8 +155,8 @@
         <if test="voucherInterest != null">
             voucher_interest = #{voucherInterest,jdbcType=DECIMAL},
         </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
       <if test="channel != null">
         channel = #{channel,jdbcType=CHAR},
@@ -178,7 +178,7 @@
         <collection property="couponList" ofType="com.fanyin.model.user.DiscountCoupon" >
             <id column="discount_coupon_id" property="id"/>
             <result column="type" property="type"/>
-            <result column="discount_coupon_status" property="status"/>
+            <result column="discount_coupon_state" property="state"/>
             <result column="face_value" property="faceValue"/>
             <result column="period_limit" property="periodLimit"/>
             <result column="amount_limit" property="amountLimit"/>
@@ -190,8 +190,8 @@
     </select>
 
     <select id="getByProjectIdWithCoupon" resultMap="resultMapCoupon">
-        select t.id,t.user_id,t.project_id,t.account,t.base_interest,t.platform_interest,t.coupon_interest,t.status,t.channel,
-            t.ip,t.add_time,t.update_time,s.id as discount_coupon_id ,s.type,s.status as discount_coupon_status,s.face_value,s.period_limit,s.amount_limit
+        select t.id,t.user_id,t.project_id,t.account,t.base_interest,t.platform_interest,t.coupon_interest,t.state,t.channel,
+            t.ip,t.add_time,t.update_time,s.id as discount_coupon_id ,s.type,s.state as discount_coupon_state,s.face_value,s.period_limit,s.amount_limit
         from project_tender t
             left join discount_coupon_tender r on t.id = r.tender_id
             left join discount_coupon s on r.discount_coupon_id = s.id
@@ -199,8 +199,8 @@
     </select>
 
     <select id="getByIdWithCoupon" resultMap="resultMapCoupon">
-        select t.id,t.user_id,t.project_id,t.account,t.base_interest,t.platform_interest,t.coupon_interest,t.status,t.channel,
-            t.ip,t.add_time,t.update_time,s.id as discount_coupon_id ,s.type,s.status as discount_coupon_status,s.face_value,s.period_limit,s.amount_limit
+        select t.id,t.user_id,t.project_id,t.account,t.base_interest,t.platform_interest,t.coupon_interest,t.state,t.channel,
+            t.ip,t.add_time,t.update_time,s.id as discount_coupon_id ,s.type,s.state as discount_coupon_state,s.face_value,s.period_limit,s.amount_limit
         from project_tender t
             left join discount_coupon_tender r on t.id = r.tender_id
             left join discount_coupon s on r.discount_coupon_id = s.id
@@ -213,6 +213,6 @@
     </select>
 
     <select id="getTotalTender" resultType="java.math.BigDecimal">
-        select IFNULL(sum(account + base_interest + platform_interest),0) from project_tender where status &gt;= 0 and user_id = #{userId}
+        select IFNULL(sum(account + base_interest + platform_interest),0) from project_tender where state &gt;= 0 and user_id = #{userId}
     </select>
 </mapper>

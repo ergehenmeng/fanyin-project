@@ -58,16 +58,16 @@ public class RechargeServiceImpl implements RechargeService {
             log.error("充值订单号未查询到,orderNo:{}",async.getOrderNo());
             throw new DepositoryException(ErrorCodeEnum.RECHARGE_NOT_FOUND);
         }
-        if(rechargeLog.getStatus() != RechargeStatus.APPLY.getCode()){
-            log.warn("充值订单已更新,oldStatus:{},newStatus:{}",rechargeLog.getStatus(),async.getStatus());
+        if(rechargeLog.getState() != RechargeStatus.APPLY.getCode()){
+            log.warn("充值订单已更新,oldStatus:{},newStatus:{}",rechargeLog.getState(),async.getState());
             return;
         }
         rechargeLog.setRealAmount(BigDecimal.valueOf(async.getRealAmount()));
-        rechargeLog.setStatus(async.getStatus());
+        rechargeLog.setState(async.getState());
         rechargeLog.setUpdateTime(DateUtil.getNow());
         rechargeLogMapper.updateByPrimaryKeySelective(rechargeLog);
 
-        if(async.getStatus() == RechargeStatus.SUCCESS.getCode()){
+        if(async.getState() == RechargeStatus.SUCCESS.getCode()){
             //成功,更新资金账户
             accountDetailLogService.rechargeSuccess(rechargeLog);
         }

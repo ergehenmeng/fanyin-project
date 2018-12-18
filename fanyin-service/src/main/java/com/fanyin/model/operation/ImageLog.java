@@ -22,16 +22,16 @@ public class ImageLog implements Serializable {
     /**
      * 文件名称<br>
      * 表 : image_log<br>
-     * 对应字段 : name<br>
+     * 对应字段 : title<br>
      */
-    private String name;
+    private String title;
 
     /**
      * 图片分类 数据字典image_log_type<br>
      * 表 : image_log<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 文件存放地址<br>

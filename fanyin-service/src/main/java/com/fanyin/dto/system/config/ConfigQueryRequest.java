@@ -20,7 +20,7 @@ public class ConfigQueryRequest extends PageQuery implements Serializable {
     /**
      * 参数配置类型
      */
-    private Integer type;
+    private Integer classify;
 
     /**
      * 是否锁定(禁止编辑)

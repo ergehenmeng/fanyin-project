@@ -25,7 +25,7 @@ public class RedisConstant {
     /**
      * 积分类型缓存
      */
-    public static final String INTEGRAL_TYPE ="integral_type";
+    public static final String INTEGRAL_CLASSIFY ="integral_classify";
 
     /**
      * vip等级配置信息

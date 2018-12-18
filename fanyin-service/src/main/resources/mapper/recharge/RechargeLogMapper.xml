@@ -7,8 +7,8 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="manner" jdbcType="TINYINT" property="manner" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="user_type" jdbcType="TINYINT" property="userType" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="real_amount" jdbcType="DECIMAL" property="realAmount" />
@@ -21,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, type, status,user_type, amount, real_amount, order_no, add_time, update_time
+    id, user_id, manner, state,user_type, amount, real_amount, order_no, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -45,11 +45,11 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="type != null">
-        type,
+      <if test="manner != null">
+          manner,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
         <if test="userType != null">
             user_type,
@@ -77,11 +77,11 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="manner != null">
+        #{manner,jdbcType=TINYINT},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
         <if test="userType != null">
             #{userType,jdbcType=TINYINT},
@@ -112,11 +112,11 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="manner != null">
+          manner = #{manner,jdbcType=TINYINT},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
         <if test="userType != null">
             user_type = #{userType,jdbcType=TINYINT},
@@ -146,15 +146,15 @@
     </select>
 
     <select id="getList" parameterType="com.fanyin.dto.recharge.RechargeRequest" resultMap="BaseResultMap">
-        select t.id, t.user_id, t.type, t.status,t.user_type, t.amount, t.real_amount, t.order_no, t.add_time, t.update_time,r.mobile
+        select t.id, t.user_id, t.manner, t.state,t.user_type, t.amount, t.real_amount, t.order_no, t.add_time, t.update_time,r.mobile
         from recharge_log t inner join user r on  t.user_id = r.id
         <where>
 
-            <if test="type != null">
-                and t.type = #{type}
+            <if test="manner != null">
+                and t.manner = #{manner}
             </if>
-            <if test="status != null">
-                and t.status = #{status}
+            <if test="state != null">
+                and t.state = #{state}
             </if>
             <if test="userType != null">
                 and t.user_type = #{userType}
@@ -174,6 +174,6 @@
         </where>
     </select>
     <select id="getTotalRecharge" resultType="java.math.BigDecimal">
-        select IFNULL(sum(real_amount),0) from recharge_log where status = 1 and user_type = 0 and user_id = #{userId}
+        select IFNULL(sum(real_amount),0) from recharge_log where state = 1 and user_type = 0 and user_id = #{userId}
     </select>
 </mapper>

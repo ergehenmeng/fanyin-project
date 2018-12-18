@@ -49,7 +49,7 @@
                             return str;
                         }
                     },
-                    {field : "name",title : "名称",width : 150,align : "center",
+                    {field : "title",title : "名称",width : 150,align : "center",
                         formatter:function(value,rows){
                             return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.url +'\');">' + value + '</a>';
                         }
@@ -96,7 +96,7 @@
                     <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
                     <li>
                         <span>下拉列表</span>
-                        <@select name="type" total="true"  title="图片分类" nid="image_log_type"/>
+                        <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
                     </li>
                     <li>
                         <div class="submitBtn">

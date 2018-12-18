@@ -32,12 +32,12 @@
             <#list menuList as menu >
                 <li>
                     <div class="link">
-                    ${menu.name}<i class="fa fa-angle-down"></i>
+                    ${menu.title}<i class="fa fa-angle-down"></i>
                     </div>
                     <#if menu.subList?? && menu.subList?size gt 0 >
                         <ul class="submenu">
                             <#list menu.subList as child >
-                                <li><a href="javascript:void(0);" rel="${(child.url)!}">${(child.name)!}</a></li>
+                                <li><a href="javascript:void(0);" rel="${(child.url)!}">${(child.title)!}</a></li>
                             </#list>
                         </ul>
                     </#if>

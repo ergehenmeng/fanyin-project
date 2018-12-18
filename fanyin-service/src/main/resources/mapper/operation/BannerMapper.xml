@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="client_type" jdbcType="TINYINT" property="clientType" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
     <result column="turn_url" jdbcType="VARCHAR" property="turnUrl" />
@@ -23,7 +23,7 @@
     <!--
       @create by mybatis
     -->
-    id, type, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
+    id, classify, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -40,7 +40,7 @@
        from banner where
       <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间 -->
       (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
-       and client_type = {clientType} and type = #{type}
+       and client_type = {clientType} and classify = #{classify}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -60,8 +60,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+        classify,
       </if>
       <if test="clientType != null">
         client_type,
@@ -101,8 +101,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="clientType != null">
         #{clientType,jdbcType=BIT},
@@ -145,8 +145,8 @@
     -->
     update banner
     <set>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="clientType != null">
         client_type = #{clientType,jdbcType=BIT},

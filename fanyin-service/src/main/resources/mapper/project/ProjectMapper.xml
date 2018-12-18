@@ -8,9 +8,9 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="borrower_id" jdbcType="INTEGER" property="borrowerId" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="raise_amount" jdbcType="DECIMAL" property="raiseAmount" />
     <result column="min_tender" jdbcType="DECIMAL" property="minTender" />
@@ -25,7 +25,7 @@
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
   <sql id="BaseColumnList">
-    id, borrower_id, nid, status, type, name, amount, raise_amount, min_tender, apr,
+    id, borrower_id, nid, state, classify, title, amount, raise_amount, min_tender, apr,
     platform_apr, period, repayment_type, add_time, pre_sale_time, publish_time, recheck_time,
     end_time
   </sql>
@@ -60,14 +60,14 @@
       <if test="nid != null">
         nid,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
-      <if test="name != null">
-        name,
+      <if test="title != null">
+        title,
       </if>
       <if test="amount != null">
         amount,
@@ -116,14 +116,14 @@
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
       <if test="amount != null">
         #{amount,jdbcType=DECIMAL},
@@ -175,14 +175,14 @@
       <if test="nid != null">
         nid = #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="state != null">
         status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="amount != null">
         amount = #{amount,jdbcType=DECIMAL},

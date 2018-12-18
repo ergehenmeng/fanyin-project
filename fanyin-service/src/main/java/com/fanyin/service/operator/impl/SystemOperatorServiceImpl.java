@@ -18,7 +18,6 @@ import com.fanyin.utils.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,12 +48,12 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public String updateLoginPassword(PasswordEditRequest request) {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
-        String oldPassword = bCryptPasswordEncoder.encode(request.getOldPassword());
-        if(!operator.getPassword().equals(oldPassword)){
+        String oldPassword = bCryptPasswordEncoder.encode(request.getOldPwd());
+        if(!operator.getPwd().equals(oldPassword)){
             throw new BusinessException(ErrorCodeEnum.OPERATOR_PASSWORD_ERROR);
         }
-        String newPassword = bCryptPasswordEncoder.encode(request.getNewPassword());
-        operator.setPassword(newPassword);
+        String newPassword = bCryptPasswordEncoder.encode(request.getNewPwd());
+        operator.setPwd(newPassword);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         return newPassword;
     }
@@ -71,10 +70,10 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         SystemOperator operator = BeanCopyUtil.copy(request, SystemOperator.class);
         operator.setAddTime(DateUtil.getNow());
         operator.setDeleted(false);
-        operator.setStatus(true);
-        String initPassword = initPassword(request.getMobile());
-        operator.setPassword(initPassword);
-        operator.setInitPassword(initPassword);
+        operator.setState(true);
+        String initPassword = this.initPassword(request.getMobile());
+        operator.setPwd(initPassword);
+        operator.setInitPwd(initPassword);
         systemOperatorMapper.insertSelective(operator);
         if(StringUtil.isNotBlank(request.getRoleIds())){
             List<String> roleStringList = Splitter.on(",").splitToList(request.getRoleIds());

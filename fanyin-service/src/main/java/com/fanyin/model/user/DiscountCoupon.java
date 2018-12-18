@@ -30,23 +30,23 @@ public class DiscountCoupon implements Serializable {
     /**
      *  优惠券类型 0:抵扣券 1:加息券
      *  表 : discount_coupon<br>
-     *  对应字段 : type<br>
+     *  对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 优惠券名称<br>
      * 表 : discount_coupon<br>
-     * 对应字段 : name<br>
+     * 对应字段 : title<br>
      */
-    private String name;
+    private String title;
 
     /**
      * 优惠券状态 0:未使用 1:已使用 2:已冻结,3已过期<br>
      * 表 : discount_coupon<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 优惠券金额 抵扣券时表示元,加息券时表示%<br>

@@ -31,7 +31,7 @@ public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService 
     @Override
     public void loanSuccess(Project project) {
         BorrowerAccountDetailLog accountDetailLog = new BorrowerAccountDetailLog();
-        accountDetailLog.setType(BorrowerAccountLogType.BORROWER_LOAN.getType());
+        accountDetailLog.setClassify(BorrowerAccountLogType.BORROWER_LOAN.getClassify());
         accountDetailLog.setBorrowerId(project.getBorrowerId());
         accountDetailLog.setAvailableBalance(project.getAmount());
         accountDetailLog.setTotal(project.getAmount());
@@ -55,7 +55,7 @@ public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService 
 
         //借款人资金记录
         BorrowerAccountLog accountLog = new BorrowerAccountLog();
-        accountLog.setType(accountDetailLog.getType());
+        accountLog.setClassify(accountDetailLog.getClassify());
         accountLog.setProjectId(accountDetailLog.getProjectId());
         accountLog.setBorrowerId(accountDetailLog.getBorrowerId());
         accountLog.setAmount(accountDetailLog.getAmount());
@@ -66,7 +66,7 @@ public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService 
     @Override
     public void withdrawFreeze(WithdrawLog log) {
         BorrowerAccountDetailLog accountDetailLog = new BorrowerAccountDetailLog();
-        accountDetailLog.setType(BorrowerAccountLogType.BORROWER_WITHDRAW.getType());
+        accountDetailLog.setClassify(BorrowerAccountLogType.BORROWER_WITHDRAW.getClassify());
         accountDetailLog.setBorrowerId(log.getUserId());
         accountDetailLog.setAvailableBalance(BigDecimalUtils.negation(log.getAmount()));
         accountDetailLog.setAmount(log.getAmount());

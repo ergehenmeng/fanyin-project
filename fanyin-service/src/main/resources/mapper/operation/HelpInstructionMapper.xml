@@ -6,8 +6,8 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="ask" jdbcType="VARCHAR" property="ask" />
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="sort" jdbcType="TINYINT" property="sort" />
@@ -19,7 +19,7 @@
     <!--
       @create by mybatis
     -->
-    id, type, status, ask, answer, sort, add_time, update_time, deleted
+    id, classify, state, ask, answer, sort, add_time, update_time, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -40,11 +40,11 @@
       <if test="id != null">
         id,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="ask != null">
         ask,
@@ -69,11 +69,11 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
       <if test="ask != null">
         #{ask,jdbcType=VARCHAR},
@@ -101,11 +101,11 @@
     -->
     update help_instruction
     <set>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
       <if test="ask != null">
         ask = #{ask,jdbcType=VARCHAR},

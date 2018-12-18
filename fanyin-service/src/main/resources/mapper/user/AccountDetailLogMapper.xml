@@ -8,7 +8,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="total" jdbcType="DECIMAL" property="total" />
     <result column="available_balance" jdbcType="DECIMAL" property="availableBalance" />
     <result column="recharge" jdbcType="DECIMAL" property="recharge" />
@@ -24,7 +24,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, amount, type, total,available_balance, recharge, tender_freeze, withdraw_freeze,
+    id, user_id, amount, classify, total,available_balance, recharge, tender_freeze, withdraw_freeze,
     accumulated_income, wait_capital, wait_interest, add_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -52,8 +52,8 @@
       <if test="amount != null">
         amount,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
         <if test="total != null">
             total,
@@ -96,8 +96,8 @@
       <if test="amount != null">
         #{amount,jdbcType=DECIMAL},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
         <if test="total != null">
             #{total,jdbcType=DECIMAL},
@@ -143,8 +143,8 @@
       <if test="amount != null">
         amount = #{amount,jdbcType=DECIMAL},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
         <if test="total != null">
             total = #{total,jdbcType=DECIMAL},

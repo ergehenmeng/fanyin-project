@@ -15,16 +15,16 @@ public class ConfigEditRequest {
     /**
      * 参数名称
      */
-    private String name;
+    private String title;
     /**
-     * 参数类型 system_dict#system_config_type所配置
+     * 参数类型 system_dict#config_classify所配置
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 参数值
      */
-    private String value;
+    private String content;
 
     /**
      * 备注信息
@@ -54,5 +54,5 @@ public class ConfigEditRequest {
     /**
      * 备选值
      */
-    private String reserveValue;
+    private String reserveContent;
 }

@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -22,7 +22,7 @@
     <!--
       @create by mybatis
     -->
-    t.id, t.name, t.nid, t.pid, t.url,t.sub_url, t.main_menu, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+    t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.main_menu, t.sort, t.deleted, t.remark, t.add_time, t.update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -43,8 +43,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="title != null">
+        title,
       </if>
       <if test="nid != null">
         nid,
@@ -81,8 +81,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
@@ -122,8 +122,8 @@
     -->
     update system_menu
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="nid != null">
         nid = #{nid,jdbcType=VARCHAR},
@@ -166,7 +166,7 @@
                 /*查询左侧主菜单,即屏蔽按钮菜单*/
                 t.main_menu = TRUE and
             </if>
-            o.user_id = #{operatorId}
+            o.operator_id = #{operatorId}
         </where>
         order by t.pid = 0 desc,t.sort asc
     </select>

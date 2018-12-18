@@ -81,7 +81,7 @@ public class IntegralLogServiceImpl implements IntegralLogService {
         IntegralLog log = new IntegralLog();
         log.setAddTime(DateUtil.getNow());
         log.setNum(score);
-        log.setType(nid);
+        log.setNid(nid);
         log.setUserId(userId);
         integralLogMapper.insertSelective(log);
     }

@@ -38,9 +38,9 @@ public class BorrowerAccountLog implements Serializable {
     /**
      * 资金类型<br>
      * 表 : borrower_account_log<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 添加时间<br>

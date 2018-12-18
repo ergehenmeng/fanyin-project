@@ -22,17 +22,17 @@ public class ConfigAddRequest implements Serializable{
     /**
      * 参数名
      */
-    private String name;
+    private String title;
 
     /**
      * 系统参数值
      */
-    private String value;
+    private String content;
 
     /**
      * 参数类型
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 是否锁定 锁定即不可编辑
@@ -57,5 +57,5 @@ public class ConfigAddRequest implements Serializable{
     /**
      * 备选值
      */
-    private String reserveValue;
+    private String reserveContent;
 }

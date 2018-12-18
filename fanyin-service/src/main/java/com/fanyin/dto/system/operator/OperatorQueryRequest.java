@@ -19,7 +19,7 @@ public class OperatorQueryRequest extends PageQuery implements Serializable {
     /**
      * 状态 0:锁定 1:正常
      */
-    private Byte status;
+    private Byte state;
 
 
 }

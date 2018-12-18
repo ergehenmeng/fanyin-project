@@ -36,7 +36,12 @@
     <form id="form"  method="post">
         <div class="form_item">
             <label>参数名称:</label>
-            <input title="参数名称" maxlength="50" name="name" class="easyui-validatebox" data-options="required: true"  />
+            <input title="参数名称" maxlength="50" name="title" class="easyui-validatebox" data-options="required: true"  />
+            <small>*</small>
+        </div>
+        <div class="form_item">
+            <label>分类:</label>
+            <@select title="系统参数分类" name="classify" nid="config_classify" total="false"/>
             <small>*</small>
         </div>
         <div class="form_item">
@@ -44,6 +49,7 @@
             <input title="参数标示" maxlength="50"  name="nid" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
+
         <div class="form_item">
             <label>是否锁定:</label>
             <select title="锁定后,该系统参数将禁止编辑" name="locked" class="easyui-validatebox" data-options="required: true">
@@ -54,7 +60,7 @@
         </div>
         <div class="form_item">
             <label>参数值:</label>
-            <textarea title="参数值" name="value" class="easyui-validatebox h80" data-options="required: true" maxlength="500"></textarea>
+            <textarea title="参数值" name="content" class="easyui-validatebox h80" data-options="required: true" maxlength="500"></textarea>
             <small>*</small>
         </div>
         <div class="form_item">
@@ -71,7 +77,7 @@
         </div>
         <div class="form_item" id="reserve" style="display: none;">
             <label>备用值:</label>
-            <textarea title="在有效期之外该参数会生效" id="reserveValue" name="reserveValue" class="easyui-validatebox h80" data-options="required: true" maxlength="500"></textarea>
+            <textarea title="在有效期之外该参数会生效" id="reserveValue" name="reserveContent" class="easyui-validatebox h80" data-options="required: true" maxlength="500"></textarea>
             <small>*</small>
         </div>
         <div class="form_item">

@@ -22,16 +22,16 @@ public class VipConfig implements Serializable {
     /**
      * 等级名称<br>
      * 表 : vip_config<br>
-     * 对应字段 : name<br>
+     * 对应字段 : title<br>
      */
-    private String name;
+    private String title;
 
     /**
      * vip等级<br>
      * 表 : vip_config<br>
-     * 对应字段 : level<br>
+     * 对应字段 : grade<br>
      */
-    private Byte level;
+    private Byte grade;
 
     /**
      * 排序规则:小(前面)<->大(后面)<br>
@@ -50,9 +50,9 @@ public class VipConfig implements Serializable {
     /**
      * 状态 0:关闭 1:开启<br>
      * 表 : vip_config<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Boolean status;
+    private Boolean state;
 
     /**
      * 月免费提现次数<br>

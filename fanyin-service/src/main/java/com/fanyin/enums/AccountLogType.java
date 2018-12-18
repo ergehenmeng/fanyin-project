@@ -55,7 +55,7 @@ public  enum AccountLogType {
     /**
      * 资金变动类型
      */
-    private byte type;
+    private byte classify;
 
     /**
      * 资金变动说明
@@ -63,13 +63,13 @@ public  enum AccountLogType {
     private String msg;
 
 
-    AccountLogType(byte type, String msg) {
-        this.type = type;
+    AccountLogType(byte classify, String msg) {
+        this.classify = classify;
         this.msg = msg;
     }
 
-    public byte getType() {
-        return type;
+    public byte getClassify() {
+        return classify;
     }
 
     public String getMsg() {

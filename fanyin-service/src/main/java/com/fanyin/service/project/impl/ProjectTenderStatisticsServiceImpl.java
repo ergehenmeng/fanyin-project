@@ -51,13 +51,13 @@ public class ProjectTenderStatisticsServiceImpl implements ProjectTenderStatisti
         if(statisticsList != null && statisticsList.size() > 0){
             statisticsList.forEach(statistics -> {
                 String hiddenMobile = StringUtil.hiddenMobile(statistics.getMobile());
-                if(statistics.getType() == TenderConstant.TENDER_FIRST){
+                if(statistics.getClassify() == TenderConstant.TENDER_FIRST){
                     projectStatistics.setFirst(hiddenMobile);
                 }
-                if(statistics.getType() == TenderConstant.TENDER_MAX){
+                if(statistics.getClassify() == TenderConstant.TENDER_MAX){
                     projectStatistics.setMax(hiddenMobile);
                 }
-                if(statistics.getType() == TenderConstant.TENDER_LAST){
+                if(statistics.getClassify() == TenderConstant.TENDER_LAST){
                     projectStatistics.setLast(hiddenMobile);
                 }
             });
@@ -75,7 +75,7 @@ public class ProjectTenderStatisticsServiceImpl implements ProjectTenderStatisti
         statistics.setProjectId(tender.getProjectId());
         statistics.setTenderId(tender.getId());
         statistics.setUserId(tender.getUserId());
-        statistics.setType(type);
+        statistics.setClassify(type);
         return statistics;
     }
 

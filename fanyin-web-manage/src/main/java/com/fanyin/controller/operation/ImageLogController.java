@@ -42,7 +42,7 @@ public class ImageLogController extends AbstractUploadController {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.swith(page, imageLog -> {
             //将数据字典类型转换实际类型
-            String dictValue = redisCacheProxyService.getDictValue(DictConstant.IMAGE_LOG_TYPE, imageLog.getType());
+            String dictValue = redisCacheProxyService.getDictValue(DictConstant.IMAGE_LOG_TYPE, imageLog.getClassify());
             imageLog.setTypeName(dictValue);
             return imageLog;
         });

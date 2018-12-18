@@ -21,7 +21,7 @@ public class NoticeAddRequest implements Serializable {
     /**
      * 公告类型(数据字典表system_notice_type)
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 公告内容(富文本)

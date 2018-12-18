@@ -44,10 +44,10 @@ public class SystemConfigApi {
             Date now = DateUtil.getNow();
             //不在有效期时 默认备选值有效
             if(now.before(config.getStartTime()) || now.after(config.getEndTime())){
-                return config.getReserveValue();
+                return config.getReserveContent();
             }
         }
-        return config.getValue();
+        return config.getContent();
     }
 
     /**

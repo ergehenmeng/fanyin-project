@@ -21,7 +21,7 @@ public class ProjectAudit implements Serializable {
     /**
      * 产品状态
      */
-    private Integer status;
+    private Integer state;
 
     /**
      * 审核信息

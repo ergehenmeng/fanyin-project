@@ -5,7 +5,7 @@ package com.fanyin.enums;
  * @author 二哥很猛
  * @date 2018/10/17 9:33
  */
-public enum SourceKind {
+public enum SourceClassify {
 
     /**
      * pc客户端
@@ -37,7 +37,7 @@ public enum SourceKind {
      */
     private byte type;
 
-    SourceKind(byte type) {
+    SourceClassify(byte type) {
         this.type = type;
     }
 
@@ -51,7 +51,7 @@ public enum SourceKind {
      * @return 主类型,如果查询不到默认pc
      */
     public static byte getType(Source source){
-        for (SourceKind kind : SourceKind.values()){
+        for (SourceClassify kind : SourceClassify.values()){
             if(kind.name().equals(source.name())){
                 return kind.getType();
             }

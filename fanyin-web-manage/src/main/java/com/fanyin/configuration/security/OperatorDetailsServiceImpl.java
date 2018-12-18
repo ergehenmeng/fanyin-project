@@ -33,7 +33,7 @@ public class OperatorDetailsServiceImpl implements UserDetailsService {
         if(operator == null){
             throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_NOT_FOUND);
         }
-        if(!operator.getStatus()){
+        if(!operator.getState()){
             throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_LOCKED_ERROR);
         }
         //查询并组织权限信息

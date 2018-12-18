@@ -15,12 +15,12 @@ public class PasswordEditRequest implements Serializable {
     /**
      * 旧密码
      */
-    private String oldPassword;
+    private String oldPwd;
 
     /**
      * 新密码
      */
-    private String newPassword;
+    private String newPwd;
 
     /**
      * 用户id

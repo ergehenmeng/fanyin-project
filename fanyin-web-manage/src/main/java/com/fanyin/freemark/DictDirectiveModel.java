@@ -132,9 +132,9 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
             for (SystemDict dict : dictList){
                 if(value != null && value.equals(dict.getHiddenValue().toString())){
                     //<option value='1' selected>类型</option>
-                    builder.append("<option value='").append(dict.getHiddenValue()).append("' selected >").append(dict.getValue()).append("</option>");
+                    builder.append("<option value='").append(dict.getHiddenValue()).append("' selected >").append(dict.getShowValue()).append("</option>");
                 }else{
-                    builder.append("<option value='").append(dict.getHiddenValue()).append("' >").append(dict.getValue()).append("</option>");
+                    builder.append("<option value='").append(dict.getHiddenValue()).append("' >").append(dict.getShowValue()).append("</option>");
                 }
             }
         }

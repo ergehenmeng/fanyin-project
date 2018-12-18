@@ -24,9 +24,9 @@ public class RechargeRequest extends PageQuery implements Serializable {
     private Integer userId;
 
     /**
-     * 充值类型 0:快捷充值 1:网银充值
+     * 充值方式 0:快捷充值 1:网银充值
      */
-    private Byte type;
+    private Byte manner;
 
     /**
      * 用户类型 0:投资人 1:借款人
@@ -36,7 +36,7 @@ public class RechargeRequest extends PageQuery implements Serializable {
     /**
      * 充值状态 0:订单生成 1:充值成功 2:充值失败
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 查询起始时间

@@ -6,23 +6,23 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="locked" jdbcType="BIT" property="locked" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="reserve_value" jdbcType="VARCHAR" property="reserveValue" />
+    <result column="reserve_content" jdbcType="VARCHAR" property="reserveContent" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id,name, nid, value, remark, type, locked, add_time, update_time,start_time,end_time,reserve_value
+    id,title, nid, content, remark, classify, locked, add_time, update_time,start_time,end_time,reserve_content
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -42,20 +42,20 @@
       <if test="id != null">
         id,
       </if>
-        <if test="name != null">
-            name,
+        <if test="title != null">
+            title,
         </if>
       <if test="nid != null">
         nid,
       </if>
-      <if test="value != null">
-        value,
+      <if test="content != null">
+          content,
       </if>
       <if test="remark != null">
         remark,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
       <if test="locked != null">
         locked,
@@ -72,28 +72,28 @@
         <if test="endTime != null">
             end_time,
         </if>
-        <if test="reserveValue != null">
-            reserve_value
+        <if test="reserveContent != null">
+            reserve_content
         </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-        <if test="name != null">
-            #{name,jdbcType=VARCHAR},
+        <if test="title != null">
+            #{title,jdbcType=VARCHAR},
         </if>
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="locked != null">
         #{locked,jdbcType=BIT},
@@ -110,8 +110,8 @@
         <if test="endTime != null">
             #{endTime,jdbcType=TIMESTAMP}.
         </if>
-        <if test="reserveValue != null">
-            #{reserveValue,jdbcType=VARCHAR},
+        <if test="reserveContent != null">
+            #{reserveContent,jdbcType=VARCHAR},
         </if>
     </trim>
   </insert>
@@ -121,20 +121,20 @@
     -->
     update system_config
     <set>
-        <if test="nid != null">
-            name = #{name,jdbcType=VARCHAR},
+        <if test="title != null">
+            title = #{title,jdbcType=VARCHAR},
         </if>
       <if test="nid != null">
         nid = #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
-        value = #{value,jdbcType=VARCHAR},
+      <if test="content != null">
+          content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="locked != null">
         locked = #{locked,jdbcType=BIT},
@@ -151,8 +151,8 @@
         <if test="endTime != null">
             end_time = #{startTime,jdbcType=TIMESTAMP},
         </if>
-        <if test="reserveValue != null">
-            reserve_value = #{reserveValue,jdbcType=VARCHAR},
+        <if test="reserveContent != null">
+            reserve_content = #{reserveContent,jdbcType=VARCHAR},
         </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -166,14 +166,14 @@
     
     <update id="updateConfig" parameterType="com.fanyin.dto.system.config.ConfigEditRequest">
         update system_config SET
-            name = #{name},
-            type = #{type},
-            value = #{value},
+            title = #{title},
+            classify = #{classify},
+            content = #{content},
             remark = #{remark},
             update_time = now(),
             start_time = #{startTime},
             end_time = #{endTime},
-            reserve_value = #{reserveValue},
+            reserve_content = #{reserveContent},
             locked = #{locked}
         where locked = false and nid = #{nid}
     </update>
@@ -183,10 +183,10 @@
         from system_config
         <where>
             <if test="queryName != null and queryName != ''">
-                and (name like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%') or remark like concat('%',#{queryName},'%') )
+                and (title like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%') or remark like concat('%',#{queryName},'%') )
             </if>
-            <if test="type != null">
-                and type = #{type}
+            <if test="classify != null">
+                and classify = #{classify}
             </if>
             <if test="locked != null">
                 and locked = #{locked}

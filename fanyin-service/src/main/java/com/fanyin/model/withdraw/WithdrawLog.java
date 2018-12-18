@@ -37,9 +37,9 @@ public class WithdrawLog implements Serializable {
     /**
      * 提现状态 0:录入中 1:提现申请 2:提现成功,3:提现审核失败,4:提现失败<br>
      * 表 : withdraw_log<br>
-     * 对应字段 : status<br>
+     * 对应字段 : state<br>
      */
-    private Byte status;
+    private Byte state;
 
     /**
      * 提现金额<br>

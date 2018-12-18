@@ -37,9 +37,9 @@ public class AccountLog implements Serializable {
     /**
      * 资金变动类型 0:充值 1:投资 2:回款 3:提现 4:平台奖励 5:承接奖励 6:转让回款 7:撤标 <br>
      * 表 : account_log<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 添加时间<br>

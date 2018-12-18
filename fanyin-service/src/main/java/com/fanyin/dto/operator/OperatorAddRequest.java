@@ -17,7 +17,7 @@ public class OperatorAddRequest implements Serializable {
     /**
      * 名称
      */
-    private String name;
+    private String operatorName;
 
     /**
      * 手机号

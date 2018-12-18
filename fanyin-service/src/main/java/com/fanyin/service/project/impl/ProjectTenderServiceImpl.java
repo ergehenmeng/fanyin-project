@@ -137,7 +137,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             return 0D;
         }
         for (DiscountCoupon coupon : couponList) {
-            if(coupon.getType() == CouponConstant.TYPE_INTEREST){
+            if(coupon.getClassify() == CouponConstant.CLASSIFY_INTEREST){
                 return coupon.getFaceValue().doubleValue();
             }
         }
@@ -150,7 +150,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             return BigDecimal.ZERO;
         }
         for (DiscountCoupon coupon : couponList) {
-            if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
+            if(coupon.getClassify() == CouponConstant.CLASSIFY_DEDUCTION){
                 return coupon.getFaceValue();
             }
         }
@@ -189,7 +189,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             DiscountCoupon coupon = discountCouponService.getById(request.getCouponId(), request.getUserId());
             //优惠券校验
             discountCouponService.verifyDiscountCoupon(coupon,request.getAmount(),project.getPeriod());
-            if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
+            if(coupon.getClassify() == CouponConstant.CLASSIFY_DEDUCTION){
                 realAmount = realAmount.subtract(coupon.getFaceValue());
             }
         }
@@ -218,7 +218,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             //再次校验
             coupon = discountCouponService.getById(request.getCouponId(), request.getUserId());
             discountCouponService.verifyDiscountCoupon(coupon,request.getAmount(),project.getPeriod());
-            if(coupon.getType() == CouponConstant.TYPE_DEDUCTION){
+            if(coupon.getClassify() == CouponConstant.CLASSIFY_DEDUCTION){
                 realAmount = realAmount.subtract(coupon.getFaceValue());
                 voucherValue = coupon.getFaceValue();
             }
@@ -234,7 +234,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         Date now = DateUtil.getNow();
         //插入投标信息
         ProjectTender tender = new ProjectTender();
-        tender.setStatus(TenderConstant.TENDER_STATUS_0);
+        tender.setState(TenderConstant.TENDER_STATUS_0);
         tender.setUserId(request.getUserId());
         tender.setAddTime(now);
         tender.setAccount(tenderAmount);
@@ -244,7 +244,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         projectTenderMapper.insertSelective(tender);
 
         if(coupon != null){
-            coupon.setStatus(CouponConstant.COUPON_STATUS_1);
+            coupon.setState(CouponConstant.COUPON_STATUS_1);
             //更新优惠券状态
             discountCouponService.updateDiscountCoupon(coupon);
             DiscountCouponTender couponTender = new DiscountCouponTender();
@@ -259,7 +259,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
 
         project.setRaiseAmount(project.getRaiseAmount().add(tenderAmount));
         if(project.getAmount().compareTo(project.getRaiseAmount()) == 0){
-            project.setType(ProjectStatus.FULL.getCode());
+            project.setState(ProjectStatus.FULL.getCode());
         }
         projectService.updateProject(project);
         //此处设置抵扣券金额,在实际冻结金额时使用,

@@ -24,9 +24,9 @@ public class Banner implements Serializable {
     /**
      * 轮播图类型:由system_dict的banner_type维护(不同模块的轮播均在该表中维护)<br>
      * 表 : banner<br>
-     * 对应字段 : type<br>
+     * 对应字段 : classify<br>
      */
-    private Byte type;
+    private Byte classify;
 
     /**
      * 客户端类型 0:PC 1:APP<br>

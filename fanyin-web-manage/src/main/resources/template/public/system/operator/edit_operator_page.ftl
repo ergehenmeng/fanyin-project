@@ -14,12 +14,12 @@
     <form id="form"  method="post">
         <div class="form_item">
             <label>用户姓名:</label>
-            <input title="参数名称" maxlength="50" name="roleName" value="${(operator.name)!}" class="easyui-validatebox" data-options="required: true,validType:'chinese'"  />
+            <input title="参数名称" maxlength="50" name="operatorName" value="${(operator.operatorName)!}" class="easyui-validatebox" data-options="required: true,validType:'chinese'"  />
             <small>*</small>
         </div>
         <div class="form_item">
             <label>手机号:</label>
-            <input title="参数名称" maxlength="50" name="roleName" value="${(operator.mobile)!}"  class="easyui-validatebox" data-options="required: true,validType:'mobile'" max="11" />
+            <input title="参数名称" maxlength="50" name="mobile" value="${(operator.mobile)!}"  class="easyui-validatebox" data-options="required: true,validType:'mobile'" max="11" />
             <small>*</small>
         </div>
         <div class="form_item">

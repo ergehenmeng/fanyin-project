@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -22,7 +22,7 @@
     <!--
       @create by mybatis
     -->
-    id, title, type, deleted, add_time, update_time
+    id, title, classify, deleted, add_time, update_time
   </sql>
   <sql id="BlobColumnList">
     <!--
@@ -42,13 +42,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
     <select id="getList" parameterType="com.fanyin.dto.operation.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
-        select id, title, type, deleted, add_time, update_time content from system_notice
+        select id, title, classify, deleted, add_time, update_time content from system_notice
         where deleted = false
         <if test="title != null">
             and title like concat('%',#{title},'%')
         </if>
-        <if test="type != null">
-            and type = #{type}
+        <if test="classify != null">
+            and classify = #{classify}
         </if>
         <if test="startTime != null">
             and add_time &gt;= #{startTime}
@@ -72,8 +72,8 @@
       <if test="title != null">
         title,
       </if>
-      <if test="type != null">
-        type,
+      <if test="classify != null">
+          classify,
       </if>
       <if test="deleted != null">
         deleted,
@@ -95,8 +95,8 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -121,8 +121,8 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},

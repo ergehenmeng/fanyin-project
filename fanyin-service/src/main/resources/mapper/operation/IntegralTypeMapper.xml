@@ -7,10 +7,10 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="state" jdbcType="BIT" property="state" />
     <result column="score" jdbcType="SMALLINT" property="score" />
-    <result column="type" jdbcType="BIT" property="type" />
+    <result column="manner" jdbcType="BIT" property="manner" />
     <result column="random" jdbcType="BIT" property="random" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -20,7 +20,7 @@
     <!--
       @create by mybatis
     -->
-    id, nid, name, status, score, type, random, add_time, update_time,remark
+    id, nid, type_name, state, score, manner, random, add_time, update_time,remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -34,7 +34,7 @@
 
     <select id="getByNid" resultMap="BaseResultMap">
       select <include refid="BaseColumnList"/>
-        from integral_type where status = true and nid = #{nid}
+        from integral_type where state = true and nid = #{nid}
     </select>
 
 
@@ -51,17 +51,17 @@
       <if test="nid != null">
         nid,
       </if>
-      <if test="name != null">
-        name,
+      <if test="typeName != null">
+        type_name,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="score != null">
         score,
       </if>
-      <if test="type != null">
-        type,
+      <if test="manner != null">
+          manner,
       </if>
       <if test="random != null">
         random,
@@ -83,17 +83,17 @@
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
+      <if test="state != null">
+        #{state,jdbcType=BIT},
       </if>
       <if test="score != null">
         #{score,jdbcType=SMALLINT},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=BIT},
+      <if test="manner != null">
+        #{manner,jdbcType=BIT},
       </if>
       <if test="random != null">
         #{random,jdbcType=BIT},
@@ -118,17 +118,17 @@
       <if test="nid != null">
         nid = #{nid,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
       </if>
       <if test="score != null">
         score = #{score,jdbcType=SMALLINT},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=BIT},
+      <if test="manner != null">
+          manner = #{manner,jdbcType=BIT},
       </if>
       <if test="random != null">
         random = #{random,jdbcType=BIT},

@@ -7,7 +7,7 @@
     <form id="form"  method="post">
         <div class="form_item">
             <label>菜单名称:</label>
-            <input title="菜单名称" maxlength="8" name="name" class="easyui-validatebox" data-options="required: true,validType:'chinese'"  />
+            <input title="菜单名称" maxlength="8" name="title" class="easyui-validatebox" data-options="required: true,validType:'chinese'"  />
             <small>*</small>
         </div>
         <div class="form_item">
