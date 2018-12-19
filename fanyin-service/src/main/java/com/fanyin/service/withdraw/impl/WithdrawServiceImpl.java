@@ -116,15 +116,15 @@ public class WithdrawServiceImpl implements WithdrawService {
         //待收费的提现金额
         BigDecimal noTender = getRechargeNoTender(userId);
         //单笔最小收费金额
-        double minFee = systemConfigApi.getDoubleByNid(SystemConfigConstant.ONCE_WITHDRAW_FEE);
+        double minFee = systemConfigApi.getDouble(SystemConfigConstant.ONCE_WITHDRAW_FEE);
         if(noTender.compareTo(BigDecimal.ZERO) == 0){
-            return systemConfigApi.getDoubleByNid(SystemConfigConstant.ONCE_WITHDRAW_FEE);
+            return systemConfigApi.getDouble(SystemConfigConstant.ONCE_WITHDRAW_FEE);
         }
         if(noTender.compareTo(BigDecimal.valueOf(amount)) > 0 ){
             //例如 待提现收费金额10000,本次提现5000 按5000的标准收费
             noTender = BigDecimal.valueOf(amount);
         }
-        double rate = systemConfigApi.getDoubleByNid(SystemConfigConstant.RECHARGE_NO_TENDER_RATE);
+        double rate = systemConfigApi.getDouble(SystemConfigConstant.RECHARGE_NO_TENDER_RATE);
         double fee = BigDecimalUtils.mul(BigDecimalUtils.centToYuan(rate), noTender.doubleValue());
         //取较大的,单次最小收费有限制
         return Math.max(minFee,fee);

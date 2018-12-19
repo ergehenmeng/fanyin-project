@@ -66,7 +66,7 @@ public class IntegralLogServiceImpl implements IntegralLogService {
     @Override
     public int calcTenderScore(double amount) {
         int multiple = this.calcScore(Integral.TENDER);
-        int tenderAmount = systemConfigApi.getIntByNid(ConfigConstant.INTEGRAL_TENDER);
+        int tenderAmount = systemConfigApi.getInt(ConfigConstant.INTEGRAL_TENDER);
         int score = (int) amount / tenderAmount;
         return score * multiple;
     }

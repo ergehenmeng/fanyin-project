@@ -65,7 +65,7 @@ public class SystemConfigApi {
      * @param nid 唯一nid
      * @return  系统参数结果 double
      */
-    public double getDoubleByNid(String nid){
+    public double getDouble(String nid){
         String value = this.getString(nid);
         try {
             return Double.parseDouble(value);
@@ -80,7 +80,7 @@ public class SystemConfigApi {
      * @param nid 唯一nid
      * @return 系统参数结果值int 如果转换失败为0
      */
-    public int getIntByNid(String nid){
+    public int getInt(String nid){
         String value = this.getString(nid);
         try {
             return Integer.parseInt(value);
@@ -95,7 +95,7 @@ public class SystemConfigApi {
      * @param nid 唯一nid
      * @return 系统参数结果值json,如果异常则抛出
      */
-    public JSONObject getJsonByNid(String nid){
+    public JSONObject getJson(String nid){
         String value = this.getString(nid);
         try {
             return JSONObject.parseObject(value);
@@ -111,7 +111,7 @@ public class SystemConfigApi {
      * @param cls 要转换的类型
      * @return 系统参数结果值class,如果异常则抛出
      */
-    public <T> T getClassByNid(String nid, Class<T> cls){
+    public <T> T getClass(String nid, Class<T> cls){
         String value = this.getString(nid);
         try {
             return JSONObject.parseObject(value,cls);
