@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
  * @author 二哥很猛
  * @date 2018/7/2 14:05
  */
-@ConfigurationProperties(prefix = "project")
+@ConfigurationProperties(prefix = ApplicationProperties.PREFIX)
 @Component
 @Data
 public class ApplicationProperties {
+
+    protected static final String PREFIX = "application";
 
     /**
      * 系统版本号

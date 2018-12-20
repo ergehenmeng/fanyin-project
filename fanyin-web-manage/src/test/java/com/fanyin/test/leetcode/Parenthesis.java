@@ -280,12 +280,34 @@ public class Parenthesis {
         }
         return second;
     }
+    private static final long[] rewards = {1,2};
+    private static int sum = 0;
+    public static void get(long totalReward, ArrayList<Long> result) {
 
-    /**
-     * 链表中删除重复数据
-     * @param head
-     * @return
-     */
+        // 当 totalReward = 0 时，证明它是满足条件的解，结束嵌套调用，输出解
+        if (totalReward == 0) {
+            System.out.println(result);
+            sum ++;
+            return;
+        }
+        // 当 totalReward < 0 时，证明它不是满足条件的解，不输出
+        else if (totalReward < 0) {
+            return;
+        } else {
+            for (int i = 0; i < rewards.length; i++) {
+                ArrayList<Long> newResult = new ArrayList<>(result);    // 由于有 4 种情况，需要 clone 当前的解并传入被调用的函数
+                newResult.add(rewards[i]);                        // 记录当前的选择，解决一点问题
+                get(totalReward - rewards[i], newResult);        // 剩下的问题，留给嵌套调用去解决
+            }
+        }
+    }
+
+
+        /**
+         * 链表中删除重复数据
+         * @param head
+         * @return
+         */
     public static ListNode deleteDuplicates(ListNode head) {
         if(head == null || head.next == null){
             return head;
@@ -1018,6 +1040,10 @@ public class Parenthesis {
     }
 
     public static void main(String[] args) {
+
+        get(10,new ArrayList<>());
+        System.out.println( "总数:"+sum);
+
         System.out.println(isPowerOfTwo(218));
 
         System.out.println((char)256);
@@ -1082,7 +1108,7 @@ public class Parenthesis {
         System.out.println(balanced);
 
         System.out.println("爬楼梯:");
-        System.out.println(climbStairs(6));
+        System.out.println(climbStairs(10));
 
         System.out.println("字符串二进制加减");
         System.out.println(addBinary("1010","1011"));
