@@ -17,8 +17,14 @@ import org.springframework.stereotype.Service;
 public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.TENDER_ASYNC,key = "#response.key",cacheManager = "shortCacheManager")
+    @CachePut(cacheNames = RedisConstant.ASYNC_RESPONSE,key = "#response.key",cacheManager = "smallCacheManager")
     public void cacheAsyncResponse(Async response) {
+    }
+
+    @Override
+    @Cacheable(cacheNames = RedisConstant.ASYNC_RESPONSE,key = "#p0",cacheManager = "smallCacheManager")
+    public Async getAsyncResponse(String key) {
+        return null;
     }
 
     @Override

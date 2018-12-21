@@ -10,10 +10,17 @@ import com.fanyin.dto.task.Async;
 public interface RedisCacheService {
 
     /**
-     * 缓存投标异步结果
+     * 缓存任务异步结果
      * @param response 对象
      */
     void cacheAsyncResponse(Async response);
+
+    /**
+     * 获取任务异步结果
+     * @param key key
+     * @return 异步结果
+     */
+    Async getAsyncResponse(String key);
 
     /**
      * 根据accessKey查找token

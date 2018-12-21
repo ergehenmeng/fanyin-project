@@ -25,13 +25,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableCaching
 public class RedisConfiguration{
 
-
     /**
      * 长过期时间 默认30分钟
      */
     @Value("${long-expire:3600}")
     private int longExpire;
-
 
     /**
      * 短过期时间 默认10分钟
@@ -39,6 +37,12 @@ public class RedisConfiguration{
     @Value("${short-expire:600}")
     private int shortExpire;
 
+
+    /**
+     * 超短时间过期 1分钟
+     */
+    @Value("${small-expire:60}")
+    private int smallExpire;
 
     /**
      * 默认redisAutoConfiguration配置时,采用的是jdk序列化,该处可自定义序列化方式;
@@ -97,9 +101,23 @@ public class RedisConfiguration{
      * @return bean
      */
     @Bean("shortCacheManager")
-    public CacheManager shortCacheManager(RedisTemplate<Object,Object> redisTemplate){
+    public CacheManager smallCacheManager(RedisTemplate<Object,Object> redisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
         cacheManager.setDefaultExpiration(shortExpire);
+        cacheManager.setUsePrefix(true);
+        return cacheManager;
+    }
+
+
+    /**
+     * 1分钟过期的缓存管理器
+     * @param redisTemplate redisTemplate redis访问模板类
+     * @return bean
+     */
+    @Bean("smallCacheManager")
+    public CacheManager shortCacheManager(RedisTemplate<Object,Object> redisTemplate){
+        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
+        cacheManager.setDefaultExpiration(smallExpire);
         cacheManager.setUsePrefix(true);
         return cacheManager;
     }

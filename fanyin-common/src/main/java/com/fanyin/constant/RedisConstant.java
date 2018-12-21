@@ -33,7 +33,7 @@ public class RedisConstant {
     public static final String VIP_CONFIG = "vip_config";
 
     /**
-     * 投标异步结果
+     * 任务异步结果
      */
-    public static final String TENDER_ASYNC = "tender_async";
+    public static final String ASYNC_RESPONSE = "async_response";
 }
