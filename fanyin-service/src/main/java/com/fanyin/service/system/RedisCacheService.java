@@ -1,7 +1,7 @@
 package com.fanyin.service.system;
 
 import com.fanyin.dto.security.AccessToken;
-import com.fanyin.dto.tender.TenderResponse;
+import com.fanyin.dto.task.Async;
 
 /**
  * @author 二哥很猛
@@ -13,7 +13,7 @@ public interface RedisCacheService {
      * 缓存投标异步结果
      * @param response 对象
      */
-    void cacheTenderResponse(TenderResponse response);
+    void cacheAsyncResponse(Async response);
 
     /**
      * 根据accessKey查找token

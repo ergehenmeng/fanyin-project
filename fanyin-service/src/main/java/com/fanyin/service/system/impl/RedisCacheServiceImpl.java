@@ -2,7 +2,7 @@ package com.fanyin.service.system.impl;
 
 import com.fanyin.constant.RedisConstant;
 import com.fanyin.dto.security.AccessToken;
-import com.fanyin.dto.tender.TenderResponse;
+import com.fanyin.dto.task.Async;
 import com.fanyin.service.system.RedisCacheService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,7 +18,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     @Cacheable(cacheNames = RedisConstant.TENDER_ASYNC,key = "#response.key",cacheManager = "shortCacheManager")
-    public void cacheTenderResponse(TenderResponse response) {
+    public void cacheAsyncResponse(Async response) {
     }
 
     @Override

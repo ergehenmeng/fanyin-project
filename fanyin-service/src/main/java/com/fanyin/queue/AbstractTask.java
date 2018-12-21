@@ -1,9 +1,5 @@
 package com.fanyin.queue;
 
-import com.fanyin.dto.task.Async;
-import com.fanyin.dto.task.Key;
-import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -13,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T> 业务对象
  */
 @Slf4j
-public abstract class AbstractTask<T extends Key> implements Runnable{
+public abstract class AbstractTask<T> implements Runnable{
 
     private T data;
 
@@ -33,21 +29,12 @@ public abstract class AbstractTask<T extends Key> implements Runnable{
     }
 
     /**
-     * 异常信息解析
+     * 异常信息打印
+     * @param describe 错误类型描述
      * @param e 任务异常
-     * @param codeEnum 未知异常定义
-     * @param async 结果封装对象
      */
-    protected  void exceptionParse(Exception e, ErrorCodeEnum codeEnum,Async async){
-        if(e instanceof BusinessException){
-            BusinessException exception = (BusinessException)e;
-            async.setCode(exception.getCode());
-            async.setMsg(exception.getMessage());
-        }else{
-            async.setCode(codeEnum.getCode());
-            async.setMsg(codeEnum.getMsg());
-        }
-        async.setKey(data.getKey());
+    protected void printException(String describe,Exception e){
+        log.error(describe,e);
     }
 
     /**

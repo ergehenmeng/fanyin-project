@@ -284,7 +284,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         response.setUserId(tender.getUserId());
         response.setProjectId(project.getId());
         response.setRealAmount(tender.getAccount().subtract(tender.getVoucherInterest()).doubleValue());
-        redisCacheService.cacheTenderResponse(response);
+        redisCacheService.cacheAsyncResponse(response);
     }
 
 }

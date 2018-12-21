@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class Key implements Serializable {
+
     private static final long serialVersionUID = -3523695195544460695L;
 
     /**
