@@ -7,6 +7,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -225,6 +226,17 @@ public class DateUtil extends DateUtils {
         calendar.set(Calendar.MINUTE,59);
         calendar.set(Calendar.SECOND,59);
         return calendar.getTime();
+    }
+
+    /**
+     * date 转 localDate
+     * @param date date
+     * @return localDate
+     */
+    public static LocalDate convertDate(Date date){
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        return instant.atZone(zoneId).toLocalDate();
     }
 
 }

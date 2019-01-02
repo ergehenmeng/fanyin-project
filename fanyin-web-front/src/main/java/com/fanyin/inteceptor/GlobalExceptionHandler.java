@@ -2,7 +2,7 @@ package com.fanyin.inteceptor;
 
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.exception.SystemException;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,12 +22,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ReturnJson<String> exception(Exception e){
+    public RespJson<String> exception(Exception e){
         log.error("controller处理异常",e);
         if (e instanceof SystemException){
             SystemException exception = (SystemException)e;
-            return ReturnJson.<String>getInstance().setCode(exception.getCode()).setMsg(exception.getMessage());
+            return RespJson.<String>getInstance().setCode(exception.getCode()).setMsg(exception.getMessage());
         }
-        return ReturnJson.<String>getInstance().setCode(CommonConstant.CODE).setMsg("系统异常,请联系管理人员");
+        return RespJson.<String>getInstance().setCode(CommonConstant.CODE).setMsg("系统异常,请联系管理人员");
     }
 }

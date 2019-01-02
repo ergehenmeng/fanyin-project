@@ -6,7 +6,7 @@ import com.fanyin.dto.system.config.ConfigAddRequest;
 import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.fanyin.dto.system.config.ConfigQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 import com.fanyin.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
 import com.github.pagehelper.PageInfo;
@@ -29,9 +29,9 @@ public class ConfigController extends AbstractController {
 
     @PostMapping("/system/config/edit_config")
     @ResponseBody
-    public ReturnJson editConfig(ConfigEditRequest request){
+    public RespJson editConfig(ConfigEditRequest request){
         systemConfigService.updateConfig(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -65,8 +65,8 @@ public class ConfigController extends AbstractController {
      */
     @PostMapping("/system/config/add_config")
     @ResponseBody
-    public ReturnJson<String> addConfig(ConfigAddRequest request){
+    public RespJson<String> addConfig(ConfigAddRequest request){
         systemConfigService.addConfig(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 }

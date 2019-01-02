@@ -3,7 +3,7 @@ package com.fanyin.controller.system;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
@@ -44,9 +44,9 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/menu_list_page")
     @ResponseBody
-    public ReturnJson<List<SystemMenu>> menuListPage(){
+    public RespJson<List<SystemMenu>> menuListPage(){
         List<SystemMenu> allList = systemMenuService.getAllList();
-        return ReturnJson.<List<SystemMenu>>getInstance().setData(allList);
+        return RespJson.<List<SystemMenu>>getInstance().setData(allList);
     }
 
     /**
@@ -56,9 +56,9 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/add_menu")
     @ResponseBody
-    public ReturnJson addMenu(MenuAddRequest request){
+    public RespJson addMenu(MenuAddRequest request){
         systemMenuService.addMenu(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -68,9 +68,9 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/edit_menu")
     @ResponseBody
-    public ReturnJson editMenu(MenuEditRequest request){
+    public RespJson editMenu(MenuEditRequest request){
         systemMenuService.updateMenu(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -79,9 +79,9 @@ public class MenuController extends AbstractController {
      * @return 成功后的返回信息
      */
     @PostMapping("/system/menu/delete_menu")
-    public ReturnJson deleteMenu(Integer id){
+    public RespJson deleteMenu(Integer id){
         systemMenuService.deleteMenu(id);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -90,10 +90,10 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/operator/menu_list")
     @ResponseBody
-    public ReturnJson operatorMenuList(){
+    public RespJson operatorMenuList(){
         SystemOperator operator = super.getRequiredOperator();
         List<SystemMenu> menuList = systemMenuService.getAllMenuList(operator.getId());
-        return ReturnJson.getInstance().setData(menuList);
+        return RespJson.getInstance().setData(menuList);
     }
 
 }

@@ -72,6 +72,8 @@
       <jetcache.version>2.5.6</jetcache.version>
       <!--分布式数据库工具-->
       <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
+      <!--redis客户端工具-->
+      <redisson.version>3.5.0</redisson.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -246,6 +248,11 @@
                 <groupId>com.alicp.jetcache</groupId>
                 <artifactId>jetcache-starter-redis</artifactId>
                 <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

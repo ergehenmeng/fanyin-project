@@ -61,6 +61,14 @@ public class BitCalc {
         // boolean 1位
 
         System.out.println(Integer.toBinaryString(4095));
-		
+        wrap(99,213);
 	}
+
+	public static void wrap(int a,int b){
+	    a = a ^ b;
+	    b = a ^ b;
+	    a = b ^ a;
+        System.out.println("a的值: " + a);
+        System.out.println("b的值: " + b);
+    }
 }

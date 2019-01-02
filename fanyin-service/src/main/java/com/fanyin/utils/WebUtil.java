@@ -1,7 +1,7 @@
 package com.fanyin.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class WebUtil {
      * @param object json内容
      * @throws IOException 水电费
      */
-    public static void printJson(HttpServletResponse response, ReturnJson<Object> object) throws IOException{
+    public static void printJson(HttpServletResponse response, RespJson<Object> object) throws IOException{
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = response.getWriter()){
             response.setContentType("application/json;charset=utf-8");

@@ -6,7 +6,7 @@ import com.fanyin.dto.operation.ImageAddRequest;
 import com.fanyin.dto.operation.ImageEditRequest;
 import com.fanyin.dto.operation.ImageQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 import com.fanyin.model.operation.ImageLog;
 import com.fanyin.service.operation.ImageLogService;
 import com.fanyin.service.system.RedisCacheProxyService;
@@ -40,7 +40,7 @@ public class ImageLogController extends AbstractUploadController {
     @ResponseBody
     public Paging<ImageLog> imageListPage(ImageQueryRequest request){
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
-        return DataUtil.swith(page, imageLog -> {
+        return DataUtil.transform(page, imageLog -> {
             //将数据字典类型转换实际类型
             String dictValue = redisCacheProxyService.getDictValue(DictConstant.IMAGE_LOG_TYPE, imageLog.getClassify());
             imageLog.setTypeName(dictValue);
@@ -54,14 +54,14 @@ public class ImageLogController extends AbstractUploadController {
      */
     @RequestMapping("/operation/image/add_image")
     @ResponseBody
-    public ReturnJson addImage(ImageAddRequest request, MultipartFile imgFile){
+    public RespJson addImage(ImageAddRequest request, MultipartFile imgFile){
         if(imgFile != null && !imgFile.isEmpty()){
             String url = super.saveFile(imgFile);
             request.setUrl(url);
             request.setSize(imgFile.getSize());
         }
         imageLogService.addImageLog(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -71,9 +71,9 @@ public class ImageLogController extends AbstractUploadController {
      */
     @RequestMapping("/operation/image/edit_image")
     @ResponseBody
-    public ReturnJson editImage(ImageEditRequest request){
+    public RespJson editImage(ImageEditRequest request){
         imageLogService.updateImageLog(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
 
@@ -84,9 +84,9 @@ public class ImageLogController extends AbstractUploadController {
      */
     @RequestMapping("/operation/image/delete_image")
     @ResponseBody
-    public ReturnJson deleteImage(Integer id){
+    public RespJson deleteImage(Integer id){
         imageLogService.deleteImageLog(id);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**

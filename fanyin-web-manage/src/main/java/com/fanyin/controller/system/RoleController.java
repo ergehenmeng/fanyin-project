@@ -5,7 +5,7 @@ import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
@@ -46,11 +46,13 @@ public class RoleController {
      */
     @RequestMapping("/system/role/role_list")
     @ResponseBody
-    public ReturnJson<List<CheckBox>> roleList(){
+    public RespJson<List<CheckBox>> roleList(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return ReturnJson.<List<CheckBox>>getInstance().setData(
-                DataUtil.swith(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName()))
+        return RespJson.<List<CheckBox>>getInstance().setData(
+                DataUtil.transform(list,
+                    systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName())
+                )
         );
     }
 
@@ -73,9 +75,9 @@ public class RoleController {
      */
     @RequestMapping("/system/role/edit_role")
     @ResponseBody
-    public ReturnJson editRole(RoleEditRequest request){
+    public RespJson editRole(RoleEditRequest request){
         systemRoleService.updateRole(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -85,9 +87,9 @@ public class RoleController {
      */
     @RequestMapping("/system/role/delete_role")
     @ResponseBody
-    public ReturnJson deleteRole(Integer id){
+    public RespJson deleteRole(Integer id){
         systemRoleService.deleteRole(id);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -97,8 +99,8 @@ public class RoleController {
      */
     @RequestMapping("/system/role/add_role")
     @ResponseBody
-    public ReturnJson addRole(RoleAddRequest request){
+    public RespJson addRole(RoleAddRequest request){
         systemRoleService.addRole(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 }

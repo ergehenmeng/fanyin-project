@@ -5,10 +5,13 @@ import com.fanyin.ext.Transfer;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
- * 主要针对移动端或前后端分离 数据格式化
+ * 主要针对移动端或前后端分离<br>
+ * 数据格式化及数据转换<br/>
+ * 例如:分页数据转换,集合转换
  * @author 二哥很猛
  * @date 2018/11/21 10:10
  */
@@ -20,7 +23,7 @@ public class DataUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S,T> Paging<T> swith(PageInfo<S> pageInfo,Transfer<S,T> transfer){
+    public static <S,T> Paging<T> transform(PageInfo<S> pageInfo,Transfer<S,T> transfer){
 
         Paging<T> paging = new Paging<>();
 
@@ -42,13 +45,13 @@ public class DataUtil {
 
     /**
      * 列表数据转换
-     * @param sourceList 原列表数据
+     * @param sourceList 原列表数据 集合
      * @param transfer 转换方式
      * @param <S> 原数据类型
      * @param <T> 目标数据类型
      * @return 结果数据列表
      */
-    public static <S,T> List<T> swith(List<S> sourceList,Transfer<S,T> transfer){
+    public static <S,T> List<T> transform(Collection<S> sourceList, Transfer<S,T> transfer){
         List<T> resultList = Lists.newArrayList();
         sourceList.forEach(s -> resultList.add(transfer.transfer(s)));
         return resultList;

@@ -7,14 +7,12 @@ import com.fanyin.dto.operator.OperatorEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
 import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.ReturnJson;
+import com.fanyin.ext.RespJson;
 import com.fanyin.model.system.SystemOperator;
-import com.fanyin.model.system.SystemOperatorRole;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.fanyin.service.system.SystemRoleService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,7 +46,7 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/change_password")
     @ResponseBody
-    public ReturnJson changePassword(HttpSession session, PasswordEditRequest request){
+    public RespJson changePassword(HttpSession session, PasswordEditRequest request){
         SecurityOperator operator = super.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = systemOperatorService.updateLoginPassword(request);
@@ -60,7 +58,7 @@ public class OperatorController extends AbstractController {
         token.setDetails(authentication.getDetails());
         context.setAuthentication(token);
 
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -82,9 +80,9 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/add_operator")
     @ResponseBody
-    public ReturnJson addOperator(OperatorAddRequest request){
+    public RespJson addOperator(OperatorAddRequest request){
         systemOperatorService.addOperator(request);
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
     /**
@@ -111,9 +109,9 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/edit_operator")
     @ResponseBody
-    public ReturnJson editOperator(OperatorEditRequest request){
+    public RespJson editOperator(OperatorEditRequest request){
 
-        return ReturnJson.getInstance();
+        return RespJson.getInstance();
     }
 
 }

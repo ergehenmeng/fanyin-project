@@ -50,7 +50,7 @@ public class Banner implements Serializable {
     private String turnUrl;
 
     /**
-     * 轮播图顺序(小<->大) 最小的在最前面<br>
+     * 轮播图顺序(大<->小) 最大的在最前面<br>
      * 表 : banner<br>
      * 对应字段 : index<br>
      */

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/12 17:41
  */
-public class ReturnJson<T> implements Serializable {
+public class RespJson<T> implements Serializable {
 
     private static final long serialVersionUID = 1574813862539970945L;
 
@@ -26,12 +26,15 @@ public class ReturnJson<T> implements Serializable {
      * 结果集 键值对或者非基本类型对象
      */
     private T data;
-
-    public static <T> ReturnJson<T> getInstance(){
-        return new ReturnJson<>();
+    
+    private RespJson(){
     }
 
-    public ReturnJson<T> setError(ErrorCodeEnum error){
+    public static <T> RespJson<T> getInstance(){
+        return new RespJson<>();
+    }
+
+    public RespJson<T> setError(ErrorCodeEnum error){
         this.code = error.getCode();
         this.msg = error.getMsg();
         return this;
@@ -41,7 +44,7 @@ public class ReturnJson<T> implements Serializable {
         return data;
     }
 
-    public ReturnJson<T> setData(T data) {
+    public RespJson<T> setData(T data) {
         this.data = data;
         return this;
     }
@@ -50,7 +53,7 @@ public class ReturnJson<T> implements Serializable {
         return msg;
     }
 
-    public ReturnJson<T> setMsg(String msg) {
+    public RespJson<T> setMsg(String msg) {
         this.msg = msg;
         return this;
     }
@@ -59,7 +62,7 @@ public class ReturnJson<T> implements Serializable {
         return code;
     }
 
-    public ReturnJson<T> setCode(int code) {
+    public RespJson<T> setCode(int code) {
         this.code = code;
         return this;
     }
