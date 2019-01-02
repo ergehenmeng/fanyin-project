@@ -1,7 +1,7 @@
 package com.fanyin.service.deposit;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/23 17:55
  */
 public interface DepositService {

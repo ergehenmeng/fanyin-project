@@ -1,7 +1,7 @@
 package com.fanyin.enums;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2018/11/23 18:49
  */
 public enum DepositStatus {
