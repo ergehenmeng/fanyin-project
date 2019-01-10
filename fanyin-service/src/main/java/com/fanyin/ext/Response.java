@@ -1,6 +1,8 @@
 package com.fanyin.ext;
 
 import com.fanyin.enums.ErrorCodeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
@@ -9,7 +11,8 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/12 17:41
  */
-public class RespJson<T> implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Response<T> implements Serializable {
 
     private static final long serialVersionUID = 1574813862539970945L;
 
@@ -27,14 +30,14 @@ public class RespJson<T> implements Serializable {
      */
     private T data;
     
-    private RespJson(){
+    private Response(){
     }
 
-    public static <T> RespJson<T> getInstance(){
-        return new RespJson<>();
+    public static <T> Response<T> getInstance(){
+        return new Response<>();
     }
 
-    public RespJson<T> setError(ErrorCodeEnum error){
+    public Response<T> error(ErrorCodeEnum error){
         this.code = error.getCode();
         this.msg = error.getMsg();
         return this;
@@ -44,7 +47,7 @@ public class RespJson<T> implements Serializable {
         return data;
     }
 
-    public RespJson<T> setData(T data) {
+    public Response<T> setData(T data) {
         this.data = data;
         return this;
     }
@@ -53,7 +56,7 @@ public class RespJson<T> implements Serializable {
         return msg;
     }
 
-    public RespJson<T> setMsg(String msg) {
+    public Response<T> setMsg(String msg) {
         this.msg = msg;
         return this;
     }
@@ -62,7 +65,7 @@ public class RespJson<T> implements Serializable {
         return code;
     }
 
-    public RespJson<T> setCode(int code) {
+    public Response<T> setCode(int code) {
         this.code = code;
         return this;
     }

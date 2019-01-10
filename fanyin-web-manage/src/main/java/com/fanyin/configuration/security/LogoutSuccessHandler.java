@@ -1,6 +1,6 @@
 package com.fanyin.configuration.security;
 
-import com.fanyin.ext.RespJson;
+import com.fanyin.ext.Response;
 import com.fanyin.utils.WebUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -20,6 +20,6 @@ public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        WebUtil.printJson(response, RespJson.getInstance());
+        WebUtil.printJson(response, Response.getInstance());
     }
 }

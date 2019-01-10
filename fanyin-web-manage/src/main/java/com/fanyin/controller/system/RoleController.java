@@ -5,7 +5,7 @@ import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.RespJson;
+import com.fanyin.ext.Response;
 import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
@@ -46,10 +46,10 @@ public class RoleController {
      */
     @RequestMapping("/system/role/role_list")
     @ResponseBody
-    public RespJson<List<CheckBox>> roleList(){
+    public Response<List<CheckBox>> roleList(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return RespJson.<List<CheckBox>>getInstance().setData(
+        return Response.<List<CheckBox>>getInstance().setData(
                 DataUtil.transform(list,
                     systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName())
                 )
@@ -75,9 +75,9 @@ public class RoleController {
      */
     @RequestMapping("/system/role/edit_role")
     @ResponseBody
-    public RespJson editRole(RoleEditRequest request){
+    public Response editRole(RoleEditRequest request){
         systemRoleService.updateRole(request);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
     /**
@@ -87,9 +87,9 @@ public class RoleController {
      */
     @RequestMapping("/system/role/delete_role")
     @ResponseBody
-    public RespJson deleteRole(Integer id){
+    public Response deleteRole(Integer id){
         systemRoleService.deleteRole(id);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
     /**
@@ -99,8 +99,8 @@ public class RoleController {
      */
     @RequestMapping("/system/role/add_role")
     @ResponseBody
-    public RespJson addRole(RoleAddRequest request){
+    public Response addRole(RoleAddRequest request){
         systemRoleService.addRole(request);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 }

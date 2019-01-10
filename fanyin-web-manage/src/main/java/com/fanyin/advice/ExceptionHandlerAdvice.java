@@ -2,7 +2,7 @@ package com.fanyin.advice;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
-import com.fanyin.ext.RespJson;
+import com.fanyin.ext.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,9 +24,9 @@ public class ExceptionHandlerAdvice {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public RespJson businessException(BusinessException e){
+    public Response businessException(BusinessException e){
         log.error("业务异常",e);
-        return RespJson.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
+        return Response.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
     }
 
     /**
@@ -36,8 +36,8 @@ public class ExceptionHandlerAdvice {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public RespJson exception(Exception e){
+    public Response exception(Exception e){
         log.error("系统异常",e);
-        return RespJson.getInstance().setError(ErrorCodeEnum.SYSTEM_ERROR);
+        return Response.getInstance().error(ErrorCodeEnum.SYSTEM_ERROR);
     }
 }

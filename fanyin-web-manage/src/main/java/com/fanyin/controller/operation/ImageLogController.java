@@ -6,7 +6,7 @@ import com.fanyin.dto.operation.ImageAddRequest;
 import com.fanyin.dto.operation.ImageEditRequest;
 import com.fanyin.dto.operation.ImageQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.RespJson;
+import com.fanyin.ext.Response;
 import com.fanyin.model.operation.ImageLog;
 import com.fanyin.service.operation.ImageLogService;
 import com.fanyin.service.system.RedisCacheProxyService;
@@ -54,14 +54,14 @@ public class ImageLogController extends AbstractUploadController {
      */
     @RequestMapping("/operation/image/add_image")
     @ResponseBody
-    public RespJson addImage(ImageAddRequest request, MultipartFile imgFile){
+    public Response addImage(ImageAddRequest request, MultipartFile imgFile){
         if(imgFile != null && !imgFile.isEmpty()){
             String url = super.saveFile(imgFile);
             request.setUrl(url);
             request.setSize(imgFile.getSize());
         }
         imageLogService.addImageLog(request);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
     /**
@@ -71,9 +71,9 @@ public class ImageLogController extends AbstractUploadController {
      */
     @RequestMapping("/operation/image/edit_image")
     @ResponseBody
-    public RespJson editImage(ImageEditRequest request){
+    public Response editImage(ImageEditRequest request){
         imageLogService.updateImageLog(request);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
 
@@ -84,9 +84,9 @@ public class ImageLogController extends AbstractUploadController {
      */
     @RequestMapping("/operation/image/delete_image")
     @ResponseBody
-    public RespJson deleteImage(Integer id){
+    public Response deleteImage(Integer id){
         imageLogService.deleteImageLog(id);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
     /**

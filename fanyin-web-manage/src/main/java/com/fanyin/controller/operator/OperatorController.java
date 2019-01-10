@@ -7,7 +7,7 @@ import com.fanyin.dto.operator.OperatorEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
 import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.RespJson;
+import com.fanyin.ext.Response;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.fanyin.service.system.SystemRoleService;
@@ -46,7 +46,7 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/change_password")
     @ResponseBody
-    public RespJson changePassword(HttpSession session, PasswordEditRequest request){
+    public Response changePassword(HttpSession session, PasswordEditRequest request){
         SecurityOperator operator = super.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = systemOperatorService.updateLoginPassword(request);
@@ -58,7 +58,7 @@ public class OperatorController extends AbstractController {
         token.setDetails(authentication.getDetails());
         context.setAuthentication(token);
 
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
     /**
@@ -80,9 +80,9 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/add_operator")
     @ResponseBody
-    public RespJson addOperator(OperatorAddRequest request){
+    public Response addOperator(OperatorAddRequest request){
         systemOperatorService.addOperator(request);
-        return RespJson.getInstance();
+        return Response.getInstance();
     }
 
     /**
@@ -109,9 +109,9 @@ public class OperatorController extends AbstractController {
      */
     @RequestMapping("/system/operator/edit_operator")
     @ResponseBody
-    public RespJson editOperator(OperatorEditRequest request){
-
-        return RespJson.getInstance();
+    public Response editOperator(OperatorEditRequest request){
+        systemOperatorService.updateOperator(request);
+        return Response.getInstance();
     }
 
 }

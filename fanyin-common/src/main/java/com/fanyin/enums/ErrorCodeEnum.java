@@ -18,9 +18,9 @@ public enum ErrorCodeEnum {
     PROJECT_NOT_FOUND(404,"标的信息不存在"),
 
     /**
-     * 系统服务异常
+     * 系统繁忙,请稍后再试
      */
-    SYSTEM_ERROR(9999,"系统服务异常"),
+    SYSTEM_ERROR(9999,"系统繁忙,请稍后再试"),
     /**
      * json转换异常
      */
@@ -115,6 +115,10 @@ public enum ErrorCodeEnum {
      */
     NID_IS_NULL(2002,"@select指定nid不能为空"),
 
+    /**
+     * 权限校验异常,请联系管理人员
+     */
+    PERMISSION_ERROR(2003,"权限校验异常,请联系管理人员"),
 
 
     /**
