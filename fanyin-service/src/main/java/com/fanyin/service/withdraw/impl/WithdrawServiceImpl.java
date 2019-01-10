@@ -18,7 +18,7 @@ import com.fanyin.service.system.CommonService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.service.user.UserExtendService;
 import com.fanyin.service.withdraw.WithdrawService;
-import com.fanyin.utils.BigDecimalUtils;
+import com.fanyin.utils.BigDecimalUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,7 +125,7 @@ public class WithdrawServiceImpl implements WithdrawService {
             noTender = BigDecimal.valueOf(amount);
         }
         double rate = systemConfigApi.getDouble(SystemConfigConstant.RECHARGE_NO_TENDER_RATE);
-        double fee = BigDecimalUtils.mul(BigDecimalUtils.centToYuan(rate), noTender.doubleValue());
+        double fee = BigDecimalUtil.mul(BigDecimalUtil.centToYuan(rate), noTender.doubleValue());
         //取较大的,单次最小收费有限制
         return Math.max(minFee,fee);
     }

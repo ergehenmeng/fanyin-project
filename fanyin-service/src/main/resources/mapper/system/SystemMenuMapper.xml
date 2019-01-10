@@ -11,7 +11,7 @@
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="sub_url" jdbcType="VARCHAR" property="subUrl" />
-    <result column="main_menu" jdbcType="BIT" property="mainMenu" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -22,7 +22,7 @@
     <!--
       @create by mybatis
     -->
-    t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.main_menu, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+    t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.classify, t.sort, t.deleted, t.remark, t.add_time, t.update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -58,8 +58,8 @@
         <if test="subUrl != null">
             sub_url
         </if>
-      <if test="mainMenu != null">
-        main_menu,
+      <if test="classify != null">
+          classify,
       </if>
       <if test="sort != null">
         sort,
@@ -96,8 +96,8 @@
         <if test="subUrl != null">
             #{subUrl,jdbcType=VARCHAR},
         </if>
-      <if test="mainMenu != null">
-        #{mainMenu,jdbcType=BIT},
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
@@ -137,8 +137,8 @@
         <if test="subUrl != null">
             sub_url = #{subUrl,jdbcType=VARCHAR},
         </if>
-      <if test="mainMenu != null">
-        main_menu = #{mainMenu,jdbcType=BIT},
+      <if test="classify != null">
+          classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
@@ -164,7 +164,7 @@
         <where>
             <if test="btnMenu == false">
                 /*查询左侧主菜单,即屏蔽按钮菜单*/
-                t.main_menu = TRUE and
+                t.classify = 0 and
             </if>
             o.operator_id = #{operatorId}
         </where>

@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  * @author 二哥很猛
  * @date 上午11:11:38
  */
-public class BigDecimalUtils {
+public class BigDecimalUtil {
 
     /**
      * 除法精度

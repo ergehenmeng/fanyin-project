@@ -73,14 +73,14 @@ public class ProjectUtil {
 
         for (int i = 1; i <= period; i++){
             //当期利息
-            double interest = BigDecimalUtils.mul(residueMoney,monthApr);
+            double interest = BigDecimalUtil.mul(residueMoney,monthApr);
             if(i < period){
                 //剩余本金 = 原剩余本金-(月还款金额-月还款利息) = 原剩余本金-本期还款本金
-                residueMoney = BigDecimalUtils.sub(residueMoney,BigDecimalUtils.sub(monthMoney,interest));
+                residueMoney = BigDecimalUtil.sub(residueMoney,BigDecimalUtil.sub(monthMoney,interest));
             }
-            totalInterest = BigDecimalUtils.add(interest,totalInterest);
+            totalInterest = BigDecimalUtil.add(interest,totalInterest);
         }
-        return BigDecimalUtils.round(totalInterest);
+        return BigDecimalUtil.round(totalInterest);
     }
 
     /**
@@ -95,16 +95,16 @@ public class ProjectUtil {
             return ZERO;
         }
         //公用的
-        double common = Math.pow(BigDecimalUtils.add(1,monthApr,SCALE),period);
+        double common = Math.pow(BigDecimalUtil.add(1,monthApr,SCALE),period);
         //除数
-        double divisor = BigDecimalUtils.mul(money,monthApr,common);
+        double divisor = BigDecimalUtil.mul(money,monthApr,common);
         //被除数
-        double dividend = BigDecimalUtils.sub(common , 1,SCALE);
+        double dividend = BigDecimalUtil.sub(common , 1,SCALE);
         //被除数为0 直接返回0
         if (dividend == 0){
             return 0D;
         }
-        return BigDecimalUtils.round(BigDecimalUtils.div(divisor,dividend));
+        return BigDecimalUtil.round(BigDecimalUtil.div(divisor,dividend));
     }
 
     /**
@@ -118,15 +118,15 @@ public class ProjectUtil {
             return ZERO;
         }
         //转换为标准的利率
-        apr = BigDecimalUtils.centToYuan(apr);
+        apr = BigDecimalUtil.centToYuan(apr);
         if(TYPE_DAY == type){
-            return BigDecimalUtils.div(apr,365);
+            return BigDecimalUtil.div(apr,365);
         }
         if(TYPE_YEAR == type){
             return apr;
         }
         //月利息
-        return BigDecimalUtils.div(apr,12);
+        return BigDecimalUtil.div(apr,12);
     }
 
     /**
@@ -141,8 +141,8 @@ public class ProjectUtil {
         if(money == ZERO || period == ZERO || apr == ZERO){
             return ZERO;
         }
-        double interest =  BigDecimalUtils.mul(getMonthApr(apr,type),money,period);
-        return BigDecimalUtils.round(interest);
+        double interest =  BigDecimalUtil.mul(getMonthApr(apr,type),money,period);
+        return BigDecimalUtil.round(interest);
     }
 
     /**
@@ -198,11 +198,11 @@ public class ProjectUtil {
             plan = new ProjectPlan();
 
             //基础收益
-            double baseInterest = BigDecimalUtils.round(BigDecimalUtils.mul(residueMoney,baseMonthApr));
+            double baseInterest = BigDecimalUtil.round(BigDecimalUtil.mul(residueMoney,baseMonthApr));
             //平台加息收益
-            double platformInterest = BigDecimalUtils.round(BigDecimalUtils.mul(residueMoney,platformMonthApr));
+            double platformInterest = BigDecimalUtil.round(BigDecimalUtil.mul(residueMoney,platformMonthApr));
             //加息券收益
-            double couponInterest = BigDecimalUtils.round(BigDecimalUtils.mul(residueMoney,couponMonthApr));
+            double couponInterest = BigDecimalUtil.round(BigDecimalUtil.mul(residueMoney,couponMonthApr));
             //本金
             double capital;
             //最后一期
@@ -210,10 +210,10 @@ public class ProjectUtil {
                 capital = residueMoney;
             }else{
                 // 本期还款本金
-                capital = BigDecimalUtils.sub(baseMonthMoney,baseInterest);
+                capital = BigDecimalUtil.sub(baseMonthMoney,baseInterest);
             }
             //由于月还款金额四舍五入,在投标金额极小的时候,月还款金额会变大,因此每期还款本金可能会变大导致 最后一期或几期无剩余本金可还 因而出现负数
-            residueMoney = BigDecimalUtils.sub(residueMoney,capital);
+            residueMoney = BigDecimalUtil.sub(residueMoney,capital);
             if (residueMoney < 0){
                 residueMoney = 0;
             }
@@ -304,18 +304,18 @@ public class ProjectUtil {
                 plan.setCouponInterest(BigDecimal.valueOf(couponTotal));
                 plan.setPlatformInterest(BigDecimal.valueOf(platformTotal));
             }else{
-                double platformInterest = BigDecimalUtils.round(BigDecimalUtils.mul(platformMonthApr,money));
-                double couponInterest = BigDecimalUtils.round(BigDecimalUtils.mul(couponMonthApr,money));
-                double baseInterest = BigDecimalUtils.round(BigDecimalUtils.mul(baseMonthApr,money));
+                double platformInterest = BigDecimalUtil.round(BigDecimalUtil.mul(platformMonthApr,money));
+                double couponInterest = BigDecimalUtil.round(BigDecimalUtil.mul(couponMonthApr,money));
+                double baseInterest = BigDecimalUtil.round(BigDecimalUtil.mul(baseMonthApr,money));
 
                 plan.setCapital(BigDecimal.ZERO);
                 plan.setBaseInterest(BigDecimal.valueOf(baseInterest));
                 plan.setCouponInterest(BigDecimal.valueOf(couponInterest));
                 plan.setPlatformInterest(BigDecimal.valueOf(platformInterest));
 
-                baseTotal = BigDecimalUtils.sub(baseTotal,baseInterest);
-                platformTotal = BigDecimalUtils.sub(platformTotal,platformInterest);
-                couponTotal = BigDecimalUtils.sub(couponTotal,couponInterest);
+                baseTotal = BigDecimalUtil.sub(baseTotal,baseInterest);
+                platformTotal = BigDecimalUtil.sub(platformTotal,platformInterest);
+                couponTotal = BigDecimalUtil.sub(couponTotal,couponInterest);
             }
             list.add(plan);
         }
@@ -334,8 +334,8 @@ public class ProjectUtil {
         if(money == ZERO || periods == ZERO || apr == ZERO){
             return ZERO;
         }
-        double interest =  BigDecimalUtils.mul(getMonthApr(apr,TYPE_DAY),money,periods);
-        return BigDecimalUtils.round(interest);
+        double interest =  BigDecimalUtil.mul(getMonthApr(apr,TYPE_DAY),money,periods);
+        return BigDecimalUtil.round(interest);
     }
 
     /**
@@ -348,7 +348,7 @@ public class ProjectUtil {
      * @return 还款计划
      */
     public static List<ProjectPlan> dailyRecoverList(int periods, double money, double apr, double platformApr, double couponApr){
-        double totalApr = BigDecimalUtils.add(BigDecimalUtils.add(apr, platformApr), couponApr);
+        double totalApr = BigDecimalUtil.add(BigDecimalUtil.add(apr, platformApr), couponApr);
         //总利息 = 平台加息+基础+加息券
         double interest = dailyInterest(money,periods,totalApr);
         //平台加息

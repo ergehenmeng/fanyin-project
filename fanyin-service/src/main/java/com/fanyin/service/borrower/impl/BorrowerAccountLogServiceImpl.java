@@ -9,7 +9,7 @@ import com.fanyin.model.project.Project;
 import com.fanyin.model.withdraw.WithdrawLog;
 import com.fanyin.service.borrower.BorrowerAccountLogService;
 import com.fanyin.service.borrower.BorrowerAccountService;
-import com.fanyin.utils.BigDecimalUtils;
+import com.fanyin.utils.BigDecimalUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,7 +68,7 @@ public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService 
         BorrowerAccountDetailLog accountDetailLog = new BorrowerAccountDetailLog();
         accountDetailLog.setClassify(BorrowerAccountLogType.BORROWER_WITHDRAW.getClassify());
         accountDetailLog.setBorrowerId(log.getUserId());
-        accountDetailLog.setAvailableBalance(BigDecimalUtils.negation(log.getAmount()));
+        accountDetailLog.setAvailableBalance(BigDecimalUtil.negation(log.getAmount()));
         accountDetailLog.setAmount(log.getAmount());
         accountDetailLog.setWithdrawFreeze(log.getAmount());
         accountDetailLog.setOrderNo(log.getOrderNo());

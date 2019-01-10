@@ -12,7 +12,7 @@ import com.fanyin.service.user.AccountDetailLogService;
 import com.fanyin.service.user.AccountLogService;
 import com.fanyin.service.user.AccountService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.BigDecimalUtils;
+import com.fanyin.utils.BigDecimalUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         log.setWaitInterest(interest);
         //解冻金额=投标金额-抵扣券金额
         BigDecimal unFreeze = tender.getAccount().subtract(tender.getVoucherInterest());
-        log.setTenderFreeze(BigDecimalUtils.negation(unFreeze));
+        log.setTenderFreeze(BigDecimalUtil.negation(unFreeze));
         BigDecimal amount = tender.getAccount().add(interest);
         log.setAmount(amount);
         log.setTotal(amount);
@@ -89,8 +89,8 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         BigDecimal freeze = tender.getAccount().subtract(tender.getVoucherInterest());
         log.setTenderFreeze(freeze);
         log.setAmount(freeze);
-        log.setAvailableBalance(BigDecimalUtils.negation(freeze));
-        log.setTotal(BigDecimalUtils.negation(freeze));
+        log.setAvailableBalance(BigDecimalUtil.negation(freeze));
+        log.setTotal(BigDecimalUtil.negation(freeze));
         log.setAddTime(now);
         this.capitalOperation(log);
 

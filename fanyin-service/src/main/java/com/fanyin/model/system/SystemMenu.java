@@ -49,11 +49,11 @@ public class SystemMenu implements Serializable {
     private String url;
 
     /**
-     * 是否为左侧主菜单 0:不是,1:是<br>
+     * 菜单分类 0:左侧菜单 1: 按钮菜单<br>
      * 表 : system_menu<br>
-     * 对应字段 : main_menu<br>
+     * 对应字段 : classify<br>
      */
-    private Boolean mainMenu;
+    private Byte classify;
 
     /**
      * 排序规则 小的排在前面<br>
