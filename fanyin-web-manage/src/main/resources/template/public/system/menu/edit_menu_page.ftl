@@ -22,11 +22,11 @@
         </div>
         <div class="form_item">
             <label>菜单类型:</label>
-            <select title="菜单类型" name="mainMenu">
-            <#if menu.mainMenu >
+            <select title="菜单类型" name="classify">
+            <#if menu.classify == 0 >
                 <option value="true" selected="selected">左侧菜单</option>
                 <option value="false" >按钮菜单</option>
-            <#else>
+            <#elseif menu.classify == 1>
                 <option value="true" >左侧菜单</option>
                 <option value="false" selected="selected">按钮菜单</option>
             </#if>

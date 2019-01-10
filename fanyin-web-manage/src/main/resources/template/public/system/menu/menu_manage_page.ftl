@@ -54,9 +54,9 @@
                     {field : "nid",title : "菜单标示",width : 120,align : "center"},
                     {field : "url",title : "菜单URL",width : 300,align : "center"},
                     {field : "subUrl",title : "子菜单URL",width : 400,align : "center"},
-                    {field : "mainMenu",title : "类型",width : 80,align : "center",
+                    {field : "classify",title : "类型",width : 80,align : "center",
                         formatter : function(value) {
-                            return value ? "左侧菜单" : "按钮菜单";
+                            return value === 0 ? "左侧菜单" : "按钮菜单";
                         }
                     },
                     {field : "sort",title : "排序",width : 50,align : "center"},
@@ -94,7 +94,7 @@
                         "subUrl" : row.subUrl,
                         "addTime" : row.addTime,
                         "updateTime" : row.updateTime,
-                        "mainMenu" : row.mainMenu,
+                        "classify" : row.classify,
                         "sort" : row.sort,
                         "remark" : row.remark
                     });
@@ -119,7 +119,7 @@
                             "subUrl" : childRow.subUrl,
                             "addTime" : childRow.addTime,
                             "updateTime" : childRow.updateTime,
-                            "mainMenu" : childRow.mainMenu,
+                            "classify" : childRow.classify,
                             "sort" : childRow.sort,
                             "remark" : childRow.remark
                         };

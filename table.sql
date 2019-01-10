@@ -4507,7 +4507,7 @@ CREATE TABLE `system_menu` (
   `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
   `url` varchar(255) DEFAULT NULL COMMENT '菜单地址',
   `sub_url` varchar(2000) DEFAULT NULL COMMENT '该菜单包含的子url以分号做分割',
-  `main_menu` bit(1) DEFAULT b'1' COMMENT '是否为左侧主菜单 0:不是,1:是',
+  `classify` tinyint(1) DEFAULT '0' COMMENT '菜单分类 0:左侧菜单 1: 按钮菜单',
   `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
   `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
@@ -4520,12 +4520,12 @@ CREATE TABLE `system_menu` (
 -- ----------------------------
 -- Records of system_menu
 -- ----------------------------
-INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, null, '1', '0', '\0', null, '2018-01-25 16:13:54', null);
-INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/menu_manage_page', null, '1', '1', '\0', null, '2018-01-25 16:14:01', null);
-INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/config_manage_page', null, '1', '2', '\0', null, '2018-01-25 16:14:31', null);
-INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/operator/operator_manage_page', null, '1', '3', '\0', null, '2018-01-25 16:14:40', null);
-INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/role_manage_page', null, '1', '4', '\0', null, '2018-01-25 16:14:56', null);
-INSERT INTO `system_menu` VALUES ('1010', '图片管理', 'imageManage', '1001', '/public/operation/image/image_manage_page', null, '1', '5', '\0', null, '2018-11-28 17:02:36', null);
+INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, null, '0', '0', '\0', null, '2018-01-25 16:13:54', null);
+INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/menu_manage_page', null, '0', '1', '\0', null, '2018-01-25 16:14:01', null);
+INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/config_manage_page', null, '0', '2', '\0', null, '2018-01-25 16:14:31', null);
+INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/operator/operator_manage_page', null, '0', '3', '\0', null, '2018-01-25 16:14:40', null);
+INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/role_manage_page', null, '0', '4', '\0', null, '2018-01-25 16:14:56', null);
+INSERT INTO `system_menu` VALUES ('1010', '图片管理', 'imageManage', '1001', '/public/operation/image/image_manage_page', null, '0', '5', '\0', null, '2018-11-28 17:02:36', null);
 
 -- ----------------------------
 -- Table structure for system_notice

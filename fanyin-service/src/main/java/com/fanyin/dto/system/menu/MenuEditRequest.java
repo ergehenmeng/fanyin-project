@@ -45,7 +45,7 @@ public class MenuEditRequest implements Serializable {
     /**
      * 是否为左侧主菜单
      */
-    private Boolean mainMenu;
+    private Byte classify;
 
     /**
      * 排序
