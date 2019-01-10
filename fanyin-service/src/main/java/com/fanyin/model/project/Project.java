@@ -100,9 +100,9 @@ public class Project implements Serializable {
     /**
      * 还款方式,0:等额本息,1:按月付息,到期还本,2:按天计息<br>
      * 表 : project<br>
-     * 对应字段 : repayment_type<br>
+     * 对应字段 : repayment_mode<br>
      */
-    private Byte repaymentType;
+    private Byte repaymentMode;
 
     /**
      * 产品信息录入时间<br>

@@ -17,7 +17,7 @@
     <result column="apr" jdbcType="DECIMAL" property="apr" />
     <result column="platform_apr" jdbcType="DECIMAL" property="platformApr" />
     <result column="period" jdbcType="TINYINT" property="period" />
-    <result column="repayment_type" jdbcType="TINYINT" property="repaymentType" />
+    <result column="repayment_mode" jdbcType="TINYINT" property="repaymentMode" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="pre_sale_time" jdbcType="TIMESTAMP" property="preSaleTime" />
     <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
@@ -26,7 +26,7 @@
   </resultMap>
   <sql id="BaseColumnList">
     id, borrower_id, nid, state, classify, title, amount, raise_amount, min_tender, apr,
-    platform_apr, period, repayment_type, add_time, pre_sale_time, publish_time, recheck_time,
+    platform_apr, period, repayment_mode, add_time, pre_sale_time, publish_time, recheck_time,
     end_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -87,8 +87,8 @@
       <if test="period != null">
         period,
       </if>
-      <if test="repaymentType != null">
-        repayment_type,
+      <if test="repaymentModel != null">
+          repayment_mode,
       </if>
       <if test="addTime != null">
         add_time,
@@ -143,8 +143,8 @@
       <if test="period != null">
         #{period,jdbcType=TINYINT},
       </if>
-      <if test="repaymentType != null">
-        #{repaymentType,jdbcType=TINYINT},
+      <if test="repaymentMode != null">
+        #{repaymentMode,jdbcType=TINYINT},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -202,8 +202,8 @@
       <if test="period != null">
         period = #{period,jdbcType=TINYINT},
       </if>
-      <if test="repaymentType != null">
-        repayment_type = #{repaymentType,jdbcType=TINYINT},
+      <if test="repaymentMode != null">
+        repayment_mode = #{repaymentMode,jdbcType=TINYINT},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},

@@ -231,11 +231,11 @@ public class ProjectServiceImpl implements ProjectService {
         List<DiscountCoupon> couponList = tender.getCouponList();
         double couponApr = projectTenderService.getDiscountCouponApr(couponList);
 
-        if(project.getRepaymentType() == RepaymentType.EQUAL_AMOUNT.getMode()){
+        if(project.getRepaymentMode() == RepaymentType.EQUAL_AMOUNT.getMode()){
             return ProjectUtil.equalAmountRecoverList(project.getPeriod(),tender.getAccount().doubleValue(),project.getApr().doubleValue(),project.getPlatformApr().doubleValue(),couponApr);
         }
 
-        if(project.getRepaymentType() == RepaymentType.MONTHLY.getMode()){
+        if(project.getRepaymentMode() == RepaymentType.MONTHLY.getMode()){
             return ProjectUtil.monthlyRecoverList(project.getPeriod(),tender.getAccount().doubleValue(),project.getApr().doubleValue(),project.getPlatformApr().doubleValue(),couponApr);
         }
 

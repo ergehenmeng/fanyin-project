@@ -84,13 +84,13 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         double platformInterest;
         double couponInterest;
 
-        if(project.getRepaymentType() == RepaymentType.EQUAL_AMOUNT.getMode()){
+        if(project.getRepaymentMode() == RepaymentType.EQUAL_AMOUNT.getMode()){
             //等额本息
             baseInterest = ProjectUtil.equalAmountOfInterest(tender.getAccount().doubleValue(), project.getPeriod(), project.getApr().doubleValue());
             platformInterest = ProjectUtil.equalAmountOfInterest(tender.getAccount().doubleValue(), project.getPeriod(), project.getPlatformApr().doubleValue());
             couponInterest = ProjectUtil.equalAmountOfInterest(tender.getAccount().doubleValue(), project.getPeriod(), couponApr);
 
-        }else if (project.getRepaymentType() == RepaymentType.MONTHLY.getMode()){
+        }else if (project.getRepaymentMode() == RepaymentType.MONTHLY.getMode()){
             //按月付息
             baseInterest = ProjectUtil.monthlyInterest(tender.getAccount().doubleValue(), project.getPeriod(), project.getApr().doubleValue());
             platformInterest = ProjectUtil.monthlyInterest(tender.getAccount().doubleValue(), project.getPeriod(), project.getPlatformApr().doubleValue());
