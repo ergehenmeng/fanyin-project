@@ -497,13 +497,14 @@ $.fn.extOptions.dateRange = function (elem,startElem,endElem,type){
     };
     laydate.render({
         elem: elem,
-        theme: "#e3781a",
+        theme: "molv",
         format: typeJson[type],
         range: "~",
         type: type,
-        done: function(value,date,endDate){
-            $(startElem).val(value);
-            $(startElem).val(endDate);
+        done: function(value){
+            var dateSplit = value.split(" ~ ");
+            $(startElem).val(dateSplit[0]);
+            $(endElem).val(dateSplit[1]);
         }
     });
 };
