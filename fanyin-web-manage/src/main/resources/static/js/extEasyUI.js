@@ -71,6 +71,8 @@ var easyuiPanelOnMove = function(left, top) {
 		left : l,
 		top : t
 	});
+	//解决第三方在panel中可能不会关闭的问题
+	$("body").click();
 };
 $.fn.dialog.defaults.onMove = easyuiPanelOnMove;
 $.fn.window.defaults.onMove = easyuiPanelOnMove;

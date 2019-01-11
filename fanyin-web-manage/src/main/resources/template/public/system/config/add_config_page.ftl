@@ -1,5 +1,6 @@
 <script type="text/javascript">
     $(function() {
+        $.fn.extOptions.dateRange("#effectiveTime","#startTime","#endTime","datetime");
         $.fn.dataGridOptions.formSubmit("#form",'/system/config/add_config',"系統参数添加成功");
         $("#timing").on("change",function(){
             var timing = $(this).val();
@@ -72,7 +73,9 @@
         </div>
         <div class="form_item" id="interval" style="display: none;">
             <label>有效期:</label>
-            <input title="开始时间"  name="startTime" id="startTime" class="easyui-validatebox small"  onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true ,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>-<input title="结束时间"   name="endTime" id="endTime" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="easyui-validatebox small"   />
+            <input title="主参数有效期"  class="easyui-validatebox" data-options="required: true" id="effectiveTime" />
+            <input type="hidden" id="startTime" name="startTime">
+            <input type="hidden" id="endTime" name="endTime">
             <small>*</small>
         </div>
         <div class="form_item" id="reserve" style="display: none;">

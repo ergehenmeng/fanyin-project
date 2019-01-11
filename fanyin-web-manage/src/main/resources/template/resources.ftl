@@ -18,9 +18,12 @@
 <script src="/static/js/extJquery.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 <!-- easyui扩展库 datagrid treegrid扩展方法 -->
 <script src="/static/js/extEasyUI.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+
+<#--日历控件-->
+<script src="/static/js/laydate/laydate.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+
 <#--自定义相关控件及常用方法-->
 <script src="/static/js/general.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
-
 
 <!-- 下拉复选框 -->
 <link href="/static/css/multiple/multiple-select.css?v=${version!}" rel="stylesheet" type="text/css" >

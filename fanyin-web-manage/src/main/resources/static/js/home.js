@@ -50,16 +50,16 @@ $(function(){
 
 var Accordion = function(el, multiple) {
 	this.el = el || {};
-	this.multiple = multiple || false;
+	multiple = multiple || false;
 
 	var links = this.el.find('.link');
 	
-	links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
+	links.on('click', {el: this.el, multiple: multiple}, this.dropdown);
 };
 
 Accordion.prototype.dropdown = function(e) {
 	var $el = e.data.el;
-		$next = $(this).next();
+	var	$next = $(this).next();
 
 	$next.slideToggle();
     $(this).parent().toggleClass('open');

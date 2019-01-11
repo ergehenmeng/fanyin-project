@@ -9,6 +9,7 @@ var pageSize = 20;
 var pageList = [20, 30, 40, 50 ];
 $.fn.dataGridOptions = function(){};
 $.fn.treeGridOptions = function(){};
+$.fn.extOptions = function(){};
 /**
  * data弹出层
  */
@@ -247,7 +248,7 @@ $.fn.dataGridOptions.get = function(url){
 };
 
 /**
- * 普通datagrid刷新
+ * 普通dataGrid刷新
  * @param formId
  */
 $.fn.dataGridOptions.searchFun = function (formId) {
@@ -331,6 +332,8 @@ $.fn.treeGridOptions.checkNode = function(treeObj){
 
 /**
  * 添加字符串方法 开始
+ * @param str 字符串
+ * @return {boolean} 是否开头
  */
 String.prototype.startWith=function(str){    
 	  var reg=new RegExp("^"+str);    
@@ -338,6 +341,8 @@ String.prototype.startWith=function(str){
 	} ;
 /**
  * 添加字符串方法 结束
+ * @param str 字符串呢
+ * @return {boolean} 是否结尾
  */
 String.prototype.endWith=function(str){    
   var reg=new RegExp(str+"$");    
@@ -358,6 +363,8 @@ $.windowDialog = function(opts){
 			modal:true,
 			border:false,
 			onClose:function(){
+			    //防止部分第三方插件在panel关闭时不会自定关闭
+			    $("body").click();
 				$.windowDialog.handler = undefined;
 				$(this).dialog('destroy');
 				//该处为了增加下拉复选框无法关闭的bug
@@ -467,4 +474,36 @@ var getLocalTime = function(value,type) {
 	 case 4:
 		 return dt.format("yyyy-MM-dd hh:mm:ss");
 	 }
+};
+
+/**
+ * laydate日期范围选择
+ * @param elem 需要绑定的元素
+ * @param startElem 开始时间绑定对象(hidden)
+ * @param endElem 结束时间绑定对象(hidden)
+ * @param type 数据类型
+ * year:yyyy,
+ * month:yyyy-MM,
+ * date:yyyy-MM-dd(默认),
+ * datetime:yyyy-MM-dd HH:mm:ss
+ */
+$.fn.extOptions.dateRange = function (elem,startElem,endElem,type){
+    var typeJson = {
+        year: 'yyyy'
+        ,month: 'yyyy-MM'
+        ,date: 'yyyy-MM-dd'
+        ,time: 'HH:mm:ss'
+        ,datetime: 'yyyy-MM-dd HH:mm:ss'
+    };
+    laydate.render({
+        elem: elem,
+        theme: "#e3781a",
+        format: typeJson[type],
+        range: "~",
+        type: type,
+        done: function(value,date,endDate){
+            $(startElem).val(value);
+            $(startElem).val(endDate);
+        }
+    });
 };

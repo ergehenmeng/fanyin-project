@@ -8,7 +8,7 @@
         var dataGrid;
 
         var winWidth = 480;
-        var winHeight = 550;
+        var winHeight = 580;
 
         var addTitle = "添加系统参数";
         var addUrl = "/public/system/config/add_config_page";
