@@ -74,12 +74,12 @@
         <div class="layout_norths">
             <div class="left">
                 <form id="queryForm">
-                    <input name="queryName" placeholder="角色名称" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
+                    <input name="queryName" placeholder="角色名称" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
                     <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
                 </form>
             </div>
             <div class="right">
-                <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>添加</a>
+                <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
             <form id="showAdw">
                 <ul class="showAdw" style="display: none;">
@@ -109,6 +109,7 @@
                         </div>
                     </li>
                 </ul>
+            </form>
         </div>
     </div>
     <div data-options="region:'center'">

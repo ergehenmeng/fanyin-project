@@ -52,5 +52,12 @@ public class Paging<T> implements Serializable{
     public Paging(){
     }
 
+    /**
+     * 不分页
+     * @param rows 所有列表
+     */
+    public Paging(List<T> rows){
+        this.rows = rows;
+    }
 
 }

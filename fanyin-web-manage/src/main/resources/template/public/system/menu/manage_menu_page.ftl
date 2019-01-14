@@ -143,7 +143,7 @@
             <div class="right">
                 <a href="#" class="searchBtn"
                    onclick="$.fn.treeGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl)"><i
-                        class="fa fa-plus"></i>添加</a>
+                        class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
         </div>
     </div>

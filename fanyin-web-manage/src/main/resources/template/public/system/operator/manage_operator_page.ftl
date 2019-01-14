@@ -95,12 +95,12 @@
         <div class="layout_norths">
             <div class="left">
                 <form id="queryForm">
-                    <input name="queryName" placeholder="用户名称、手机号" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>查询</a>
+                    <input name="queryName" placeholder="用户名称、手机号" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
                 </form>
             </div>
             <div class="right">
                 <a href="#" class="searchBtn"
-                   onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>添加</a>
+                   onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
         </div>
     </div>

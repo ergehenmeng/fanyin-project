@@ -76,4 +76,9 @@ public class SystemDictServiceImpl implements SystemDictService {
         }
     }
 
+    @Override
+    public SystemDict getById(Integer id) {
+        return systemDictMapper.selectByPrimaryKey(id);
+    }
+
 }

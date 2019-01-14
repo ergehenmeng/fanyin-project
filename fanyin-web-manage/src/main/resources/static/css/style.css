@@ -207,7 +207,9 @@ textarea{
 .datagrid-cell-c1-action:hover dd {
 	display: block;
 }
-
+.datagrid-row{
+    height: 40px !important;
+}
 
 
 .w50{ width: 50px !important;}

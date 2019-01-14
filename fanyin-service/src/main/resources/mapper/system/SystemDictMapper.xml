@@ -14,12 +14,13 @@
     <result column="locked" jdbcType="BIT" property="locked" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time
+    id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -64,6 +65,9 @@
       <if test="updateTime != null">
         update_time,
       </if>
+        <if test="remark != null">
+            remark,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -93,6 +97,9 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="remark != null">
+            #{remark,jdbcType=VARCHAR},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemDict">
@@ -125,6 +132,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -173,6 +183,9 @@
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER} and locked = false

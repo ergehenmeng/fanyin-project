@@ -75,5 +75,11 @@ public class SystemDict implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 备注信息<br>
+     * 表 : system_dict<br>
+     * 对应字段 : remark<br>
+     */
+    private String remark;
 
 }

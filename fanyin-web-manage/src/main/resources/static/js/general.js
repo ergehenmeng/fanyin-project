@@ -232,9 +232,58 @@ $.fn.dataGridOptions.get = function(url){
         url:url,
         dataType:"json",
         success:function(data){
+            parent.$.messager.progress('close');
             if(data.code === 200){
-                parent.$.messager.progress('close');
                 parent.$.messager.alert('提示', data.msg, 'info');
+                dataGrid.datagrid('reload');
+            }else{
+                parent.$.messager.alert('提示', data.msg, 'warning');
+            }
+        },
+        error:function(){
+            parent.$.messager.progress('close');
+            parent.$.messager.alert('提示', "请求数据失败,请联系管理人员", 'error');
+        }
+    });
+};
+
+/**
+ * 复选框选中提交
+ * @param url 提交地址
+ * @param unSelectMsg 未选中时,提示信息
+ * @param rowName 选择的列名,同时该列列名作为key传递给后台
+ * @param success 成功信息
+ * @return {boolean}
+ */
+$.fn.dataGridOptions.select = function(url,unSelectMsg,rowName,success){
+    var rows = dataGrid.datagrid("getSelections");
+    var successMsg = success || "操作成功";
+    if(rows.length <= 0){
+        parent.$.messager.alert("提示",unSelectMsg,"warning");
+        return false;
+    }
+    var rowArray = [];
+    $.each(rows,function(i,row){
+        rowArray.push(row[rowName]);
+    });
+    var join = rowArray.join(",");
+    parent.$.messager.progress({
+        title : '提示',
+        text : '数据处理中，请稍后....'
+    });
+
+    var data = {};
+    data[rowName] = join;
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: url,
+        data: data,
+        success: function (data) {
+            parent.$.messager.progress('close');
+            if(data.code === 200){
+                parent.$.messager.alert('提示', successMsg, 'info');
+                dataGrid.datagrid("clearSelections");
                 dataGrid.datagrid('reload');
             }else{
                 parent.$.messager.alert('提示', data.msg, 'warning');

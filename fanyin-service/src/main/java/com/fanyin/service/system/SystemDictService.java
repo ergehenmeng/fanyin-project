@@ -15,7 +15,6 @@ import java.util.List;
  */
 public interface SystemDictService {
 
-
     /**
      * 根据nid查询某一类数据字典列表
      * @param nid 某一类数据字典key
@@ -48,4 +47,11 @@ public interface SystemDictService {
      * @param id 主键
      */
     void deleteDict(Integer id);
+
+    /**
+     * 根据主键查询
+     * @param id 主键
+     * @return 数据字典
+     */
+    SystemDict getById(Integer id);
 }
