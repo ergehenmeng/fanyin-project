@@ -1,4 +1,4 @@
-package com.fanyin.service.system;
+package com.fanyin.service.cache;
 
 import com.fanyin.dto.security.AccessToken;
 import com.fanyin.dto.task.Async;
@@ -7,7 +7,7 @@ import com.fanyin.dto.task.Async;
  * @author 二哥很猛
  * @date 2018/11/21 16:19
  */
-public interface RedisCacheService {
+public interface CacheService {
 
     /**
      * 缓存任务异步结果

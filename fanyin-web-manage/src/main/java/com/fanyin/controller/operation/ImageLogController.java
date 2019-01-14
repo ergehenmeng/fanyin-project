@@ -9,7 +9,7 @@ import com.fanyin.ext.Paging;
 import com.fanyin.ext.Response;
 import com.fanyin.model.operation.ImageLog;
 import com.fanyin.service.operation.ImageLogService;
-import com.fanyin.service.system.RedisCacheProxyService;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ImageLogController extends AbstractUploadController {
     private ImageLogService imageLogService;
 
     @Autowired
-    private RedisCacheProxyService redisCacheProxyService;
+    private CacheProxyService cacheProxyService;
 
     /**
      * 分页查询图片列表
@@ -42,7 +42,7 @@ public class ImageLogController extends AbstractUploadController {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.transform(page, imageLog -> {
             //将数据字典类型转换实际类型
-            String dictValue = redisCacheProxyService.getDictValue(DictConstant.IMAGE_LOG_TYPE, imageLog.getClassify());
+            String dictValue = cacheProxyService.getDictValue(DictConstant.IMAGE_LOG_TYPE, imageLog.getClassify());
             imageLog.setTypeName(dictValue);
             return imageLog;
         });

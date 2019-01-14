@@ -1,7 +1,6 @@
 package com.fanyin.service.system.impl;
 
 
-import com.alicp.jetcache.anno.Cached;
 import com.fanyin.constant.RedisConstant;
 import com.fanyin.dto.system.config.ConfigAddRequest;
 import com.fanyin.dto.system.config.ConfigEditRequest;
@@ -15,7 +14,6 @@ import com.fanyin.utils.BeanCopyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +33,6 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     private SystemConfigMapper systemConfigMapper;
 
     @Override
-    @CacheEvict(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "#request.nid")
     public void updateConfig(ConfigEditRequest request) {
         int i = systemConfigMapper.updateConfig(request);
         if(i != 1){
@@ -58,7 +55,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
-    @Cached(name = RedisConstant.SYSTEM_CONFIG,key = "#id")
+    @Cacheable(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "#id")
     public SystemConfig getById(Integer id) {
         return systemConfigMapper.selectByPrimaryKey(id);
     }

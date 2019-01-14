@@ -5,12 +5,14 @@ import com.fanyin.model.borrower.Borrower;
 import com.fanyin.service.borrower.BorrowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/23 17:48
  */
 @Service("borrowerService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class BorrowerServiceImpl implements BorrowerService {
 
     @Autowired

@@ -1,6 +1,10 @@
 package com.fanyin.service.system;
 
+import com.fanyin.dto.system.dict.DictAddRequest;
+import com.fanyin.dto.system.dict.DictEditRequest;
+import com.fanyin.dto.system.dict.DictQueryRequest;
 import com.fanyin.model.system.SystemDict;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -19,6 +23,29 @@ public interface SystemDictService {
      */
     List<SystemDict> getDictByNid(String nid);
 
+    /**
+     * 根据条件分页查询数据字典信息
+     * @param request 前台cax条件
+     * @return 分页列表
+     */
+    PageInfo<SystemDict> getByPage(DictQueryRequest request);
+
+    /**
+     * 添加数据字典
+     * @param request 前台参数
+     */
+    void addDict(DictAddRequest request);
 
 
+    /**
+     * 编辑数据字典
+     * @param request 前台参数
+     */
+    void updateDict(DictEditRequest request);
+
+    /**
+     * 删除数据字典
+     * @param id 主键
+     */
+    void deleteDict(Integer id);
 }

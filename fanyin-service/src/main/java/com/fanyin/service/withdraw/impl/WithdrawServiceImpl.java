@@ -9,12 +9,12 @@ import com.fanyin.model.operation.VipConfig;
 import com.fanyin.model.user.BankCard;
 import com.fanyin.model.user.UserExtend;
 import com.fanyin.model.withdraw.WithdrawLog;
+import com.fanyin.service.common.CommonService;
 import com.fanyin.service.deposit.DepositService;
 import com.fanyin.service.operation.VipConfigService;
 import com.fanyin.service.project.ProjectTenderService;
 import com.fanyin.service.recharge.BankCardService;
 import com.fanyin.service.recharge.RechargeService;
-import com.fanyin.service.system.CommonService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.service.user.UserExtendService;
 import com.fanyin.service.withdraw.WithdrawService;
@@ -22,6 +22,7 @@ import com.fanyin.utils.BigDecimalUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,6 +33,7 @@ import java.util.Date;
  * @date 2018/11/23 10:47
  */
 @Service("withdrawLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class WithdrawServiceImpl implements WithdrawService {
 
     @Autowired

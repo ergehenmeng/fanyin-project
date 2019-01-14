@@ -1,12 +1,13 @@
-package com.fanyin.service.system.impl;
+package com.fanyin.service.common.impl;
 
+import com.fanyin.service.common.CommonService;
 import com.fanyin.service.key.KeyGenerator;
-import com.fanyin.service.system.CommonService;
 import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.Md5Util;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 常用服务类
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service;
  * @date 2018/1/18 14:17
  */
 @Service("commonService")
-public class CommonServiceImpl implements CommonService{
+@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private KeyGenerator keyGenerator;

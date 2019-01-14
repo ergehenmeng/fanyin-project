@@ -1,4 +1,4 @@
-package com.fanyin.service.system;
+package com.fanyin.service.common;
 
 /**
  * @author 二哥很猛

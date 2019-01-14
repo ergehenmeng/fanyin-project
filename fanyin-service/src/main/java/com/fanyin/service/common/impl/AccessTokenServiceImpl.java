@@ -1,30 +1,32 @@
-package com.fanyin.service.system.impl;
+package com.fanyin.service.common.impl;
 
 import com.fanyin.dto.security.AccessToken;
-import com.fanyin.service.system.AccessTokenService;
-import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.service.cache.CacheService;
+import com.fanyin.service.common.AccessTokenService;
 import com.fanyin.utils.Sha256Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
  * @date 2018/8/14 17:36
  */
 @Service("accessTokenService")
+@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
 public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Autowired
-    private RedisCacheService redisCacheService;
+    private CacheService cacheService;
 
     @Override
     public AccessToken getAccessToken(String accessKey) {
-        return redisCacheService.getAccessToken(accessKey);
+        return cacheService.getAccessToken(accessKey);
     }
 
     @Override
     public void saveAccessToken(AccessToken token) {
-        redisCacheService.cacheAccessToken(token);
+        cacheService.cacheAccessToken(token);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         token.setAccessKey(accessKey);
         token.setAccessToken(accessToken);
         token.setUserId(userId);
-        redisCacheService.cacheAccessToken(token);
+        cacheService.cacheAccessToken(token);
         return token;
     }
 }

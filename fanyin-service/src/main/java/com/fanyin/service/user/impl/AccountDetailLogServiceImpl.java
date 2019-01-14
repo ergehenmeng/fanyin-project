@@ -16,6 +16,7 @@ import com.fanyin.utils.BigDecimalUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,6 +28,7 @@ import java.util.Date;
  * @date 2018/11/19 16:48
  */
 @Service("accountDetailLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class AccountDetailLogServiceImpl implements AccountDetailLogService {
 
     @Autowired

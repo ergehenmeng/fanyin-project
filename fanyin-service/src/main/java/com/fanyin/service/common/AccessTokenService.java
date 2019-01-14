@@ -1,4 +1,4 @@
-package com.fanyin.service.system;
+package com.fanyin.service.common;
 
 import com.fanyin.dto.security.AccessToken;
 

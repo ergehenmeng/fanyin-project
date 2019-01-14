@@ -1,11 +1,11 @@
-package com.fanyin.service.system;
+package com.fanyin.service.cache;
 
 
 /**
  * @author 二哥很猛
  * @date 2018/10/11 13:47
  */
-public interface RedisCacheProxyService {
+public interface CacheProxyService {
 
 
     /**

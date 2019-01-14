@@ -9,12 +9,14 @@ import com.fanyin.service.operation.IntegralTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
  * @date 2018/10/11 11:18
  */
 @Service("integralTypeService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class IntegralTypeServiceImpl implements IntegralTypeService {
 
     @Autowired

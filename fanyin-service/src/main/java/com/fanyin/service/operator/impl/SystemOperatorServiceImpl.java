@@ -21,6 +21,7 @@ import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ import java.util.List;
  * @date 2018/11/26 10:24
  */
 @Service("systemOperatorService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class SystemOperatorServiceImpl implements SystemOperatorService {
 
     @Autowired

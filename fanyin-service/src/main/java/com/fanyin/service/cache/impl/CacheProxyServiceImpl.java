@@ -1,7 +1,7 @@
-package com.fanyin.service.system.impl;
+package com.fanyin.service.cache.impl;
 
 import com.fanyin.model.system.SystemDict;
-import com.fanyin.service.system.RedisCacheProxyService;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/10/11 13:47
  */
-@Service("redisCacheProxyService")
-public class RedisCacheProxyServiceImpl implements RedisCacheProxyService {
+@Service("cacheProxyService")
+public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Autowired
     private SystemDictService systemDictService;

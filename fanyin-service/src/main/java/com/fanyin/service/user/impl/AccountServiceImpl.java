@@ -8,6 +8,7 @@ import com.fanyin.service.user.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
  */
 @Service("accountService")
 @Slf4j
+@Transactional(rollbackFor = RuntimeException.class)
 public class AccountServiceImpl implements AccountService {
 
     @Autowired

@@ -5,6 +5,7 @@ import com.fanyin.model.project.ProjectPlan;
 import com.fanyin.service.project.ProjectRepaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -13,6 +14,7 @@ import java.util.Collection;
  * @date 2018/11/14 18:37
  */
 @Service("projectRepaymentService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class ProjectRepaymentServiceImpl implements ProjectRepaymentService {
 
     @Autowired

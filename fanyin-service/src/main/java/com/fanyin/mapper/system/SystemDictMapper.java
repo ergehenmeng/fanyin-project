@@ -1,6 +1,7 @@
 package com.fanyin.mapper.system;
 
 
+import com.fanyin.dto.system.dict.DictQueryRequest;
 import com.fanyin.model.system.SystemDict;
 
 import java.util.List;
@@ -35,11 +36,24 @@ public interface SystemDictMapper {
      */
     int updateByPrimaryKeySelective(SystemDict record);
 
-
     /**
      * 根据nid查询某一类数据字典列表
      * @param nid 某类数据字典nid
      * @return 查询到的列表
      */
     List<SystemDict> getDictByNid(String nid);
+
+    /**
+     * 根据条件查询数据字典列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<SystemDict> getList(DictQueryRequest request);
+
+    /**
+     * 根据主键选择更新数据字典信息
+     * @param dict 前台参数
+     * @return 影响条数
+     */
+    int updateByIdSelective(SystemDict dict);
 }

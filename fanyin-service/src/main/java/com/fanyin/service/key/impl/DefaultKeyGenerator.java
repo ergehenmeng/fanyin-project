@@ -5,6 +5,7 @@ import com.fanyin.service.key.KeyGenerator;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import java.util.Date;
  */
 @Service("keyGenerator")
 @Slf4j
+@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
 public final class DefaultKeyGenerator implements KeyGenerator {
 
     /**

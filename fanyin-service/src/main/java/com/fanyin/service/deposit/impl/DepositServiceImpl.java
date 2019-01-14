@@ -11,12 +11,14 @@ import com.fanyin.service.deposit.DepositService;
 import com.fanyin.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/23 17:55
  */
 @Service("depositService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class DepositServiceImpl implements DepositService {
 
     @Autowired

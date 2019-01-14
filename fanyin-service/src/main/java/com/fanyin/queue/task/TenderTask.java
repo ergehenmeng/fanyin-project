@@ -4,9 +4,7 @@ import com.fanyin.dto.tender.Tender;
 import com.fanyin.dto.tender.TenderResponse;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.queue.AbstractAsyncTask;
-import com.fanyin.queue.AbstractTask;
 import com.fanyin.service.project.ProjectTenderService;
-import com.fanyin.service.system.RedisCacheService;
 import com.fanyin.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 

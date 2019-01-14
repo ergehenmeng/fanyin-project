@@ -12,6 +12,7 @@ import com.fanyin.service.user.AccountService;
 import com.fanyin.service.user.UserExtendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -22,6 +23,7 @@ import java.util.List;
  * @date 2018/10/11 13:52
  */
 @Service("userExtendService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class UserExtendServiceImpl implements UserExtendService {
 
     @Autowired

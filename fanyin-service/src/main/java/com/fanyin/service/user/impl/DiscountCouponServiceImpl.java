@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
  * @date 2018/11/21 9:10
  */
 @Service("discountCouponService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class DiscountCouponServiceImpl implements DiscountCouponService {
 
     @Autowired

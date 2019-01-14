@@ -5,6 +5,7 @@ import com.fanyin.model.project.ProjectAuditLog;
 import com.fanyin.service.project.ProjectAuditLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 审核记录信息
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/11/12 17:33
  */
 @Service("projectAuditLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class ProjectAuditLogServiceImpl implements ProjectAuditLogService {
 
     @Autowired

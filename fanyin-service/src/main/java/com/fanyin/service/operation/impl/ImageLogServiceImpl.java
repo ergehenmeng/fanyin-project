@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @date 2018/11/27 17:11
  */
 @Service("imageLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class ImageLogServiceImpl implements ImageLogService {
 
     @Autowired

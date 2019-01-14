@@ -19,7 +19,7 @@ import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.TenderTask;
 import com.fanyin.service.project.ProjectService;
 import com.fanyin.service.project.ProjectTenderService;
-import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.user.AccountDetailLogService;
 import com.fanyin.service.user.AccountService;
 import com.fanyin.service.user.DiscountCouponService;
@@ -28,6 +28,7 @@ import com.fanyin.utils.ProjectUtil;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -40,6 +41,7 @@ import java.util.UUID;
  * @date 2018/11/13 13:39
  */
 @Service("projectTenderService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class ProjectTenderServiceImpl implements ProjectTenderService {
 
     @Autowired
@@ -55,7 +57,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
     private AccountService accountService;
 
     @Autowired
-    private RedisCacheService redisCacheService;
+    private CacheService cacheService;
 
     @Autowired
     private AccountDetailLogService accountDetailLogService;
@@ -284,7 +286,7 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
         response.setUserId(tender.getUserId());
         response.setProjectId(project.getId());
         response.setRealAmount(tender.getAccount().subtract(tender.getVoucherInterest()).doubleValue());
-        redisCacheService.cacheAsyncResponse(response);
+        cacheService.cacheAsyncResponse(response);
     }
 
 }

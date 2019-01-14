@@ -8,6 +8,7 @@ import com.fanyin.utils.BeanCopyUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2018/12/13 16:49
  */
 @Service("departmentService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired

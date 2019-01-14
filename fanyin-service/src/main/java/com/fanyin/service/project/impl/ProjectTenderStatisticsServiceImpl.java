@@ -11,6 +11,7 @@ import com.fanyin.utils.StringUtil;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
  * @date 2018/11/15 15:44
  */
 @Service("projectTenderStatisticsService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class ProjectTenderStatisticsServiceImpl implements ProjectTenderStatisticsService {
 
     @Autowired

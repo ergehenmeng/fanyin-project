@@ -7,6 +7,7 @@ import com.fanyin.model.borrower.BorrowerAccount;
 import com.fanyin.service.borrower.BorrowerAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
  * @date 2018/11/20 13:44
  */
 @Service("borrowerAccountService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class BorrowerAccountServiceImpl implements BorrowerAccountService {
 
     @Autowired

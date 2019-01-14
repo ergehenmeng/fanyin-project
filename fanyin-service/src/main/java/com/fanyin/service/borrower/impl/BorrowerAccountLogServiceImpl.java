@@ -13,6 +13,7 @@ import com.fanyin.utils.BigDecimalUtil;
 import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 借款人资金记录
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/11/20 13:52
  */
 @Service("borrowerAccountLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService {
 
     @Autowired

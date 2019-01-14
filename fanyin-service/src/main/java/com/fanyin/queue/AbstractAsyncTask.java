@@ -4,7 +4,7 @@ import com.fanyin.dto.task.Async;
 import com.fanyin.dto.task.Key;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
-import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.service.cache.CacheService;
 import com.fanyin.utils.SpringContextUtil;
 import lombok.extern.log4j.Log4j;
 
@@ -35,7 +35,7 @@ public abstract class AbstractAsyncTask<T extends Key> extends AbstractTask<T> i
             async.setMsg(codeEnum.getMsg());
         }
         async.setKey(getData().getKey());
-        RedisCacheService redisCacheService = (RedisCacheService) SpringContextUtil.getBean("redisCacheService");
-        redisCacheService.cacheAsyncResponse(async);
+        CacheService cacheService = (CacheService) SpringContextUtil.getBean("redisCacheService");
+        cacheService.cacheAsyncResponse(async);
     }
 }

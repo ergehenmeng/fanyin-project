@@ -1,7 +1,7 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.service.AbstractTest;
-import com.fanyin.service.system.CommonService;
+import com.fanyin.service.common.CommonService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

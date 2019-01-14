@@ -283,6 +283,10 @@ public enum ErrorCodeEnum {
      * 创建文件失败
      */
     FILE_CREATE_ERROR(3032,"创建文件失败"),
+    /**
+     * 该数据字典已锁定
+     */
+    DICT_LOCKED_ERROR(3033,"该数据字典已锁定"),
 
     /**
      * 充值订单未查询到

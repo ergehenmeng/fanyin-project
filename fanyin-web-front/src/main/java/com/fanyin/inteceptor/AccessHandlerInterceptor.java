@@ -11,7 +11,7 @@ import com.fanyin.enums.Source;
 import com.fanyin.exception.ParameterException;
 import com.fanyin.exception.SystemException;
 import com.fanyin.exception.TokenException;
-import com.fanyin.service.system.AccessTokenService;
+import com.fanyin.service.common.AccessTokenService;
 import com.fanyin.utils.SignatureUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;

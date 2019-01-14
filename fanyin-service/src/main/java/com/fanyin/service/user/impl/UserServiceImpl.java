@@ -5,6 +5,7 @@ import com.fanyin.model.user.User;
 import com.fanyin.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/8/15 17:28
  */
 @Service("userService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class UserServiceImpl implements UserService {
 
     @Autowired

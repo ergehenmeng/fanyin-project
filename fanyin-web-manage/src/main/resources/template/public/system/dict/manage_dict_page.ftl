@@ -17,11 +17,11 @@
         var editUrl = "/public/system/dict/edit_dict_page";
 
         var  delMsg = "删除数据字典可能导致相关人员无法使用系统,确定要执行该操作";
-        var delUrl = "/system/role/delete_role";
+        var delUrl = "/system/dict/delete_dict";
 
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
-                url : "/system/role/role_list_page",
+                url : "/system/dict/dict_list_page",
                 border : false,
                 fit : true,
                 fitColumns : false,

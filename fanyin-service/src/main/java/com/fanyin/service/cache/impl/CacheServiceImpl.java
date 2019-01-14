@@ -1,9 +1,9 @@
-package com.fanyin.service.system.impl;
+package com.fanyin.service.cache.impl;
 
 import com.fanyin.constant.RedisConstant;
 import com.fanyin.dto.security.AccessToken;
 import com.fanyin.dto.task.Async;
-import com.fanyin.service.system.RedisCacheService;
+import com.fanyin.service.cache.CacheService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2018/11/21 16:28
  */
-@Service("redisCacheService")
-public class RedisCacheServiceImpl implements RedisCacheService {
+@Service("cacheService")
+public class CacheServiceImpl implements CacheService {
 
     @Override
     @CachePut(cacheNames = RedisConstant.ASYNC_RESPONSE,key = "#response.key",cacheManager = "smallCacheManager")

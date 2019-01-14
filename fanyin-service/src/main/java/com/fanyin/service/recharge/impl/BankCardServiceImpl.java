@@ -6,6 +6,7 @@ import com.fanyin.model.user.BankCard;
 import com.fanyin.service.recharge.BankCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 银行卡信息
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/11/23 17:21
  */
 @Service("bankCardService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class BankCardServiceImpl implements BankCardService {
 
     @Autowired
