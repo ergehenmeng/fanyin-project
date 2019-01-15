@@ -1,5 +1,6 @@
 package com.fanyin.controller.operator;
 
+import com.fanyin.annotation.Mark;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dto.operator.OperatorAddRequest;
@@ -46,6 +47,7 @@ public class OperatorController extends AbstractController {
      */
     @PostMapping("/system/operator/change_password")
     @ResponseBody
+    @Mark
     public Response changePassword(HttpSession session, PasswordEditRequest request){
         SecurityOperator operator = super.getRequiredOperator();
         request.setOperatorId(operator.getId());

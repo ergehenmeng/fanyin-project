@@ -1,4 +1,4 @@
-package com.fanyin.inteceptor;
+package com.fanyin.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fanyin.annotation.GroupAccess;

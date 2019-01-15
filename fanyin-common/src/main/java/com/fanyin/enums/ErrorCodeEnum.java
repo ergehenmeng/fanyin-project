@@ -120,6 +120,13 @@ public enum ErrorCodeEnum {
      */
     PERMISSION_ERROR(2003,"权限校验异常,请联系管理人员"),
 
+
+    /**
+     * 日志异常,用户未登陆
+     */
+    OPERATION_LOGIN_ERROR(2004,"日志异常,用户未登陆"),
+
+
     /**
      * 系统配置信息未查询到
      */

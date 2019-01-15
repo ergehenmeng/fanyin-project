@@ -24,6 +24,12 @@ public class TaskQueue {
          */
         private static final ThreadPoolExecutor TENDER = new ThreadPoolExecutor(1,1,0,TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.TENDER_THREAD));
+
+        /**
+         * 操作日志 单线程
+         */
+        private static final ThreadPoolExecutor OPERATION = new ThreadPoolExecutor(1,2,0,TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.OPERATION_THREAD));
     }
 
     /**
@@ -40,6 +46,14 @@ public class TaskQueue {
      */
     public static void executeTender(AbstractTask task){
         TaskQueueHolder.TENDER.execute(task);
+    }
+
+    /**
+     * 操作日志
+     * @param task 任务
+     */
+    public static void executeOperation(AbstractTask task){
+        TaskQueueHolder.OPERATION.execute(task);
     }
 
     /**

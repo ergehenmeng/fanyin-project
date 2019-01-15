@@ -1,6 +1,6 @@
 package com.fanyin.configuration;
 
-import com.fanyin.inteceptor.AccessHandlerInterceptor;
+import com.fanyin.interceptor.AccessHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;

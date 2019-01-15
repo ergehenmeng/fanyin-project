@@ -1,5 +1,6 @@
 package com.fanyin.controller.system;
 
+import com.fanyin.annotation.Mark;
 import com.fanyin.dto.system.dict.DictAddRequest;
 import com.fanyin.dto.system.dict.DictEditRequest;
 import com.fanyin.dto.system.dict.DictQueryRequest;
@@ -30,6 +31,7 @@ public class DictController {
      */
     @PostMapping("/system/dict/dict_list_page")
     @ResponseBody
+    @Mark
     public Paging<SystemDict> dictListPage(DictQueryRequest request){
         return new Paging<>(systemDictService.getByPage(request));
     }

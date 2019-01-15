@@ -30,7 +30,7 @@ public class AbstractController {
      * 获取当前用户登陆的系统管理人员
      * @return 系统登陆的用户
      */
-    protected SecurityOperator getOperator(){
+    public static SecurityOperator getOperator(){
         SecurityContext context = SecurityContextHolder.getContext();
         Object details = context.getAuthentication().getPrincipal();
         if(details != null){

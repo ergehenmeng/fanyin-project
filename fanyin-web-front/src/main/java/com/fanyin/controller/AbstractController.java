@@ -3,7 +3,7 @@ package com.fanyin.controller;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
-import com.fanyin.inteceptor.AccessHandlerInterceptor;
+import com.fanyin.interceptor.AccessHandlerInterceptor;
 
 /**
  * @author 二哥很猛
