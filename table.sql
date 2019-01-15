@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2019-01-02 17:50:58
+Date: 2019-01-15 18:19:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -207,7 +207,7 @@ CREATE TABLE `banner` (
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('1', '1', '1', '1', '1', null, '2018-10-17 10:18:08', null, '1', null, null, null, null);
+INSERT INTO `banner` VALUES ('1', '1', '1', '1', '1', null, '2018-10-17 10:18:08', null, '', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for borrower
@@ -419,11 +419,11 @@ CREATE TABLE `integral_type` (
 -- ----------------------------
 -- Records of integral_type
 -- ----------------------------
-INSERT INTO `integral_type` VALUES ('1', 'first_tender', '首投奖励', '1', '10', '0', '\0', '2018-11-15 16:41:42', null, null);
-INSERT INTO `integral_type` VALUES ('2', 'max_tender', '最高投奖励', '1', '30', '0', '\0', '2018-11-15 16:42:45', null, null);
-INSERT INTO `integral_type` VALUES ('3', 'last_tender', '扫尾奖励', '1', '5', '0', '\0', '2018-11-15 16:43:11', null, null);
-INSERT INTO `integral_type` VALUES ('4', 'sign_in', '签到奖励', '1', '5', '0', '1', '2018-11-15 16:44:45', null, null);
-INSERT INTO `integral_type` VALUES ('5', 'tender', '投资奖励', '1', '1', '0', '\0', '2018-11-17 14:11:10', null, '积分由系统参数tender_integral来决定,奖励积分=奖励值*(投标金额/tender_integral)');
+INSERT INTO `integral_type` VALUES ('1', 'first_tender', '首投奖励', '', '10', '0', '\0', '2018-11-15 16:41:42', null, null);
+INSERT INTO `integral_type` VALUES ('2', 'max_tender', '最高投奖励', '', '30', '0', '\0', '2018-11-15 16:42:45', null, null);
+INSERT INTO `integral_type` VALUES ('3', 'last_tender', '扫尾奖励', '', '5', '0', '\0', '2018-11-15 16:43:11', null, null);
+INSERT INTO `integral_type` VALUES ('4', 'sign_in', '签到奖励', '', '5', '0', '', '2018-11-15 16:44:45', null, null);
+INSERT INTO `integral_type` VALUES ('5', 'tender', '投资奖励', '', '1', '0', '\0', '2018-11-17 14:11:10', null, '积分由系统参数tender_integral来决定,奖励积分=奖励值*(投标金额/tender_integral)');
 
 -- ----------------------------
 -- Table structure for message_template
@@ -475,6 +475,28 @@ CREATE TABLE `operation_data_log` (
 -- ----------------------------
 -- Records of operation_data_log
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for operation_log
+-- ----------------------------
+DROP TABLE IF EXISTS `operation_log`;
+CREATE TABLE `operation_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `url` varchar(200) DEFAULT NULL COMMENT '请求地址',
+  `operator_id` int(10) DEFAULT NULL COMMENT '操作人',
+  `request` varchar(1000) DEFAULT NULL COMMENT '请求参数',
+  `response` text COMMENT '响应参数',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `ip` varchar(64) DEFAULT NULL COMMENT '访问ip',
+  `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
+  `classify` tinyint(255) unsigned DEFAULT NULL COMMENT '操作日志分类',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='后台操作记录';
+
+-- ----------------------------
+-- Records of operation_log
+-- ----------------------------
+INSERT INTO `operation_log` VALUES ('1', '/system/dict/dict_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1547175780000,\"deleted\":false,\"hiddenValue\":2,\"id\":5,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"是东方闪电2131\",\"showValue\":\"系统参数\",\"title\":\"系统参数分类\",\"updateTime\":1547518317000},{\"addTime\":1547175759000,\"deleted\":false,\"hiddenValue\":1,\"id\":4,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"\",\"showValue\":\"业务参数\",\"title\":\"系统参数分类\",\"updateTime\":1547518296000},{\"addTime\":1543310155000,\"deleted\":false,\"hiddenValue\":3,\"id\":3,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"h5首页\",\"title\":\"图片分类\"},{\"addTime\":1543310133000,\"deleted\":false,\"hiddenValue\":2,\"id\":2,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"app首页\",\"title\":\"图片分类\"},{\"addTime\":1543310089000,\"deleted\":false,\"hiddenValue\":1,\"id\":1,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"pc首页\",\"title\":\"图片分类\"}],\"total\":5}', '2019-01-15 18:14:01', '0:0:0:0:0:0:0:1', '48', '0');
 
 -- ----------------------------
 -- Table structure for operation_report
@@ -4406,6 +4428,30 @@ INSERT INTO `system_area` VALUES ('3639', '000100350240', 'Zanzibar/桑给巴尔
 INSERT INTO `system_area` VALUES ('3640', '000100350241', 'Zimbabwe/津巴布韦', '3639', '242');
 
 -- ----------------------------
+-- Table structure for system_cache
+-- ----------------------------
+DROP TABLE IF EXISTS `system_cache`;
+CREATE TABLE `system_cache` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(50) DEFAULT NULL COMMENT '缓存名称',
+  `cache_name` varchar(255) DEFAULT NULL COMMENT '缓存名称 必须与CacheConstant中保持一致',
+  `state` tinyint(3) unsigned DEFAULT '0' COMMENT '缓存更新状态 0:未更新 1:更新成功 2:更新失败',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注说明',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='缓存信息管理表';
+
+-- ----------------------------
+-- Records of system_cache
+-- ----------------------------
+INSERT INTO `system_cache` VALUES ('1', '系统参数缓存', 'system_config', '1', '2019-01-15 10:13:06', '全局系统参数缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('2', '数据字典缓存', 'system_dict', '1', '2019-01-15 10:12:08', '全局数据字典缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('3', 'vip等级配置缓存', 'vip_config', '1', '2019-01-15 10:12:08', '业务vip缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('4', '用户登陆token缓存', 'access_token', '1', '2019-01-15 10:12:08', '登陆信息(保存缓存)');
+INSERT INTO `system_cache` VALUES ('5', '积分类型缓存', 'integral_classify', '1', '2019-01-15 10:12:08', '业务积分类型缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('6', '异步结果缓存', 'async_response', '1', '2019-01-15 10:12:08', '异步信息(保存缓存)');
+
+-- ----------------------------
 -- Table structure for system_config
 -- ----------------------------
 DROP TABLE IF EXISTS `system_config`;
@@ -4430,19 +4476,19 @@ CREATE TABLE `system_config` (
 -- ----------------------------
 -- Records of system_config
 -- ----------------------------
-INSERT INTO `system_config` VALUES ('1', 'application_name', '系统名称', '后台管理系统', null, '\0', null, null, null, '', '2018-01-12 10:01:04', '2018-01-29 18:33:32');
-INSERT INTO `system_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', null, '\0', null, null, null, null, '2018-02-08 14:38:59', null);
-INSERT INTO `system_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市西湖区教工路79号', null, '\0', null, null, null, null, '2018-02-08 14:40:01', null);
-INSERT INTO `system_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-65800000', null, '\0', null, null, null, null, '2018-02-08 14:40:46', null);
-INSERT INTO `system_config` VALUES ('5', 'enterprise_email', '企业邮箱', '664956140@qq.com', null, '\0', null, null, null, null, '2018-02-08 14:41:22', null);
-INSERT INTO `system_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', null, '\0', null, null, null, '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:03', null);
-INSERT INTO `system_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', null, '\0', null, null, null, '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:41', null);
-INSERT INTO `system_config` VALUES ('8', 'min_tender_age', '最小投标年龄', '18', null, '\0', null, null, null, '用户必须满足该年龄后才能进行投标操作', '2018-10-10 15:56:23', null);
-INSERT INTO `system_config` VALUES ('9', 'once_min_tender_amount', '单次最小投标金额', '100', null, '\0', null, null, null, '单次最小投标金额', '2018-10-11 09:22:29', null);
-INSERT INTO `system_config` VALUES ('10', 'personal_max_loan', '个人借款人最大借款总额', '200000', null, '\0', null, null, null, '借款总额(剩余可借=personal_max_loan-待还本金)', '2018-10-11 09:26:15', null);
-INSERT INTO `system_config` VALUES ('11', 'system_domain', '前台系统域名', 'http://www.eghm.top', null, '\0', null, null, null, '前台提供服务的域名', '2018-11-25 21:02:17', null);
-INSERT INTO `system_config` VALUES ('12', 'system_ip', '前台系统IP', 'http://127.0.0.1:8080', null, '\0', null, null, null, '前台提供服务的ip', '2018-11-25 21:03:13', null);
-INSERT INTO `system_config` VALUES ('13', 'manage_domain', '后台系统域名', 'http://www.baidu.com', null, '\0', null, null, null, null, '2018-11-29 16:41:04', null);
+INSERT INTO `system_config` VALUES ('1', 'application_name', '系统名称', '后台管理系统', '1', '\0', null, null, null, '', '2018-01-12 10:01:04', '2018-01-29 18:33:32');
+INSERT INTO `system_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', '1', '\0', null, null, null, null, '2018-02-08 14:38:59', null);
+INSERT INTO `system_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市西湖区教工路79号', '1', '\0', null, null, null, null, '2018-02-08 14:40:01', null);
+INSERT INTO `system_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-65800000', '1', '\0', null, null, null, null, '2018-02-08 14:40:46', null);
+INSERT INTO `system_config` VALUES ('5', 'enterprise_email', '企业邮箱', '664956140@qq.com', '1', '\0', null, null, null, null, '2018-02-08 14:41:22', null);
+INSERT INTO `system_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', '1', '\0', null, null, null, '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:03', null);
+INSERT INTO `system_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', '1', '\0', null, null, null, '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:41', null);
+INSERT INTO `system_config` VALUES ('8', 'min_tender_age', '最小投标年龄', '18', '1', '\0', null, null, null, '用户必须满足该年龄后才能进行投标操作', '2018-10-10 15:56:23', null);
+INSERT INTO `system_config` VALUES ('9', 'once_min_tender_amount', '单次最小投标金额', '100', '1', '\0', null, null, null, '单次最小投标金额', '2018-10-11 09:22:29', null);
+INSERT INTO `system_config` VALUES ('10', 'personal_max_loan', '个人借款人最大借款总额', '200000', '1', '\0', null, null, null, '借款总额(剩余可借=personal_max_loan-待还本金)', '2018-10-11 09:26:15', null);
+INSERT INTO `system_config` VALUES ('11', 'system_domain', '前台系统域名', 'http://www.eghm.top', '1', '\0', null, null, null, '前台提供服务的域名', '2018-11-25 21:02:17', null);
+INSERT INTO `system_config` VALUES ('12', 'system_ip', '前台系统IP', 'http://127.0.0.1:8080', '1', '\0', null, null, null, '前台提供服务的ip', '2018-11-25 21:03:13', null);
+INSERT INTO `system_config` VALUES ('13', 'manage_domain', '后台系统域名', 'http://www.baidu.com', '1', '\0', null, null, null, null, '2018-11-29 16:41:04', null);
 
 -- ----------------------------
 -- Table structure for system_department
@@ -4486,15 +4532,18 @@ CREATE TABLE `system_dict` (
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统数据字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='系统数据字典表';
 
 -- ----------------------------
 -- Records of system_dict
 -- ----------------------------
-INSERT INTO `system_dict` VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', '\0', '\0', '2018-11-27 17:14:49', null);
-INSERT INTO `system_dict` VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', '\0', '\0', '2018-11-27 17:15:33', null);
-INSERT INTO `system_dict` VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', '\0', '\0', '2018-11-27 17:15:55', null);
+INSERT INTO `system_dict` VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', '\0', '', '2018-11-27 17:14:49', null, null);
+INSERT INTO `system_dict` VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', '\0', '', '2018-11-27 17:15:33', null, null);
+INSERT INTO `system_dict` VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', '\0', '', '2018-11-27 17:15:55', null, null);
+INSERT INTO `system_dict` VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', '\0', '', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
+INSERT INTO `system_dict` VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', '\0', '', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
 
 -- ----------------------------
 -- Table structure for system_menu
@@ -4507,7 +4556,7 @@ CREATE TABLE `system_menu` (
   `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
   `url` varchar(255) DEFAULT NULL COMMENT '菜单地址',
   `sub_url` varchar(2000) DEFAULT NULL COMMENT '该菜单包含的子url以分号做分割',
-  `classify` tinyint(1) DEFAULT '0' COMMENT '菜单分类 0:左侧菜单 1: 按钮菜单',
+  `classify` tinyint(1) DEFAULT '1' COMMENT '菜单分类 0:左侧菜单 1: 按钮菜单',
   `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
   `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
@@ -4515,17 +4564,19 @@ CREATE TABLE `system_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1011 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1013 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of system_menu
 -- ----------------------------
 INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, null, '0', '0', '\0', null, '2018-01-25 16:13:54', null);
-INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/menu_manage_page', null, '0', '1', '\0', null, '2018-01-25 16:14:01', null);
-INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/config_manage_page', null, '0', '2', '\0', null, '2018-01-25 16:14:31', null);
-INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/operator/operator_manage_page', null, '0', '3', '\0', null, '2018-01-25 16:14:40', null);
-INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/role_manage_page', null, '0', '4', '\0', null, '2018-01-25 16:14:56', null);
-INSERT INTO `system_menu` VALUES ('1010', '图片管理', 'imageManage', '1001', '/public/operation/image/image_manage_page', null, '0', '5', '\0', null, '2018-11-28 17:02:36', null);
+INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/manage_menu_page', null, '0', '1', '\0', null, '2018-01-25 16:14:01', null);
+INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/manage_config_page', null, '0', '2', '\0', null, '2018-01-25 16:14:31', null);
+INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/public/system/operator/manage_operator_page', null, '0', '3', '\0', null, '2018-01-25 16:14:40', null);
+INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/public/system/role/manage_role_page', null, '0', '4', '\0', null, '2018-01-25 16:14:56', null);
+INSERT INTO `system_menu` VALUES ('1010', '图片管理', 'imageManage', '1001', '/public/operation/image/manage_image_page', null, '0', '5', '\0', null, '2018-11-28 17:02:36', null);
+INSERT INTO `system_menu` VALUES ('1011', '数据字典', 'dictManage', '1001', '/public/system/dict/manage_dict_page', null, '0', '6', '\0', null, '2019-01-11 17:51:31', null);
+INSERT INTO `system_menu` VALUES ('1012', '缓存管理', 'cacheManage', '1001', '/public/system/cache/manage_cache_page', null, '0', '7', '\0', null, '2019-01-14 15:27:58', null);
 
 -- ----------------------------
 -- Table structure for system_notice
@@ -4571,7 +4622,7 @@ CREATE TABLE `system_operator` (
 -- ----------------------------
 -- Records of system_operator
 -- ----------------------------
-INSERT INTO `system_operator` VALUES ('1', '超管', '13000000000', '1', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmhomy', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy', '0', '\0', '2018-01-26 10:38:20', null, null);
+INSERT INTO `system_operator` VALUES ('1', '超管', '13000000000', '1', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmhomy', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy', '0', '\0', '2018-01-26 10:38:20', '2019-01-15 11:25:18', '');
 
 -- ----------------------------
 -- Table structure for system_operator_role
@@ -4584,12 +4635,12 @@ CREATE TABLE `system_operator_role` (
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`operator_id`),
   KEY `role_id_index` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='角色与用户关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='角色与用户关系表';
 
 -- ----------------------------
 -- Records of system_operator_role
 -- ----------------------------
-INSERT INTO `system_operator_role` VALUES ('1', '1', '1');
+INSERT INTO `system_operator_role` VALUES ('5', '1', '1');
 
 -- ----------------------------
 -- Table structure for system_role
@@ -4605,19 +4656,17 @@ CREATE TABLE `system_role` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `role_name_index` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of system_role
 -- ----------------------------
-INSERT INTO `system_role` VALUES ('1', '超级管理员', 'administator', '2018-01-29 13:45:49', null, '\0', null);
+INSERT INTO `system_role` VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', '\0', '');
 INSERT INTO `system_role` VALUES ('2', '部门经理', 'jingli', '2018-11-26 17:00:58', null, '\0', '测试');
 INSERT INTO `system_role` VALUES ('3', '测试经理', 'ces', '2018-11-30 15:31:16', null, '\0', null);
 INSERT INTO `system_role` VALUES ('4', '开发', 'kaifa', '2018-11-30 15:31:33', null, '\0', null);
 INSERT INTO `system_role` VALUES ('5', '销售', 'xiaoshou', '2018-11-30 15:31:40', null, '\0', null);
 INSERT INTO `system_role` VALUES ('6', '理财', 'licai', '2018-11-30 15:31:50', null, '\0', null);
-INSERT INTO `system_role` VALUES ('7', '测试', '11', '2018-11-30 15:32:44', null, '\0', null);
-INSERT INTO `system_role` VALUES ('8', '试试', '22', '2018-11-30 15:32:48', null, '\0', null);
 
 -- ----------------------------
 -- Table structure for system_role_menu
@@ -4631,17 +4680,21 @@ CREATE TABLE `system_role_menu` (
   KEY `role_id_index` (`role_id`) USING BTREE,
   KEY `menu_id_index` (`menu_id`),
   CONSTRAINT `role_id_FK` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
-INSERT INTO `system_role_menu` VALUES ('2', '1', '1001');
-INSERT INTO `system_role_menu` VALUES ('5', '1', '1004');
-INSERT INTO `system_role_menu` VALUES ('8', '1', '1007');
-INSERT INTO `system_role_menu` VALUES ('9', '1', '1008');
-INSERT INTO `system_role_menu` VALUES ('10', '1', '1009');
-INSERT INTO `system_role_menu` VALUES ('11', '1', '1010');
+INSERT INTO `system_role_menu` VALUES ('14', '1', '1004');
+INSERT INTO `system_role_menu` VALUES ('15', '1', '1007');
+INSERT INTO `system_role_menu` VALUES ('16', '1', '1008');
+INSERT INTO `system_role_menu` VALUES ('17', '1', '1009');
+INSERT INTO `system_role_menu` VALUES ('18', '1', '1010');
+INSERT INTO `system_role_menu` VALUES ('19', '1', '1011');
+INSERT INTO `system_role_menu` VALUES ('20', '1', '1012');
+INSERT INTO `system_role_menu` VALUES ('21', '1', '1001');
+INSERT INTO `system_role_menu` VALUES ('31', '2', '1009');
+INSERT INTO `system_role_menu` VALUES ('32', '2', '1010');
 
 -- ----------------------------
 -- Table structure for tips
@@ -4689,7 +4742,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '15966666666', null, null, null, '12', '1', '0', null, '2018-01-11 15:59:08', null);
+INSERT INTO `user` VALUES ('1', '15966666666', null, null, null, '12', '', '0', null, '2018-01-11 15:59:08', null);
 
 -- ----------------------------
 -- Table structure for user_address
@@ -4776,14 +4829,14 @@ CREATE TABLE `vip_config` (
 -- ----------------------------
 -- Records of vip_config
 -- ----------------------------
-INSERT INTO `vip_config` VALUES ('1', '新手', '0', '0', '0.00', '1', '0');
-INSERT INTO `vip_config` VALUES ('2', '青铜会员', '1', '1', '1000.00', '1', '1');
-INSERT INTO `vip_config` VALUES ('3', '白银会员', '2', '2', '5000.00', '1', '2');
-INSERT INTO `vip_config` VALUES ('4', '黄金会员', '3', '3', '10000.00', '1', '3');
-INSERT INTO `vip_config` VALUES ('5', '铂金会员', '4', '4', '50000.00', '1', '4');
-INSERT INTO `vip_config` VALUES ('6', '钻石会员', '5', '5', '200000.00', '1', '5');
-INSERT INTO `vip_config` VALUES ('7', '至尊会员', '6', '6', '500000.00', '1', '6');
-INSERT INTO `vip_config` VALUES ('8', '王者会员', '7', '7', '2000000.00', '1', '7');
+INSERT INTO `vip_config` VALUES ('1', '新手', '0', '0', '0.00', '', '0');
+INSERT INTO `vip_config` VALUES ('2', '青铜会员', '1', '1', '1000.00', '', '1');
+INSERT INTO `vip_config` VALUES ('3', '白银会员', '2', '2', '5000.00', '', '2');
+INSERT INTO `vip_config` VALUES ('4', '黄金会员', '3', '3', '10000.00', '', '3');
+INSERT INTO `vip_config` VALUES ('5', '铂金会员', '4', '4', '50000.00', '', '4');
+INSERT INTO `vip_config` VALUES ('6', '钻石会员', '5', '5', '200000.00', '', '5');
+INSERT INTO `vip_config` VALUES ('7', '至尊会员', '6', '6', '500000.00', '', '6');
+INSERT INTO `vip_config` VALUES ('8', '王者会员', '7', '7', '2000000.00', '', '7');
 
 -- ----------------------------
 -- Table structure for withdraw_log
