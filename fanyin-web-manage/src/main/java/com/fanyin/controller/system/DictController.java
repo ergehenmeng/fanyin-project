@@ -10,7 +10,6 @@ import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,11 +39,11 @@ public class DictController {
      * @param id id
      * @return 页面地址
      */
-    @GetMapping("/system/dict/edit_dict_page")
+    @PostMapping("/public/system/dict/edit_dict_page")
     public String editDictPage(Model model,Integer id){
         SystemDict dict = systemDictService.getById(id);
         model.addAttribute("dict",dict);
-        return "system/dict/edit_dict_page";
+        return "public/system/dict/edit_dict_page";
     }
 
     /**

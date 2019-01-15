@@ -8,7 +8,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="state" jdbcType="BIT" property="state" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="init_pwd" jdbcType="VARCHAR" property="initPwd" />
     <result column="department" jdbcType="VARCHAR" property="department" />
@@ -88,7 +88,7 @@
         #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
-        #{state,jdbcType=BIT},
+        #{state,jdbcType=TINYINT},
       </if>
       <if test="pwd != null">
         #{pwd,jdbcType=VARCHAR},
@@ -126,7 +126,7 @@
         mobile = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
-        state = #{state,jdbcType=BIT},
+        state = #{state,jdbcType=TINYINT},
       </if>
       <if test="pwd != null">
         pwd = #{pwd,jdbcType=VARCHAR},

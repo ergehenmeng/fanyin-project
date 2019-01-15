@@ -35,7 +35,7 @@
         </div>
         <div class="form_item">
             <label>备注:</label>
-            <textarea title="备注" name="remark" class="h60">${(config.remarks)!}</textarea>
+            <textarea title="备注" name="remark" class="h60">${(config.remark)!}</textarea>
         </div>
     </form>
 </div>

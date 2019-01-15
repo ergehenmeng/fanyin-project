@@ -54,7 +54,7 @@
                             return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.url +'\');">' + value + '</a>';
                         }
                     },
-                    {field : "typeName",title : "分类",width : 150,align : "center"},
+                    {field : "classifyName",title : "分类",width : 150,align : "center"},
                     {field : "url",title : "路径",width : 600,align : "center" },
                     {field : "size",title : "大小",width : 100,align : "center",
                         formatter:function(value){
@@ -83,7 +83,7 @@
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
             <div class="left">
-                <form id="queryForm">
+                <form id="queryForm" method="post">
                     <input name="queryName" placeholder="名称、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
                     <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
                 </form>
@@ -91,7 +91,7 @@
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
-            <form id="showAdw">
+            <form id="showAdw" method="post">
                 <ul class="showAdw" style="display: none;">
                     <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
                     <li>

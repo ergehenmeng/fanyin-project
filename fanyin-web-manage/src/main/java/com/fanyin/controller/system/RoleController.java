@@ -10,10 +10,11 @@ import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class RoleController {
      * @param request 查询条件
      * @return 列表
      */
-    @RequestMapping("/system/role/role_list_page")
+    @PostMapping("/system/role/role_list_page")
     @ResponseBody
     public Paging<SystemRole> roleListPage(RoleQueryRequest request){
         PageInfo<SystemRole> page = systemRoleService.getByPage(request);
@@ -44,7 +45,7 @@ public class RoleController {
      * 获取所有可用的角色列表
      * @return 角色列表
      */
-    @RequestMapping("/system/role/role_list")
+    @PostMapping("/system/role/role_list")
     @ResponseBody
     public Response<List<CheckBox>> roleList(){
         List<SystemRole> list = systemRoleService.getList();
@@ -61,7 +62,7 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @RequestMapping("/public/system/role/edit_role_page")
+    @PostMapping("/public/system/role/edit_role_page")
     public String editRolePage(Model model, Integer id){
         SystemRole role = systemRoleService.getById(id);
         model.addAttribute("role",role);
@@ -73,7 +74,7 @@ public class RoleController {
      * @param request 前台请求参数
      * @return 成功
      */
-    @RequestMapping("/system/role/edit_role")
+    @PostMapping("/system/role/edit_role")
     @ResponseBody
     public Response editRole(RoleEditRequest request){
         systemRoleService.updateRole(request);
@@ -85,7 +86,7 @@ public class RoleController {
      * @param id 主键
      * @return 成功
      */
-    @RequestMapping("/system/role/delete_role")
+    @PostMapping("/system/role/delete_role")
     @ResponseBody
     public Response deleteRole(Integer id){
         systemRoleService.deleteRole(id);
@@ -97,10 +98,38 @@ public class RoleController {
      * @param request 前台参数
      * @return 成功
      */
-    @RequestMapping("/system/role/add_role")
+    @PostMapping("/system/role/add_role")
     @ResponseBody
     public Response addRole(RoleAddRequest request){
         systemRoleService.addRole(request);
+        return Response.getInstance();
+    }
+
+    /**
+     * 角色授权页面
+     * @param model model
+     * @param id 角色id
+     * @return 角色编辑信息
+     */
+    @PostMapping("/public/system/role/auth_role_page")
+    public String authRolePage(Model model, Integer id){
+        List<Integer> role = systemRoleService.getRoleMenu(id);
+        String menuIds = Joiner.on(",").join(role);
+        model.addAttribute("menuIds",menuIds);
+        model.addAttribute("roleId",id);
+        return "public/system/role/auth_role_page";
+    }
+
+    /**
+     * 保存角色菜单关联信息
+     * @param roleId 角色id
+     * @param menuIds 菜单
+     * @return 响应
+     */
+    @PostMapping("/system/role/auth_role")
+    @ResponseBody
+    public Response authRole(Integer roleId,String menuIds){
+        systemRoleService.authMenu(roleId,menuIds);
         return Response.getInstance();
     }
 }

@@ -120,7 +120,6 @@ public enum ErrorCodeEnum {
      */
     PERMISSION_ERROR(2003,"权限校验异常,请联系管理人员"),
 
-
     /**
      * 系统配置信息未查询到
      */

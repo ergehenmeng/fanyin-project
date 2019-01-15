@@ -61,11 +61,11 @@ Accordion.prototype.dropdown = function(e) {
 	var $el = e.data.el;
 	var	$next = $(this).next();
 
-	$next.slideToggle();
+	$next.slideToggle("fast");
     $(this).parent().toggleClass('open');
 
 	if (!e.data.multiple) {
-		$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+		$el.find('.submenu').not($next).slideUp("fast").parent().removeClass('open');
 	}
 };
 

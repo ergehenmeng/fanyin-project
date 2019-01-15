@@ -42,4 +42,9 @@ public class DictEditRequest implements Serializable {
      * nid
      */
     private String nid;
+
+    /**
+     * 备注信息
+     */
+    private String remark;
 }

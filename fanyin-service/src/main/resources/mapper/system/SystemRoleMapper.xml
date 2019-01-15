@@ -116,4 +116,20 @@
             role_name like concat('%',#{queryName},'%')
         </if>
     </select>
+
+    <select id="getRoleMenu" resultType="integer">
+        select menu_id from system_role_menu where role_id = #{roleId}
+    </select>
+    
+    <delete id="deleteRoleMenu">
+       delete from system_role_menu where role_id  = #{roleId}
+    </delete>
+
+    <insert id="batchInsertRoleMenu">
+       insert into system_role_menu (role_id,menu_id) values
+           <foreach collection="menuIdList" item="item" separator=",">
+               (#{roleId},#{item})
+           </foreach>
+    </insert>
+
 </mapper>

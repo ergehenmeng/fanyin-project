@@ -158,20 +158,20 @@
                                     platform_interest,
                                     coupon_interest,
                                     receive_time,
-                                    receive_month)values
-        <foreach collection="list" open="(" close=")" item="item" index="index" separator=",">
-            #{userId},
+                                    receive_month) values
+        <foreach collection="list"  item="item"  separator=",">
+            (#{userId},
             0,
             #{tenderId},
             #{projectId},
             #{item.period},
             #{item.periods},
-            #{item.capital}
+            #{item.capital},
             #{item.baseInterest},
             #{item.platformInterest},
             #{item.couponInterest},
             #{item.day},
-            #{item.month}
+            #{item.month})
         </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.project.ProjectRecover">

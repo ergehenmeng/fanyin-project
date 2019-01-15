@@ -33,20 +33,12 @@
                             return str;
                         }
                     },
-                    {field : "title",title : "缓存名称",width : 180,align : "center"},
-                    {field : "cacheName",title : "缓存名称",width : 180,align : "center"},
+                    {field : "title",title : "缓存名称",width : 200,align : "center"},
+                    {field : "cacheName",title : "缓存标示符",width : 200,align : "center"},
 
                     {field : "updateTime",title : "上次刷新时间",width : 200,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
-                        }
-                    },
-                    {field : "locked",title : "锁定状态",align : "center",width : 100,
-                        formatter: function(value){
-                            if(value){
-                                return "已锁定";
-                            }
-                            return "正常";
                         }
                     },
                     {field : "remark",title : "备注",align : "center",width : 300 }

@@ -20,7 +20,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -44,7 +44,7 @@ public class OperatorController extends AbstractController {
      * @param request 请求参数
      * @return 成功状态
      */
-    @RequestMapping("/system/operator/change_password")
+    @PostMapping("/system/operator/change_password")
     @ResponseBody
     public Response changePassword(HttpSession session, PasswordEditRequest request){
         SecurityOperator operator = super.getRequiredOperator();
@@ -66,7 +66,7 @@ public class OperatorController extends AbstractController {
      * @param request 查询条件
      * @return 列表
      */
-    @RequestMapping("/system/operator/operator_list_page")
+    @PostMapping("/system/operator/operator_list_page")
     @ResponseBody
     public Paging<SystemOperator> operatorListPage(OperatorQueryRequest request){
         PageInfo<SystemOperator> page = systemOperatorService.getByPage(request);
@@ -78,7 +78,7 @@ public class OperatorController extends AbstractController {
      * 添加管理人员
      * @return 成功
      */
-    @RequestMapping("/system/operator/add_operator")
+    @PostMapping("/system/operator/add_operator")
     @ResponseBody
     public Response addOperator(OperatorAddRequest request){
         systemOperatorService.addOperator(request);
@@ -90,7 +90,7 @@ public class OperatorController extends AbstractController {
      * @param id 管理人员id
      * @return 页面
      */
-    @RequestMapping("/public/system/operator/edit_operator_page")
+    @PostMapping("/public/system/operator/edit_operator_page")
     public String editOperatorPage(Model model, Integer id){
         SystemOperator operator = systemOperatorService.getById(id);
         model.addAttribute("operator",operator);
@@ -107,7 +107,7 @@ public class OperatorController extends AbstractController {
      * @param request 前台参数
      * @return 成功
      */
-    @RequestMapping("/system/operator/edit_operator")
+    @PostMapping("/system/operator/edit_operator")
     @ResponseBody
     public Response editOperator(OperatorEditRequest request){
         systemOperatorService.updateOperator(request);

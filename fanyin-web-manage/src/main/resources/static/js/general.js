@@ -318,7 +318,7 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
 	for(var s = 0,lens = rows.length; s < lens;s++){
         //一级节点
 		if(rows[s].pid === 0){
-			nodes.push({"id":rows[s].id,"text":rows[s].name});
+			nodes.push({"id":rows[s].id,"text":rows[s].title});
 		}
 	}
 	var topNodes = [];
@@ -352,9 +352,10 @@ $.fn.treeGridOptions.pageFilter = function(rows,checkRow){
  * @returns {Boolean}
  */
 function isChecked(id,checkRow){
-	if(checkRow !== null && checkRow.length > 0){
-		for(var i=0;i < checkRow.length;i++){
-			if(checkRow[i].id === id){
+	if(checkRow){
+	    var selectedRows = checkRow.split(",");
+		for(var i=0;i < selectedRows.length;i++){
+			if(parseInt(selectedRows[i]) === id){
 				return true;
 			}
 		}
@@ -416,13 +417,7 @@ $.windowDialog = function(opts){
 			    $("body").click();
 				$.windowDialog.handler = undefined;
 				$(this).dialog('destroy');
-				//该处为了增加下拉复选框无法关闭的bug
-                var $multipleSelect = $(".multipleSelect");
-                if($multipleSelect.length > 0 && !$multipleSelect.is(":hidden")){
-                    $multipleSelect.hide();
-                }
 			}
-			
 		},opts);
 		return $.windowDialog.handler = $("<div/>").dialog(options);
 	}

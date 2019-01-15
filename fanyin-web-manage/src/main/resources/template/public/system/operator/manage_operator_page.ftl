@@ -83,7 +83,7 @@
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "remark",title : "备注",align : "center",width : 200 }
+                    {field : "remark",title : "备注",align : "center",width : 250 }
                 ] ]
             });
         });
@@ -94,7 +94,7 @@
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
             <div class="left">
-                <form id="queryForm">
+                <form id="queryForm" method="post">
                     <input name="queryName" placeholder="用户名称、手机号" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
                 </form>
             </div>

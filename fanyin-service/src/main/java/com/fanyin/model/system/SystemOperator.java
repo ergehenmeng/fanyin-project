@@ -41,7 +41,7 @@ public class SystemOperator implements Serializable {
      * 表 : system_operator<br>
      * 对应字段 : state<br>
      */
-    private Boolean state;
+    private Integer state;
 
     /**
      * 登陆密码MD5<br>

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
@@ -39,7 +38,7 @@ public class CaptchaController extends AbstractController {
      * @return 流默认为空
      * @throws IOException 写流异常
      */
-    @RequestMapping("/{module}/captcha")
+    @GetMapping("/{module}/captcha")
     @ResponseBody
     public String module(@PathVariable("module")String module, HttpSession session, HttpServletResponse response)throws IOException{
         String text = producer.createText();

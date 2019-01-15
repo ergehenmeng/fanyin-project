@@ -10,11 +10,16 @@
         var winWidth = 480;
         var winHeight = 300;
 
+        var authHeight = 500;
+
         var addTitle = "添加角色";
         var addUrl = "/public/system/role/add_role_page";
 
         var editTitle = "编辑角色";
         var editUrl = "/public/system/role/edit_role_page";
+
+        var authTitle = "角色授权";
+        var authUrl = "/public/system/role/auth_role_page";
 
         var  delMsg = "删除角色可能导致相关人员无法使用系统,确定要执行该操作";
         var delUrl = "/system/role/delete_role";
@@ -43,6 +48,7 @@
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑角色信息"> 编辑</a>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',authTitle,winWidth,authHeight,authUrl);" title="角色菜单授权"> 授权</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除角色"> 删除</a>';
                             str += '</dd>';
                             str += '</dl>';
@@ -73,7 +79,7 @@
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
             <div class="left">
-                <form id="queryForm">
+                <form id="queryForm" method="post">
                     <input name="queryName" placeholder="角色名称" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
                     <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
                 </form>
@@ -81,7 +87,7 @@
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
-            <form id="showAdw">
+            <form id="showAdw" method="post">
                 <ul class="showAdw" style="display: none;">
                     <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
                     <li>

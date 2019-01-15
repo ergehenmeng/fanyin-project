@@ -23,7 +23,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -72,7 +75,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         SystemOperator operator = BeanCopyUtil.copy(request, SystemOperator.class);
         operator.setAddTime(DateUtil.getNow());
         operator.setDeleted(false);
-        operator.setState(true);
+        operator.setState(1);
         String initPassword = this.initPassword(request.getMobile());
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
@@ -103,7 +106,9 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         systemOperatorRoleMapper.deleteByOperatorId(request.getId());
         if(StringUtil.isNotBlank(request.getRoleIds())){
-
+            List<String> stringList = Splitter.on(",").splitToList(request.getRoleIds());
+            List<Integer> roleList = stringList.stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            systemOperatorRoleMapper.batchInsertOperatorRole(request.getId(),roleList);
         }
     }
 }

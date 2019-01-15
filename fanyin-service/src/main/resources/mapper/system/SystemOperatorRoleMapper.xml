@@ -76,4 +76,11 @@
     <delete id="deleteByOperatorId" parameterType="java.lang.Integer">
         delete from system_operator_role where operator_id = #{operatorId}
     </delete>
+
+    <insert id="batchInsertOperatorRole" >
+        insert into system_operator_role(operator_id,role_id) values
+        <foreach collection="roleList" separator="," item="item">
+            (#{operatorId},#{item})
+        </foreach>
+    </insert>
 </mapper>

@@ -12,11 +12,14 @@ import com.fanyin.utils.BeanCopyUtil;
 import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Splitter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -76,5 +79,19 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public List<Integer> getByOperatorId(Integer operatorId) {
         return systemOperatorRoleMapper.getByOperatorId(operatorId);
+    }
+
+    @Override
+    public List<Integer> getRoleMenu(Integer roleId) {
+        return systemRoleMapper.getRoleMenu(roleId);
+    }
+
+    @Override
+    public void authMenu(Integer roleId, String menuIds) {
+        systemRoleMapper.deleteRoleMenu(roleId);
+        if(StringUtils.isNotEmpty(menuIds)){
+            List<Integer> menuIdList = Splitter.on(",").splitToList(menuIds).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            systemRoleMapper.batchInsertRoleMenu(roleId,menuIdList);
+        }
     }
 }

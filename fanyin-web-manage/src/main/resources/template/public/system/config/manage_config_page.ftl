@@ -50,6 +50,7 @@
                         }
                     },
                     {field : "title",title : "参数名称",width : 150,align : "center"},
+                    {field : "classifyName",title : "参数分类",width : 150,align : "center"},
                     {field : "nid",title : "参数标示",width : 150,align : "center"},
                     {field : "content",title : "参数值",width : 300,align : "center"},
                     {
@@ -58,6 +59,7 @@
                             return value ? "是" : "否";
                         }
                     },
+                    {field : "remark",title : "备注",align : "center",width : 300 },
                     {field : "startTime",title : "有效起始时间",width : 150,align : "center",
                         formatter:function(value,rows,index){
                             return getLocalTime(value,4);
@@ -73,8 +75,7 @@
                         formatter : function(value, rows, index) {
                             return getLocalTime(value, 4);
                         }
-                    },
-                    {field : "remark",title : "备注",align : "center",width : 350 }
+                    }
                 ]]
             });
         });
@@ -85,7 +86,7 @@
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
             <div class="left">
-                <form id="queryForm">
+                <form id="queryForm" method="post">
                     <input name="queryName" placeholder="参数名称、参数标示、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
                 </form>
             </div>

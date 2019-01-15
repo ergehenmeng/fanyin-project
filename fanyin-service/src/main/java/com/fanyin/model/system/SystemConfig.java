@@ -97,4 +97,9 @@ public class SystemConfig implements Serializable {
      * 对应字段 : reserve_content<br>
      */
     private String reserveContent;
+
+    /**
+     * 参数类型 数据字典名称
+     */
+    private String classifyName;
 }

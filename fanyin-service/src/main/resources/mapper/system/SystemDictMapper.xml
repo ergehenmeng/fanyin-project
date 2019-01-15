@@ -148,7 +148,7 @@
         from system_dict
         <where>
             <if test="queryName != null">
-                and (title like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%' )
+                and (title like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%' ) )
             </if>
             <if test="locked != null">
                 and locked = #{locked}

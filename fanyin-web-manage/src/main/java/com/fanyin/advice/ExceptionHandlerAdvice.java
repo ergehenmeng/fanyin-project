@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 二哥很猛
  * @date 2018/11/29 15:03
@@ -24,7 +26,8 @@ public class ExceptionHandlerAdvice {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public Response businessException(BusinessException e){
+    public Response businessException(HttpServletRequest request, BusinessException e){
+        log.error("业务异常地址:{}",request.getRequestURI());
         log.error("业务异常",e);
         return Response.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
     }
@@ -36,7 +39,8 @@ public class ExceptionHandlerAdvice {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Response exception(Exception e){
+    public Response exception(HttpServletRequest request,Exception e){
+        log.error("系统异常地址:{}",request.getRequestURI());
         log.error("系统异常",e);
         return Response.getInstance().error(ErrorCodeEnum.SYSTEM_ERROR);
     }

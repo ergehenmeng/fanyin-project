@@ -58,10 +58,7 @@ public class SystemDictServiceImpl implements SystemDictService {
     public void updateDict(DictEditRequest request) {
         SystemDict systemDict = BeanCopyUtil.copy(request, SystemDict.class);
         systemDict.setUpdateTime(DateUtil.getNow());
-        int i = systemDictMapper.updateByIdSelective(systemDict);
-        if(i != 0){
-            throw new BusinessException(ErrorCodeEnum.DICT_LOCKED_ERROR);
-        }
+        systemDictMapper.updateByPrimaryKeySelective(systemDict);
     }
 
     @Override
@@ -71,7 +68,7 @@ public class SystemDictServiceImpl implements SystemDictService {
         dict.setId(id);
         dict.setUpdateTime(DateUtil.getNow());
         int i = systemDictMapper.updateByIdSelective(dict);
-        if(i != 0){
+        if(i != 1){
             throw new BusinessException(ErrorCodeEnum.DICT_LOCKED_ERROR);
         }
     }

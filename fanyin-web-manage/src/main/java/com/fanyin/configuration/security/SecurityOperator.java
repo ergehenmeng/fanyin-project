@@ -46,7 +46,8 @@ public class SecurityOperator extends SystemOperator implements UserDetails{
 
     @Override
     public boolean isAccountNonLocked() {
-        return super.getState();
+        //默认未锁定
+        return true;
     }
 
     @Override

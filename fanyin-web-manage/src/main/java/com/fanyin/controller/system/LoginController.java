@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class LoginController extends AbstractController {
      * 首页门户框
      * @return 门户页面
      */
-    @RequestMapping("/portal")
+    @GetMapping("/portal")
     public String portal(){
         return "portal";
     }
@@ -61,7 +61,7 @@ public class LoginController extends AbstractController {
      * @param page 页面名称
      * @return 对应的页面
      */
-    @RequestMapping("/public/{modules}/{function}/{page}")
+    @PostMapping("/public/{modules}/{function}/{page}")
     public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
         return "public/" + modules + "/" + function +"/" + page;
     }

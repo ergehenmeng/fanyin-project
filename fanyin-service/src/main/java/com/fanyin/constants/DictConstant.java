@@ -10,5 +10,10 @@ public class DictConstant {
     /**
      * 图片上传,图片分类
      */
-    public static final String IMAGE_LOG_TYPE = "image_log_type";
+    public static final String IMAGE_CLASSIFY = "image_classify";
+
+    /**
+     * 系统参数分类
+     */
+    public static final String CONFIG_CLASSIFY = "config_classify";
 }

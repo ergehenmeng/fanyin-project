@@ -41,9 +41,16 @@ public interface SystemOperatorRoleMapper {
 
     /**
      * 删除用户所有的角色
-     * @param id 管理人员id
+     * @param operatorId 管理人员id
      * @return 影响条数
      */
-    int deleteByOperatorId(@Param("operatorId")Integer id);
+    int deleteByOperatorId(@Param("operatorId")Integer operatorId);
 
+    /**
+     * 批量添加用户角色关系信息
+     * @param operatorId 用户id
+     * @param roleList 角色列表
+     * @return 条数
+     */
+    int batchInsertOperatorRole(@Param("operatorId")Integer operatorId,@Param("roleList")List<Integer> roleList);
 }

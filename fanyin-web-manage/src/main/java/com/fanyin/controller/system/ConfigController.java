@@ -1,6 +1,7 @@
 package com.fanyin.controller.system;
 
 
+import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dto.system.config.ConfigAddRequest;
 import com.fanyin.dto.system.config.ConfigEditRequest;
@@ -8,7 +9,9 @@ import com.fanyin.dto.system.config.ConfigQueryRequest;
 import com.fanyin.ext.Paging;
 import com.fanyin.ext.Response;
 import com.fanyin.model.system.SystemConfig;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.system.SystemConfigService;
+import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,9 @@ public class ConfigController extends AbstractController {
 
     @Autowired
     private SystemConfigService systemConfigService;
+
+    @Autowired
+    private CacheProxyService cacheProxyService;
 
     @PostMapping("/system/config/edit_config")
     @ResponseBody
@@ -56,7 +62,11 @@ public class ConfigController extends AbstractController {
     @ResponseBody
     public Paging<SystemConfig> configListPage(ConfigQueryRequest request){
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
-        return new Paging<>(listByPage);
+        return DataUtil.transform(listByPage,systemConfig -> {
+            String dictValue = cacheProxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());
+            systemConfig.setClassifyName(dictValue);
+            return systemConfig;
+        });
     }
 
     /**

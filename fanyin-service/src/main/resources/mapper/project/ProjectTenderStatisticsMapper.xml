@@ -108,11 +108,11 @@
         insert into project_tender_statistics (
          project_id, user_id, tender_id, classify
         ) values
-        <foreach collection="list" open="(" close=")" item="item" separator=",">
-            #{item.projectId},
+        <foreach collection="list" item="item" separator=",">
+            (#{item.projectId},
             #{item.userId},
             #{item.tenderId},
-            #{item.classify}
+            #{item.classify})
         </foreach>
     </insert>
 </mapper>

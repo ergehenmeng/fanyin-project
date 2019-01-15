@@ -78,5 +78,5 @@ public class ImageLog implements Serializable {
     /**
      * 类型名称 通过数据字典转换
      */
-    private String typeName;
+    private String classifyName;
 }

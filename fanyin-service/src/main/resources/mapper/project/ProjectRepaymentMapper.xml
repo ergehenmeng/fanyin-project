@@ -8,7 +8,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="borrower_id" jdbcType="INTEGER" property="borrowerId" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="state" jdbcType="TINYINT" property="state" />
     <result column="period" jdbcType="TINYINT" property="period" />
     <result column="periods" jdbcType="TINYINT" property="periods" />
     <result column="capital" jdbcType="DECIMAL" property="capital" />
@@ -27,7 +27,7 @@
     <!--
       @create by mybatis
     -->
-    id, borrower_id, project_id, status, period, periods, capital, interest, platform_interest,
+    id, borrower_id, project_id, state, period, periods, capital, interest, platform_interest,
     coupon_interest, repay_time, real_repay_time, remark, add_time, update_time,repay_month,real_repay_month
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -55,8 +55,8 @@
       <if test="projectId != null">
         project_id,
       </if>
-      <if test="status != null">
-        status,
+      <if test="state != null">
+        state,
       </if>
       <if test="period != null">
         period,
@@ -108,8 +108,8 @@
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
       </if>
       <if test="period != null">
         #{period,jdbcType=TINYINT},
@@ -164,8 +164,8 @@
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
       </if>
       <if test="period != null">
         period = #{period,jdbcType=TINYINT},
@@ -212,7 +212,7 @@
     <insert id="insertBatchRepayment">
         insert into project_repayment(borrower_id,
                                       project_id,
-                                      status,
+                                      state,
                                       period,
                                       periods,
                                       capital,
@@ -221,8 +221,8 @@
                                       coupon_interest,
                                       repay_time,
                                       repay_month) VALUES
-            <foreach collection="list" open="(" close=")" separator="," item="item">
-                #{borrowerId},
+            <foreach collection="list"  separator="," item="item">
+                (#{borrowerId},
                 #{projectId},
                 0,
                 #{item.period},
@@ -232,7 +232,7 @@
                 #{item.platformInterest},
                 #{item.couponInterest},
                 #{item.day},
-                #{item.month}
+                #{item.month})
             </foreach>
     </insert>
 </mapper>

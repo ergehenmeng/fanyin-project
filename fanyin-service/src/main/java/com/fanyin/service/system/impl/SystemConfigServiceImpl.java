@@ -55,7 +55,6 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "#id")
     public SystemConfig getById(Integer id) {
         return systemConfigMapper.selectByPrimaryKey(id);
     }

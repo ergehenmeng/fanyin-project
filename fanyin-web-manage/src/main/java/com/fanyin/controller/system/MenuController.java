@@ -39,7 +39,7 @@ public class MenuController extends AbstractController {
     }
 
     /**
-     * 获取所有可用的菜单列表
+     * 获取所有可用的菜单列表,注意不分页
      * @return list
      */
     @PostMapping("/system/menu/menu_list_page")

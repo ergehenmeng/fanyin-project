@@ -31,6 +31,7 @@
             <label>备注:</label>
             <textarea title="备注" name="remark" class="h60">${(operator.remark)!}</textarea>
         </div>
+        <input type="hidden" name="id" value="${(operator.id)!}"/>
         <input type="hidden" id="roleIds" name="roleIds" value="${roleIds!}"/>
     </form>
 </div>

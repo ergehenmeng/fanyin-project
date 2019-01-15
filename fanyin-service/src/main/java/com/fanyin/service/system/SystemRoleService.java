@@ -59,5 +59,19 @@ public interface SystemRoleService {
      * @return 角色id列表
      */
     List<Integer> getByOperatorId(Integer operatorId);
+
+    /**
+     * 获取角色的菜单列表
+     * @param roleId 角色
+     * @return 菜单列表
+     */
+    List<Integer> getRoleMenu(Integer roleId);
+
+    /**
+     * 角色菜单权限保存
+     * @param roleId 角色id
+     * @param menuIds 菜单ids
+     */
+    void authMenu(Integer roleId,String menuIds);
 }
 
