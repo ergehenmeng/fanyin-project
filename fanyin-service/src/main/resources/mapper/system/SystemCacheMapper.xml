@@ -100,7 +100,7 @@
   </update>
 
     <update id="updateCache" parameterType="com.fanyin.model.system.SystemCache">
-        update system_cache set state = #{state},update_time = #{updateTime} where cache_name = #{cacheName} and locked = false
+        update system_cache set state = #{state},update_time = #{updateTime} where cache_name = #{cacheName}
     </update>
 
     <select id="getList" resultMap="BaseResultMap">
