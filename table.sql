@@ -479,8 +479,8 @@ CREATE TABLE `operation_data_log` (
 -- ----------------------------
 -- Table structure for operation_log
 -- ----------------------------
-DROP TABLE IF EXISTS `operation_log`;
-CREATE TABLE `operation_log` (
+DROP TABLE IF EXISTS `system_operation_log`;
+CREATE TABLE `system_operation_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `url` varchar(200) DEFAULT NULL COMMENT '请求地址',
   `operator_id` int(10) DEFAULT NULL COMMENT '操作人',
@@ -492,11 +492,6 @@ CREATE TABLE `operation_log` (
   `classify` tinyint(255) unsigned DEFAULT NULL COMMENT '操作日志分类',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='后台操作记录';
-
--- ----------------------------
--- Records of operation_log
--- ----------------------------
-INSERT INTO `operation_log` VALUES ('1', '/system/dict/dict_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1547175780000,\"deleted\":false,\"hiddenValue\":2,\"id\":5,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"是东方闪电2131\",\"showValue\":\"系统参数\",\"title\":\"系统参数分类\",\"updateTime\":1547518317000},{\"addTime\":1547175759000,\"deleted\":false,\"hiddenValue\":1,\"id\":4,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"\",\"showValue\":\"业务参数\",\"title\":\"系统参数分类\",\"updateTime\":1547518296000},{\"addTime\":1543310155000,\"deleted\":false,\"hiddenValue\":3,\"id\":3,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"h5首页\",\"title\":\"图片分类\"},{\"addTime\":1543310133000,\"deleted\":false,\"hiddenValue\":2,\"id\":2,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"app首页\",\"title\":\"图片分类\"},{\"addTime\":1543310089000,\"deleted\":false,\"hiddenValue\":1,\"id\":1,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"pc首页\",\"title\":\"图片分类\"}],\"total\":5}', '2019-01-15 18:14:01', '0:0:0:0:0:0:0:1', '48', '0');
 
 -- ----------------------------
 -- Table structure for operation_report
