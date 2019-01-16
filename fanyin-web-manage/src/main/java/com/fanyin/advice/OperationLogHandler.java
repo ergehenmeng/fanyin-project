@@ -6,7 +6,7 @@ import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
-import com.fanyin.model.system.OperationLog;
+import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.OperationLogTask;
 import com.fanyin.utils.DateUtil;
@@ -18,8 +18,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
@@ -48,28 +50,28 @@ public class OperationLogHandler {
         if(operator == null){
             throw new BusinessException(ErrorCodeEnum.OPERATION_LOGIN_ERROR);
         }
-        OperationLog operationLog = new OperationLog();
+        SystemOperationLog systemOperationLog = new SystemOperationLog();
 
-        operationLog.setOperatorId(operator.getId());
-        operationLog.setIp(IpUtil.getIpAddress(request));
+        systemOperationLog.setOperatorId(operator.getId());
+        systemOperationLog.setIp(IpUtil.getIpAddress(request));
 
         if(mark.request()){
             Object[] args = joinPoint.getArgs();
             if(args != null && args.length > 0){
-                operationLog.setRequest(formatRequest(args));
+                systemOperationLog.setRequest(formatRequest(args));
             }
         }
-        operationLog.setUrl(request.getRequestURI());
+        systemOperationLog.setUrl(request.getRequestURI());
         Date now = DateUtil.getNow();
-        operationLog.setAddTime(now);
+        systemOperationLog.setAddTime(now);
         Object proceed = joinPoint.proceed();
         long end = System.currentTimeMillis();
-        operationLog.setBusinessTime(end - now.getTime());
-        operationLog.setClassify((byte)mark.value().ordinal());
+        systemOperationLog.setBusinessTime(end - now.getTime());
+        systemOperationLog.setClassify((byte)mark.value().ordinal());
         if(mark.response() && proceed != null){
-            operationLog.setResponse(JSONObject.toJSONString(proceed));
+            systemOperationLog.setResponse(JSONObject.toJSONString(proceed));
         }
-        TaskQueue.executeOperation(new OperationLogTask(operationLog));
+        TaskQueue.executeOperation(new OperationLogTask(systemOperationLog));
         return proceed;
     }
 
@@ -84,6 +86,16 @@ public class OperationLogHandler {
         for (Object object : args){
             if(builder.length() > 0){
                 builder.append(",");
+            }
+            //request,response,文件上传过滤掉
+            if(object instanceof HttpServletRequest){
+                continue;
+            }
+            if(object instanceof HttpServletResponse){
+                continue;
+            }
+            if(object instanceof MultipartFile){
+                continue;
             }
             builder.append(JSONObject.toJSONString(object));
         }

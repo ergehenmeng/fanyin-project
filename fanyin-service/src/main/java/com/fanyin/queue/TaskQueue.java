@@ -26,9 +26,9 @@ public class TaskQueue {
                 new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.TENDER_THREAD));
 
         /**
-         * 操作日志 单线程
+         * 操作日志 多线程处理
          */
-        private static final ThreadPoolExecutor OPERATION = new ThreadPoolExecutor(1,2,0,TimeUnit.MILLISECONDS,
+        private static final ThreadPoolExecutor OPERATION = new ThreadPoolExecutor(1,2,30,TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.OPERATION_THREAD));
     }
 

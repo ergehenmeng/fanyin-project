@@ -1,6 +1,6 @@
 package com.fanyin.queue.task;
 
-import com.fanyin.model.system.OperationLog;
+import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.queue.AbstractTask;
 import com.fanyin.service.system.OperationLogService;
 import com.fanyin.utils.SpringContextUtil;
@@ -12,14 +12,14 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/1/15 17:58
  */
 @Slf4j
-public class OperationLogTask extends AbstractTask<OperationLog> {
+public class OperationLogTask extends AbstractTask<SystemOperationLog> {
 
-    public OperationLogTask(OperationLog data) {
+    public OperationLogTask(SystemOperationLog data) {
         super(data);
     }
 
     @Override
-    protected void execute(OperationLog data) {
+    protected void execute(SystemOperationLog data) {
         try{
             OperationLogService service = (OperationLogService) SpringContextUtil.getBean("operationLogService");
             service.insertOperationLog(data);
