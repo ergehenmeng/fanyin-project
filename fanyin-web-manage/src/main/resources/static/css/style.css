@@ -41,9 +41,8 @@ textarea{
 
 .layout_norths input {
 	padding:0 10px;
-	height:30px;
+	height:28px;
 	border: 1px solid #ccc;
-	width: 280px;
 }
 
 .searchBtn {
@@ -124,9 +123,8 @@ textarea{
 
 .layout_norths li input {
 	border: 1px solid #ccc;
-	width: 81px;
+	width: 198px;
 }
-
 
 .datagrid-cell-c1-action {
 	line-height: 20px;

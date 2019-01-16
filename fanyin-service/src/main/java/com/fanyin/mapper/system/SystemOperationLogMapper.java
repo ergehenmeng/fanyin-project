@@ -2,6 +2,7 @@ package com.fanyin.mapper.system;
 
 import com.fanyin.dto.system.log.OperationQueryRequest;
 import com.fanyin.model.system.SystemOperationLog;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -38,4 +39,10 @@ public interface SystemOperationLogMapper {
      */
     List<SystemOperationLog> getList(OperationQueryRequest request);
 
+    /**
+     * 根据id查询响应信息
+     * @param id 主键
+     * @return 响应结果,可能为空
+     */
+    String getResponseById(@Param("id")Integer id);
 }

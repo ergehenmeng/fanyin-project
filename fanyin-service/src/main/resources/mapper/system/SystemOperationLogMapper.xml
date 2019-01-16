@@ -168,4 +168,8 @@
             </if>
         </where>
     </select>
+    <select id="getResponseById" parameterType="integer" resultType="string">
+        select <include refid="BlobColumnList"/>
+        from system_operation_log where id = #{id}
+    </select>
 </mapper>

@@ -32,6 +32,21 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 	});
 };
 
+$.fn.dataGridOptions.show = function(id,title,width,height,url,data){
+    parent.$.windowDialog({
+        title : title,
+        width : width,
+        height : height,
+        href : formatUrl(id,url,data),
+        buttons : [ {
+            text : '关闭',
+            handler : function() {
+                parent.$.windowDialog.handler.dialog('close');
+            }
+        } ]
+    });
+};
+
 function formatUrl(id,url,data){
 	url = url + "?id=" +id;
 	if(data !== undefined){

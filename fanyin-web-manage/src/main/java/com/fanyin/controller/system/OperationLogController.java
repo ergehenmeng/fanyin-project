@@ -6,6 +6,7 @@ import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.service.system.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,4 +31,15 @@ public class OperationLogController {
         return new Paging<>(operationLogService.getByPage(request));
     }
 
+    /**
+     * 响应结果信息
+     * @param id di
+     * @return 结果页面
+     */
+    @PostMapping("/public/system/operation/query_operation_page")
+    public String queryOperationPage(Model model, Integer id){
+        String response = operationLogService.getResponseById(id);
+        model.addAttribute("response",response);
+        return "public/system/operation/query_operation_page";
+    }
 }

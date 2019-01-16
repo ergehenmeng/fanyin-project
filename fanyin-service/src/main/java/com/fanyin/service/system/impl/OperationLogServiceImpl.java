@@ -35,4 +35,9 @@ public class OperationLogServiceImpl implements OperationLogService {
         List<SystemOperationLog> list = systemOperationLogMapper.getList(request);
         return new PageInfo<>(list);
     }
+
+    @Override
+    public String getResponseById(Integer id) {
+        return systemOperationLogMapper.getResponseById(id);
+    }
 }

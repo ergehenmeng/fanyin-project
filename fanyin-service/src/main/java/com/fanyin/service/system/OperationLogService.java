@@ -22,5 +22,12 @@ public interface OperationLogService {
      * @return 分页列表
      */
     PageInfo<SystemOperationLog> getByPage(OperationQueryRequest request);
+
+    /**
+     * 根据主键查询响应信息
+     * @param id id
+     * @return 响应结果 可能为空
+     */
+    String getResponseById(Integer id);
 }
 
