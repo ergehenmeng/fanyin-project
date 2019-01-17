@@ -360,43 +360,56 @@ $.fn.dataGridOptions.searchFun = function (formId) {
 $.fn.treeGridOptions.searchFun = function (formId) {
     treeGrid.datagrid('load', $.serializeObject($(formId)));
 };
-/**
- * 普通数据结构转tree结构
- */
-$.fn.treeGridOptions.pageFilter = function(rows,checkRow){
-	if(!rows) return ;
 
-	var nodes = [];
-	for(var s = 0,lens = rows.length; s < lens;s++){
+/**
+ * 将列表转换为属性结构
+ * @param rows 列表 Array
+ * @return {Array} 生成树形结构数据,需要选中的自动勾选上
+ * @param id 当前节点id key 字符串
+ * @param text 节点名称 key 字符串
+ * @param pid 父节点id 字符串
+ * @param rootValue 根节点值,注意数据类型一定要和数据库保持一致
+ * @param checkRow 选中的id 逗号分割
+ */
+$.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,checkRow){
+    var nodes = [];
+    if(!rows) return nodes;
+
+    for(var s = 0,lens = rows.length; s < lens;s++){
         //一级节点
-		if(rows[s].pid === 0){
-			nodes.push({"id":rows[s].id,"text":rows[s].title});
-		}
-	}
-	var topNodes = [];
-	for(var x = 0,len = nodes.length; x < len; x++){
+        var rootRow = rows[s];
+        if(rootRow[pid] === rootValue){
+            rootRow["text"] = rootRow[text];
+            nodes.push(rootRow);
+        }
+    }
+    var topNodes = [];
+    for(var x = 0,len = nodes.length; x < len; x++){
         //数组复制引用会改变原数组数据,因此下面增加子元素数据是有效的
-		topNodes.push(nodes[x]);
-	}
-	
-	while(topNodes.length){
-		var node = topNodes.shift();
-		for(var i = 0,rowLen = rows.length;i < rowLen; i++){
-			var row = rows[i];
-			if (row.pid === node.id){
-				var child = {id:row.id,text:row.title,checked:isChecked(row.id,checkRow)};
-				if (node.children){
-					node.children.push(child);
-				} else {
-					node.children = [child];
-				}
+        topNodes.push(nodes[x]);
+    }
+
+    while(topNodes.length){
+        var node = topNodes.shift();
+        for(var i = 0,rowLen = rows.length;i < rowLen; i++){
+            var row = rows[i];
+            if (row[pid] === node[id]){
+                var child = $.extend(row,{});
+                    child["text"] = child[text];
+                    child["checked"] = isChecked(row[id],checkRow);
+                if (node.children){
+                    node.children.push(child);
+                } else {
+                    node.children = [child];
+                }
                 //将子菜单放入数组中,查看其是否存在子元素
-				topNodes.push(child);
-			}
-		}
-	}
-	return nodes;
+                topNodes.push(child);
+            }
+        }
+    }
+    return nodes;
 };
+
 /**
  * 判断是否需要选中
  * @param id
@@ -407,7 +420,7 @@ function isChecked(id,checkRow){
 	if(checkRow){
 	    var selectedRows = checkRow.split(",");
 		for(var i=0;i < selectedRows.length;i++){
-			if(parseInt(selectedRows[i]) === id){
+			if(selectedRows[i] === id.toString()){
 				return true;
 			}
 		}

@@ -13,7 +13,7 @@
     });
     /** 行转列 */
     function loadFilter(data){
-        return $.fn.treeGridOptions.pageFilter(data.data,$("#menuIds").val());
+        return $.fn.treeGridOptions.dataFilter(data.data,"id","title","pid",0,$("#menuIds").val());
     }
 
 </script>

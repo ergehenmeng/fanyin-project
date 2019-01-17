@@ -42,7 +42,7 @@
                             return str;
                         }
                     },
-                    {field : "text",title : "菜单名称",width : 150},
+                    {field : "text",title : "菜单名称",width : 150,align : "center"},
                     {field : "nid",title : "菜单标示",width : 120,align : "center"},
                     {field : "url",title : "菜单URL",width : 300,align : "center"},
                     {field : "subUrl",title : "子菜单URL",width : 400,align : "center"},
@@ -71,60 +71,7 @@
             if (!rows || !rows.data){
                 return;
             }
-            var menuRow = rows.data;
-            var nodes = [];
-            for (var i = 0,len = menuRow.length; i < len; i++) {
-                //无父节点(顶级节点)
-                var row = menuRow[i];
-                if (row.pid === 0) {
-                    nodes.push({
-                        "id" : row.id,
-                        "text" : row.title,
-                        "nid" : row.nid,
-                        "pid" : row.pid,
-                        "url" : row.url,
-                        "subUrl" : row.subUrl,
-                        "addTime" : row.addTime,
-                        "updateTime" : row.updateTime,
-                        "classify" : row.classify,
-                        "sort" : row.sort,
-                        "remark" : row.remark
-                    });
-                }
-            }
-            var topNodes = [];
-            for (var j = 0,nodes_len = nodes.length; j < nodes_len; j++) {
-                topNodes.push(nodes[j]);
-            }
-
-            while (topNodes.length) {
-                var node = topNodes.shift();
-                for (var x = 0,menu_len = menuRow.length; x < menu_len; x++) {
-                    var childRow = menuRow[x];
-                    if (childRow.pid === node.id) {
-                        var child = {
-                            "id" : childRow.id,
-                            "text" : childRow.title,
-                            "nid" : childRow.nid,
-                            "pid" : childRow.pid,
-                            "url" : childRow.url,
-                            "subUrl" : childRow.subUrl,
-                            "addTime" : childRow.addTime,
-                            "updateTime" : childRow.updateTime,
-                            "classify" : childRow.classify,
-                            "sort" : childRow.sort,
-                            "remark" : childRow.remark
-                        };
-                        if (node.children) {
-                            node.children.push(child);
-                        } else {
-                            node.children = [child];
-                        }
-                        topNodes.push(child);
-                    }
-                }
-            }
-            return nodes;
+            return $.fn.treeGridOptions.dataFilter(rows.data,"id","title","pid",0,null);
         }
     </script>
 </head>
@@ -142,5 +89,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="/static/js/search.js?v=${version!}"></script>
 </html>

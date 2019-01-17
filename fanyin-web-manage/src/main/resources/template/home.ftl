@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>业务管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <#include "resources.ftl">
     <link href="/static/css/home/home.css?v=${version!}" type="text/css" rel="stylesheet">

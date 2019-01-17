@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>后台管理系统</title>
+    <title>后台管理系统-登陆</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="/static/css/index.css?v=${version!}" type="text/css">
 </head>

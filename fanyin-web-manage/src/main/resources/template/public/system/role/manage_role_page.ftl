@@ -80,5 +80,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="/static/js/search.js?v=${version!}"></script>
 </html>

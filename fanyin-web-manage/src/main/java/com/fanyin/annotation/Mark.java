@@ -21,7 +21,7 @@ public @interface Mark {
      * 操作日志类型
      * @return 默认复合操作
      */
-    MethodType value() default MethodType.ALL;
+    RequestType value() default RequestType.ALL;
 
     /**
      * 是否保存请求参数
