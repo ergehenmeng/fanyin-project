@@ -69,7 +69,7 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <@macro.search placeholder="角色名称" />
+            <@search placeholder="角色名称" />
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>

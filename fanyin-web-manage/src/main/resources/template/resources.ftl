@@ -36,3 +36,5 @@
 <link href="/static/css/home/css/font-awesome.min.css?v=${version!}" type="text/css" rel="stylesheet">
 <#-- 全局样式 -->
 <link href="/static/css/style.css?v=${version!}" rel="stylesheet" type="text/css" >
+
+<#include "macro.ftl" />

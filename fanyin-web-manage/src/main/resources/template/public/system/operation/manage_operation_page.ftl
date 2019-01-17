@@ -71,7 +71,7 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <@macro.search placeholder="请求地址、操作人、访问ip" advance=true>
+            <@search placeholder="请求地址、操作人、访问ip" advance=true>
                 <li>
                     <span>分类</span>
                     <select name="city" class="type" id="city" title="分类">
@@ -89,7 +89,7 @@
                     <input type="hidden" name="startTime" id="startTime"/>
                     <input type="hidden" name="endTime" id="endTime"/>
                 </li>
-            </@macro.search>
+            </@search>
         </div>
     </div>
     <div data-options="region:'center'">

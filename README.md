@@ -30,11 +30,11 @@
 
 * 基础条件采用freemarker 宏 
 ```
-<@macro.search placeholder="input占位符"/>
+<@search placeholder="input占位符"/>
 ```
 * 复杂查询采用 
 ```
-<@macro.search placeholder="input占位符" advance=true> 
+<@search placeholder="input占位符" advance=true> 
     <li><span>操作时间</span>
         <!-- 时间范围搜索 $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime"); -->
         <input title="操作时间" type="text" id="targetTime" />
@@ -53,7 +53,7 @@
         <!-- 数据字典宏 DictDirectiveModel-->
         <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
     </li>
-</@macro.search>
+</@search>
 ```
 
 * 分页功能

@@ -73,12 +73,12 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <@macro.search placeholder="名称、备注" advance=true>
+            <@search placeholder="名称、备注" advance=true>
                 <li>
                     <span>图片分类</span>
                     <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
                 </li>
-            </@macro.search>
+            </@search>
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>

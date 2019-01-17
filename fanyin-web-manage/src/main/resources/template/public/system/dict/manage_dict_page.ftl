@@ -70,7 +70,7 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <@macro.search placeholder="字典名称、标示符" advance=true>
+            <@search placeholder="字典名称、标示符" advance=true>
                 <li>
                     <span>编辑状态</span>
                     <select name="locked" class="type" title="编辑状态">
@@ -79,7 +79,7 @@
                         <option value="false">正常</option>
                     </select>
                 </li>
-            </@macro.search>
+            </@search>
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
