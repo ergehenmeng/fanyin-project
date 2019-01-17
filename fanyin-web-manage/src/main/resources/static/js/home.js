@@ -1,5 +1,3 @@
-var menuTabs;//tabs菜单对象
-var divTabs;//tabs对象
 $(function(){
     if(isInit){
         $.messager.alert("提示","您的密码为原始密码,请先修改","warning",function(){
@@ -141,7 +139,7 @@ var imagePreview = function(photoUrl,title){
             data:[{
                 src:photoUrl
             }]
-        }
-        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        },
+        anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
     });
 };

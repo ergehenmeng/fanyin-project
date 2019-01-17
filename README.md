@@ -25,13 +25,15 @@
 * 后台管理页面 请求:/bg/**
 * 后台管理页面json请求:/bg/json/**
 
-#### 管理后台开发
+## 管理后台开发
+* 全局采用easyUI开发
+
 * 基础条件采用freemarker 宏 
-```ftl
+```
 <@macro.search placeholder="input占位符"/>
 ```
 * 复杂查询采用 
-```ftl
+```
 <@macro.search placeholder="input占位符" advance=true> 
     <li><span>操作时间</span>
         <!-- 时间范围搜索 $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime"); -->
@@ -53,3 +55,31 @@
     </li>
 </@macro.search>
 ```
+
+* 分页功能
+```
+var dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
+    url : "/system/config/config_list_page",
+    columns : [[
+        {
+            field : "action",
+            title : "操作",
+            width : 90,
+            align : "center",
+            formatter : function(value, row, index) {
+                var str = '';
+                str += '<dl>';
+                str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
+                str += '<dd>';
+                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
+                str += '</dd>';
+                str += '</dl>';
+                return str;
+            }
+        },
+        {field : "title",title : "参数名称",width : 150,align : "center"}
+    ]]
+});
+
+```
+* 注意 返回值 ```dataGrid``` 必须定义为全局参数
