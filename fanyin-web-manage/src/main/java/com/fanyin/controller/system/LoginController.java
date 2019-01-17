@@ -1,5 +1,7 @@
 package com.fanyin.controller.system;
 
+import com.fanyin.annotation.Mark;
+import com.fanyin.annotation.RequestType;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
@@ -62,6 +64,7 @@ public class LoginController extends AbstractController {
      * @return 对应的页面
      */
     @RequestMapping("/public/{modules}/{function}/{page}")
+    @Mark(RequestType.PAGE)
     public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
         return "public/" + modules + "/" + function +"/" + page;
     }

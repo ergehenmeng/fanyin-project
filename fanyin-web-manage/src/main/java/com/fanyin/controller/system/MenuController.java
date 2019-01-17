@@ -1,5 +1,7 @@
 package com.fanyin.controller.system;
 
+import com.fanyin.annotation.Mark;
+import com.fanyin.annotation.RequestType;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
@@ -32,6 +34,7 @@ public class MenuController extends AbstractController {
      * @return 页面地址
      */
     @PostMapping("/public/system/menu/edit_menu_page")
+    @Mark(RequestType.PAGE)
     public String editMenuPage(Model model, Integer id){
         SystemMenu menu = systemMenuService.getMenuById(id);
         model.addAttribute("menu",menu);
@@ -44,6 +47,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/menu_list_page")
     @ResponseBody
+    @Mark(RequestType.SELECT)
     public Response<List<SystemMenu>> menuListPage(){
         List<SystemMenu> allList = systemMenuService.getAllList();
         return Response.<List<SystemMenu>>getInstance().setData(allList);
@@ -56,6 +60,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/add_menu")
     @ResponseBody
+    @Mark(RequestType.INSERT)
     public Response addMenu(MenuAddRequest request){
         systemMenuService.addMenu(request);
         return Response.getInstance();
@@ -68,6 +73,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/edit_menu")
     @ResponseBody
+    @Mark(RequestType.UPDATE)
     public Response editMenu(MenuEditRequest request){
         systemMenuService.updateMenu(request);
         return Response.getInstance();
@@ -79,6 +85,7 @@ public class MenuController extends AbstractController {
      * @return 成功后的返回信息
      */
     @PostMapping("/system/menu/delete_menu")
+    @Mark(RequestType.DELETE)
     public Response deleteMenu(Integer id){
         systemMenuService.deleteMenu(id);
         return Response.getInstance();
@@ -90,6 +97,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/operator/menu_list")
     @ResponseBody
+    @Mark(RequestType.SELECT)
     public Response operatorMenuList(){
         SystemOperator operator = super.getRequiredOperator();
         List<SystemMenu> menuList = systemMenuService.getAllMenuList(operator.getId());

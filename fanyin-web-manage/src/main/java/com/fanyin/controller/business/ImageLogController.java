@@ -1,5 +1,7 @@
 package com.fanyin.controller.business;
 
+import com.fanyin.annotation.Mark;
+import com.fanyin.annotation.RequestType;
 import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractUploadController;
 import com.fanyin.dto.business.ImageAddRequest;
@@ -38,6 +40,7 @@ public class ImageLogController extends AbstractUploadController {
      */
     @PostMapping("/operation/image/image_list_page")
     @ResponseBody
+    @Mark(RequestType.SELECT)
     public Paging<ImageLog> imageListPage(ImageQueryRequest request){
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.transform(page, imageLog -> {
@@ -54,6 +57,7 @@ public class ImageLogController extends AbstractUploadController {
      */
     @PostMapping("/operation/image/add_image")
     @ResponseBody
+    @Mark(RequestType.INSERT)
     public Response addImage(ImageAddRequest request, MultipartFile imgFile){
         if(imgFile != null && !imgFile.isEmpty()){
             String url = super.saveFile(imgFile);
@@ -71,6 +75,7 @@ public class ImageLogController extends AbstractUploadController {
      */
     @PostMapping("/operation/image/edit_image")
     @ResponseBody
+    @Mark(RequestType.UPDATE)
     public Response editImage(ImageEditRequest request){
         imageLogService.updateImageLog(request);
         return Response.getInstance();
@@ -84,6 +89,7 @@ public class ImageLogController extends AbstractUploadController {
      */
     @PostMapping("/operation/image/delete_image")
     @ResponseBody
+    @Mark(RequestType.DELETE)
     public Response deleteImage(Integer id){
         imageLogService.deleteImageLog(id);
         return Response.getInstance();
@@ -94,6 +100,7 @@ public class ImageLogController extends AbstractUploadController {
      * @return 图片地址
      */
     @PostMapping("/public/operation/image/edit_image_page")
+    @Mark(RequestType.PAGE)
     public String editImagePage(Model model, Integer id){
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log",log);

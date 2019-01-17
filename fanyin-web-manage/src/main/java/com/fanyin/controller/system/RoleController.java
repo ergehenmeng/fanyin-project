@@ -1,5 +1,7 @@
 package com.fanyin.controller.system;
 
+import com.fanyin.annotation.Mark;
+import com.fanyin.annotation.RequestType;
 import com.fanyin.dto.common.CheckBox;
 import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
@@ -36,6 +38,7 @@ public class RoleController {
      */
     @PostMapping("/system/role/role_list_page")
     @ResponseBody
+    @Mark(RequestType.SELECT)
     public Paging<SystemRole> roleListPage(RoleQueryRequest request){
         PageInfo<SystemRole> page = systemRoleService.getByPage(request);
         return new Paging<>(page);
@@ -47,6 +50,7 @@ public class RoleController {
      */
     @PostMapping("/system/role/role_list")
     @ResponseBody
+    @Mark(RequestType.SELECT)
     public Response<List<CheckBox>> roleList(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
@@ -63,6 +67,7 @@ public class RoleController {
      * @return 角色编辑信息
      */
     @PostMapping("/public/system/role/edit_role_page")
+    @Mark(RequestType.PAGE)
     public String editRolePage(Model model, Integer id){
         SystemRole role = systemRoleService.getById(id);
         model.addAttribute("role",role);
@@ -76,6 +81,7 @@ public class RoleController {
      */
     @PostMapping("/system/role/edit_role")
     @ResponseBody
+    @Mark(RequestType.UPDATE)
     public Response editRole(RoleEditRequest request){
         systemRoleService.updateRole(request);
         return Response.getInstance();
@@ -88,6 +94,7 @@ public class RoleController {
      */
     @PostMapping("/system/role/delete_role")
     @ResponseBody
+    @Mark(RequestType.DELETE)
     public Response deleteRole(Integer id){
         systemRoleService.deleteRole(id);
         return Response.getInstance();
@@ -100,6 +107,7 @@ public class RoleController {
      */
     @PostMapping("/system/role/add_role")
     @ResponseBody
+    @Mark(RequestType.INSERT)
     public Response addRole(RoleAddRequest request){
         systemRoleService.addRole(request);
         return Response.getInstance();
@@ -112,6 +120,7 @@ public class RoleController {
      * @return 角色编辑信息
      */
     @PostMapping("/public/system/role/auth_role_page")
+    @Mark(RequestType.PAGE)
     public String authRolePage(Model model, Integer id){
         List<Integer> role = systemRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
@@ -128,6 +137,7 @@ public class RoleController {
      */
     @PostMapping("/system/role/auth_role")
     @ResponseBody
+    @Mark(RequestType.ALL)
     public Response authRole(Integer roleId,String menuIds){
         systemRoleService.authMenu(roleId,menuIds);
         return Response.getInstance();

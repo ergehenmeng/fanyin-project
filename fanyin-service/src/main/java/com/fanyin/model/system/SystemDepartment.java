@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-public class Department implements Serializable {
+public class SystemDepartment implements Serializable {
     private static final long serialVersionUID = 3509025826333039284L;
     /**
      * 主键<br>

@@ -1,7 +1,7 @@
 package com.fanyin.service.system;
 
 import com.fanyin.dto.system.department.DepartmentAddRequest;
-import com.fanyin.model.system.Department;
+import com.fanyin.model.system.SystemDepartment;
 
 import java.util.List;
 
@@ -9,7 +9,13 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/12/13 16:49
  */
-public interface DepartmentService {
+public interface SystemDepartmentService {
+
+    /**
+     * 获取所有的部门信息
+     * @return 列表
+     */
+    List<SystemDepartment> getDepartment();
 
     /**
      * 添加部门

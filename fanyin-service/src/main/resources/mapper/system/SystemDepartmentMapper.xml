@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.mapper.system.DepartmentMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.model.system.Department">
+<mapper namespace="com.fanyin.mapper.system.SystemDepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.system.SystemDepartment">
     <!--
       @create by mybatis
     -->
@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-    <insert id="insertSelective" parameterType="com.fanyin.model.system.Department">
+    <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemDepartment">
     <!--
       @create by mybatis
     -->
@@ -81,7 +81,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.Department">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemDepartment">
     <!--
       @create by mybatis
     -->
@@ -108,9 +108,13 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getChildList" resultMap="BaseResultMap">
+    <select id="getMaxCodeChild" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from system_department where parent_code = #{code} order by code desc
+        from system_department where parent_code = #{code} order by code desc limit 1
     </select>
 
+    <select id="getList" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from system_department where deleted = false
+    </select>
 </mapper>

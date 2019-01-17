@@ -1,5 +1,7 @@
 package com.fanyin.controller.system;
 
+import com.fanyin.annotation.Mark;
+import com.fanyin.annotation.RequestType;
 import com.fanyin.dto.system.log.OperationQueryRequest;
 import com.fanyin.ext.Paging;
 import com.fanyin.model.system.SystemOperationLog;
@@ -27,6 +29,7 @@ public class OperationLogController {
      */
     @PostMapping("/system/operation/operation_log_list_page")
     @ResponseBody
+    @Mark(RequestType.SELECT)
     public Paging<SystemOperationLog> operationLogListPage(OperationQueryRequest request){
         return new Paging<>(operationLogService.getByPage(request));
     }
@@ -37,6 +40,7 @@ public class OperationLogController {
      * @return 结果页面
      */
     @PostMapping("/public/system/operation/query_operation_page")
+    @Mark(RequestType.PAGE)
     public String queryOperationPage(Model model, Integer id){
         String response = operationLogService.getResponseById(id);
         model.addAttribute("response",response);

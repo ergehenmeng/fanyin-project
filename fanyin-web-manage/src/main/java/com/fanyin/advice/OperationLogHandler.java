@@ -3,19 +3,23 @@ package com.fanyin.advice;
 import com.alibaba.fastjson.JSONObject;
 import com.fanyin.annotation.Mark;
 import com.fanyin.configuration.security.SecurityOperator;
+import com.fanyin.constants.ConfigConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.OperationLogTask;
+import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +39,9 @@ import java.util.Date;
 public class OperationLogHandler {
 
 
+    @Autowired
+    private SystemConfigApi systemConfigApi;
+
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
      * {@link com.alibaba.fastjson.annotation.JSONField} serialize = false
@@ -45,34 +52,38 @@ public class OperationLogHandler {
      */
     @Around("@annotation(mark) && within(com.fanyin.controller..*)")
     public Object around(ProceedingJoinPoint joinPoint,Mark mark)throws Throwable{
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        SecurityOperator operator = AbstractController.getOperator();
-        if(operator == null){
-            throw new BusinessException(ErrorCodeEnum.OPERATION_LOGIN_ERROR);
-        }
-        SystemOperationLog systemOperationLog = new SystemOperationLog();
-
-        systemOperationLog.setOperatorId(operator.getId());
-        systemOperationLog.setIp(IpUtil.getIpAddress(request));
-
-        if(mark.request()){
-            Object[] args = joinPoint.getArgs();
-            if(args != null && args.length > 0){
-                systemOperationLog.setRequest(formatRequest(args));
+        boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
+        if(logSwitch){
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            SecurityOperator operator = AbstractController.getOperator();
+            if(operator == null){
+                throw new BusinessException(ErrorCodeEnum.OPERATION_LOGIN_ERROR);
             }
+            SystemOperationLog systemOperationLog = new SystemOperationLog();
+
+            systemOperationLog.setOperatorId(operator.getId());
+            systemOperationLog.setIp(IpUtil.getIpAddress(request));
+
+            if(mark.request()){
+                Object[] args = joinPoint.getArgs();
+                if(args != null && args.length > 0){
+                    systemOperationLog.setRequest(formatRequest(args));
+                }
+            }
+            systemOperationLog.setUrl(request.getRequestURI());
+            Date now = DateUtil.getNow();
+            systemOperationLog.setAddTime(now);
+            Object proceed = joinPoint.proceed();
+            long end = System.currentTimeMillis();
+            systemOperationLog.setBusinessTime(end - now.getTime());
+            systemOperationLog.setClassify((byte)mark.value().ordinal());
+            if(mark.response() && proceed != null){
+                systemOperationLog.setResponse(JSONObject.toJSONString(proceed));
+            }
+            TaskQueue.executeOperation(new OperationLogTask(systemOperationLog));
+            return proceed;
         }
-        systemOperationLog.setUrl(request.getRequestURI());
-        Date now = DateUtil.getNow();
-        systemOperationLog.setAddTime(now);
-        Object proceed = joinPoint.proceed();
-        long end = System.currentTimeMillis();
-        systemOperationLog.setBusinessTime(end - now.getTime());
-        systemOperationLog.setClassify((byte)mark.value().ordinal());
-        if(mark.response() && proceed != null){
-            systemOperationLog.setResponse(JSONObject.toJSONString(proceed));
-        }
-        TaskQueue.executeOperation(new OperationLogTask(systemOperationLog));
-        return proceed;
+        return joinPoint.proceed();
     }
 
 
@@ -95,6 +106,9 @@ public class OperationLogHandler {
                 continue;
             }
             if(object instanceof MultipartFile){
+                continue;
+            }
+            if(object instanceof Model){
                 continue;
             }
             builder.append(JSONObject.toJSONString(object));
