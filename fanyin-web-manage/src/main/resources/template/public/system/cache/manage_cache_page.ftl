@@ -11,13 +11,8 @@
         var clearUrl = "/system/cache/clear_cache";
 
         $(function() {
-            dataGrid = $("#dataGrid").datagrid({
+            dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/system/cache/cache_list",
-                border : false,
-                fit : true,
-                fitColumns : false,
-                idField : 'id',
-                nowrap : false,//可以换行显示
                 singleSelect : false,
                 columns : [ [
                     {

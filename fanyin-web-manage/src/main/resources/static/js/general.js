@@ -1,8 +1,4 @@
 //全局通用JS
-
-$(function(){
-
-});
 //全局默认页容量
 var pageSize = 20;
 //全局默认页容量列表
@@ -10,6 +6,47 @@ var pageList = [20, 30, 40, 50 ];
 $.fn.dataGridOptions = function(){};
 $.fn.treeGridOptions = function(){};
 $.fn.extOptions = function(){};
+
+/**
+ * easyUI列表提炼
+ * @param element 元素id
+ * @param opts 配置项
+ * @returns {*|jQuery} dataGrid对象
+ */
+$.fn.dataGridOptions.dataGrid = function(element,opts){
+    var options = $.extend({
+        border : false,
+        fit : true,
+        fitColumns : false,
+        idField : 'id',
+        nowrap : false,//可以换行显示
+        pagination:true,
+        pageSize : pageSize,
+        pageList : pageList,
+        singleSelect : true
+    },opts);
+    return $(element).datagrid(options);
+};
+
+/**
+ * easyUI列表提炼
+ * @param element 元素id
+ * @param opts 配置项
+ * @returns {*|jQuery} dataGrid对象
+ */
+$.fn.treeGridOptions.treeGrid = function(element,opts){
+    var options = $.extend({
+        border : false,
+        animate : true,
+        fit : true,
+        fitColumns : false,
+        idField : 'id',
+        treeField : 'text',
+        nowrap : false,
+        singleSelect : true
+    },opts);
+    return $(element).treegrid(options);
+};
 /**
  * data弹出层
  */

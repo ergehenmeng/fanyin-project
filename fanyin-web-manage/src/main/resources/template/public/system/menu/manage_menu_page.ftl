@@ -20,17 +20,9 @@
         var delUrl = "/system/menu/delete_menu";
 
         $(function() {
-            treeGrid = $("#treeGrid").treegrid({
+            treeGrid = $.fn.treeGridOptions.treeGrid("#treeGrid",{
                 url : "/system/menu/menu_list_page",
                 loadFilter : pageFilter,
-                border : false,
-                animate : true,
-                fit : true,
-                fitColumns : false,
-                idField : 'id',
-                treeField : 'text',
-                nowrap : false,
-                singleSelect : true,
                 columns : [ [
                     {
                         field : "action",

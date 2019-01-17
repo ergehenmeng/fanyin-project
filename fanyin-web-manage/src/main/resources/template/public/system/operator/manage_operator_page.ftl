@@ -30,17 +30,8 @@
 
 
         $(function() {
-            dataGrid = $("#dataGrid").datagrid({
+            dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/system/operator/operator_list_page",
-                border : false,
-                fit : true,
-                fitColumns : false,
-                idField : 'id',
-                nowrap : false,
-                pagination:true,
-                pageSize : pageSize,
-                pageList : pageList,
-                singleSelect : true,
                 columns : [ [
                     {
                         field : "action",

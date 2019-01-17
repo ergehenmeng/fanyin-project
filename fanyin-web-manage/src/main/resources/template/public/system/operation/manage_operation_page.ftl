@@ -13,17 +13,8 @@
         var url = "/public/system/operation/query_operation_page";
 
         $(function() {
-            dataGrid = $("#dataGrid").datagrid({
+            dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/system/operation/operation_log_list_page",
-                border : false,
-                fit : true,
-                fitColumns : false,
-                idField : 'id',
-                nowrap : false,
-                pagination:true,
-                pageSize : pageSize,
-                pageList : pageList,
-                singleSelect : true,
                 columns : [ [
                     {
                         field : "action",

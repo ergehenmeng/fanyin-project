@@ -18,20 +18,8 @@
 
 
         $(function() {
-            dataGrid = $("#dataGrid").datagrid({
+            dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/system/config/config_list_page",
-                border : false,
-                fit : true,
-                fitColumns : false,
-                idField : 'id',
-                nowrap : false,
-                pagination:true,
-                pageSize : pageSize,
-                pageNums :1,
-                pageList : pageList,
-                sortName : 'id',
-                sortOrder : 'desc',
-                singleSelect : true,
                 columns : [[
                     {
                         field : "action",

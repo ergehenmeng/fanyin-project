@@ -25,17 +25,8 @@
         var delUrl = "/system/role/delete_role";
 
         $(function() {
-            dataGrid = $("#dataGrid").datagrid({
+            dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/system/role/role_list_page",
-                border : false,
-                fit : true,
-                fitColumns : false,
-                idField : 'id',
-                nowrap : false,//可以换行显示
-                pagination:true,
-                pageSize : pageSize,
-                pageList : pageList,
-                singleSelect : true,
                 columns : [ [
                     {
                         field : "action",

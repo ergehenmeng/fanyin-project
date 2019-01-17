@@ -20,7 +20,7 @@ $(function(){
 	});
 
 	$(".user_role_menu").on("click",function(){
-	   roleMenu();
+        $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/public/system/operator/role_menu_page");
     });
 
 	//增加首页tabs信息
@@ -113,24 +113,7 @@ var logout = function(){
 	});
 };
 
-/**
- * 当前用户拥有的菜单权限
- */
-var roleMenu = function(){
-    $.windowDialog({
-        title : "菜单权限",
-        width : 350,
-        height : 400,
-        closable:true,
-        href : "/public/system/operator/role_menu_page",
-        buttons : [{
-            text : '关闭',
-            handler : function() {
-                var f = $.windowDialog.handler.dialog("close");
-            }
-        }]
-    });
-};
+
 
 var lockScreen = function () {
     $.windowDialog({
