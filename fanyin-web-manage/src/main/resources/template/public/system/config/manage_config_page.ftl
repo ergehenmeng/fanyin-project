@@ -85,11 +85,7 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <div class="left">
-                <form id="queryForm" method="post">
-                    <input name="queryName" placeholder="参数名称、参数标示、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
-                </form>
-            </div>
+            <@macro.search placeholder="参数名称、参数标示、备注" />
             <div class="right">
                 <a href="#" class="searchBtn"
                    onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
@@ -101,5 +97,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="/static/js/search.js?v=${version!}"></script>
 </html>

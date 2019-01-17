@@ -20,6 +20,9 @@ public class FreemarkerConfiguration {
     @Autowired
     private DictDirectiveModel dictDirectiveModel;
 
+    /**
+     * 加载自定义宏和全局定义的宏
+     */
     @PostConstruct
     public void setSharedVariable(){
         configuration.setSharedVariable("select",dictDirectiveModel);

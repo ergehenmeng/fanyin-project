@@ -79,36 +79,19 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <div class="left">
-                <form id="queryForm" method="post">
-                    <input name="queryName" placeholder="字典名称、标示符" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
-                    <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
-                </form>
-            </div>
+            <@macro.search placeholder="字典名称、标示符" advance=true>
+                <li>
+                    <span>编辑状态</span>
+                    <select name="locked" class="type" title="编辑状态">
+                        <option value="">全部</option>
+                        <option value="true">锁定</option>
+                        <option value="false">正常</option>
+                    </select>
+                </li>
+            </@macro.search>
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
-            <form id="showAdw" method="post">
-                <ul class="showAdw" style="display: none;">
-                    <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
-                    <li>
-                        <span>编辑状态</span>
-                        <select name="locked" class="type" title="编辑状态">
-                            <option value="">全部</option>
-                            <option value="true">锁定</option>
-                            <option value="false">正常</option>
-                        </select>
-                    </li>
-                    <li>
-                        <div class="submitBtn">
-                            <a href="javascript:void(0);" class="searchBtn"
-                               onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a>
-                            <a href="javascript:void(0);" class="searchBtn"
-                               onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a>
-                        </div>
-                    </li>
-                </ul>
-            </form>
         </div>
     </div>
     <div data-options="region:'center'">

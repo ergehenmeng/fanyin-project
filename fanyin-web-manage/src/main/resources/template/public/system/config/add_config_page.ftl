@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.extOptions.dateRange("#effectiveTime","#startTime","#endTime","datetime");
+        $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
         $.fn.dataGridOptions.formSubmit("#form",'/system/config/add_config',"系統参数添加成功");
         $("#timing").on("change",function(){
             var timing = $(this).val();
@@ -73,7 +73,7 @@
         </div>
         <div class="form_item" id="interval" style="display: none;">
             <label>有效期:</label>
-            <input title="主参数有效期"  class="easyui-validatebox" data-options="required: true" id="effectiveTime" />
+            <input title="主参数有效期"  class="easyui-validatebox" data-options="required: true" id="targetTime" />
             <input type="hidden" id="startTime" name="startTime">
             <input type="hidden" id="endTime" name="endTime">
             <small>*</small>

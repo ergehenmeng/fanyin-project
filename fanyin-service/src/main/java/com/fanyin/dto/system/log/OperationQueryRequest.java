@@ -32,8 +32,4 @@ public class OperationQueryRequest extends PageQuery implements Serializable {
      */
     private Date endTime;
 
-    /**
-     * ip地址
-     */
-    private String ip;
 }

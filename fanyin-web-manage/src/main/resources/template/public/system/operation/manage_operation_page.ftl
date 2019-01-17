@@ -11,6 +11,7 @@
         var winWidth = 480;
         var winHeight = 300;
         var url = "/public/system/operation/query_operation_page";
+
         $(function() {
             dataGrid = $("#dataGrid").datagrid({
                 url : "/system/operation/operation_log_list_page",
@@ -71,6 +72,7 @@
                     }
                 ] ]
             });
+            $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
         });
     </script>
 </head>
@@ -78,39 +80,25 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <div class="left">
-                <form id="queryForm" method="post">
-                    <input name="queryName" placeholder="请求地址、操作人" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
-                    <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
-                </form>
-            </div>
-            <form id="showAdw" method="post">
-                <ul class="showAdw" style="display: none;">
-                    <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
-                    <li>
-                        <span>分类</span>
-                        <select name="city" class="type" id="city" title="分类">
-                            <option value="">全部</option>
-                            <option value="0">更新</option>
-                            <option value="1">删除</option>
-                            <option value="2">查询</option>
-                            <option value="3">添加</option>
-                            <option value="4">组合</option>
-                        </select>
-                    </li>
-                    <li><span>创建时间</span>
-                        <input type="text" name="startTime" />
-                    </li>
-                    <li>
-                        <div class="submitBtn">
-                            <a href="javascript:void(0);" class="searchBtn"
-                               onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a>
-                            <a href="javascript:void(0);" class="searchBtn"
-                               onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a>
-                        </div>
-                    </li>
-                </ul>
-            </form>
+            <@macro.search placeholder="请求地址、操作人、访问ip" advance=true>
+                <li>
+                    <span>分类</span>
+                    <select name="city" class="type" id="city" title="分类">
+                        <option value="">全部</option>
+                        <option value="0">更新</option>
+                        <option value="1">删除</option>
+                        <option value="2">查询</option>
+                        <option value="3">添加</option>
+                        <option value="4">组合</option>
+                    </select>
+                </li>
+                <li>
+                    <span>操作时间</span>
+                    <input title="操作时间" type="text" id="targetTime" />
+                    <input type="hidden" name="startTime" id="startTime"/>
+                    <input type="hidden" name="endTime" id="endTime"/>
+                </li>
+            </@macro.search>
         </div>
     </div>
     <div data-options="region:'center'">
@@ -118,5 +106,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="/static/js/search.js?v=${version!}"></script>
 </html>

@@ -152,10 +152,8 @@
         <where>
             <if test="queryName != null">
                 and (t.url like concat('%',#{queryName},'%') or
-                r.operator_name like concat('%',#{queryName},'%'))
-            </if>
-            <if test="ip != null">
-                and t.ip = #{ip}
+                r.operator_name like concat('%',#{queryName},'%') or
+                t.ip like concat('%',#{ip},'%') )
             </if>
             <if test="classify != null">
                 and t.classify = #{classify}

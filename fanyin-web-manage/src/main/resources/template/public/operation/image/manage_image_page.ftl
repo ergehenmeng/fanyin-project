@@ -82,32 +82,15 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <div class="left">
-                <form id="queryForm" method="post">
-                    <input name="queryName" placeholder="名称、备注" /><a href="#" onclick="$.fn.dataGridOptions.searchFun('#queryForm');" class="searchBtn"><i class="fa fa-search"></i>&nbsp;查询</a>
-                    <a href="#" class="dropBtn">查询条件<i class="fa fa-angle-double-down"></i></a>
-                </form>
-            </div>
+            <@macro.search placeholder="名称、备注" advance=true>
+                <li>
+                    <span>图片分类</span>
+                    <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
+                </li>
+            </@macro.search>
             <div class="right">
                 <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
-            <form id="showAdw" method="post">
-                <ul class="showAdw" style="display: none;">
-                    <a href="javascript:void(0);" class="close"><i class="fa fa-remove fa-lg"></i></a>
-                    <li>
-                        <span>下拉列表</span>
-                        <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
-                    </li>
-                    <li>
-                        <div class="submitBtn">
-                            <a href="javascript:void(0);" class="searchBtn"
-                               onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a>
-                            <a href="javascript:void(0);" class="searchBtn"
-                               onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a>
-                        </div>
-                    </li>
-                </ul>
-            </form>
         </div>
     </div>
     <div data-options="region:'center'">
@@ -115,5 +98,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="/static/js/search.js?v=${version!}"></script>
 </html>

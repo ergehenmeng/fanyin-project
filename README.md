@@ -25,3 +25,31 @@
 * 后台管理页面 请求:/bg/**
 * 后台管理页面json请求:/bg/json/**
 
+#### 管理后台开发
+* 基础条件采用freemarker 宏 
+```ftl
+<@macro.search placeholder="input占位符"/>
+```
+* 复杂查询采用 
+```ftl
+<@macro.search placeholder="input占位符" advance=true> 
+    <li><span>操作时间</span>
+        <!-- 时间范围搜索 $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime"); -->
+        <input title="操作时间" type="text" id="targetTime" />
+        <input type="hidden" name="startTime" id="startTime"/>
+        <input type="hidden" name="endTime" id="endTime"/>
+    </li>
+    <li>
+        <span>分类</span>
+        <select name="classify" class="type" title="分类">
+            <option value="">全部</option>
+            <option value="0">更新</option>
+        </select>
+    </li>
+    <li>
+        <span>图片分类</span>
+        <!-- 数据字典宏 DictDirectiveModel-->
+        <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
+    </li>
+</@macro.search>
+```
