@@ -434,7 +434,7 @@ function isChecked(id,checkRow){
  * @return {string} 选中的值
  */
 $.fn.treeGridOptions.checkNode = function(treeObj){
-	var nodes = treeObj.tree("getChecked");
+	var nodes = treeObj.tree("getChecked",['checked','indeterminate']);
 	if(nodes !== null && nodes.length > 0){
 		var nodeId = "";
 		$.each(nodes,function(i,node){

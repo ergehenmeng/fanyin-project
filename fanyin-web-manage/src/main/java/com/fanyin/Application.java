@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync
 @EnableAspectJAutoProxy
 @MapperScan("com.fanyin.mapper")
-@ServletComponentScan(basePackages = "com.fanyin.filter")
+@ServletComponentScan(basePackages = {"com.fanyin.filter","com.fanyin.listener"})
 public class Application {
 
     public static void main(String[] args) {
