@@ -44,27 +44,27 @@
 		// 非负整数或小数[小数最多精确到小数点后两位] 
 		currencyNum:{
 		    validator: function (value) {
-                return /^([0-9]{1}||[1-9]{1}\d{1,8})(\.{1}\d{1,2})?$/.test(value);
+                return /^([0-9]|[1-9]\d{1,8})(\.\d{0,2})?$/.test(value);
             },
             message: '请输入非负整数[小数最多精确到两位]'
 		},
         // 利率（0开头[小数最多精确到小数点后两位]）
         rate:{
 		    validator: function (value) {
-                return /^(([1-2]{1}[0-4]{1})||([0-9]{1}))(\.{1}\d{1,2})?$/.test(value);
+                return /^(([1-2][0-4])|([0-9]))(\.\d{0,2})?$/.test(value);
             },
             message: '请输入标准利率格式,利率在0.00-24.99之间'
 		},	      
         //  只允许汉字、英文字母或数字
         chsEngNum: {
-            validator: function (value, param) {
+            validator: function (value) {
                 return /^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$/.test(value);
             },
             message: '只允许汉字、英文字母或数字。'
         },
         //  只允许汉字、英文字母、数字及下划线
         code: {
-            validator: function (value, param) {
+            validator: function (value) {
                 return /^[\u0391-\uFFE5\w]+$/.test(value);
             },
             message: '只允许汉字、英文字母、数字及下划线.'
@@ -285,14 +285,14 @@
         // 两次密码验证
 		eqPwd : {
 			validator : function(value, param) {
-				return value == $(param[0]).val();
+				return value === $(param[0]).val();
 			},
 			message : '两次密码不一致！'
 		},
 		// 新旧密码验证
 		notEqPwd : {
 			validator : function(value, param) {
-				return value != $(param[0]).val();
+				return value !== $(param[0]).val();
 			},
 			message : '新旧密码不能一样！'
 		}
@@ -309,7 +309,7 @@
             }
             opts._initialized = true;
         }
-    };
+    }
 
     function setPrompt(target, prompt, opts) {
         var t = $.util.parseJquery(target);
@@ -322,7 +322,7 @@
                 opts.promptFocus = function () {
                     if (t.hasClass("validatebox-prompt")) {
                         t.removeClass("validatebox-prompt");
-                        if (t.val() == opts.prompt) { t.val(""); }
+                        if (t.val() === opts.prompt) { t.val(""); }
                     }
                 };
                 t.focus(opts.promptFocus);
@@ -330,7 +330,7 @@
             if (!$.isFunction(!opts.promptBlur)) {
                 opts.promptBlur = function () {
                     if ($.string.isNullOrEmpty(t.val())) { t.addClass("validatebox-prompt").val(opts.prompt); }
-                }
+                };
                 t.blur(opts.promptBlur);
             }
             if ($.string.isNullOrEmpty(t.val()) && !$.string.isNullOrEmpty(opts.prompt)) {
@@ -346,12 +346,12 @@
         var t = $(target);
         if (t.hasClass("validatebox-prompt")) { t.removeClass("validatebox-prompt").val(""); }
         return _validate.call(t, t);
-    };
+    }
 
 
     var _validatebox = $.fn.validatebox;
     $.fn.validatebox = function (options, param) {
-        if (typeof options == "string") { return _validatebox.apply(this, arguments); }
+        if (typeof options === "string") { return _validatebox.apply(this, arguments); }
         options = options || {};
         return this.each(function () {
             var jq = $.util.parseJquery(this), opts = $.extend({}, $.fn.validatebox.parseOptions(this), options);
@@ -399,11 +399,11 @@
         var val, opts;
         if (this.length > 0 && this.is(".validatebox-text.validatebox-prompt") && !$.html5.testProp("placeholder", this[0].nodeName)) {
             opts = this.validatebox("options");
-            if (arguments.length == 0) {
+            if (arguments.length === 0) {
                 val = core_val.apply(this, arguments);
-                return val == opts.prompt ? "" : val;
+                return val === opts.prompt ? "" : val;
             }
-            if (value && value != opts.prompt) { this.removeClass("validatebox-prompt"); }
+            if (value && value !== opts.prompt) { this.removeClass("validatebox-prompt"); }
         }
         return core_val.apply(this, arguments);
     };

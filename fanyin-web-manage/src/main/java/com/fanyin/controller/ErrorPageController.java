@@ -1,13 +1,14 @@
 package com.fanyin.controller;
 
-import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
-import org.springframework.boot.autoconfigure.web.BasicErrorController;
+import com.fanyin.ext.Response;
+import org.springframework.boot.autoconfigure.web.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ErrorViewResolver;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,27 +27,48 @@ import java.util.Map;
  * @author 二哥很猛
  * @date 2019/1/18 14:17
  */
-public class ErrorPageController extends BasicErrorController {
+@RequestMapping("${server.error.path:'/error'}")
+@Controller
+public class ErrorPageController extends AbstractErrorController {
 
-    public ErrorPageController(ErrorAttributes errorAttributes, ErrorProperties errorProperties, List<ErrorViewResolver> errorViewResolvers) {
-        super(errorAttributes, errorProperties, errorViewResolvers);
+    private ErrorProperties errorProperties;
+
+    public ErrorPageController(ErrorAttributes errorAttributes, List<ErrorViewResolver> errorViewResolvers,ErrorProperties errorProperties) {
+        super(errorAttributes, errorViewResolvers);
+        this.errorProperties = errorProperties;
     }
 
-    @Override
-    @Mark(RequestType.PAGE)
+    /**
+     * 错误页面返回
+     * @param request request
+     * @param response response
+     * @return ftl
+     */
+    @RequestMapping(produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-        return super.errorHtml(request, response);
+        HttpStatus status = getStatus(request);
+        Map<String, Object> model = Collections.unmodifiableMap(getErrorAttributes(
+                request, false));
+        ModelAndView modelAndView = super.resolveErrorView(request, response, status, model);
+        return (modelAndView == null ? new ModelAndView("error", model) : modelAndView);
     }
 
-    @Override
-    @Mark(RequestType.ALL)
-    public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-        Map<String,Object> map = new HashMap<>();
+    /**
+     * json错误返回
+     * @param request request
+     * @return response
+     */
+    @RequestMapping
+    @ResponseBody
+    public Response error(HttpServletRequest request) {
         HttpStatus status = super.getStatus(request);
         RequestAttributes requestAttributes = new ServletRequestAttributes(request);
         Object msg = requestAttributes.getAttribute(RequestDispatcher.ERROR_MESSAGE, RequestAttributes.SCOPE_REQUEST);
-        map.put("code",status.value());
-        map.put("msg",msg != null ? msg.toString() : "");
-        return new ResponseEntity<>(map,status);
+        return Response.getInstance().setCode(status.value()).setMsg(msg != null ? msg.toString() : "");
+    }
+
+    @Override
+    public String getErrorPath() {
+        return errorProperties.getPath();
     }
 }

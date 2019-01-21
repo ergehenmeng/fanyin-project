@@ -4,16 +4,16 @@ import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
+import com.fanyin.model.system.SystemMenu;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,11 +35,11 @@ public class AuthDirectiveModel implements TemplateDirectiveModel {
         }
         String nid = nidValue.toString();
         SecurityOperator operator = AbstractController.getRequiredOperator();
-        Collection<? extends GrantedAuthority> authorities = operator.getAuthorities();
-        if(authorities != null && authorities.size() > 0){
-            for (GrantedAuthority authority : authorities) {
-                String authorityAuthority = authority.getAuthority();
-                if(authorityAuthority.equals(nid)){
+        List<SystemMenu> menuList = operator.getButtonMenu();
+        if(menuList != null && menuList.size() > 0){
+            for (SystemMenu menu : menuList) {
+                String authNid = menu.getNid();
+                if(authNid.equals(nid)){
                     body.render(env.getOut());
                     return;
                 }

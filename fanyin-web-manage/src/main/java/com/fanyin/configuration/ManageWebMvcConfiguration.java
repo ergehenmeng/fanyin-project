@@ -48,7 +48,7 @@ public class ManageWebMvcConfiguration extends WebMvcConfiguration {
 
     @Bean
     public ErrorPageController errorPageController(ErrorAttributes errorAttributes,ObjectProvider<List<ErrorViewResolver>> errorViewResolversProvider){
-        return new ErrorPageController(errorAttributes,serverProperties.getError(),errorViewResolversProvider.getIfAvailable());
+        return new ErrorPageController(errorAttributes,errorViewResolversProvider.getIfAvailable(),serverProperties.getError());
     }
 
     /**

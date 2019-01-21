@@ -9,7 +9,6 @@ import com.fanyin.mapper.system.SystemMenuMapper;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -71,22 +70,18 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public void addMenu(MenuAddRequest request) {
         SystemMenu copy = BeanCopyUtil.copy(request, SystemMenu.class);
-        if(request.getPid() != 0){
-            copy.setNid(Joiner.on("-").join(request.getNid(),request.getPidNid()));
+        try{
+            systemMenuMapper.insertSelective(copy);
+        }catch (Exception e){
+            throw new BusinessException(ErrorCodeEnum.MENU_NID_ERROR);
         }
-        systemMenuMapper.insertSelective(copy);
     }
-
 
 
     @Override
     public void updateMenu(MenuEditRequest request) {
 
         SystemMenu copy = BeanCopyUtil.copy(request, SystemMenu.class);
-        if(request.getPid() != 0){
-            copy.setNid(Joiner.on("-").join(request.getNid(),request.getPidNid()));
-        }
-
         int index;
         try{
             index = systemMenuMapper.updateByPrimaryKeySelective(copy);
