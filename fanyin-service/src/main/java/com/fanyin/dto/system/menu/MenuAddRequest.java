@@ -54,4 +54,8 @@ public class MenuAddRequest implements Serializable {
      */
     private Byte classify;
 
+    /**
+     * 父级菜单的nid
+     */
+    private String pidNid;
 }

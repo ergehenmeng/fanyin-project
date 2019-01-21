@@ -165,6 +165,7 @@
                 and t.add_time &lt; #{endTime}
             </if>
         </where>
+        order by id desc
     </select>
     <select id="getResponseById" parameterType="integer" resultType="string">
         select <include refid="BlobColumnList"/>

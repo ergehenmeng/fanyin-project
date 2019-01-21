@@ -1,11 +1,13 @@
 package com.fanyin.configuration.security;
 
+import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -18,6 +20,12 @@ public class SecurityOperator extends SystemOperator implements UserDetails{
     private static final long serialVersionUID = -7835234722564262280L;
 
     private Collection<? extends GrantedAuthority> authorities;
+
+    /**
+     * 用户当前权限,登陆之后直接缓存,
+     * 如果权限发生变化需要重新登陆
+     */
+    private List<SystemMenu> operatorList;
 
     SecurityOperator(SystemOperator operator,Collection<GrantedAuthority> authorityList){
         BeanUtils.copyProperties(operator,this);

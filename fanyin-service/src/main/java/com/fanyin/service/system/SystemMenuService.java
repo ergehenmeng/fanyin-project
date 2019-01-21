@@ -2,6 +2,7 @@ package com.fanyin.service.system;
 
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
+import com.fanyin.enums.MenuClassify;
 import com.fanyin.model.system.SystemMenu;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -21,11 +22,12 @@ public interface SystemMenuService {
     List<SystemMenu> getMenuList(Integer operatorId);
 
     /**
-     * 获取用户菜单列表,包含按钮菜单
+     * 获取用户菜单列表
      * @param operatorId 用户id
+     * @param classify   菜单分类
      * @return 菜单列表
      */
-    List<SystemMenu> getAllMenuList(Integer operatorId);
+    List<SystemMenu> getMenuList(Integer operatorId, MenuClassify classify);
     /**
      * 根据主键查询菜单
      * @param id 主键

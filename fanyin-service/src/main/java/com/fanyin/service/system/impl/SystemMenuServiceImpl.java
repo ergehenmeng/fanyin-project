@@ -3,11 +3,13 @@ package com.fanyin.service.system.impl;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
 import com.fanyin.enums.ErrorCodeEnum;
+import com.fanyin.enums.MenuClassify;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.mapper.system.SystemMenuMapper;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.utils.BeanCopyUtil;
+import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,7 +37,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public List<SystemMenu> getMenuList(Integer operatorId) {
-        List<SystemMenu> list = systemMenuMapper.getMenuList(operatorId,false);
+        List<SystemMenu> list = systemMenuMapper.getMenuList(operatorId,MenuClassify.MENU);
         List<SystemMenu> parentList = new ArrayList<>();
 
         for (SystemMenu parent : list) {
@@ -50,8 +52,8 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public List<SystemMenu> getAllMenuList(Integer operatorId) {
-        return systemMenuMapper.getMenuList(operatorId,true);
+    public List<SystemMenu> getMenuList(Integer operatorId,MenuClassify classify) {
+        return systemMenuMapper.getMenuList(operatorId,classify);
     }
 
     @Override
@@ -69,13 +71,29 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public void addMenu(MenuAddRequest request) {
         SystemMenu copy = BeanCopyUtil.copy(request, SystemMenu.class);
+        if(request.getPid() != 0){
+            copy.setNid(Joiner.on("-").join(request.getNid(),request.getPidNid()));
+        }
         systemMenuMapper.insertSelective(copy);
     }
 
+
+
     @Override
     public void updateMenu(MenuEditRequest request) {
+
         SystemMenu copy = BeanCopyUtil.copy(request, SystemMenu.class);
-        int index = systemMenuMapper.updateByPrimaryKeySelective(copy);
+        if(request.getPid() != 0){
+            copy.setNid(Joiner.on("-").join(request.getNid(),request.getPidNid()));
+        }
+
+        int index;
+        try{
+            index = systemMenuMapper.updateByPrimaryKeySelective(copy);
+        }catch (Exception e){
+            //唯一索引会导致异常
+            throw new BusinessException(ErrorCodeEnum.MENU_NID_ERROR);
+        }
         if(index != 1){
             throw new BusinessException(ErrorCodeEnum.UPDATE_MENU_ERROR);
         }
@@ -88,7 +106,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     public List<GrantedAuthority> getAuthorityByOperatorId(Integer operator) {
-        List<SystemMenu> list = systemMenuMapper.getMenuList(operator,true);
+        List<SystemMenu> list = systemMenuMapper.getMenuList(operator,null);
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(!CollectionUtils.isEmpty(list)){
             for (SystemMenu menu : list){

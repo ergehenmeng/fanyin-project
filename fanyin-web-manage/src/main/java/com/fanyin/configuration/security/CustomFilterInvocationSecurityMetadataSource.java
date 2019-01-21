@@ -3,6 +3,8 @@ package com.fanyin.configuration.security;
 import com.fanyin.mapper.system.SystemMenuMapper;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.utils.StringUtil;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -36,12 +38,30 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         for (SystemMenu menu : list){
             if(StringUtil.isNotBlank(menu.getUrl())){
                 attributes = new ArrayList<>();
+                List<String> subUrl = this.getSubUrl(menu);
                 cfg = new SecurityConfig(menu.getNid());
                 attributes.add(cfg);
-                map.put(menu.getUrl(),attributes);
+                //将子菜单放入权限中,防止操作人员知道连接,但没有权限,却能访问的问题
+                for (String url : subUrl){
+                    map.put(url,attributes);
+                }
             }
         }
     }
+
+    /**
+     * 获取菜单所用有的子菜单及本身菜单,子菜单逗号分割
+     * @param menu 菜单
+     * @return 列表
+     */
+    private List<String> getSubUrl(SystemMenu menu){
+        List<String> stringList = Lists.newArrayList(menu.getUrl());
+        if(StringUtil.isNotBlank(menu.getSubUrl())){
+            stringList.addAll(Splitter.on(",").splitToList(menu.getSubUrl()));
+        }
+        return stringList;
+    }
+
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
@@ -66,6 +86,6 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return true;
+        return FilterInvocation.class.isAssignableFrom(clazz);
     }
 }

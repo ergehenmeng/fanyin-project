@@ -43,7 +43,7 @@ public class AbstractController {
      * 获取当前登陆的系统管理人员,找不到抛异常
      * @return 系统用户
      */
-    protected SecurityOperator getRequiredOperator(){
+    public static SecurityOperator getRequiredOperator(){
         SecurityOperator operator = getOperator();
         if(operator == null){
             throw new BusinessException(ErrorCodeEnum.OPERATOR_TIMEOUT);

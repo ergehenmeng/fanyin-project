@@ -1,5 +1,6 @@
 package com.fanyin.mapper.system;
 
+import com.fanyin.enums.MenuClassify;
 import com.fanyin.model.system.SystemMenu;
 import org.apache.ibatis.annotations.Param;
 
@@ -38,7 +39,7 @@ public interface SystemMenuMapper {
 
     /**
      * 查询所有可用的菜单
-     * @return
+     * @return 所有菜单
      */
     List<SystemMenu> getAllList();
 
@@ -50,10 +51,18 @@ public interface SystemMenuMapper {
     int deleteById(@Param("id")Integer id);
 
     /**
-     * 获取某用户所能查看的菜单列表  只获取菜单 不进行排序菜单分组等
+     * 获取某用户的菜单列表 根据菜单分类
      * @param operatorId 用户id
-     * @param btnMenu 是否包含按钮菜单 true:全部菜单 false只包含主菜单
+     * @param classify   菜单分类
      * @return 用户所有可查看菜单列表
      */
-    List<SystemMenu> getMenuList(@Param("operatorId") Integer operatorId, @Param("btnMenu") boolean btnMenu);
+    List<SystemMenu> getMenuList(@Param("operatorId") Integer operatorId, @Param("classify")MenuClassify classify);
+
+    /**
+     * 根据nid与pid查询菜单
+     * @param nid nid
+     * @param pid pid
+     * @return 菜单 默认只查一条
+     */
+    SystemMenu getByNid(@Param("nid")String nid,@Param("pid")Integer pid);
 }

@@ -1,5 +1,7 @@
 package com.fanyin.controller;
 
+import com.fanyin.annotation.Mark;
+import com.fanyin.annotation.RequestType;
 import org.springframework.boot.autoconfigure.web.BasicErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -8,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,13 @@ public class ErrorPageController extends BasicErrorController {
     }
 
     @Override
+    @Mark(RequestType.PAGE)
+    public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+        return super.errorHtml(request, response);
+    }
+
+    @Override
+    @Mark(RequestType.ALL)
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         Map<String,Object> map = new HashMap<>();
         HttpStatus status = super.getStatus(request);

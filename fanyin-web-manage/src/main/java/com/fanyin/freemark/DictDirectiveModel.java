@@ -7,7 +7,6 @@ import com.fanyin.service.system.SystemDictService;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,7 +71,7 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
     private static final String TOTAL_VALUE = "true";
 
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws IOException {
         Iterator iterator = params.keySet().iterator();
 
         StringBuilder builder = new StringBuilder("<select ");

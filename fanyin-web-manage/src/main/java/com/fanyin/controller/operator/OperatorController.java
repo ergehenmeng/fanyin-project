@@ -50,7 +50,7 @@ public class OperatorController extends AbstractController {
     @ResponseBody
     @Mark(RequestType.UPDATE)
     public Response changePassword(HttpSession session, PasswordEditRequest request){
-        SecurityOperator operator = super.getRequiredOperator();
+        SecurityOperator operator = getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = systemOperatorService.updateLoginPassword(request);
         operator.setPwd(newPassword);

@@ -30,7 +30,7 @@ public class MenuEditRequest implements Serializable {
     /**
      * 菜单父id
      */
-    private String pid;
+    private Integer pid;
 
     /**
      * 菜单url
@@ -57,5 +57,8 @@ public class MenuEditRequest implements Serializable {
      */
     private String remark;
 
-
+    /**
+     * 父节点的nid
+     */
+    private String pidNid;
 }

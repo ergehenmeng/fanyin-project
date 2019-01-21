@@ -115,6 +115,7 @@ public enum ErrorCodeEnum {
      */
     NID_IS_NULL(2002,"@select指定nid不能为空"),
 
+
     /**
      * 权限校验异常,请联系管理人员
      */
@@ -126,6 +127,10 @@ public enum ErrorCodeEnum {
      */
     OPERATION_LOGIN_ERROR(2004,"日志异常,用户未登陆"),
 
+    /**
+     * auth指定的nid不能为空
+     */
+    AUTH_NID_ERROR(2005,"@auth指定的nid不能为空"),
 
     /**
      * 系统配置信息未查询到
@@ -293,6 +298,11 @@ public enum ErrorCodeEnum {
      * 该数据字典已锁定
      */
     DICT_LOCKED_ERROR(3033,"该数据字典已锁定"),
+
+    /**
+     * 菜单标示符被占用
+     */
+    MENU_NID_ERROR(3034,"菜单标示符被占用"),
 
     /**
      * 充值订单未查询到

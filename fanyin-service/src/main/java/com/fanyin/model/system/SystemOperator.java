@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -93,5 +94,13 @@ public class SystemOperator implements Serializable {
      */
     private String remark;
 
+    /**
+     * 用户的左侧菜单权限
+     */
+    private List<SystemMenu> leftMenu;
 
+    /**
+     * 用户的按钮权限
+     */
+    private List<SystemMenu> buttonMenu;
 }

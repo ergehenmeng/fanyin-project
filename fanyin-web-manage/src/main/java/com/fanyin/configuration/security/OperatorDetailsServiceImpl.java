@@ -1,6 +1,7 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.enums.ErrorCodeEnum;
+import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.fanyin.service.system.SystemMenuService;

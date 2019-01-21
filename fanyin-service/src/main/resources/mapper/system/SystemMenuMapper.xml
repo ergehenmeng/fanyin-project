@@ -162,13 +162,16 @@
         LEFT JOIN system_role_menu s on t.id = s.menu_id
         LEFT JOIN system_operator_role o on s.role_id = o.role_id
         <where>
-            <if test="btnMenu == false">
-                /*查询左侧主菜单,即屏蔽按钮菜单*/
-                t.classify = 0 and
+            <if test="classify != null">
+                t.classify = #{classify,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler} and
             </if>
-            o.operator_id = #{operatorId}
+            o.operator_id = #{operatorId} and t.deleted = false
         </where>
         order by t.pid = 0 desc,t.sort asc
+    </select>
+    <select id="getByNid" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from system_menu where nid = #{nid} and pid = #{pid} and deleted = false limit 1
     </select>
 
     <update id="deleteById">

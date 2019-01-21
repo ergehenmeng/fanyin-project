@@ -1,9 +1,6 @@
-package com.fanyin.controller.system;
+package com.fanyin.controller;
 
-import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
-import com.fanyin.controller.AbstractController;
-import com.fanyin.model.system.SystemMenu;
+import com.fanyin.enums.MenuClassify;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 /**
  * 首页及登陆
@@ -42,8 +37,15 @@ public class LoginController extends AbstractController {
     @GetMapping("/home")
     public String home(Model model){
         SystemOperator operator = getRequiredOperator();
-        List<SystemMenu> list = systemMenuService.getMenuList(operator.getId());
-        model.addAttribute("menuList", list);
+        //导航菜单
+        if (operator.getLeftMenu() == null){
+            operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
+        }
+        //按钮菜单
+        if(operator.getButtonMenu() == null){
+            operator.setButtonMenu(systemMenuService.getMenuList(operator.getId(),MenuClassify.BUTTON));
+        }
+        model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit",operator.getPwd().equals(operator.getInitPwd()));
         return "home";
     }
@@ -64,7 +66,6 @@ public class LoginController extends AbstractController {
      * @return 对应的页面
      */
     @RequestMapping("/public/{modules}/{function}/{page}")
-    @Mark(RequestType.PAGE)
     public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
         return "public/" + modules + "/" + function +"/" + page;
     }

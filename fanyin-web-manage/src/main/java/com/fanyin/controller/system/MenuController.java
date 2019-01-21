@@ -99,8 +99,8 @@ public class MenuController extends AbstractController {
     @ResponseBody
     @Mark(RequestType.SELECT)
     public Response operatorMenuList(){
-        SystemOperator operator = super.getRequiredOperator();
-        List<SystemMenu> menuList = systemMenuService.getAllMenuList(operator.getId());
+        SystemOperator operator = getRequiredOperator();
+        List<SystemMenu> menuList = systemMenuService.getMenuList(operator.getId(),null);
         return Response.getInstance().setData(menuList);
     }
 
