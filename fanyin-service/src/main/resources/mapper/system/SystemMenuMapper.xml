@@ -156,7 +156,7 @@
         from system_menu t where t.deleted = false
     </select>
 
-    <select id="getMenuList" resultMap="BaseResultMap">
+    <select id="getMenuList" resultMap="BaseResultMap" >
         SELECT <include refid="BaseColumnList"/>
         from system_menu t
         LEFT JOIN system_role_menu s on t.id = s.menu_id
