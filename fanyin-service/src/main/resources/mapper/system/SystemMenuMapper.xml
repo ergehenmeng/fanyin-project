@@ -56,7 +56,7 @@
         url,
       </if>
         <if test="subUrl != null">
-            sub_url
+            sub_url,
         </if>
       <if test="classify != null">
           classify,

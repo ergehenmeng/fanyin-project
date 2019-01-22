@@ -18,7 +18,7 @@
         <div class="form_item">
             <label>菜单类型:</label>
             <select title="菜单类型" name="classify">
-                <option value="0" >左侧菜单</option>
+                <option value="0" >导航菜单</option>
                 <option value="1">按钮菜单</option>
             </select>
         </div>

@@ -47,9 +47,13 @@
                             }
                         }
                     },
-                    {field : "url",title : "请求地址",width : 250,align : "center"},
+                    {field : "url",title : "请求地址",width : 280,align : "center"},
                     {field : "operatorName",title : "操作人",width : 100,align : "center"},
-                    {field : "request",title : "请求参数",width : 150,align : "center"},
+                    {field : "request",title : "请求参数",width : 250,align : "center",
+                        formatter:function(value){
+                            return $.fn.dataGridOptions.format(value);
+                        }
+                    },
                     {field : "addTime",title : "操作时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);

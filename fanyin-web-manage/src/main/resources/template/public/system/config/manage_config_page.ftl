@@ -40,7 +40,11 @@
                     {field : "title",title : "参数名称",width : 150,align : "center"},
                     {field : "classifyName",title : "参数分类",width : 150,align : "center"},
                     {field : "nid",title : "参数标示",width : 150,align : "center"},
-                    {field : "content",title : "参数值",width : 300,align : "center"},
+                    {field : "content",title : "参数值",width : 300,align : "center",
+                        formatter:function(value){
+                            return $.fn.dataGridOptions.format(value,20);
+                        }
+                    },
                     {
                         field: "locked", title: "是否锁定", width: 60, align: "center",
                         formatter: function (value, rows, index) {

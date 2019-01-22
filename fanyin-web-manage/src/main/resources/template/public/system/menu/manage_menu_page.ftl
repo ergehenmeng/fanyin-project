@@ -34,7 +34,7 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl);"> 添加</a>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'nid\':\''+ row.nid +'\'});"> 添加</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"> 删除</a>';
                             str += '</dd>';
@@ -45,10 +45,14 @@
                     {field : "text",title : "菜单名称",width : 150,align : "center"},
                     {field : "nid",title : "菜单标示",width : 120,align : "center"},
                     {field : "url",title : "菜单URL",width : 300,align : "center"},
-                    {field : "subUrl",title : "子菜单URL",width : 400,align : "center"},
+                    {field : "subUrl",title : "子菜单URL",width : 400,align : "center",
+                        formatter:function (value) {
+                            return $.fn.dataGridOptions.format(value,50);
+                        }
+                    },
                     {field : "classify",title : "类型",width : 80,align : "center",
                         formatter : function(value) {
-                            return value === 0 ? "左侧菜单" : "按钮菜单";
+                            return value === 0 ? "导航菜单" : "按钮菜单";
                         }
                     },
                     {field : "sort",title : "排序",width : 50,align : "center"},
@@ -71,7 +75,7 @@
             if (!rows || !rows.data){
                 return;
             }
-            return $.fn.treeGridOptions.dataFilter(rows.data,"id","title","pid",0,null);
+            return $.fn.treeGridOptions.dataFilter(rows.data,"id","title","pid",0);
         }
     </script>
 </head>
@@ -79,9 +83,11 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
-            <div class="right">
-                <a href="#" class="searchBtn" onclick="$.fn.treeGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl)"><i class="fa fa-plus"></i>&nbsp;添加</a>
-            </div>
+            <@auth nid="menuManageQuery">
+                <div class="right">
+                    <a href="#" class="searchBtn" onclick="$.fn.treeGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl)"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                </div>
+            </@auth>
         </div>
     </div>
     <div data-options="region:'center'">

@@ -19,15 +19,58 @@ $.fn.dataGridOptions.dataGrid = function(element,opts){
         fit : true,
         fitColumns : false,
         idField : 'id',
-        nowrap : false,//可以换行显示
+        nowrap : true,//可以换行显示
         pagination:true,
         pageSize : pageSize,
         pageList : pageList,
-        singleSelect : true
+        singleSelect : true,
+        onLoadSuccess:$.fn.dataGridOptions.tips
     },opts);
     return $(element).datagrid(options);
 };
 
+$.fn.dataGridOptions.tips = function(data){
+    $(".dataGrid-tips").poshytip({
+        className: 'tip-yellowsimple',
+        fade : false,
+        slide: false,
+        alignX: 'center'
+    });
+};
+
+/**
+ * 格式化数据结果
+ * @param value 源值
+ * @param maxLength 超过该长度后不会显示
+ */
+$.fn.dataGridOptions.format = function(value,maxLength){
+    if(!maxLength){
+        maxLength = 40;
+    }
+    if(value && value.length > maxLength){
+        return '<span title=\''+ newLine(value,maxLength) +'\' class="dataGrid-tips">' + value.substring(0,maxLength) + '...</span>';
+    }
+    return value;
+};
+
+/**
+ * 自动换行
+ * @param value 值
+ * @return {*}
+ * @param maxLength 单行最大长度
+ */
+function newLine(value,maxLength){
+    var valueLength = value.length;
+    var loop = valueLength / maxLength + 1;
+    if(loop === 1){
+        return value;
+    }
+    var result = "";
+    for (var i=0;i < loop;i++){
+        result += value.substring(maxLength * i,maxLength * (i+1)) + "\n" ;
+    }
+    return result;
+}
 /**
  * easyUI列表提炼
  * @param element 元素id
@@ -220,12 +263,12 @@ $.fn.treeGridOptions.confirm = function(id,url,msg,data){
 /**
  * 表单新增或编辑
  */
-$.fn.treeGridOptions.editFun = function(id,title,width,height,url){
+$.fn.treeGridOptions.editFun = function(id,title,width,height,url,data){
 	parent.$.windowDialog({
 		title : title,
 		width : width,
 		height : height,
-		href : url+"?id=" +id,
+		href : formatUrl(id,url,data),
 		buttons : [ {
 			text : '确定',
 			handler : function() {
@@ -369,9 +412,8 @@ $.fn.treeGridOptions.searchFun = function (formId) {
  * @param text 节点名称 key 字符串
  * @param pid 父节点id 字符串
  * @param rootValue 根节点值,注意数据类型一定要和数据库保持一致
- * @param checkRow 选中的id 逗号分割
  */
-$.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,checkRow){
+$.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue){
     var nodes = [];
     if(!rows) return nodes;
 
@@ -396,7 +438,6 @@ $.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,checkRow){
             if (row[pid] === node[id]){
                 var child = $.extend(row,{});
                     child["text"] = child[text];
-                    child["checked"] = isChecked(row[id],checkRow);
                 if (node.children){
                     node.children.push(child);
                 } else {
@@ -411,22 +452,24 @@ $.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,checkRow){
 };
 
 /**
- * 判断是否需要选中
- * @param id
- * @param checkRow
- * @returns {Boolean}
+ * 选中指定的节点
+ * @param treeObj tree对象
+ * @param ids 待选中的节点id 逗号分割
  */
-function isChecked(id,checkRow){
-	if(checkRow){
-	    var selectedRows = checkRow.split(",");
-		for(var i=0;i < selectedRows.length;i++){
-			if(selectedRows[i] === id.toString()){
-				return true;
-			}
-		}
-	}
-	return false
-}
+$.fn.treeGridOptions.checkbox = function (treeObj,ids){
+    if(ids){
+        var splitArray = ids.split(",");
+        $.each(splitArray,function (i,id) {
+            var node = treeObj.tree('find', id);
+            if (node) {
+                var isLeaf = treeObj.tree('isLeaf', node.target);
+                if (isLeaf)  {
+                    treeObj.tree('check', node.target);
+                }
+            }
+        });
+    }
+};
 
 /**
  * 方法作用:点击树形复选框时返回所有选中的值

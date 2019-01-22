@@ -29,7 +29,6 @@ public class OperationLogController {
      */
     @PostMapping("/system/operation/operation_log_list_page")
     @ResponseBody
-    @Mark(RequestType.SELECT)
     public Paging<SystemOperationLog> operationLogListPage(OperationQueryRequest request){
         return new Paging<>(operationLogService.getByPage(request));
     }

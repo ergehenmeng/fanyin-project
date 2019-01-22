@@ -1,6 +1,10 @@
 <!-- jquery库2.0版本 -->
 <script src="/static/js/jquery.min.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
+<#--tips 1.2-->
+<link href="/static/css/tips/tip-yellowsimple/tip-yellowsimple.css?v=${version!}" type="text/css" rel="stylesheet" >
+<script src="/static/js/tips/jquery.poshytip.min.js?v=${version!}" type="text/javascript" charset="utf-8" ></script>
+
 <!-- eaysUI 1.3.5版本css -->
 <link href="/static/css/easyUI/metro-orange/easyui.css?v=${version!}" type="text/css" rel="stylesheet" >
 <link href="/static/css/easyUI/icon.css?v=${version!}" rel="stylesheet" type="text/css" >
