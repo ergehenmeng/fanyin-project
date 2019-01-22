@@ -74,15 +74,5 @@ public class ConfigController extends AbstractController {
         });
     }
 
-    /**
-     * 添加系统参数
-     * @return 成功或失败的结果集
-     */
-    @PostMapping("/system/config/add_config")
-    @ResponseBody
-    @Mark(RequestType.INSERT)
-    public Response addConfig(ConfigAddRequest request){
-        systemConfigService.addConfig(request);
-        return Response.getInstance();
-    }
+
 }

@@ -8,14 +8,10 @@
         var dataGrid;
 
         var winWidth = 480;
-        var winHeight = 580;
-
-        var addTitle = "添加系统参数";
-        var addUrl = "/public/system/config/add_config_page";
+        var winHeight = 620;
 
         var editTitle = "编辑系统参数";
         var editUrl = "/public/system/config/edit_config_page";
-
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
@@ -39,10 +35,10 @@
                     },
                     {field : "title",title : "参数名称",width : 150,align : "center"},
                     {field : "classifyName",title : "参数分类",width : 150,align : "center"},
-                    {field : "nid",title : "参数标示",width : 150,align : "center"},
-                    {field : "content",title : "参数值",width : 300,align : "center",
+                    {field : "nid",title : "参数标示",width : 160,align : "center"},
+                    {field : "content",title : "参数值",width : 180,align : "center",
                         formatter:function(value){
-                            return $.fn.dataGridOptions.format(value,20);
+                            return $.fn.dataGridOptions.format(value,30);
                         }
                     },
                     {
@@ -52,18 +48,22 @@
                         }
                     },
                     {field : "remark",title : "备注",align : "center",width : 300 },
-                    {field : "startTime",title : "有效起始时间",width : 150,align : "center",
+                    {field : "startTime",title : "有效起始时间",width : 140,align : "center",
                         formatter:function(value,rows,index){
                             return getLocalTime(value,4);
                         }
                     },
-                    {field : "endTime",title : "有效结束时间",width : 150,align : "center",
+                    {field : "endTime",title : "有效结束时间",width : 140,align : "center",
                         formatter:function(value,rows,index){
                             return getLocalTime(value,4);
                         }
                     },
-                    {field : "reserveContent",title : "备用值",width : 150,align : "center"},
-                    {field : "updateTime",title : "更新时间",width : 150,align : "center",
+                    {field : "reserveContent",title : "备用值",width : 150,align : "center",
+                        formatter:function(value){
+                            return $.fn.dataGridOptions.format(value,30);
+                        }
+                    },
+                    {field : "updateTime",title : "更新时间",width : 180,align : "center",
                         formatter : function(value, rows, index) {
                             return getLocalTime(value, 4);
                         }
@@ -78,10 +78,6 @@
     <div data-options="region:'north',border:false" class="condition_bar">
         <div class="layout_norths">
             <@search placeholder="参数名称、参数标示、备注" />
-            <div class="right">
-                <a href="#" class="searchBtn"
-                   onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
-            </div>
         </div>
     </div>
     <div data-options="region:'center'">

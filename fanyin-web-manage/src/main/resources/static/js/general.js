@@ -19,7 +19,7 @@ $.fn.dataGridOptions.dataGrid = function(element,opts){
         fit : true,
         fitColumns : false,
         idField : 'id',
-        nowrap : true,//可以换行显示
+        nowrap : false,//可以换行显示
         pagination:true,
         pageSize : pageSize,
         pageList : pageList,

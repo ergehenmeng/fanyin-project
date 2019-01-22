@@ -153,7 +153,7 @@
 
     <select id="getAllList" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList"/>
-        from system_menu t where t.deleted = false
+        from system_menu t where t.deleted = false order by t.pid ,t.sort asc
     </select>
 
     <select id="getMenuList" resultMap="BaseResultMap" >
@@ -167,7 +167,7 @@
             </if>
             o.operator_id = #{operatorId} and t.deleted = false
         </where>
-        order by t.pid = 0 desc,t.sort asc
+        order by t.pid ,t.sort asc
     </select>
     <select id="getByNid" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>

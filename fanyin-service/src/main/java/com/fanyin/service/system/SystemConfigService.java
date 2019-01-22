@@ -41,11 +41,4 @@ public interface SystemConfigService {
      */
     SystemConfig getById(Integer id);
 
-    /**
-     * 新增系统参数
-     * @param request 必填选项
-     */
-    void addConfig(ConfigAddRequest request);
-
-
 }

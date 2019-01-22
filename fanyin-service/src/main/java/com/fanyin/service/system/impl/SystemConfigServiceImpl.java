@@ -59,10 +59,5 @@ public class SystemConfigServiceImpl implements SystemConfigService {
         return systemConfigMapper.selectByPrimaryKey(id);
     }
 
-    @Override
-    public void addConfig(ConfigAddRequest request) {
-        SystemConfig copy = BeanCopyUtil.copy(request, SystemConfig.class);
-        systemConfigMapper.insertSelective(copy);
-    }
 
 }

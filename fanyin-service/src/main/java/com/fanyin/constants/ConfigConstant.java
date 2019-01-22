@@ -17,4 +17,9 @@ public class ConfigConstant {
      * 操作日志开关
      */
     public static final String OPERATION_LOG_SWITCH = "operation_log_switch";
+
+    /**
+     * 系统环境
+     */
+    public static final String ENV = "env";
 }
