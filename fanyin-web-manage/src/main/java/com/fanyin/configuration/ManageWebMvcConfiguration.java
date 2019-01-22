@@ -39,8 +39,6 @@ public class ManageWebMvcConfiguration extends WebMvcConfiguration {
         super.addResourceHandlers(registry);
     }
 
-
-
     @Bean
     public EmbeddedServletContainerFactory servletContainerFactory(){
         TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();

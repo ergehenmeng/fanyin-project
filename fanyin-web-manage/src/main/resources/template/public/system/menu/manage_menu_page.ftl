@@ -43,9 +43,9 @@
                         }
                     },
                     {field : "text",title : "菜单名称",width : 150,align : "center"},
-                    {field : "nid",title : "菜单标示",width : 120,align : "center"},
+                    {field : "nid",title : "菜单标示",width : 150,align : "center"},
                     {field : "url",title : "菜单URL",width : 300,align : "center"},
-                    {field : "subUrl",title : "子菜单URL",width : 400,align : "center",
+                    {field : "subUrl",title : "子菜单URL",width : 350,align : "center",
                         formatter:function (value) {
                             return $.fn.dataGridOptions.format(value,50);
                         }
