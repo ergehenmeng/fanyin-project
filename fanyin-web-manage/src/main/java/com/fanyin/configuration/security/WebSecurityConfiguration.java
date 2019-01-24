@@ -2,7 +2,7 @@ package com.fanyin.configuration.security;
 
 import com.fanyin.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.WebMvcProperties;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -84,7 +84,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .invalidateHttpSession(true);
 
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry()).expiredUrl("/index");
-
         http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class).csrf().disable();
 
     }

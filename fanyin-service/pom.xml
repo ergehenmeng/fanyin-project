@@ -29,6 +29,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>5.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>

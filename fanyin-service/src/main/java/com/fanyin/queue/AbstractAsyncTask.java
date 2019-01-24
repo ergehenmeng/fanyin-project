@@ -6,13 +6,13 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.utils.SpringContextUtil;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 二哥很猛
  * @date 2018/12/21 16:42
  */
-@Log4j
+@Slf4j
 public abstract class AbstractAsyncTask<T extends Key> extends AbstractTask<T> implements Runnable{
 
     public AbstractAsyncTask(T data){
