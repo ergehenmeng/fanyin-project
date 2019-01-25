@@ -16,6 +16,7 @@
     <version>${project-version}</version>
     <packaging>jar</packaging>
 
+
     <description>fanyin-common</description>
 
     <dependencies>
@@ -50,6 +51,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
