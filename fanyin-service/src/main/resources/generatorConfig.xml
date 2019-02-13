@@ -51,7 +51,7 @@
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="operation_log" domainObjectName="OperationLog"
+        <table tableName="system_address" domainObjectName="SystemAddress"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false">

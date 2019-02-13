@@ -4120,13 +4120,13 @@
 var element = areaJson["86"];
 var vs = "";
 for (var key in element){
-    vs += "insert into area ('title','code','parent_code')values('" + element[key] +"','"+ key + "','0');";
+    vs += "insert into system_address (title,nid,pid,classify)values('" + element[key] +"','"+ key + "','0','1');\n";
     var province = areaJson[key];
     for (var city in province){
-        vs += "insert into area ('title','code','parent_code')values('" + province[city] +"','"+ city + "','" + key + "');";
+        vs += "insert into system_address (title,nid,pid,classify)values('" + province[city] +"','"+ city + "','" + key + "','2');\n";
         var citys = areaJson[city];
         for(var s in citys){
-            vs += "insert into area ('title','code','parent_code')values('" + citys[s] +"','"+ s + "','" + city + "');";
+            vs += "insert into system_address (title,nid,pid,classify)values('" + citys[s] +"','"+ s + "','" + city + "','3');\n";
         }
     }
 }

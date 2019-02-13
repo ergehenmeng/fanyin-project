@@ -1,5 +1,11 @@
 package com.fanyin.utils;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+
 import java.util.Random;
 
 /**
@@ -29,6 +35,23 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
      */
     private static final String HIDDEN_REGEXP_MOBILE = "(\\d{3})\\d{4}(\\d{4})";
 
+    /**
+     * 汉字字符集
+     */
+    private static final String CHINESE_FONT = "[\\u4E00-\\u9FA5]+";
+
+    /**
+     * 英文字符集
+     */
+    private static final String ENGLISH_FONT = "[A-Za-z]+";
+
+    private static final HanyuPinyinOutputFormat CHINA_FORMAT = new HanyuPinyinOutputFormat();
+
+    static {
+        CHINA_FORMAT.setCaseType(HanyuPinyinCaseType.UPPERCASE);
+        CHINA_FORMAT.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        CHINA_FORMAT.setVCharType(HanyuPinyinVCharType.WITH_V);
+    }
 
     /**
      * 生成指定长度的随机字符串
@@ -92,4 +115,53 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils{
         return mobile.replaceAll(HIDDEN_REGEXP_MOBILE,RegExpUtil.HIDDEN_REGEXP_VALUE);
     }
 
+    /**
+     * 根据汉字获取首字母
+     * @param chinese 单个汉字 多个汉字默认取第一个
+     * @return 首字母
+     */
+    public static String getInitial(String chinese){
+        if(isBlank(chinese)){
+            return null;
+        }
+        char charAt = chinese.charAt(0);
+        String firstChar = Character.toString(charAt);
+        try {
+            if(firstChar.matches(CHINESE_FONT)){
+                String[] stringArray = PinyinHelper.toHanyuPinyinStringArray(charAt,CHINA_FORMAT);
+                return Character.toString(stringArray[0].charAt(0));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return firstChar.toUpperCase();
+    }
+
+
+    /**
+     * 汉字所有首字母
+     * @param chinese 中文字符
+     * @return 二哥很猛 -> EGHM
+     */
+    public static String getCompleteInitial(String chinese){
+        if(isBlank(chinese)){
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < chinese.length(); i++) {
+            char charAt = chinese.charAt(i);
+            try {
+                String string = Character.toString(charAt);
+                if(string.matches(CHINESE_FONT)){
+                    String[] stringArray = PinyinHelper.toHanyuPinyinStringArray(charAt,CHINA_FORMAT);
+                    builder.append(stringArray[0].charAt(0));
+                }else if(string.matches(ENGLISH_FONT)){
+                    builder.append(string.toUpperCase());
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return builder.toString();
+    }
 }
