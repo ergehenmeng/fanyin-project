@@ -96,7 +96,7 @@ public class RedisConfiguration{
     /**
      * 获取缓存管理器
      * @param expire 过期时间 默认单位 秒
-     * @return cacheManange
+     * @return CacheManager
      */
     private CacheManager getCacheManager(RedisConnectionFactory connectionFactory,int expire){
         return RedisCacheManager
