@@ -1,5 +1,7 @@
 package com.fanyin.utils;
 
+import com.fanyin.enums.ErrorCodeEnum;
+import com.fanyin.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -71,7 +73,7 @@ public class DateUtil extends DateUtils {
      * @param date 日期格式的字符串
      * @return 日期date
      */
-    public static Date parseLong(String date)throws ParseException{
+    public static Date parseLong(String date){
         return parseDate(date,LONG_DATE);
     }
     /**
@@ -79,8 +81,16 @@ public class DateUtil extends DateUtils {
      * @param date 日期格式的字符串
      * @return 日期date
      */
-    public static Date parseShort(String date)throws ParseException {
+    public static Date parseShort(String date){
         return parseDate(date,SHORT_DATE);
+    }
+
+    public static Date parseDate(String date,String pattern){
+        try {
+            return DateUtils.parseDate(date,pattern);
+        }catch (Exception e){
+            throw new ParameterException(ErrorCodeEnum.DATE_CASE_ERROR);
+        }
     }
 
     /**

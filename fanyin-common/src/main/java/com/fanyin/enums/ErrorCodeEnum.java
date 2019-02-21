@@ -99,7 +99,10 @@ public enum ErrorCodeEnum {
      */
     REQUEST_PARAM_ILLEGAL(1015,"请求参数非法"),
 
-
+    /**
+     * 日期格式转换异常
+     */
+    DATE_CASE_ERROR(1016,"日期格式转换异常"),
     /**
      * 身份证格式校验错误
      */

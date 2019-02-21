@@ -2,6 +2,7 @@ package com.fanyin.test.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 二哥很猛
@@ -23,5 +24,15 @@ public class ThreadPoolExecute {
             e.printStackTrace();
         }
         service.execute(() -> System.out.println("我是新任务"));
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Executors.newScheduledThreadPool(10).scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 0, 0,TimeUnit.MILLISECONDS);
+        executorService.execute(null);
+        Executors.newSingleThreadScheduledExecutor();
+        Executors.newFixedThreadPool(1);
     }
 }
