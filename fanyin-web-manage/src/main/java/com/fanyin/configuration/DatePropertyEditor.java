@@ -1,5 +1,7 @@
 package com.fanyin.configuration;
 
+import com.fanyin.enums.ErrorCodeEnum;
+import com.fanyin.exception.ParameterException;
 import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.StringUtil;
 
@@ -22,7 +24,7 @@ public class DatePropertyEditor extends PropertyEditorSupport {
             try {
                 super.setValue(DateUtil.parseShort(text));
             }catch (Exception e1){
-                throw new RuntimeException("日期类型转换异常",e1);
+                throw new ParameterException(ErrorCodeEnum.DATE_CASE_ERROR);
             }
         }
     }
