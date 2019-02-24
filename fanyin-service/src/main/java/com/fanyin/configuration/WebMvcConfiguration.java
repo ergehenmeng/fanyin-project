@@ -7,8 +7,9 @@ import com.google.common.collect.Maps;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jmx.export.MBeanExporter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.HashMap;
 import java.util.Properties;
@@ -19,7 +20,7 @@ import java.util.Properties;
  * @date 2018/9/13 11:19
  */
 @Configuration
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+public class WebMvcConfiguration implements WebMvcConfigurer {
 
 
     /**
@@ -61,6 +62,11 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         map.put("kaptcha:name=DefaultKaptcha",captcha());
         exporter.setBeans(map);
         return exporter;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }

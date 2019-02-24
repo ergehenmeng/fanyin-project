@@ -43,6 +43,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     private WebMvcProperties webMvcProperties;
 
     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
 
@@ -115,19 +118,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(userDetailsService());
-        provider.setEncoder(passwordEncoder());
+        provider.setEncoder(bCryptPasswordEncoder);
         return provider;
     }
-
-    /**
-     * 加密方式
-     * @return bean
-     */
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     /**
      * 登陆成功后置处理
      * @return bean

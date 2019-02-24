@@ -52,22 +52,25 @@
     </appender>
 
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="rolling_info_file"/>
         <appender-ref ref="rolling_error_file"/>
         <appender-ref ref="console"/>
     </root>
 
-    <logger name="com.fanyin" additivity="false" level="info">
+    <logger name="com.fanyin" additivity="false" level="debug">
         <appender-ref ref="console"/>
         <appender-ref ref="rolling_info_file"/>
     </logger>
+    
+    <logger name="org.springframework.boot" additivity="false" level="info">
+        <appender-ref ref="console"/>
+    </logger>
 
-    <logger name="jdbc.audit" level="warn"/>
-    <logger name="jdbc.resultset" level="warn"/>
-    <logger name="jdbc.sqltiming" level="warn"/>
-    <logger name="jdbc.connection" level="warn"/>
-    <logger name="org.springframework" level="error"/>
-    <logger name="freemarker" level="error"/>
+    <logger name="jdbc.audit" level="info"/>
+    <logger name="jdbc.resultset" level="info"/>
+    <logger name="jdbc.sqltiming" level="info"/>
+    <logger name="jdbc.connection" level="info"/>
+    <logger name="org.springframework" level="info"/>
 
 </configuration>
