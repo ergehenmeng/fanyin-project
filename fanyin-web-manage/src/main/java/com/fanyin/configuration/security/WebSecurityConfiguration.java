@@ -23,6 +23,7 @@ import org.springframework.security.web.session.SessionInformationExpiredStrateg
 import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -168,10 +169,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * @return bean
      */
     @Bean
-    public FilterRegistrationBean registration(){
-        FilterRegistrationBean registration = new FilterRegistrationBean(filterSecurityInterceptor());
-        registration.setEnabled(true);
-        return registration;
+    public FilterRegistrationBean<Filter> registration(){
+        return new FilterRegistrationBean<>(filterSecurityInterceptor());
     }
 
     @Bean
