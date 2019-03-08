@@ -156,7 +156,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
      * @return bean
      */
-    @Bean
     public CustomFilterSecurityInterceptor filterSecurityInterceptor(){
         CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor();
         interceptor.setAccessDecisionManager(accessDecisionManager());
