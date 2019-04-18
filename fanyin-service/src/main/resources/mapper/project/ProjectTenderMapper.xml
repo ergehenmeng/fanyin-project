@@ -177,7 +177,7 @@
     <resultMap id="resultMapCoupon" type="com.fanyin.model.project.ProjectTender" extends="BaseResultMap">
         <collection property="couponList" ofType="com.fanyin.model.user.DiscountCoupon" >
             <id column="discount_coupon_id" property="id"/>
-            <result column="type" property="type"/>
+            <result column="classify" property="classify"/>
             <result column="discount_coupon_state" property="state"/>
             <result column="face_value" property="faceValue"/>
             <result column="period_limit" property="periodLimit"/>

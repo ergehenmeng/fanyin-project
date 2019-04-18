@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,13 +17,11 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * spring security权限配置
@@ -45,9 +42,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
 
     @Override
@@ -78,7 +72,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .loginProcessingUrl("/login")
                 .usernameParameter("mobile")
                 .passwordParameter("password")
-                .authenticationDetailsSource(authenticationDetailsSource)
+                .authenticationDetailsSource(detailsSource())
                 .successHandler(loginSuccessHandler())
                 .failureHandler(customAuthenticationFailureHandler())
                 .and()
