@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
@@ -80,8 +78,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll()
                 .invalidateHttpSession(true);
-
-        http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry()).expiredUrl("/index");
+        http.sessionManagement().maximumSessions(1).expiredUrl("/index");
         http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class).csrf().disable();
 
     }
@@ -90,11 +87,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Bean
     public SessionInformationExpiredStrategy sessionInformationExpiredStrategy(){
         return new SimpleRedirectSessionInformationExpiredStrategy("/");
-    }
-
-    @Bean
-    public SessionRegistry sessionRegistry(){
-        return new SessionRegistryImpl();
     }
 
     @Override
@@ -150,7 +142,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
      * @return bean
      */
-    public CustomFilterSecurityInterceptor filterSecurityInterceptor(){
+    private CustomFilterSecurityInterceptor filterSecurityInterceptor(){
         CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor();
         interceptor.setAccessDecisionManager(accessDecisionManager());
         return interceptor;

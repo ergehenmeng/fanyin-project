@@ -21,11 +21,6 @@ public class SecurityOperator extends SystemOperator implements UserDetails{
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    /**
-     * 用户当前权限,登陆之后直接缓存,
-     * 如果权限发生变化需要重新登陆
-     */
-    private List<SystemMenu> operatorList;
 
     SecurityOperator(SystemOperator operator,Collection<GrantedAuthority> authorityList){
         BeanUtils.copyProperties(operator,this);
