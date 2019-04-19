@@ -17,8 +17,11 @@ import java.io.IOException;
  */
 public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter{
 
-    @Autowired
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
+
+    CustomFilterSecurityInterceptor(FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource){
+        this.securityMetadataSource = filterInvocationSecurityMetadataSource;
+    }
 
     @Override
     public void init(FilterConfig filterConfig){

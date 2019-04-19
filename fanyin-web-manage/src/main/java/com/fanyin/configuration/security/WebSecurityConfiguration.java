@@ -143,7 +143,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * @return bean
      */
     private CustomFilterSecurityInterceptor filterSecurityInterceptor(){
-        CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor();
+        CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor(metadataSource());
         interceptor.setAccessDecisionManager(accessDecisionManager());
         return interceptor;
     }
