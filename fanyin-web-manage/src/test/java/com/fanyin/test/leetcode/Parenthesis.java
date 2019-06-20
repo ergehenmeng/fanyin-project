@@ -13,6 +13,37 @@ import java.util.*;
 public class Parenthesis {
 
 
+    /**
+     * 幂次方
+     * @param n 3的多少次方
+     * @return
+     */
+    public static int pow(int n){
+        int sum = 1;
+        int tmp = 3;
+        while(n != 0){
+            if((n & 1) == 1){
+                sum *= tmp;
+            }
+            tmp *= tmp;
+            n = n >> 1;
+        }
+        return sum;
+    }
+
+    /**
+     * 查找比n小的2的幂指数
+     * @param n
+     * @return
+     */
+    public static int findN(int n){
+        n |= n >> 1;
+        n |= n >> 2;
+        n |= n >> 4;
+        n |= n >> 8; // 整型一般是 32 位，上面我是假设 8 位。
+        return (n + 1) >> 1;
+    }
+
 
     private static List<String> generateParenthesis(int n) {
         List<String> list = Lists.newArrayList();
@@ -595,7 +626,7 @@ public class Parenthesis {
     /**
      * 数组中是否有单独存在的数字
      * @param nums
-     * @return
+     * @returnz
      */
     public int singleNumber(int[] nums) {
 
@@ -1037,6 +1068,25 @@ public class Parenthesis {
         }
 
         return true;
+    }
+
+    public int firstMissingPositive(int[] nums) {
+        if(nums.length<=0){
+            return 1;
+        };
+        boolean[] lst = new boolean[nums.length+2];
+        for(int i=0; i<nums.length; i++){
+            if(nums[i]>0 && nums[i]<=nums.length) {
+                lst[nums[i]] = true;
+
+            }
+        }
+        for(int i=1; i<lst.length; i++) {
+            if (!lst[i]) {
+                return i;
+            }
+        }
+        return 1;
     }
 
     public static void main(String[] args) {

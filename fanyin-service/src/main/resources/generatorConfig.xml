@@ -51,7 +51,7 @@
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="system_address" domainObjectName="SystemAddress"
+        <table tableName="tran" domainObjectName="Tran"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false">

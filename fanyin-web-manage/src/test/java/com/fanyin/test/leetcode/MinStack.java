@@ -58,5 +58,24 @@ public class MinStack {
         stack.pop();
         int min = stack.getMin();
         System.out.println(min);
+
+        System.out.println(findN(1073741825L));
     }
+
+    /**
+     * 查找比n小的2的幂指数
+     * @param n
+     * @return
+     */
+    public static long findN(long n){
+        n |= n >> 1;
+        n |= n >> 2;
+        n |= n >> 4;
+        n |= n >> 8; // 整型一般是 32 位，上面我是假设 8 位。
+        n |= n >> 16;
+
+        return (n + 1) >> 1;
+    }
+
+
 }

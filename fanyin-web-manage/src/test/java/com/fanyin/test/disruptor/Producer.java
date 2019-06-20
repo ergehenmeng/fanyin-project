@@ -31,7 +31,7 @@ public class Producer {
     }
 
     public static void main(String[] args) throws Exception{
-        ThreadFactory executor = r -> new Thread(r);
+        ThreadFactory executor = Thread::new;
         final DataFactory factory = new DataFactory();
         final int bufferSize = 1024;
         Disruptor<Data> disruptor = new Disruptor<>(factory,bufferSize,executor, ProducerType.MULTI,new BlockingWaitStrategy());

@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAspectJAutoProxy
 @MapperScan("com.fanyin.mapper")
 @ServletComponentScan(basePackages = {"com.fanyin.filter","com.fanyin.listener"})
+@EnableRedisHttpSession
 public class Application {
 
     public static void main(String[] args) {

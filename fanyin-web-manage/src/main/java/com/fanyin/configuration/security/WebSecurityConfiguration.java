@@ -4,7 +4,6 @@ import com.fanyin.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,11 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.session.SessionInformationExpiredStrategy;
-import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
 import org.springframework.util.StringUtils;
-
-import javax.servlet.Filter;
 
 /**
  * spring security权限配置
@@ -43,8 +38,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
     @Override
-    @Bean("userDetailsService")
     protected UserDetailsService userDetailsService() {
+        return detailsService();
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService detailsService(){
         return new OperatorDetailsServiceImpl();
     }
 
@@ -83,15 +82,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     }
 
-
-    @Bean
-    public SessionInformationExpiredStrategy sessionInformationExpiredStrategy(){
-        return new SimpleRedirectSessionInformationExpiredStrategy("/");
-    }
-
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -99,7 +91,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 登陆校验器
      * @return bean
      */
-    @Bean
     public AuthenticationProvider authenticationProvider(){
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
         //屏蔽原始错误异常
@@ -112,7 +103,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 登陆成功后置处理
      * @return bean
      */
-    @Bean
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
     }
@@ -121,7 +111,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 退出登陆
      * @return bean
      */
-    @Bean
     public LogoutSuccessHandler logoutSuccessHandler(){
         return new LogoutSuccessHandler();
     }
@@ -130,7 +119,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 登陆失败后置处理
      * @return bean
      */
-    @Bean
      public LoginFailureHandler customAuthenticationFailureHandler(){
         return new LoginFailureHandler();
     }
@@ -148,17 +136,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         return interceptor;
     }
 
-    /**
-     * 声明为Bean会加入到全局FilterChain中拦截所有请求
-     * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
-     * @return bean
-     */
-    @Bean
-    public FilterRegistrationBean<Filter> registration(){
-        return new FilterRegistrationBean<>(filterSecurityInterceptor());
-    }
 
-    @Bean
     public CustomAccessDecisionManager accessDecisionManager(){
         return new CustomAccessDecisionManager();
     }
@@ -177,7 +155,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 附加信息管理
      * @return bean
      */
-    @Bean
     public CustomAuthenticationDetailsSource detailsSource(){
         return new CustomAuthenticationDetailsSource();
     }

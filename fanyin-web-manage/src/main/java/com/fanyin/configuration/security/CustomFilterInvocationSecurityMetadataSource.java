@@ -57,7 +57,8 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     private List<String> getSubUrl(SystemMenu menu){
         List<String> stringList = Lists.newArrayList(menu.getUrl());
         if(StringUtil.isNotBlank(menu.getSubUrl())){
-            stringList.addAll(Splitter.on(",").splitToList(menu.getSubUrl()));
+            Iterable<String> split = Splitter.on(",").split(menu.getSubUrl());
+            split.forEach(stringList::add);
         }
         return stringList;
     }
