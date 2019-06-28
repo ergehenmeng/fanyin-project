@@ -7,7 +7,6 @@ import com.fanyin.utils.DateUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,12 +15,17 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 上传文件
+ * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
+ * 返回给调用方的文件地址=公共路径+文件分类路径+日期+文件名+后缀<br>
+ * <h4>说明</h4>
+ * 根路径由{@link ApplicationProperties#getUploadDir()}决定<br>
+ * 公共路径默认/static/ 方便nginx或服务做静态资源拦截映射<br>
+ * 文件分类路径{@link AbstractUploadController#getFolderName()}决定<br>
+ * 日期默认yyyyMMdd<br>
  * @author 二哥很猛
  * @date 2018/11/27 15:20
  */
 @Slf4j
-@Controller
 public abstract class AbstractUploadController extends AbstractController{
 
     @Autowired
@@ -35,7 +39,7 @@ public abstract class AbstractUploadController extends AbstractController{
     /**
      * 默认配置,如果不指定则会自动创建文件
      */
-    public static final String DEFAULT_DIR = SPT + "upload" + SPT;
+    public static final String DEFAULT_DIR = SPT + "static" + SPT;
 
     /**
      * 单文件上传 最大5M
@@ -48,23 +52,10 @@ public abstract class AbstractUploadController extends AbstractController{
     private static final long TOTAL_MAX_SIZE = 20 * 1024 * 1024;
 
     /**
-     * 默认文件类型
+     * 默认文件夹名称
      */
-    private static final String DEFAULT_FILE_TYPE = "img";
+    private static final String DEFAULT_FOLDER_NAME = "image";
 
-    /**
-     * 绝对路径
-     */
-    private static final String ABSOLUTE_PATH = "file:///";
-
-    /**
-     * 保存单文件 最大默认5M
-     * @param file 文件的文件
-     * @return 保存文件后的相对路径
-     */
-    public String saveFile(MultipartFile file){
-        return saveFile(file,MAX_FILE_SIZE);
-    }
 
     /**
      * 保存单文件
@@ -72,12 +63,21 @@ public abstract class AbstractUploadController extends AbstractController{
      * @param maxSize 单文件最大 单位:b 注意:系统级单文件大小需要在application.properties中配置 默认1M
      * @return 保存文件后的相对路径
      */
-    String saveFile(MultipartFile file, long maxSize){
+    protected String saveFile(MultipartFile file, long maxSize){
         if(maxSize < file.getSize()){
             log.warn("上传文件过大:{}",file.getSize());
-            throw new BusinessException(ErrorCodeEnum.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / (1024 * 1024) + "M");
+            throw new BusinessException(ErrorCodeEnum.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / 1048576 + "M");
         }
-        return doSave(file);
+        return this.doSaveFile(file);
+    }
+
+    /**
+     * 保存文件 最大支持5M
+     * @param file 文件
+     * @return 保存后的相对路径
+     */
+    protected String saveFile(MultipartFile file){
+        return this.saveFile(file,MAX_FILE_SIZE);
     }
 
     /**
@@ -85,26 +85,41 @@ public abstract class AbstractUploadController extends AbstractController{
      * @param file 文件
      * @return 保存文件后的相对路径
      */
-    private String doSave(MultipartFile file){
-        String parentPath = createPath(getType());
-        String fileName = createFileName(file.getOriginalFilename());
+    private String doSaveFile(MultipartFile file){
+        String filePath = createFilePath(file.getOriginalFilename());
         try {
-            file.transferTo(getChildFile(parentPath,fileName));
+            file.transferTo(createFile(filePath));
         } catch (IOException e) {
             log.warn("上传文件保存失败:{}",e.getMessage());
             throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
         }
-        return (parentPath + fileName).replaceAll("\\\\","/");
+        return filePath.replaceAll("\\\\","/");
     }
 
+    /**
+     * 根据文件路径信息创建文件,如果父级目录不存在则创建
+     * @param filePath 路径
+     * @return 文件
+     */
+    private File createFile(String filePath){
+        File file = new File(getBaseDir() + filePath);
+        File parentFile = file.getParentFile();
+        if(!parentFile.exists()){
+            if(!parentFile.mkdirs()){
+                log.error("文件目录创建失败 {}",parentFile.getAbsoluteFile());
+                throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
+            }
+        }
+        return file;
+    }
 
     /**
      * 多文件上传保存 默认最大总文件为:20M
      * @param files 待上传的文件列表
      * @return 保存文件后的相对路径
      */
-    public List<String> saveFiles(List<MultipartFile> files){
-        return saveFiles(files,TOTAL_MAX_SIZE);
+    protected List<String> saveFiles(List<MultipartFile> files){
+        return this.saveFiles(files,TOTAL_MAX_SIZE);
     }
 
     /**
@@ -113,7 +128,7 @@ public abstract class AbstractUploadController extends AbstractController{
      * @param maxSize 所有文件总大小限制 单位:b
      * @return 保存文件后的相对路径
      */
-    public List<String> saveFiles(List<MultipartFile> files, long maxSize){
+    protected List<String> saveFiles(List<MultipartFile> files, long maxSize){
 
         long requestSize = 0;
         //本次遍历 主要防止如果部分文件保存,而最后文件过大导致浪费空间
@@ -127,46 +142,27 @@ public abstract class AbstractUploadController extends AbstractController{
 
         List<String> paths = Lists.newArrayList();
         for(MultipartFile file : files){
-            paths.add(doSave(file));
+            paths.add(this.doSaveFile(file));
         }
         return paths;
     }
 
     /**
-     * 生成文件信息
-     * @param parentPath 父级目录
-     * @param fileName 文件名称 包含后缀
-     * @return file
+     * 获取基础路径
+     * @return 基础路径 D:/file/data或者
      */
-    private File getChildFile(String parentPath,String fileName){
-        //根目录+父级目录+文件名称 确认总路径
-        File parentFile = new File(getDir() + parentPath);
-        if(!parentFile.exists()){
-            boolean mkdirs = parentFile.mkdirs();
-            if(!mkdirs){
-                log.error("文件目录创建失败,parentPath:{},fileName:{}");
-                throw new BusinessException(ErrorCodeEnum.FILE_CREATE_ERROR);
-            }
-        }
-        return new File(parentFile,fileName);
+    private String getBaseDir(){
+        return applicationProperties.getUploadDir();
     }
 
-    private String getDir(){
-        String uploadDir = applicationProperties.getUploadDir();
-        if(uploadDir.startsWith(ABSOLUTE_PATH)){
-            uploadDir = uploadDir.replace(ABSOLUTE_PATH,"");
-        }
-        return uploadDir;
-    }
 
     /**
-     * 生成文件保存路径 同时也是url路径
-     * @param type 分类
-     * @return 例如
-     * 1: /upload/img/2017-12-12/fbf48fc3-f219-11e8-b456-4ccc6af6f949.png
+     * 创建文件路径信息
+     * @param fileFullName 文件全名 包含后缀
+     * @return 全路径
      */
-    private String createPath(String type){
-        return DEFAULT_DIR + type + SPT + DateUtil.formatShort(DateUtil.getNow()) + SPT;
+    private String createFilePath(String fileFullName){
+        return DEFAULT_DIR + this.getFolderName() + SPT + DateUtil.formatShortLimit(DateUtil.getNow()) + SPT + this.createFileName(fileFullName);
     }
 
     /**
@@ -191,9 +187,8 @@ public abstract class AbstractUploadController extends AbstractController{
      * 获取项目的根目录 子类可覆盖该方法用于指定上传文件目录
      * @return 目前为空
      */
-    protected String getType(){
-        return DEFAULT_FILE_TYPE;
+    protected String getFolderName(){
+        return DEFAULT_FOLDER_NAME;
     }
-
 
 }

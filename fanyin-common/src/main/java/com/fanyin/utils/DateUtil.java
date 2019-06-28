@@ -31,6 +31,8 @@ public class DateUtil extends DateUtils {
 
     private static final String TIMES = "HH:mm:ss";
 
+    private static final String SHORT_DATE_LIMIT = "yyyyMMdd";
+
     /**
      * 格式化日期 yyyy-MM-dd HH:mm:ss
      * @param date date
@@ -39,6 +41,7 @@ public class DateUtil extends DateUtils {
     public static String formatLong(Date date){
         return format(date,LONG_DATE);
     }
+
     /**
      * 格式化日期 yyyy-MM-dd
      * @param date date
@@ -48,6 +51,14 @@ public class DateUtil extends DateUtils {
         return format(date,SHORT_DATE);
     }
 
+    /**
+     * 格式化日期 yyyyMMdd
+     * @param date date
+     * @return 字符串日期
+     */
+    public static String formatShortLimit(Date date){
+        return format(date,SHORT_DATE_LIMIT);
+    }
     /**
      * 格式化日期 HH:mm:ss
      * @param date date

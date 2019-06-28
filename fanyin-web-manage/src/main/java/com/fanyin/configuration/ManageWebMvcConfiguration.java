@@ -33,9 +33,9 @@ public class ManageWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations(applicationProperties.getUploadDir() + AbstractUploadController.DEFAULT_DIR);
+        //如果采用nginx进行静态资源转发,则不需要该配置
+        registry.addResourceHandler("/static/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + AbstractUploadController.DEFAULT_DIR);
     }
-
 
 
     @Bean
