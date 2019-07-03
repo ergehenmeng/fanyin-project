@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 等同于Access+Signature+Validation
+ * 等同于Access+Signature
  * 即:需要登陆,数据签名,数据校验
  * @author 二哥很猛
  * @date 2018/9/13 11:40

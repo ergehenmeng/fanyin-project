@@ -11,7 +11,6 @@ package com.fanyin.enums;
  */
 public enum ErrorCodeEnum {
 
-
     /**
      * 标的信息不存在
      */
@@ -67,73 +66,81 @@ public enum ErrorCodeEnum {
     SIGN_ERROR(1008,"验签失败"),
 
     /**
-     * 参数解析异常
-     */
-    PARAMETER_PARSE_ERROR(1009,"参数解析异常"),
-
-    /**
      * 未指定方法实现
      */
-    NOT_IMPLEMENT(1010,"未指定方法实现"),
+    NOT_IMPLEMENT(1009,"未指定方法实现"),
 
     /**
      * 参数转换异常
      */
-    PARAMETER_CASE_ERROR(1011,"参数转换异常"),
+    PARAMETER_CASE_ERROR(1010,"参数转换异常"),
     /**
      *未知主机名
      */
-    UN_KNOW_HOSTNAME(1012,"未知主机名"),
+    UN_KNOW_HOSTNAME(1011,"未知主机名"),
     /**
      * 未知主机地址
      */
-    UN_KNOW_HOST_ADDRESS(1013,"未知主机地址"),
+    UN_KNOW_HOST_ADDRESS(1012,"未知主机地址"),
 
     /**
      * 请求接口非法
      */
-    REQUEST_INTERFACE_ERROR(1014,"请求接口非法"),
+    REQUEST_INTERFACE_ERROR(1013,"请求接口非法"),
 
     /**
      * 请求参数非法
      */
-    REQUEST_PARAM_ILLEGAL(1015,"请求参数非法"),
+    REQUEST_PARAM_ILLEGAL(1014,"请求参数非法"),
 
     /**
      * 日期格式转换异常
      */
-    DATE_CASE_ERROR(1016,"日期格式转换异常"),
+    DATE_CASE_ERROR(1015,"日期格式转换异常"),
+
+    /**
+     * 请求解析异常
+     */
+    REQUEST_RESOLVE_ERROR(1016,"请求解析异常"),
+
+
+    /**
+     * 参数解析异常
+     */
+    PARAMETER_PARSE_ERROR(2000,"参数解析异常"),
+
     /**
      * 身份证格式校验错误
      */
-    ID_CARD_ERROR(2000,"身份证格式校验错误"),
+    ID_CARD_ERROR(2001,"身份证格式校验错误"),
 
     /**
      * 对象不能为空
      */
-    NOT_NULL_ERROR(2001,"对象不能为空"),
+    NOT_NULL_ERROR(2002,"对象不能为空"),
 
     /**
      * select指定nid不能为空
      */
-    NID_IS_NULL(2002,"@select指定nid不能为空"),
+    NID_IS_NULL(2003,"@select指定nid不能为空"),
 
 
     /**
      * 权限校验异常,请联系管理人员
      */
-    PERMISSION_ERROR(2003,"权限校验异常,请联系管理人员"),
+    PERMISSION_ERROR(2004,"权限校验异常,请联系管理人员"),
 
 
     /**
      * 日志异常,用户未登陆
      */
-    OPERATION_LOGIN_ERROR(2004,"日志异常,用户未登陆"),
+    OPERATION_LOGIN_ERROR(2005,"日志异常,用户未登陆"),
 
     /**
      * auth指定的nid不能为空
      */
-    AUTH_NID_ERROR(2005,"@auth指定的nid不能为空"),
+    AUTH_NID_ERROR(2006,"@auth指定的nid不能为空"),
+
 
     /**
      * 系统配置信息未查询到
