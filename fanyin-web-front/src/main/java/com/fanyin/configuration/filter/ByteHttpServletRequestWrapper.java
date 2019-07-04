@@ -1,4 +1,4 @@
-package com.fanyin.filter;
+package com.fanyin.configuration.filter;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
@@ -18,10 +18,9 @@ import java.nio.charset.Charset;
 @Slf4j
 public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-
     private byte[] requestByte;
 
-    public ByteHttpServletRequestWrapper(HttpServletRequest request) {
+    ByteHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
         this.requestByte = readByte(request);
     }
@@ -53,16 +52,19 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream(){
+
         ByteArrayInputStream bos = new ByteArrayInputStream(requestByte);
+
         return new ServletInputStream() {
+
             @Override
             public boolean isFinished() {
-                return false;
+                return bos.available() <= 0;
             }
 
             @Override
             public boolean isReady() {
-                return false;
+                return true;
             }
 
             @Override

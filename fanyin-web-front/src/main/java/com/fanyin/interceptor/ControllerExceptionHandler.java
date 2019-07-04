@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class ControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

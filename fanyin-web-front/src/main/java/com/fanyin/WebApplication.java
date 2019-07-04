@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync
 @EnableAspectJAutoProxy
 @MapperScan("com.fanyin.mapper")
-@ServletComponentScan(basePackages = "com.fanyin.filter")
+@ServletComponentScan(basePackages = "com.fanyin.configuration.filter")
 public class WebApplication {
 
     public static void main(String[] args) {

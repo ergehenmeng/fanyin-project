@@ -31,6 +31,7 @@ public class HeaderConstant {
      * 请求时间戳
      */
     public static final String TIMESTAMP = "Timestamp";
+
     /**
      * 软件版本号
      */
