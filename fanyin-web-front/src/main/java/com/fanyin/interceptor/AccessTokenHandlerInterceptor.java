@@ -6,8 +6,7 @@ import com.fanyin.dto.security.AccessToken;
 import com.fanyin.dto.security.DataMessage;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.enums.Source;
-import com.fanyin.exception.ParameterException;
-import com.fanyin.exception.SystemException;
+import com.fanyin.exception.RequestException;
 import com.fanyin.service.common.AccessTokenService;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +36,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
         //访问来源
         if(!requestType(handler,message.getRequestType())){
             log.error("请求接口非法,requestType:{}",message.getRequestType());
-            throw new SystemException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
+            throw new RequestException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
         //登陆
         if(access(handler)){
@@ -58,12 +57,12 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     private void accessTokenVerify(String accessKey,String accessToken,DataMessage message){
         if (accessKey == null || accessToken == null){
             log.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
-            throw new ParameterException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
+            throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         AccessToken token = accessTokenService.getAccessToken(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getRequestType().equals(message.getRequestType())){
             log.error("令牌无效,accessKey:{}",accessKey);
-            throw new ParameterException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
+            throw new RequestException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间
         accessTokenService.saveAccessToken(token);

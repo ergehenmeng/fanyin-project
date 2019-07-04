@@ -20,6 +20,7 @@ public enum ErrorCodeEnum {
      * 系统繁忙,请稍后再试
      */
     SYSTEM_ERROR(9999,"系统繁忙,请稍后再试"),
+
     /**
      * json转换异常
      */
@@ -74,10 +75,12 @@ public enum ErrorCodeEnum {
      * 参数转换异常
      */
     PARAMETER_CASE_ERROR(1010,"参数转换异常"),
+
     /**
      *未知主机名
      */
     UN_KNOW_HOSTNAME(1011,"未知主机名"),
+
     /**
      * 未知主机地址
      */
@@ -94,15 +97,24 @@ public enum ErrorCodeEnum {
     REQUEST_PARAM_ILLEGAL(1014,"请求参数非法"),
 
     /**
-     * 日期格式转换异常
-     */
-    DATE_CASE_ERROR(1015,"日期格式转换异常"),
-
-    /**
      * 请求解析异常
      */
-    REQUEST_RESOLVE_ERROR(1016,"请求解析异常"),
+    REQUEST_RESOLVE_ERROR(1015,"请求解析异常"),
 
+    /**
+     * 签名信息为空
+     */
+    SIGNATURE_ERROR(1016,"签名信息为空"),
+
+    /**
+     * 签名时间为空
+     */
+    SIGNATURE_TIMESTAMP_ERROR(1016,"签名时间为空"),
+
+    /**
+     * 签名校验异常
+     */
+    SIGNATURE_VERIFY_ERROR(1017,"签名校验失败"),
 
     /**
      * 参数解析异常
@@ -124,12 +136,10 @@ public enum ErrorCodeEnum {
      */
     NID_IS_NULL(2003,"@select指定nid不能为空"),
 
-
     /**
      * 权限校验异常,请联系管理人员
      */
     PERMISSION_ERROR(2004,"权限校验异常,请联系管理人员"),
-
 
     /**
      * 日志异常,用户未登陆
@@ -141,6 +151,10 @@ public enum ErrorCodeEnum {
      */
     AUTH_NID_ERROR(2006,"@auth指定的nid不能为空"),
 
+    /**
+     * 日期格式转换异常
+     */
+    DATE_CASE_ERROR(2007,"日期格式转换异常"),
 
     /**
      * 系统配置信息未查询到
@@ -211,18 +225,22 @@ public enum ErrorCodeEnum {
      * 产品状态错误
      */
     PROJECT_STATUS_ERROR(3013,"产品状态错误"),
+
     /**
      * 用户资金信息更新异常
      */
     ACCOUNT_UPDATE_ERROR(3014,"资金信息更新错误"),
+
     /**
      * 资金校验错误
      */
     ACCOUNT_CHECK_ERROR(3015,"资金校验错误"),
+
     /**
      * 优惠券不存在
      */
     COUPON_NOT_FOUND(3016,"优惠券不存在"),
+
     /**
      * 优惠券不在有效期
      */
@@ -236,26 +254,32 @@ public enum ErrorCodeEnum {
      * 优惠券使用期限不符
      */
     COUPON_PERIOD_ERROR(3019,"优惠券使用期限不符"),
+
     /**
      * 产品额度已投满
      */
     PROJECT_FULL_ERROR(3020,"产品额度已投满"),
+
     /**
      * 产品预售时间未到
      */
     PROJECT_PRE_SALE(3021,"产品预售时间未到"),
+
     /**
      * 最小投标金额不足
      */
     PROJECT_MIN_TENDER(3022,"最小投标金额不足"),
+
     /**
      * 产品剩余可投不足
      */
     PROJECT_NOT_ENOUGH(3021,"产品剩余可投不足"),
+
     /**
      * 账户可用余额不足
      */
     ACCOUNT_NOT_ENOUGH(3022,"账户可用余额不足"),
+
     /**
      * 投标人数过多,请稍后再试
      */
@@ -270,18 +294,22 @@ public enum ErrorCodeEnum {
      * 存管激活中,无法操作
      */
     DEPOSIT_ACTIVATING(3025,"存管激活中,无法操作"),
+
     /**
      * 存管授权中,无法操作
      */
     DEPOSIT_AUTH(3026,"存管授权中,无法操作"),
+
     /**
      * 存管手机号变更中,无法操作
      */
     DEPOSIT_MOBILE_MODIFY(3027,"存管手机号变更中,无法操作"),
+
     /**
      * 存管银行卡变更中,无法操作
      */
     DEPOSIT_BANK_MODIFY(3028,"存管银行卡变更中,无法操作"),
+
     /**
      * 存管企业信息审核中,无法操作
      */
@@ -296,14 +324,17 @@ public enum ErrorCodeEnum {
      * 上传文件过大
      */
     UPLOAD_TOO_BIG(3030,"上传文件过大"),
+
     /**
      * 文件保存失败
      */
     FILE_SAVE_ERROR(3031,"文件保存失败"),
+
     /**
      * 创建文件失败
      */
     FILE_CREATE_ERROR(3032,"创建文件失败"),
+
     /**
      * 该数据字典已锁定
      */

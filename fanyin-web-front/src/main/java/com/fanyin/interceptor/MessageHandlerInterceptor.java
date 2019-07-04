@@ -3,7 +3,7 @@ package com.fanyin.interceptor;
 import com.fanyin.constant.HeaderConstant;
 import com.fanyin.dto.security.DataMessage;
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.exception.SystemException;
+import com.fanyin.exception.RequestException;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
                 || checkHeaderLength(version)
                 || checkHeaderLength(osVersion)){
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
-            throw new SystemException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
+            throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         DataMessage message = new DataMessage(version,requestType,osVersion);
         TOKEN_LOCAL.set(message);

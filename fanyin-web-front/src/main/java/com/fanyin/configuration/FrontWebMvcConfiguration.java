@@ -2,6 +2,8 @@ package com.fanyin.configuration;
 
 import com.fanyin.configuration.filter.ByteHttpRequestFilter;
 import com.fanyin.interceptor.AccessTokenHandlerInterceptor;
+import com.fanyin.interceptor.MessageHandlerInterceptor;
+import com.fanyin.interceptor.SignatureHandlerInterceptor;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,16 +29,36 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(accessHandlerInterceptor()).excludePathPatterns(IGNORE_URLS);
+        registry.addInterceptor(signatureHandlerInterceptor()).excludePathPatterns(IGNORE_URLS).order(Integer.MIN_VALUE + 1);
+        registry.addInterceptor(messageHandlerInterceptor()).excludePathPatterns(IGNORE_URLS).order(Integer.MIN_VALUE + 2);
+        registry.addInterceptor(accessHandlerInterceptor()).excludePathPatterns(IGNORE_URLS).order(Integer.MIN_VALUE + 3);
     }
 
     /**
-     * 签名,令牌拦截器
-     * @return handler
+     * 登陆校验拦截器
+     * @return interceptor
      */
     @Bean
     public HandlerInterceptor accessHandlerInterceptor(){
         return new AccessTokenHandlerInterceptor();
+    }
+
+    /**
+     * 签名校验拦截器
+     * @return interceptor
+     */
+    @Bean
+    public HandlerInterceptor signatureHandlerInterceptor(){
+        return new SignatureHandlerInterceptor();
+    }
+
+    /**
+     * 请求基础信息收集拦截器
+     * @return interceptor
+     */
+    @Bean
+    public HandlerInterceptor messageHandlerInterceptor(){
+        return new MessageHandlerInterceptor();
     }
 
 

@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.fanyin.annotation.SkipDataBinder;
 import com.fanyin.constant.CommonConstant;
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.exception.BusinessException;
 import com.fanyin.exception.ParameterException;
+import com.fanyin.exception.RequestException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.MethodParameter;
@@ -38,11 +38,11 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(@NotNull MethodParameter parameter, ModelAndViewContainer mavContainer, @Nullable NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         if(webRequest == null){
-            throw new BusinessException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
+            throw new RequestException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
         }
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         if(request == null){
-            throw new BusinessException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
+            throw new RequestException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
         }
 
         Object args = jsonFormat(request, parameter.getParameterType());
@@ -53,7 +53,7 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
             List<ObjectError> allErrors = bindingResult.getAllErrors();
             //只显示第一条校验失败的信息
             ObjectError objectError = allErrors.get(0);
-            throw new ParameterException(ErrorCodeEnum.PARAMETER_PARSE_ERROR.getCode(),objectError.getDefaultMessage());
+            throw new RequestException(ErrorCodeEnum.PARAMETER_PARSE_ERROR.getCode(),objectError.getDefaultMessage());
         }
         return args;
     }

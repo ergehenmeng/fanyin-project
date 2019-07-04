@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 
 /**
@@ -24,7 +25,7 @@ public class Sha256Util {
     public static String sha256(String message){
         try {
             MessageDigest instance = MessageDigest.getInstance("SHA-256");
-            instance.update(message.getBytes("UTF-8"));
+            instance.update(message.getBytes(Charset.forName("UTF-8")));
             byte[] digest = instance.digest();
             return ByteUtil.byteArrayToHex(digest);
         } catch (Exception e) {
@@ -41,9 +42,9 @@ public class Sha256Util {
     public static String sha256Hmac(String message){
         try {
             Mac instance = Mac.getInstance("HmacSHA256");
-            SecretKey secretKey = new SecretKeySpec(message.getBytes("UTF-8"),"HmacSHA256");
+            SecretKey secretKey = new SecretKeySpec(message.getBytes(Charset.forName("UTF-8")),"HmacSHA256");
             instance.init(secretKey);
-            byte[] bytes = instance.doFinal(message.getBytes("UTF-8"));
+            byte[] bytes = instance.doFinal(message.getBytes(Charset.forName("UTF-8")));
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {
             log.error("HmacSHA256加密异常",e);

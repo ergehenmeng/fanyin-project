@@ -25,7 +25,7 @@ public class HeaderConstant {
     /**
      * 签名
      */
-    public static final String SIGN = "Sign";
+    public static final String SIGNATURE = "Signature";
 
     /**
      * 请求时间戳

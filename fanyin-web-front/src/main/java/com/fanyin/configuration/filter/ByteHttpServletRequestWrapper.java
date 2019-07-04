@@ -22,7 +22,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     ByteHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-        this.requestByte = readByte(request);
+        this.requestByte = this.readByte(request);
     }
 
     /**
