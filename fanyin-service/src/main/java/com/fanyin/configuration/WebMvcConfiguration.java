@@ -1,13 +1,12 @@
 package com.fanyin.configuration;
 
+import com.fanyin.configuration.security.PasswordEncoder;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import com.google.common.collect.Maps;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jmx.export.MBeanExporter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,7 +18,6 @@ import java.util.Properties;
  * @author 二哥很猛
  * @date 2018/9/13 11:19
  */
-@Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
 
@@ -64,9 +62,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         return exporter;
     }
 
+    /**
+     * 密码加密bean 独立于spring-security之外的工具类
+     * @return bean
+     */
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder(){
+        return new BcryptPasswordEncoder();
     }
 
 }

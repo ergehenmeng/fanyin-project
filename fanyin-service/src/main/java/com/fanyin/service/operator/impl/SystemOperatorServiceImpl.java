@@ -1,5 +1,6 @@
 package com.fanyin.service.operator.impl;
 
+import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.dto.operator.OperatorAddRequest;
 import com.fanyin.dto.operator.OperatorEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
@@ -19,12 +20,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +38,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     private SystemOperatorMapper systemOperatorMapper;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private SystemOperatorRoleMapper systemOperatorRoleMapper;
@@ -53,11 +51,11 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public String updateLoginPassword(PasswordEditRequest request) {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
-        String oldPassword = bCryptPasswordEncoder.encode(request.getOldPwd());
+        String oldPassword = passwordEncoder.encode(request.getOldPwd());
         if(!operator.getPwd().equals(oldPassword)){
             throw new BusinessException(ErrorCodeEnum.OPERATOR_PASSWORD_ERROR);
         }
-        String newPassword = bCryptPasswordEncoder.encode(request.getNewPwd());
+        String newPassword = passwordEncoder.encode(request.getNewPwd());
         operator.setPwd(newPassword);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         return newPassword;
@@ -91,7 +89,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public String initPassword(String mobile) {
         String md5Password = Md5Util.md5(mobile.substring(4));
-        return bCryptPasswordEncoder.encode(md5Password);
+        return passwordEncoder.encode(md5Password);
     }
 
     @Override

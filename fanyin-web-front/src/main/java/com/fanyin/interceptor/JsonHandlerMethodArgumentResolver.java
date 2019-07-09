@@ -6,7 +6,6 @@ import com.fanyin.constant.CommonConstant;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
 import com.fanyin.exception.RequestException;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.validation.BindingResult;
@@ -14,10 +13,12 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
@@ -40,10 +41,8 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
         if(webRequest == null){
             throw new RequestException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
         }
-        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-        if(request == null){
-            throw new RequestException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
-        }
+
+        HttpServletRequest request = ((ServletWebRequest)webRequest).getRequest();
 
         Object args = jsonFormat(request, parameter.getParameterType());
         WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());

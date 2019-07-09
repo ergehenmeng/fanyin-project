@@ -22,4 +22,9 @@ public class ConfigConstant {
      * 系统环境
      */
     public static final String ENV = "env";
+
+    /**
+     * 客户端与服务端时间误差,单位ms
+     */
+    public static final String TIMESTAMP_DEVIATION = "timestamp_deviation";
 }

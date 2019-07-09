@@ -52,7 +52,7 @@
     </appender>
 
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="rolling_info_file"/>
         <appender-ref ref="rolling_error_file"/>
         <appender-ref ref="console"/>

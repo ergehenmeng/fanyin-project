@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.util.StringUtils;
 
@@ -34,7 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     private WebMvcProperties webMvcProperties;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -83,7 +82,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth){
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -96,7 +95,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(userDetailsService());
-        provider.setEncoder(bCryptPasswordEncoder);
+        provider.setEncoder(passwordEncoder);
         return provider;
     }
     /**

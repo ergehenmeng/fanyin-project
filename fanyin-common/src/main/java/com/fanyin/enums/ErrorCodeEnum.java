@@ -107,14 +107,19 @@ public enum ErrorCodeEnum {
     SIGNATURE_ERROR(1016,"签名信息为空"),
 
     /**
-     * 签名时间为空
+     * 签名时间校验失败
      */
-    SIGNATURE_TIMESTAMP_ERROR(1016,"签名时间为空"),
+    SIGNATURE_TIMESTAMP_NULL(1016,"签名校验失败"),
 
     /**
      * 签名校验异常
      */
-    SIGNATURE_VERIFY_ERROR(1017,"签名校验失败"),
+    SIGNATURE_TIMESTAMP_ERROR(1017,"签名校验失败"),
+
+    /**
+     * 签名校验异常
+     */
+    SIGNATURE_VERIFY_ERROR(1018,"签名校验失败"),
 
     /**
      * 参数解析异常
