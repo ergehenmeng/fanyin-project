@@ -39,7 +39,7 @@ public abstract class AbstractUploadController extends AbstractController{
     /**
      * 默认配置,如果不指定则会自动创建文件
      */
-    public static final String DEFAULT_DIR = SPT + "static" + SPT;
+    public static final String DEFAULT_DIR = SPT + "upload" + SPT;
 
     /**
      * 单文件上传 最大5M
