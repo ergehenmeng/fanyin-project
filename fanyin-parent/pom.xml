@@ -48,9 +48,9 @@
 
       <!--生产消费者-->
       <disruptor.version>3.4.2</disruptor.version>
-      <akka.version>2.5.13</akka.version>
+      <akka.version>2.5.16</akka.version>
       <httpclient.version>4.5.3</httpclient.version>
-      <zookeeper.version>3.4.10</zookeeper.version>
+      <zookeeper.version>3.4.14</zookeeper.version>
       <!--zookeeper客户端工具-->
       <curator.version>2.12.0</curator.version>
       <!--调度定时任务-->
@@ -76,6 +76,8 @@
       <redisson.version>3.5.0</redisson.version>
       <!--cglib代理-->
       <cglib.version>3.2.5</cglib.version>
+      <!--lucene搜索-->
+      <lucene.version>3.2.5</lucene.version>
   </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->

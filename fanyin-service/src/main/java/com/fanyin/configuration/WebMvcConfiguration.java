@@ -41,6 +41,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING,"abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES,"宋体");
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL,"com.google.code.kaptcha.impl.ShadowGimpy");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL,"com.fanyin.configuration.CaptchaProducer");
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;
