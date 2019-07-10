@@ -21,8 +21,8 @@ public class BcryptPasswordEncoder implements PasswordEncoder {
      * @return 加密后字符串
      */
     @Override
-    public String encode(CharSequence rawPassword) {
-        return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt());
+    public String encode(String rawPassword) {
+        return BCrypt.hashpw(rawPassword, BCrypt.gensalt());
     }
 
     /**
@@ -32,7 +32,7 @@ public class BcryptPasswordEncoder implements PasswordEncoder {
      * @return true 匹配 false 不匹配
      */
     @Override
-    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+    public boolean matches(String rawPassword, String encodedPassword) {
 
         if (encodedPassword == null || encodedPassword.length() == 0) {
             return false;
@@ -42,6 +42,6 @@ public class BcryptPasswordEncoder implements PasswordEncoder {
             log.warn("非BCrypt算法");
             return false;
         }
-        return BCrypt.checkpw(rawPassword.toString(), encodedPassword);
+        return BCrypt.checkpw(rawPassword, encodedPassword);
     }
 }

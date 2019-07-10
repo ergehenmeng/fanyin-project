@@ -12,7 +12,7 @@ public interface PasswordEncoder {
      * @param rawPassword 原始密码
      * @return 加密后字符串
      */
-    String encode(CharSequence rawPassword);
+    String encode(String rawPassword);
 
     /**
      * 查看密码是否匹配
@@ -20,5 +20,5 @@ public interface PasswordEncoder {
      * @param encodedPassword 加密后的密码
      * @return true 匹配 false 不匹配
      */
-    boolean matches(CharSequence rawPassword, String encodedPassword);
+    boolean matches(String rawPassword, String encodedPassword);
 }
