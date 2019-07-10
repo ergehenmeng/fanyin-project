@@ -12,7 +12,6 @@ public class ConfigConstant {
      */
     public static final String INTEGRAL_TENDER = "integral_tender";
 
-
     /**
      * 操作日志开关
      */
@@ -27,4 +26,9 @@ public class ConfigConstant {
      * 客户端与服务端时间误差,单位ms
      */
     public static final String TIMESTAMP_DEVIATION = "timestamp_deviation";
+
+    /**
+     * 发件人
+     */
+    public static final String ADDRESSER = "addresser";
 }
