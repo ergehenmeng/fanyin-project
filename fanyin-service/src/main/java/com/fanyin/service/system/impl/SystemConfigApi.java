@@ -8,7 +8,6 @@ import com.fanyin.service.system.SystemConfigService;
 import com.fanyin.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +74,7 @@ public class SystemConfigApi {
         try {
             return Double.parseDouble(value);
         }catch (Exception e){
-            log.error("系统参数转double异常");
+            log.error("系统参数转double异常 [{}]",value);
         }
         return 0D;
     }
@@ -90,7 +89,7 @@ public class SystemConfigApi {
         try {
             return Integer.parseInt(value);
         }catch (Exception e){
-            log.error("系统参数转int异常",e);
+            log.error("系统参数转int异常 [{}]",value);
             return 0;
         }
     }
@@ -105,7 +104,7 @@ public class SystemConfigApi {
         try {
             return JSONObject.parseObject(value);
         }catch (Exception e){
-            log.error("系统参数转json异常",e);
+            log.error("系统参数转json异常 [{}]",value);
             throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }
@@ -121,7 +120,7 @@ public class SystemConfigApi {
         try {
             return JSONObject.parseObject(value,cls);
         }catch (Exception e){
-            log.error("系统参数s转对象异常",e);
+            log.error("系统参数转对象异常 [{}]",value);
             throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
         }
     }
