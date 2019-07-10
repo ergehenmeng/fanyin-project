@@ -126,6 +126,9 @@ public enum ErrorCodeEnum {
      */
     SIGNATURE_VERIFY_ERROR(1018,"签名校验失败"),
 
+
+
+
     /**
      * 参数解析异常
      */
@@ -165,6 +168,11 @@ public enum ErrorCodeEnum {
      * 日期格式转换异常
      */
     DATE_CASE_ERROR(2007,"日期格式转换异常"),
+
+    /**
+     * 模板解析失败
+     */
+    TEMPLATE_RENDER_ERROR(2008,"模板解析失败"),
 
     /**
      * 系统配置信息未查询到

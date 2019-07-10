@@ -1,4 +1,4 @@
-package com.fanyin.configuration;
+package com.fanyin.configuration.security;
 
 import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.utils.Sha256Util;

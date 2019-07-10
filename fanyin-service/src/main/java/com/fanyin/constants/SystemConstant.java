@@ -16,4 +16,9 @@ public class SystemConstant {
      */
     public static final byte BORROWER = 1;
 
+    /**
+     * 全局字符集 utf-8
+     */
+    public static final String CHARSET = "UTF-8";
+
 }

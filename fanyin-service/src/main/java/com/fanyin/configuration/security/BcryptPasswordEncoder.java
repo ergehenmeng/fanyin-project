@@ -1,4 +1,4 @@
-package com.fanyin.configuration;
+package com.fanyin.configuration.security;
 
 import com.fanyin.configuration.security.PasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
