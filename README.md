@@ -6,28 +6,28 @@
 * 后端Md5Util对字符串加密均为小写
 * 项目中很多无用的pom,仅为了自我学习
 #### APP端请求后台通过Http协议 
-* 头信息需要包含:
-  * Request-Type: IOS,ANDROID选其中之一 (必填)
-  * Version: 软件版本 (必填) 
-  * Os-Version: 操作系统版本号 (必填)
-* 签名接口额外要传递的头信息包含:
-  * Signature :签名(签名规则见SignatureUtil)
-  * Timestamp: 时间戳
+* 头信息必须需要包含:
+  * `Request-Type`: IOS,ANDROID选其中之一 (必填)
+  * `Version`: 软件版本 (必填) 
+  * `Os-Version`: 操作系统版本号 (必填)
+  * `Signature` :签名(签名规则见`SignatureHandlerInterceptor`)
+  * `Timestamp`: 时间戳
 * 登陆后额外传递的头信息包含:
-  * Access-Key:登陆成功时后台传递前台
-  * Access-Token: 登陆成功时后台传递给前台
-* 参数校验,默认前台PC,APP,H5自动开启校验,可通过@SkipDataBinder取消参数校验
-* 登陆拦截:@Access
+  * `Access-Key`:登陆成功时后台传递前台
+  * `Access-Token`: 登陆成功时后台传递给前台
+* 参数校验,默认前台PC,APP,H5自动开启校验,可通过`@SkipDataBinder`取消参数校验
+* 登陆拦截:Controller方法上添加`@Access`注解
+* 请求body为`application/json`,且尽量不要采用复杂格式传值
 
 ## 管理后台开发
-* 全局采用easyUI开发
+* 不会vue,不会bootstrap,只会简单的jquery,因此后台采用easyui+前后端不分离方式
 
 * 基础条件采用freemarker 宏 
 ```injectedfreemarker
 <@search placeholder="input占位符"/>
 ```
 * 复杂查询采用 
-```injectedfreemarker
+```
 <@search placeholder="input占位符" advance=true> 
     <li><span>操作时间</span>
         <!-- 时间范围搜索 $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime"); -->
