@@ -1,7 +1,6 @@
 package com.fanyin.model.project;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,7 +9,6 @@ import java.util.Date;
  * @author 二哥很猛
  * @date 2018/11/9 16:54
  */
-@Slf4j
 @Data
 public class ProjectPlan {
     /**

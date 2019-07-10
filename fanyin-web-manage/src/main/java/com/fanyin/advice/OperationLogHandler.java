@@ -20,6 +20,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,10 +55,15 @@ public class OperationLogHandler {
     public Object around(ProceedingJoinPoint joinPoint,Mark mark)throws Throwable{
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if(logSwitch){
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+            if(requestAttributes == null){
+                return joinPoint.proceed();
+            }
+            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
             SecurityOperator operator = AbstractController.getOperator();
             if(operator == null){
-                throw new BusinessException(ErrorCodeEnum.OPERATION_LOGIN_ERROR);
+                log.warn("操作日志无法查询到登陆用户 url:[{}]",request.getRequestURI());
+                return joinPoint.proceed();
             }
             SystemOperationLog systemOperationLog = new SystemOperationLog();
 

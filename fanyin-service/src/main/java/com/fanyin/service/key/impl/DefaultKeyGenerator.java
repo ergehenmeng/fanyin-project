@@ -94,7 +94,7 @@ public class DefaultKeyGenerator implements KeyGenerator {
         lastTime = currentMillis;
 
         if (log.isDebugEnabled()) {
-            log.debug("分布式id生成信息:{}-{}-{}", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(lastTime)), type.getWorkId(), sequence);
+            log.debug("分布式id生成信息:[{}]-[{}]-[{}]", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(lastTime)), type.getWorkId(), sequence);
         }
 
         return ((currentMillis - EPOCH) << TIMESTAMP_LEFT_SHIFT_BITS) | (type.getWorkId() << WORKER_ID_LEFT_SHIFT_BITS) | sequence;

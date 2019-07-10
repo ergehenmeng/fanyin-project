@@ -35,7 +35,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
 
         //访问来源
         if(!requestType(handler,message.getRequestType())){
-            log.error("请求接口非法,requestType:{}",message.getRequestType());
+            log.error("请求接口非法,requestType:[{}]",message.getRequestType());
             throw new RequestException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
         //登陆
@@ -56,12 +56,12 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      */
     private void accessTokenVerify(String accessKey,String accessToken,DataMessage message){
         if (accessKey == null || accessToken == null){
-            log.error("令牌为空,accessKey:{},accessToken:{}",accessKey,accessToken);
+            log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         AccessToken token = accessTokenService.getAccessToken(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getRequestType().equals(message.getRequestType())){
-            log.error("令牌无效,accessKey:{}",accessKey);
+            log.error("令牌无效,accessKey:[{}]",accessKey);
             throw new RequestException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间

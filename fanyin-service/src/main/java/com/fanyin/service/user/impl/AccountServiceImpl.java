@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
         this.checkAccount(account);
         int i = accountMapper.updateByPrimaryKeySelective(account);
         if(i != 1){
-            log.error("用户资金账户更新异常,userId:{},count:{}",account.getUserId(),i);
+            log.error("用户资金账户更新异常,userId:[{}],count:[{}]",account.getUserId(),i);
             throw new BusinessException(ErrorCodeEnum.ACCOUNT_UPDATE_ERROR);
         }
     }

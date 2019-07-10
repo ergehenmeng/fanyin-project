@@ -214,7 +214,7 @@ public class DateUtil extends DateUtils {
         try {
             return sdf.parse(time);
         } catch (ParseException e) {
-            log.warn("日期转换异常",e);
+            log.warn("日期转换异常,date:[{}],pattern:[{}]",time,pattern,e);
         }
         return null;
     }

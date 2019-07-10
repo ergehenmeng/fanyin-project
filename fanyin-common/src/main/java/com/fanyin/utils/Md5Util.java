@@ -4,6 +4,7 @@ import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 
 /**
@@ -21,7 +22,7 @@ public class Md5Util {
     public static String md5(String str){
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(str.getBytes("UTF-8"));
+            digest.update(str.getBytes(Charset.forName("UTF-8")));
             byte[] bytes = digest.digest();
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {

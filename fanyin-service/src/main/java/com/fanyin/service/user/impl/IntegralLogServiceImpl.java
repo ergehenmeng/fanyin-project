@@ -41,7 +41,7 @@ public class IntegralLogServiceImpl implements IntegralLogService {
     @Override
     public void doAwardScore(int userId, int score, Integral integral) {
         if(score == 0){
-            log.warn("积分奖励为零,userId:{},type:{}",userId,integral);
+            log.warn("积分奖励为零,userId:[{}],type:[{}]",userId,integral);
             return;
         }
         userExtendService.updateScore(userId,score);
@@ -52,7 +52,7 @@ public class IntegralLogServiceImpl implements IntegralLogService {
     public int calcScore(Integral integral) {
         IntegralType integralType = integralTypeService.getByNid(integral);
         if(integralType == null){
-            log.warn("积分类型未查询到,nid:{}", integral.name());
+            log.warn("积分类型未查询到,nid:[{}]", integral.name());
             return 0;
         }
         int score = integralType.getScore();

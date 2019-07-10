@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.util.StringUtils;
 
@@ -70,15 +71,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .passwordParameter("password")
                 .authenticationDetailsSource(detailsSource())
                 .successHandler(loginSuccessHandler())
-                .failureHandler(customAuthenticationFailureHandler())
+                .failureHandler(loginFailureHandler())
                 .and()
              .logout()
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll()
                 .invalidateHttpSession(true);
         http.sessionManagement().maximumSessions(1).expiredUrl("/index");
-        http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class).csrf().disable();
-
+        //权限拦截
+        http
+                .addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
+                .csrf()
+                .disable()
+                //默认访问拒绝由AccessDeniedHandlerImpl处理.手动实现返回前台为json
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler());
     }
 
     @Override
@@ -90,7 +97,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 登陆校验器
      * @return bean
      */
-    public AuthenticationProvider authenticationProvider(){
+    private AuthenticationProvider authenticationProvider(){
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
@@ -102,7 +109,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 登陆成功后置处理
      * @return bean
      */
-    public LoginSuccessHandler loginSuccessHandler(){
+    private LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
     }
 
@@ -110,7 +117,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 退出登陆
      * @return bean
      */
-    public LogoutSuccessHandler logoutSuccessHandler(){
+    private LogoutSuccessHandler logoutSuccessHandler(){
         return new LogoutSuccessHandler();
     }
 
@@ -118,7 +125,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 登陆失败后置处理
      * @return bean
      */
-     public LoginFailureHandler customAuthenticationFailureHandler(){
+    private LoginFailureHandler loginFailureHandler(){
         return new LoginFailureHandler();
     }
 
@@ -136,7 +143,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
 
-    public CustomAccessDecisionManager accessDecisionManager(){
+    private CustomAccessDecisionManager accessDecisionManager(){
         return new CustomAccessDecisionManager();
     }
 
@@ -154,9 +161,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 附加信息管理
      * @return bean
      */
-    public CustomAuthenticationDetailsSource detailsSource(){
+    private CustomAuthenticationDetailsSource detailsSource(){
         return new CustomAuthenticationDetailsSource();
     }
 
+
+    /**
+     * 权限不足
+     * @return bean
+     */
+    private AccessDeniedHandler accessDeniedHandler(){
+        return new FailureAccessDeniedHandler();
+    }
 
 }

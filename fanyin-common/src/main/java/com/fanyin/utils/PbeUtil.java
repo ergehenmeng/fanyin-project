@@ -62,7 +62,7 @@ public class PbeUtil {
             Cipher cipher = Cipher.getInstance(PBE);
             SecretKey secretKey = getSecretKey(password);
             cipher.init(Cipher.ENCRYPT_MODE,secretKey,spec);
-            byte[] bytes = cipher.doFinal(str.getBytes("UTF-8"));
+            byte[] bytes = cipher.doFinal(str.getBytes(Charset.forName("UTF-8")));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             log.error("pbe加密失败",e);
@@ -109,7 +109,7 @@ public class PbeUtil {
             cipher.init(Cipher.DECRYPT_MODE,secretKey,spec);
             byte[] bytes = Base64.decodeBase64(str);
             byte[] result = cipher.doFinal(bytes);
-            return new String(result,"UTF-8");
+            return new String(result,Charset.forName("UTF-8"));
         } catch (Exception e) {
             log.error("pbe解密失败",e);
             throw new ParameterException(ErrorCodeEnum.DECRYPT_ERROR);

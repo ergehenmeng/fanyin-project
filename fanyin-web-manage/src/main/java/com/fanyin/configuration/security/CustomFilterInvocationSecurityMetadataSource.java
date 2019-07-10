@@ -10,9 +10,8 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.AntPathMatcher;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -27,21 +26,18 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     @Autowired
     private SystemMenuMapper systemMenuMapper;
 
+    private AntPathMatcher matcher = new AntPathMatcher();
+
     /**
      * 重新加载所有菜单权限
      */
     private void loadResource(){
-        map.clear();
-        Collection<ConfigAttribute> attributes;
-        ConfigAttribute cfg;
         List<SystemMenu> list = systemMenuMapper.getAllList();
         for (SystemMenu menu : list){
             if(StringUtil.isNotBlank(menu.getUrl())){
-                attributes = new ArrayList<>();
-                List<String> subUrl = this.getSubUrl(menu);
-                cfg = new SecurityConfig(menu.getNid());
-                attributes.add(cfg);
-                //将子菜单放入权限中,防止操作人员知道连接,但没有权限,却能访问的问题
+                List<String> subUrl = this.getTotalUrl(menu);
+                List<ConfigAttribute> attributes = SecurityConfig.createList(menu.getNid());
+                //将该权限所涉及到所有访问链接均放入,防止操作人员知道连接,但没有权限,却能访问的问题
                 for (String url : subUrl){
                     map.put(url,attributes);
                 }
@@ -54,7 +50,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
      * @param menu 菜单
      * @return 列表
      */
-    private List<String> getSubUrl(SystemMenu menu){
+    private List<String> getTotalUrl(SystemMenu menu){
         List<String> stringList = Lists.newArrayList(menu.getUrl());
         if(StringUtil.isNotBlank(menu.getSubUrl())){
             Iterable<String> split = Splitter.on(",").split(menu.getSubUrl());
@@ -69,11 +65,9 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         if(map.isEmpty()){
             loadResource();
         }
-        HttpServletRequest httpRequest = ((FilterInvocation) object).getHttpRequest();
-        AntPathRequestMatcher matcher;
+        String url = ((FilterInvocation) object).getRequestUrl();
         for (Map.Entry<String,Collection<ConfigAttribute>> entry : map.entrySet()){
-            matcher = new AntPathRequestMatcher(entry.getKey());
-            if(matcher.matches(httpRequest)){
+            if(matcher.match(entry.getKey(),url)){
                 return entry.getValue();
             }
         }

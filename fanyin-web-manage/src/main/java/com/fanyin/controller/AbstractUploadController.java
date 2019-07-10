@@ -19,7 +19,7 @@ import java.util.UUID;
  * 返回给调用方的文件地址=公共路径+文件分类路径+日期+文件名+后缀<br>
  * <h4>说明</h4>
  * 根路径由{@link ApplicationProperties#getUploadDir()}决定<br>
- * 公共路径默认/static/ 方便nginx或服务做静态资源拦截映射<br>
+ * 公共路径默认/upload/ 方便nginx或服务做静态资源拦截映射<br>
  * 文件分类路径{@link AbstractUploadController#getFolderName()}决定<br>
  * 日期默认yyyyMMdd<br>
  * @author 二哥很猛
@@ -65,7 +65,7 @@ public abstract class AbstractUploadController extends AbstractController{
      */
     protected String saveFile(MultipartFile file, long maxSize){
         if(maxSize < file.getSize()){
-            log.warn("上传文件过大:{}",file.getSize());
+            log.warn("上传文件过大:[{}]",file.getSize());
             throw new BusinessException(ErrorCodeEnum.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / 1048576 + "M");
         }
         return this.doSaveFile(file);
@@ -90,7 +90,7 @@ public abstract class AbstractUploadController extends AbstractController{
         try {
             file.transferTo(createFile(filePath));
         } catch (IOException e) {
-            log.warn("上传文件保存失败:{}",e.getMessage());
+            log.warn("上传文件保存失败",e);
             throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
         }
         return filePath.replaceAll("\\\\","/");
@@ -106,7 +106,7 @@ public abstract class AbstractUploadController extends AbstractController{
         File parentFile = file.getParentFile();
         if(!parentFile.exists()){
             if(!parentFile.mkdirs()){
-                log.error("文件目录创建失败 {}",parentFile.getAbsoluteFile());
+                log.error("文件目录创建失败:[{}]",parentFile.getAbsoluteFile());
                 throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
             }
         }

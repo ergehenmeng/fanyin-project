@@ -72,8 +72,7 @@ public class SystemCacheServiceImpl implements SystemCacheService {
             }
             return true;
         }catch (Exception e){
-            log.error("缓存清除异常,cacheName:{}",cacheName);
-            log.error("缓存清除异常",e);
+            log.error("缓存清除异常,cacheName:[{}]",cacheName,e);
         }
         return false;
     }

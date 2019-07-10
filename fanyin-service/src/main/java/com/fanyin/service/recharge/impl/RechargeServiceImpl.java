@@ -57,11 +57,11 @@ public class RechargeServiceImpl implements RechargeService {
     public void rechargeAsync(RechargeAsync async) {
         RechargeLog rechargeLog = rechargeLogMapper.getByOrderNo(async.getOrderNo());
         if(rechargeLog == null){
-            log.error("充值订单号未查询到,orderNo:{}",async.getOrderNo());
+            log.error("充值订单号未查询到,orderNo:[{}]",async.getOrderNo());
             throw new DepositoryException(ErrorCodeEnum.RECHARGE_NOT_FOUND);
         }
         if(rechargeLog.getState() != RechargeStatus.APPLY.getCode()){
-            log.warn("充值订单已更新,oldStatus:{},newStatus:{}",rechargeLog.getState(),async.getState());
+            log.warn("充值订单已更新,oldStatus:[{}],newStatus:[{}]",rechargeLog.getState(),async.getState());
             return;
         }
         rechargeLog.setRealAmount(BigDecimal.valueOf(async.getRealAmount()));

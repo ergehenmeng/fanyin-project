@@ -217,7 +217,7 @@ public class ProjectServiceImpl implements ProjectService {
     private void awardTenderIntegral(ProjectTender tender){
         int score = integralLogService.calcTenderScore(tender.getAccount().doubleValue());
         if(score == 0){
-            log.debug("投标金额不足,不发积分,userId:{},account:{}",tender.getUserId(),tender.getAccount());
+            log.debug("投标金额不足,不发积分,userId:[{}],account:[{}]",tender.getUserId(),tender.getAccount());
             return;
         }
         IntegralAward award = new IntegralAward(tender.getUserId(),score,Integral.TENDER);

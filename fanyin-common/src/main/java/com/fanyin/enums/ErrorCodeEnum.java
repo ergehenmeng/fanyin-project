@@ -12,6 +12,11 @@ package com.fanyin.enums;
 public enum ErrorCodeEnum {
 
     /**
+     * 暂无访问权限
+     */
+    ACCESS_DENIED(403,"暂无访问权限"),
+
+    /**
      * 标的信息不存在
      */
     PROJECT_NOT_FOUND(404,"标的信息不存在"),

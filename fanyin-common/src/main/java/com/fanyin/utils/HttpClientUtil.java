@@ -69,7 +69,7 @@ public class HttpClientUtil {
      * @return 响应信息
      */
     public static String postSSL(String url,String body){
-        log.debug("https post请求地址:{},请求参数:{}",url,body);
+        log.debug("https post请求地址:[{}],请求参数:[{}]",url,body);
         HttpPost post = new HttpPost(url);
         post.setEntity(new StringEntity(body,ContentType.APPLICATION_JSON));
         return execute(post,sslHttpClient(),null);
@@ -133,7 +133,7 @@ public class HttpClientUtil {
      * @return 响应数据
      */
     public static String get(String url){
-        log.debug("http get请求地址及参数:{}",url);
+        log.debug("http get请求地址及参数:[{}]",url);
         HttpGet get = new HttpGet(url);
         return execute(get,null,null);
     }
@@ -167,7 +167,7 @@ public class HttpClientUtil {
      * @return 响应结果
      */
     public static String post(String url,String body, Map<String,String> headers,RequestConfig config){
-        log.debug("http post请求地址:{},请求参数:{}",url,body);
+        log.debug("http post请求地址:[{}],请求参数:[{}]",url,body);
         HttpPost post = new HttpPost(url);
         post.setHeaders(formatHeaders(headers));
         post.setEntity(new StringEntity(body,ContentType.APPLICATION_JSON));
@@ -229,12 +229,12 @@ public class HttpClientUtil {
         try (CloseableHttpResponse response = client.execute(request)){
             int code = response.getStatusLine().getStatusCode();
             if (code != HttpStatus.SC_OK){
-                log.error("http请求响应状态码异常,code:{}",code);
+                log.error("http请求响应状态码异常,code:[{}]",code);
                 return null;
             }
             HttpEntity responseEntity = response.getEntity();
             String entity = EntityUtils.toString(responseEntity, Consts.UTF_8);
-            log.debug("http响应结果:{}",entity);
+            log.debug("http响应结果:[{}]",entity);
             return entity;
         } catch (IOException e) {
             log.error("http请求异常",e);

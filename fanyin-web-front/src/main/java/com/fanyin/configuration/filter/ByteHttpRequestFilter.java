@@ -1,7 +1,6 @@
 package com.fanyin.configuration.filter;
 
 import com.fanyin.configuration.AbstractIgnoreFilter;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2018/8/28 16:38
  */
-@Slf4j
 public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
 
 

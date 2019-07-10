@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
 
 
 /**
@@ -142,7 +143,7 @@ public class DesUtil {
             SecretKey convertSecretKey = getSecretKey(password,desType);
             Cipher cipher =getCipher(desType);
             cipher.init(Cipher.ENCRYPT_MODE,convertSecretKey);
-            byte[] bytes = cipher.doFinal(str.getBytes("UTF-8"));
+            byte[] bytes = cipher.doFinal(str.getBytes(Charset.forName("UTF-8")));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             log.error("DES加密失败",e);
@@ -164,7 +165,7 @@ public class DesUtil {
             cipher.init(Cipher.DECRYPT_MODE,convertSecretKey);
             byte[] params = Base64.decodeBase64(str);
             byte[] bytes = cipher.doFinal(params);
-            return new String(bytes,"UTF-8");
+            return new String(bytes,Charset.forName("UTF-8"));
         } catch (Exception e) {
             log.error("DES解密失败",e);
             throw new ParameterException(ErrorCodeEnum.DECRYPT_ERROR);
@@ -213,16 +214,15 @@ public class DesUtil {
      * @param password 秘钥
      * @param desType 算法填充方式
      * @return 秘钥的byte数组
-     * @throws Exception 异常由父方法捕获
      */
-    private static byte[] getKeyByte(String password,String desType)throws Exception{
+    private static byte[] getKeyByte(String password,String desType){
         if (password == null){
             password = DEFAULT_PASSWORD;
         }
         int length = DES3.equals(desType) ? DES3_LENGTH : DES_LENGTH;
         byte[] keys = new byte[length];
 
-        byte[] temp = password.getBytes("UTF-8");
+        byte[] temp = password.getBytes(Charset.forName("UTF-8"));
         if (keys.length > temp.length){
             //不够 后面自动补零
             System.arraycopy(temp,0,keys,0,temp.length);
