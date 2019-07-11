@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : root
 Source Server Version : 50628
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : p2p
 
 Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2019-02-15 13:45:51
+Date: 2019-07-11 13:51:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,7 +56,7 @@ CREATE TABLE `account_detail_log` (
   `accumulated_income` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '累计收益',
   `wait_capital` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '待收本金',
   `wait_interest` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '待收利息',
-  `add_time` datetime DEFAULT NULL COMMENT '发生时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发生时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`) USING BTREE,
@@ -98,8 +98,8 @@ CREATE TABLE `app_feedback` (
   `version` varchar(50) DEFAULT NULL COMMENT '软件版本',
   `system_version` varchar(50) DEFAULT NULL COMMENT '系统版本',
   `content` varchar(200) DEFAULT NULL COMMENT '反馈内容',
-  `add_time` datetime DEFAULT NULL COMMENT '反馈时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '反馈时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `index_status` (`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='APP用户反馈信息表';
@@ -118,7 +118,7 @@ CREATE TABLE `app_version` (
   `version` char(10) DEFAULT NULL COMMENT '版本号:1.2.8',
   `force_update` bit(1) DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
   `url` varchar(500) DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
-  `add_time` datetime DEFAULT NULL COMMENT '上传时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='APP版本管理表';
@@ -141,7 +141,7 @@ CREATE TABLE `bank` (
   `icon` varchar(500) DEFAULT NULL COMMENT '银行图标(长图)',
   `logo` varchar(500) DEFAULT NULL COMMENT '银行图标logo(短图)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态:0:正常 1:已删除(数据库可见,后台不可见)',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态 0:未锁定1:锁定(相当于下架,后台可见,前台不可见)',
   `remark` varchar(100) DEFAULT NULL COMMENT '银行卡限额说明',
@@ -168,7 +168,7 @@ CREATE TABLE `bank_card` (
   `mobile` char(11) DEFAULT NULL COMMENT '银行预留手机号',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_index` (`user_id`) USING BTREE,
@@ -195,7 +195,7 @@ CREATE TABLE `banner` (
   `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
   `click` bit(1) DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
@@ -222,7 +222,7 @@ CREATE TABLE `borrower` (
   `locked` bit(1) DEFAULT b'0' COMMENT '用户状态 0:未锁定 1:锁定(不可登陆系统)',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除(仅数据库可见)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `mobile_index` (`mobile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人借款人信息';
@@ -309,7 +309,7 @@ CREATE TABLE `discount_coupon` (
   `period_limit` tinyint(2) unsigned DEFAULT '0' COMMENT '期限限制(月)',
   `amount_limit` decimal(12,2) unsigned DEFAULT '0.00' COMMENT '起投金额限制',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发放时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`),
   KEY `user_id_status_index` (`user_id`,`state`),
@@ -348,7 +348,7 @@ CREATE TABLE `help_instruction` (
   `answer` varchar(2000) DEFAULT NULL COMMENT '答 支持',
   `sort` tinyint(4) DEFAULT '0' COMMENT '排序(小<->大)',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='帮助说明信息表';
@@ -370,7 +370,7 @@ CREATE TABLE `image_log` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图片上传记录';
 
@@ -411,7 +411,7 @@ CREATE TABLE `integral_type` (
   `manner` tinyint(1) DEFAULT '0' COMMENT '积分类型 0:收入 1:支出',
   `random` bit(1) DEFAULT b'0' COMMENT '是否为随机积分 0:不是 1:是',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='积分类型表';
@@ -437,7 +437,7 @@ CREATE TABLE `message_template` (
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '消息类型',
   `content` varchar(1000) DEFAULT NULL COMMENT '消息内容',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `tag` varchar(50) DEFAULT NULL COMMENT '后置处理标示符(消息推送跳转页面)',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
@@ -489,7 +489,7 @@ CREATE TABLE `operation_report` (
   `year` year(4) DEFAULT NULL COMMENT '年份',
   `month` date DEFAULT NULL COMMENT '月份(包含年)',
   `deleted` bit(1) DEFAULT b'0' COMMENT '是否已删除 0:未删除,1:已删除',
-  `add_time` datetime DEFAULT NULL COMMENT '添加时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='运营报告表';
 
@@ -542,7 +542,7 @@ CREATE TABLE `project_audit_log` (
   `project_id` int(10) unsigned DEFAULT NULL COMMENT '标的ID',
   `state` tinyint(2) DEFAULT NULL COMMENT '审核状态 1:初审通过 2:初审打回 3:复审通过 4:复审拒绝 5:复审打回(直接回到录入中) 6:满标复审通过 7:产品撤回',
   `remark` varchar(200) DEFAULT NULL COMMENT '审核记录',
-  `add_time` datetime DEFAULT NULL COMMENT '审核时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '审核时间',
   `operator_id` int(10) unsigned DEFAULT NULL COMMENT '审核人',
   PRIMARY KEY (`id`),
   KEY `index_project_id` (`project_id`) USING BTREE
@@ -617,7 +617,7 @@ CREATE TABLE `project_repayment` (
   `repay_month` char(12) DEFAULT NULL COMMENT '预计还款月',
   `real_repay_month` char(12) DEFAULT NULL COMMENT '实际还款月',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `index_user_id` (`borrower_id`),
   KEY `index_project_id` (`project_id`)
@@ -644,7 +644,7 @@ CREATE TABLE `project_tender` (
   `channel` char(10) DEFAULT 'pc' COMMENT '投标渠道 pc,android,ios,h5,other',
   `ip` varchar(64) DEFAULT NULL COMMENT '投标ip',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '投标时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户投标表';
 
@@ -700,7 +700,8 @@ CREATE TABLE `push_log` (
   `title` varchar(50) DEFAULT NULL COMMENT '标题',
   `classify` varchar(50) DEFAULT NULL COMMENT '推送类型',
   `content` varchar(100) DEFAULT NULL COMMENT '正文内容',
-  `add_time` datetime DEFAULT NULL COMMENT '结果集',
+  `tag` char(50) DEFAULT NULL COMMENT '标签(用来指定页面)',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '结果集',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='消息推送日志';
 
@@ -722,7 +723,7 @@ CREATE TABLE `recharge_log` (
   `real_amount` decimal(12,2) DEFAULT '0.00' COMMENT '实际到账金额',
   `order_no` varchar(128) DEFAULT NULL COMMENT '订单号',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '订单生成时间',
-  `update_time` datetime DEFAULT NULL COMMENT '订单更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '订单更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='充值记录表';
 
@@ -8000,7 +8001,7 @@ CREATE TABLE `system_cache` (
   `title` varchar(50) DEFAULT NULL COMMENT '缓存名称',
   `cache_name` varchar(255) DEFAULT NULL COMMENT '缓存名称 必须与CacheConstant中保持一致',
   `state` tinyint(3) unsigned DEFAULT '0' COMMENT '缓存更新状态 0:未更新 1:更新成功 2:更新失败',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注说明',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='缓存信息管理表';
@@ -8031,11 +8032,11 @@ CREATE TABLE `system_config` (
   `reserve_content` varchar(1000) DEFAULT NULL COMMENT '备用值,如果不在有效期内自动启用备用值',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `nid_index` (`nid`),
   KEY `type_index` (`classify`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
 -- Records of system_config
@@ -8055,6 +8056,8 @@ INSERT INTO `system_config` VALUES ('12', 'system_ip', '前台系统IP', 'http:/
 INSERT INTO `system_config` VALUES ('13', 'manage_domain', '后台系统域名', 'http://www.baidu.com', '1', '\0', null, null, null, null, '2018-11-29 16:41:04', null);
 INSERT INTO `system_config` VALUES ('14', 'operation_log_switch', '操作日志开关', '1', '1', '\0', null, null, null, '操作日志开关 0:不开启操作日志 1:开启操作日志', '2019-01-17 16:50:54', null);
 INSERT INTO `system_config` VALUES ('15', 'env', '系统环境', '2', '2', '\0', null, null, '', '1 生产 2 开发 3  测试', '2019-01-22 17:23:19', null);
+INSERT INTO `system_config` VALUES ('16', 'timestamp_deviation', '客户端与服务端时间容错值', '300000', '1', '\0', null, null, null, '单位:毫秒', '2019-07-10 16:50:31', '2019-07-10 16:52:43');
+INSERT INTO `system_config` VALUES ('17', 'addresser', '系统邮件发件人', '', null, '\0', null, null, null, null, '2019-07-10 16:53:01', '2019-07-10 16:53:14');
 
 -- ----------------------------
 -- Table structure for system_department
@@ -8066,7 +8069,7 @@ CREATE TABLE `system_department` (
   `code` varchar(64) DEFAULT NULL COMMENT '部门编号',
   `parent_code` varchar(64) DEFAULT NULL COMMENT '父级编号',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `province` varchar(50) DEFAULT NULL COMMENT '所属省份',
   `city` varchar(50) DEFAULT NULL COMMENT '所属城市',
@@ -8095,7 +8098,7 @@ CREATE TABLE `system_dict` (
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='系统数据字典表';
@@ -8119,13 +8122,13 @@ CREATE TABLE `system_menu` (
   `nid` varchar(50) NOT NULL COMMENT '菜单标示符 唯一',
   `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
   `url` varchar(255) DEFAULT NULL COMMENT '菜单地址',
-  `sub_url` varchar(2000) DEFAULT NULL COMMENT '该菜单包含的子url以分号做分割',
+  `path` varchar(255) DEFAULT NULL COMMENT '权限拦截路径',
   `classify` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单分类 0:左侧菜单 1: 按钮菜单',
   `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
   `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
   KEY `pid_index` (`pid`) USING BTREE
@@ -8158,7 +8161,7 @@ CREATE TABLE `system_notice` (
   `content` text COMMENT '公告内容(富文本)',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统公告信息表';
 
@@ -8181,7 +8184,7 @@ CREATE TABLE `system_operation_log` (
   `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
   `classify` tinyint(255) unsigned DEFAULT NULL COMMENT '操作日志分类,参考:MethodType',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=558 DEFAULT CHARSET=utf8 COMMENT='后台操作记录';
+) ENGINE=InnoDB AUTO_INCREMENT=596 DEFAULT CHARSET=utf8 COMMENT='后台操作记录';
 
 -- ----------------------------
 -- Records of system_operation_log
@@ -8743,6 +8746,44 @@ INSERT INTO `system_operation_log` VALUES ('554', '/system/dict/dict_list_page',
 INSERT INTO `system_operation_log` VALUES ('555', '/system/cache/cache_list', '1', null, '{\"page\":0,\"pageSize\":0,\"rows\":[{\"cacheName\":\"system_config\",\"id\":1,\"remark\":\"全局系统参数缓存(查询缓存)\",\"state\":1,\"title\":\"系统参数缓存\",\"updateTime\":1548309163000},{\"cacheName\":\"system_dict\",\"id\":2,\"remark\":\"全局数据字典缓存(查询缓存)\",\"state\":1,\"title\":\"数据字典缓存\",\"updateTime\":1548309163000},{\"cacheName\":\"vip_config\",\"id\":3,\"remark\":\"业务vip缓存(查询缓存)\",\"state\":1,\"title\":\"vip等级配置缓存\",\"updateTime\":1548309163000},{\"cacheName\":\"access_token\",\"id\":4,\"remark\":\"登陆信息(保存缓存)\",\"state\":1,\"title\":\"用户登陆token缓存\",\"updateTime\":1548309163000},{\"cacheName\":\"integral_classify\",\"id\":5,\"remark\":\"业务积分类型缓存(查询缓存)\",\"state\":1,\"title\":\"积分类型缓存\",\"updateTime\":1548309163000},{\"cacheName\":\"async_response\",\"id\":6,\"remark\":\"异步信息(保存缓存)\",\"state\":1,\"title\":\"异步结果缓存\",\"updateTime\":1548309163000}],\"total\":0}', '2019-01-25 15:20:54', '0:0:0:0:0:0:0:1', '26', '2');
 INSERT INTO `system_operation_log` VALUES ('556', '/system/dict/dict_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1547175780000,\"deleted\":false,\"hiddenValue\":2,\"id\":5,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"是东方闪电2131\",\"showValue\":\"系统参数\",\"title\":\"系统参数分类\",\"updateTime\":1547518317000},{\"addTime\":1547175759000,\"deleted\":false,\"hiddenValue\":1,\"id\":4,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"\",\"showValue\":\"业务参数\",\"title\":\"系统参数分类\",\"updateTime\":1547518296000},{\"addTime\":1543310155000,\"deleted\":false,\"hiddenValue\":3,\"id\":3,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"h5首页\",\"title\":\"图片分类\"},{\"addTime\":1543310133000,\"deleted\":false,\"hiddenValue\":2,\"id\":2,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"app首页\",\"title\":\"图片分类\"},{\"addTime\":1543310089000,\"deleted\":false,\"hiddenValue\":1,\"id\":1,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"pc首页\",\"title\":\"图片分类\"}],\"total\":5}', '2019-01-25 15:20:55', '0:0:0:0:0:0:0:1', '4', '2');
 INSERT INTO `system_operation_log` VALUES ('557', '/operation/image/image_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1543558470000,\"classify\":1,\"classifyName\":\"pc首页\",\"deleted\":false,\"id\":3,\"remark\":\"asasdxxx\",\"size\":146822,\"title\":\"cccc\",\"url\":\"/upload/img/2018-11-30/134f8d13-8c24-474f-9900-f59fea1f2bc3.jpg\"},{\"addTime\":1543556432000,\"classify\":2,\"classifyName\":\"app首页\",\"deleted\":false,\"id\":2,\"remark\":\"\",\"size\":3636,\"title\":\"sssss\",\"url\":\"/upload/img/2018-11-30/5802b358-8f64-4edd-85a4-c5d6b327e10d.jpg\"},{\"addTime\":1543477373000,\"classify\":1,\"classifyName\":\"pc首页\",\"deleted\":false,\"id\":1,\"remark\":\"\",\"size\":166315,\"title\":\"首页打字\",\"url\":\"/upload/img/2018-11-29/af77cdda-0246-4925-a406-00180d0923cf.png\"}],\"total\":3}', '2019-01-25 15:20:56', '0:0:0:0:0:0:0:1', '13', '2');
+INSERT INTO `system_operation_log` VALUES ('558', '/system/operator/menu_list', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-02-24 22:13:59', '0:0:0:0:0:0:0:1', '7', '2');
+INSERT INTO `system_operation_log` VALUES ('559', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-02-24 22:14:04', '0:0:0:0:0:0:0:1', '3', '2');
+INSERT INTO `system_operation_log` VALUES ('560', '/system/config/config_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1515722464000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"??????\",\"endTime\":1550505600000,\"id\":1,\"locked\":false,\"nid\":\"application_name\",\"remark\":\"\",\"reserveContent\":\"???\",\"startTime\":1547654400000,\"title\":\"??????\",\"updateTime\":1548149832000},{\"addTime\":1518071939000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????\",\"id\":2,\"locked\":false,\"nid\":\"enterprise_name\",\"title\":\"????\"},{\"addTime\":1518072001000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????????????79?\",\"id\":3,\"locked\":false,\"nid\":\"enterprise_address\",\"title\":\"????\"},{\"addTime\":1518072046000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"0571-65800000\",\"id\":4,\"locked\":false,\"nid\":\"enterprise_phone\",\"title\":\"????\"},{\"addTime\":1518072082000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"664956140@qq.com\",\"id\":5,\"locked\":false,\"nid\":\"enterprise_email\",\"title\":\"????\"},{\"addTime\":1538103003000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":6,\"locked\":false,\"nid\":\"ios_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"ios?????\"},{\"addTime\":1538103041000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":7,\"locked\":false,\"nid\":\"android_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"android????\"},{\"addTime\":1539158183000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"18\",\"id\":8,\"locked\":false,\"nid\":\"min_tender_age\",\"remark\":\"??????????????????\",\"title\":\"??????\"},{\"addTime\":1539220949000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"100\",\"id\":9,\"locked\":false,\"nid\":\"once_min_tender_amount\",\"remark\":\"????????\",\"title\":\"????????\"},{\"addTime\":1539221175000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"200000\",\"id\":10,\"locked\":false,\"nid\":\"personal_max_loan\",\"remark\":\"????(????=personal_max_loan-????)\",\"title\":\"???????????\"},{\"addTime\":1543150937000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.eghm.top\",\"id\":11,\"locked\":false,\"nid\":\"system_domain\",\"remark\":\"?????????\",\"title\":\"??????\"},{\"addTime\":1543150993000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://127.0.0.1:8080\",\"id\":12,\"locked\":false,\"nid\":\"system_ip\",\"remark\":\"???????ip\",\"title\":\"????IP\"},{\"addTime\":1543480864000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.baidu.com\",\"id\":13,\"locked\":false,\"nid\":\"manage_domain\",\"title\":\"??????\"},{\"addTime\":1547715054000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1\",\"id\":14,\"locked\":false,\"nid\":\"operation_log_switch\",\"remark\":\"?????? 0:??????? 1:??????\",\"title\":\"??????\"},{\"addTime\":1548148999000,\"classify\":2,\"classifyName\":\"????\",\"content\":\"2\",\"id\":15,\"locked\":false,\"nid\":\"env\",\"remark\":\"1 ?? 2 ?? 3  ??\",\"reserveContent\":\"\",\"title\":\"????\"}],\"total\":15}', '2019-02-24 22:14:05', '0:0:0:0:0:0:0:1', '166', '2');
+INSERT INTO `system_operation_log` VALUES ('561', '/system/config/config_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1515722464000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"??????\",\"endTime\":1550505600000,\"id\":1,\"locked\":false,\"nid\":\"application_name\",\"remark\":\"\",\"reserveContent\":\"???\",\"startTime\":1547654400000,\"title\":\"??????\",\"updateTime\":1548149832000},{\"addTime\":1518071939000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????\",\"id\":2,\"locked\":false,\"nid\":\"enterprise_name\",\"title\":\"????\"},{\"addTime\":1518072001000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????????????79?\",\"id\":3,\"locked\":false,\"nid\":\"enterprise_address\",\"title\":\"????\"},{\"addTime\":1518072046000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"0571-65800000\",\"id\":4,\"locked\":false,\"nid\":\"enterprise_phone\",\"title\":\"????\"},{\"addTime\":1518072082000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"664956140@qq.com\",\"id\":5,\"locked\":false,\"nid\":\"enterprise_email\",\"title\":\"????\"},{\"addTime\":1538103003000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":6,\"locked\":false,\"nid\":\"ios_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"ios?????\"},{\"addTime\":1538103041000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":7,\"locked\":false,\"nid\":\"android_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"android????\"},{\"addTime\":1539158183000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"18\",\"id\":8,\"locked\":false,\"nid\":\"min_tender_age\",\"remark\":\"??????????????????\",\"title\":\"??????\"},{\"addTime\":1539220949000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"100\",\"id\":9,\"locked\":false,\"nid\":\"once_min_tender_amount\",\"remark\":\"????????\",\"title\":\"????????\"},{\"addTime\":1539221175000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"200000\",\"id\":10,\"locked\":false,\"nid\":\"personal_max_loan\",\"remark\":\"????(????=personal_max_loan-????)\",\"title\":\"???????????\"},{\"addTime\":1543150937000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.eghm.top\",\"id\":11,\"locked\":false,\"nid\":\"system_domain\",\"remark\":\"?????????\",\"title\":\"??????\"},{\"addTime\":1543150993000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://127.0.0.1:8080\",\"id\":12,\"locked\":false,\"nid\":\"system_ip\",\"remark\":\"???????ip\",\"title\":\"????IP\"},{\"addTime\":1543480864000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.baidu.com\",\"id\":13,\"locked\":false,\"nid\":\"manage_domain\",\"title\":\"??????\"},{\"addTime\":1547715054000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1\",\"id\":14,\"locked\":false,\"nid\":\"operation_log_switch\",\"remark\":\"?????? 0:??????? 1:??????\",\"title\":\"??????\"},{\"addTime\":1548148999000,\"classify\":2,\"classifyName\":\"????\",\"content\":\"2\",\"id\":15,\"locked\":false,\"nid\":\"env\",\"remark\":\"1 ?? 2 ?? 3  ??\",\"reserveContent\":\"\",\"title\":\"????\"}],\"total\":15}', '2019-02-24 22:14:06', '0:0:0:0:0:0:0:1', '23', '2');
+INSERT INTO `system_operation_log` VALUES ('562', '/system/operator/operator_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1516934300000,\"deleted\":false,\"department\":\"0\",\"id\":1,\"initPwd\":\"$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy\",\"mobile\":\"13000000000\",\"operatorName\":\"??\",\"pwd\":\"$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmhomy\",\"remark\":\"\",\"state\":1,\"updateTime\":1547522718000}],\"total\":1}', '2019-02-24 22:14:07', '0:0:0:0:0:0:0:1', '12', '2');
+INSERT INTO `system_operation_log` VALUES ('563', '/system/role/role_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1517204749000,\"deleted\":false,\"id\":1,\"remark\":\"\",\"roleName\":\"?????\",\"roleType\":\"administrator\",\"updateTime\":1547537407000}],\"total\":1}', '2019-02-24 22:14:08', '0:0:0:0:0:0:0:1', '41', '2');
+INSERT INTO `system_operation_log` VALUES ('564', '/operation/image/image_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1543558470000,\"classify\":1,\"classifyName\":\"pc??\",\"deleted\":false,\"id\":3,\"remark\":\"asasdxxx\",\"size\":146822,\"title\":\"cccc\",\"url\":\"/upload/img/2018-11-30/134f8d13-8c24-474f-9900-f59fea1f2bc3.jpg\"},{\"addTime\":1543556432000,\"classify\":2,\"classifyName\":\"app??\",\"deleted\":false,\"id\":2,\"remark\":\"\",\"size\":3636,\"title\":\"sssss\",\"url\":\"/upload/img/2018-11-30/5802b358-8f64-4edd-85a4-c5d6b327e10d.jpg\"},{\"addTime\":1543477373000,\"classify\":1,\"classifyName\":\"pc??\",\"deleted\":false,\"id\":1,\"remark\":\"\",\"size\":166315,\"title\":\"????\",\"url\":\"/upload/img/2018-11-29/af77cdda-0246-4925-a406-00180d0923cf.png\"}],\"total\":3}', '2019-02-24 22:14:09', '0:0:0:0:0:0:0:1', '87', '2');
+INSERT INTO `system_operation_log` VALUES ('565', '/system/dict/dict_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1547175780000,\"deleted\":false,\"hiddenValue\":2,\"id\":5,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"?????2131\",\"showValue\":\"????\",\"title\":\"??????\",\"updateTime\":1547518317000},{\"addTime\":1547175759000,\"deleted\":false,\"hiddenValue\":1,\"id\":4,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"\",\"showValue\":\"????\",\"title\":\"??????\",\"updateTime\":1547518296000},{\"addTime\":1543310155000,\"deleted\":false,\"hiddenValue\":3,\"id\":3,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"h5??\",\"title\":\"????\"},{\"addTime\":1543310133000,\"deleted\":false,\"hiddenValue\":2,\"id\":2,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"app??\",\"title\":\"????\"},{\"addTime\":1543310089000,\"deleted\":false,\"hiddenValue\":1,\"id\":1,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"pc??\",\"title\":\"????\"}],\"total\":5}', '2019-02-24 22:14:10', '0:0:0:0:0:0:0:1', '9', '2');
+INSERT INTO `system_operation_log` VALUES ('566', '/system/cache/cache_list', '1', null, '{\"page\":0,\"pageSize\":0,\"rows\":[{\"cacheName\":\"system_config\",\"id\":1,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"system_dict\",\"id\":2,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"vip_config\",\"id\":3,\"remark\":\"??vip??(????)\",\"state\":1,\"title\":\"vip??????\",\"updateTime\":1548309163000},{\"cacheName\":\"access_token\",\"id\":4,\"remark\":\"????(????)\",\"state\":1,\"title\":\"????token??\",\"updateTime\":1548309163000},{\"cacheName\":\"integral_classify\",\"id\":5,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"async_response\",\"id\":6,\"remark\":\"????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000}],\"total\":0}', '2019-02-24 22:14:11', '0:0:0:0:0:0:0:1', '35', '2');
+INSERT INTO `system_operation_log` VALUES ('567', '/system/department/department_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1544688761000,\"code\":\"100101\",\"deleted\":false,\"id\":3,\"parentCode\":\"100\",\"title\":\"???-??\"},{\"addTime\":1544688906000,\"code\":\"100101101\",\"deleted\":false,\"id\":4,\"parentCode\":\"100101\",\"title\":\"???-???\"}]}', '2019-02-24 22:14:18', '0:0:0:0:0:0:0:1', '11', '2');
+INSERT INTO `system_operation_log` VALUES ('568', '/system/dict/dict_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1547175780000,\"deleted\":false,\"hiddenValue\":2,\"id\":5,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"?????2131\",\"showValue\":\"????\",\"title\":\"??????\",\"updateTime\":1547518317000},{\"addTime\":1547175759000,\"deleted\":false,\"hiddenValue\":1,\"id\":4,\"locked\":true,\"nid\":\"config_classify\",\"remark\":\"\",\"showValue\":\"????\",\"title\":\"??????\",\"updateTime\":1547518296000},{\"addTime\":1543310155000,\"deleted\":false,\"hiddenValue\":3,\"id\":3,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"h5??\",\"title\":\"????\"},{\"addTime\":1543310133000,\"deleted\":false,\"hiddenValue\":2,\"id\":2,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"app??\",\"title\":\"????\"},{\"addTime\":1543310089000,\"deleted\":false,\"hiddenValue\":1,\"id\":1,\"locked\":true,\"nid\":\"image_classify\",\"showValue\":\"pc??\",\"title\":\"????\"}],\"total\":5}', '2019-02-24 22:14:23', '0:0:0:0:0:0:0:1', '10', '2');
+INSERT INTO `system_operation_log` VALUES ('569', '/system/cache/cache_list', '1', null, '{\"page\":0,\"pageSize\":0,\"rows\":[{\"cacheName\":\"system_config\",\"id\":1,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"system_dict\",\"id\":2,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"vip_config\",\"id\":3,\"remark\":\"??vip??(????)\",\"state\":1,\"title\":\"vip??????\",\"updateTime\":1548309163000},{\"cacheName\":\"access_token\",\"id\":4,\"remark\":\"????(????)\",\"state\":1,\"title\":\"????token??\",\"updateTime\":1548309163000},{\"cacheName\":\"integral_classify\",\"id\":5,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"async_response\",\"id\":6,\"remark\":\"????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000}],\"total\":0}', '2019-02-24 22:14:25', '0:0:0:0:0:0:0:1', '3', '2');
+INSERT INTO `system_operation_log` VALUES ('570', '/operation/image/image_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1543558470000,\"classify\":1,\"classifyName\":\"pc??\",\"deleted\":false,\"id\":3,\"remark\":\"asasdxxx\",\"size\":146822,\"title\":\"cccc\",\"url\":\"/upload/img/2018-11-30/134f8d13-8c24-474f-9900-f59fea1f2bc3.jpg\"},{\"addTime\":1543556432000,\"classify\":2,\"classifyName\":\"app??\",\"deleted\":false,\"id\":2,\"remark\":\"\",\"size\":3636,\"title\":\"sssss\",\"url\":\"/upload/img/2018-11-30/5802b358-8f64-4edd-85a4-c5d6b327e10d.jpg\"},{\"addTime\":1543477373000,\"classify\":1,\"classifyName\":\"pc??\",\"deleted\":false,\"id\":1,\"remark\":\"\",\"size\":166315,\"title\":\"????\",\"url\":\"/upload/img/2018-11-29/af77cdda-0246-4925-a406-00180d0923cf.png\"}],\"total\":3}', '2019-02-24 22:14:26', '0:0:0:0:0:0:0:1', '10', '2');
+INSERT INTO `system_operation_log` VALUES ('571', '/system/cache/cache_list', '1', null, '{\"page\":0,\"pageSize\":0,\"rows\":[{\"cacheName\":\"system_config\",\"id\":1,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"system_dict\",\"id\":2,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"vip_config\",\"id\":3,\"remark\":\"??vip??(????)\",\"state\":1,\"title\":\"vip??????\",\"updateTime\":1548309163000},{\"cacheName\":\"access_token\",\"id\":4,\"remark\":\"????(????)\",\"state\":1,\"title\":\"????token??\",\"updateTime\":1548309163000},{\"cacheName\":\"integral_classify\",\"id\":5,\"remark\":\"????????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000},{\"cacheName\":\"async_response\",\"id\":6,\"remark\":\"????(????)\",\"state\":1,\"title\":\"??????\",\"updateTime\":1548309163000}],\"total\":0}', '2019-02-24 22:14:27', '0:0:0:0:0:0:0:1', '6', '2');
+INSERT INTO `system_operation_log` VALUES ('572', '/system/config/config_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1515722464000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"??????\",\"endTime\":1550505600000,\"id\":1,\"locked\":false,\"nid\":\"application_name\",\"remark\":\"\",\"reserveContent\":\"???\",\"startTime\":1547654400000,\"title\":\"??????\",\"updateTime\":1548149832000},{\"addTime\":1518071939000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????\",\"id\":2,\"locked\":false,\"nid\":\"enterprise_name\",\"title\":\"????\"},{\"addTime\":1518072001000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????????????79?\",\"id\":3,\"locked\":false,\"nid\":\"enterprise_address\",\"title\":\"????\"},{\"addTime\":1518072046000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"0571-65800000\",\"id\":4,\"locked\":false,\"nid\":\"enterprise_phone\",\"title\":\"????\"},{\"addTime\":1518072082000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"664956140@qq.com\",\"id\":5,\"locked\":false,\"nid\":\"enterprise_email\",\"title\":\"????\"},{\"addTime\":1538103003000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":6,\"locked\":false,\"nid\":\"ios_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"ios?????\"},{\"addTime\":1538103041000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":7,\"locked\":false,\"nid\":\"android_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"android????\"},{\"addTime\":1539158183000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"18\",\"id\":8,\"locked\":false,\"nid\":\"min_tender_age\",\"remark\":\"??????????????????\",\"title\":\"??????\"},{\"addTime\":1539220949000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"100\",\"id\":9,\"locked\":false,\"nid\":\"once_min_tender_amount\",\"remark\":\"????????\",\"title\":\"????????\"},{\"addTime\":1539221175000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"200000\",\"id\":10,\"locked\":false,\"nid\":\"personal_max_loan\",\"remark\":\"????(????=personal_max_loan-????)\",\"title\":\"???????????\"},{\"addTime\":1543150937000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.eghm.top\",\"id\":11,\"locked\":false,\"nid\":\"system_domain\",\"remark\":\"?????????\",\"title\":\"??????\"},{\"addTime\":1543150993000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://127.0.0.1:8080\",\"id\":12,\"locked\":false,\"nid\":\"system_ip\",\"remark\":\"???????ip\",\"title\":\"????IP\"},{\"addTime\":1543480864000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.baidu.com\",\"id\":13,\"locked\":false,\"nid\":\"manage_domain\",\"title\":\"??????\"},{\"addTime\":1547715054000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1\",\"id\":14,\"locked\":false,\"nid\":\"operation_log_switch\",\"remark\":\"?????? 0:??????? 1:??????\",\"title\":\"??????\"},{\"addTime\":1548148999000,\"classify\":2,\"classifyName\":\"????\",\"content\":\"2\",\"id\":15,\"locked\":false,\"nid\":\"env\",\"remark\":\"1 ?? 2 ?? 3  ??\",\"reserveContent\":\"\",\"title\":\"????\"}],\"total\":15}', '2019-02-24 22:14:29', '0:0:0:0:0:0:0:1', '24', '2');
+INSERT INTO `system_operation_log` VALUES ('573', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-02-24 22:14:35', '0:0:0:0:0:0:0:1', '4', '2');
+INSERT INTO `system_operation_log` VALUES ('574', '/system/config/config_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1515722464000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"??????\",\"endTime\":1550505600000,\"id\":1,\"locked\":false,\"nid\":\"application_name\",\"remark\":\"\",\"reserveContent\":\"???\",\"startTime\":1547654400000,\"title\":\"??????\",\"updateTime\":1548149832000},{\"addTime\":1518071939000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????\",\"id\":2,\"locked\":false,\"nid\":\"enterprise_name\",\"title\":\"????\"},{\"addTime\":1518072001000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"????????????79?\",\"id\":3,\"locked\":false,\"nid\":\"enterprise_address\",\"title\":\"????\"},{\"addTime\":1518072046000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"0571-65800000\",\"id\":4,\"locked\":false,\"nid\":\"enterprise_phone\",\"title\":\"????\"},{\"addTime\":1518072082000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"664956140@qq.com\",\"id\":5,\"locked\":false,\"nid\":\"enterprise_email\",\"title\":\"????\"},{\"addTime\":1538103003000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":6,\"locked\":false,\"nid\":\"ios_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"ios?????\"},{\"addTime\":1538103041000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1.2.3\",\"id\":7,\"locked\":false,\"nid\":\"android_latest_version\",\"remark\":\"?????,?????x.x.x\",\"title\":\"android????\"},{\"addTime\":1539158183000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"18\",\"id\":8,\"locked\":false,\"nid\":\"min_tender_age\",\"remark\":\"??????????????????\",\"title\":\"??????\"},{\"addTime\":1539220949000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"100\",\"id\":9,\"locked\":false,\"nid\":\"once_min_tender_amount\",\"remark\":\"????????\",\"title\":\"????????\"},{\"addTime\":1539221175000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"200000\",\"id\":10,\"locked\":false,\"nid\":\"personal_max_loan\",\"remark\":\"????(????=personal_max_loan-????)\",\"title\":\"???????????\"},{\"addTime\":1543150937000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.eghm.top\",\"id\":11,\"locked\":false,\"nid\":\"system_domain\",\"remark\":\"?????????\",\"title\":\"??????\"},{\"addTime\":1543150993000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://127.0.0.1:8080\",\"id\":12,\"locked\":false,\"nid\":\"system_ip\",\"remark\":\"???????ip\",\"title\":\"????IP\"},{\"addTime\":1543480864000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"http://www.baidu.com\",\"id\":13,\"locked\":false,\"nid\":\"manage_domain\",\"title\":\"??????\"},{\"addTime\":1547715054000,\"classify\":1,\"classifyName\":\"????\",\"content\":\"1\",\"id\":14,\"locked\":false,\"nid\":\"operation_log_switch\",\"remark\":\"?????? 0:??????? 1:??????\",\"title\":\"??????\"},{\"addTime\":1548148999000,\"classify\":2,\"classifyName\":\"????\",\"content\":\"2\",\"id\":15,\"locked\":false,\"nid\":\"env\",\"remark\":\"1 ?? 2 ?? 3  ??\",\"reserveContent\":\"\",\"title\":\"????\"}],\"total\":15}', '2019-02-24 22:14:37', '0:0:0:0:0:0:0:1', '38', '2');
+INSERT INTO `system_operation_log` VALUES ('575', '/public/system/config/edit_config_page', '1', '2', '\"public/system/config/edit_config_page\"', '2019-02-24 22:14:41', '0:0:0:0:0:0:0:1', '4', '4');
+INSERT INTO `system_operation_log` VALUES ('576', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-06-17 19:44:59', '0:0:0:0:0:0:0:1', '8', '2');
+INSERT INTO `system_operation_log` VALUES ('577', '/system/role/role_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1517204749000,\"deleted\":false,\"id\":1,\"remark\":\"\",\"roleName\":\"?????\",\"roleType\":\"administrator\",\"updateTime\":1547537407000}],\"total\":1}', '2019-06-17 19:45:13', '0:0:0:0:0:0:0:1', '124', '2');
+INSERT INTO `system_operation_log` VALUES ('578', '/public/system/role/auth_role_page', '1', '1', '\"public/system/role/auth_role_page\"', '2019-06-17 19:45:16', '0:0:0:0:0:0:0:1', '8', '4');
+INSERT INTO `system_operation_log` VALUES ('579', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-06-17 19:45:16', '0:0:0:0:0:0:0:1', '5', '2');
+INSERT INTO `system_operation_log` VALUES ('580', '/system/role/auth_role', '1', '1,\"1001,1004,1015,1007,1008,1009,1010,1011,1012,1013,1014\"', '{\"code\":200}', '2019-06-17 19:45:21', '0:0:0:0:0:0:0:1', '146', '5');
+INSERT INTO `system_operation_log` VALUES ('581', '/system/role/role_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1517204749000,\"deleted\":false,\"id\":1,\"remark\":\"\",\"roleName\":\"?????\",\"roleType\":\"administrator\",\"updateTime\":1547537407000}],\"total\":1}', '2019-06-17 19:45:22', '0:0:0:0:0:0:0:1', '4', '2');
+INSERT INTO `system_operation_log` VALUES ('582', '/public/system/role/auth_role_page', '1', '1', '\"public/system/role/auth_role_page\"', '2019-06-17 19:45:24', '0:0:0:0:0:0:0:1', '6', '4');
+INSERT INTO `system_operation_log` VALUES ('583', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-06-17 19:45:24', '0:0:0:0:0:0:0:1', '6', '2');
+INSERT INTO `system_operation_log` VALUES ('584', '/system/role/auth_role', '1', '1,\"1001,1004,1015,1007,1008,1011,1012,1013,1014\"', '{\"code\":200}', '2019-06-17 19:45:56', '0:0:0:0:0:0:0:1', '375', '5');
+INSERT INTO `system_operation_log` VALUES ('585', '/system/role/role_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1517204749000,\"deleted\":false,\"id\":1,\"remark\":\"\",\"roleName\":\"?????\",\"roleType\":\"administrator\",\"updateTime\":1547537407000}],\"total\":1}', '2019-06-17 19:45:57', '0:0:0:0:0:0:0:1', '4', '2');
+INSERT INTO `system_operation_log` VALUES ('586', '/public/system/role/auth_role_page', '1', '1', '\"public/system/role/auth_role_page\"', '2019-06-17 19:45:59', '0:0:0:0:0:0:0:1', '6', '4');
+INSERT INTO `system_operation_log` VALUES ('587', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-06-17 19:45:59', '0:0:0:0:0:0:0:1', '6', '2');
+INSERT INTO `system_operation_log` VALUES ('588', '/system/role/auth_role', '1', '1,\"1001,1004,1016,1015,1007,1008,1009,1010,1011,1012,1013,1014\"', '{\"code\":200}', '2019-06-17 19:46:04', '0:0:0:0:0:0:0:1', '54', '5');
+INSERT INTO `system_operation_log` VALUES ('589', '/system/role/role_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1517204749000,\"deleted\":false,\"id\":1,\"remark\":\"\",\"roleName\":\"?????\",\"roleType\":\"administrator\",\"updateTime\":1547537407000}],\"total\":1}', '2019-06-17 19:46:04', '0:0:0:0:0:0:0:1', '4', '2');
+INSERT INTO `system_operation_log` VALUES ('590', '/system/menu/menu_list_page', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-06-17 19:46:13', '0:0:0:0:0:0:0:1', '5', '2');
+INSERT INTO `system_operation_log` VALUES ('591', '/system/operator/operator_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":0,\"pageSize\":0,\"rows\":[{\"addTime\":1516934300000,\"deleted\":false,\"department\":\"0\",\"id\":1,\"initPwd\":\"$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy\",\"mobile\":\"13000000000\",\"operatorName\":\"??\",\"pwd\":\"$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmhomy\",\"remark\":\"\",\"state\":1,\"updateTime\":1547522718000}],\"total\":1}', '2019-06-17 19:46:15', '0:0:0:0:0:0:0:1', '11', '2');
+INSERT INTO `system_operation_log` VALUES ('592', '/operation/image/image_list_page', '1', '{\"page\":1,\"rows\":20}', '{\"page\":1,\"pageSize\":20,\"rows\":[{\"addTime\":1543558470000,\"classify\":1,\"classifyName\":\"pc??\",\"deleted\":false,\"id\":3,\"remark\":\"asasdxxx\",\"size\":146822,\"title\":\"cccc\",\"url\":\"/upload/img/2018-11-30/134f8d13-8c24-474f-9900-f59fea1f2bc3.jpg\"},{\"addTime\":1543556432000,\"classify\":2,\"classifyName\":\"app??\",\"deleted\":false,\"id\":2,\"remark\":\"\",\"size\":3636,\"title\":\"sssss\",\"url\":\"/upload/img/2018-11-30/5802b358-8f64-4edd-85a4-c5d6b327e10d.jpg\"},{\"addTime\":1543477373000,\"classify\":1,\"classifyName\":\"pc??\",\"deleted\":false,\"id\":1,\"remark\":\"\",\"size\":166315,\"title\":\"????\",\"url\":\"/upload/img/2018-11-29/af77cdda-0246-4925-a406-00180d0923cf.png\"}],\"total\":3}', '2019-06-17 19:46:16', '0:0:0:0:0:0:0:1', '167', '2');
+INSERT INTO `system_operation_log` VALUES ('593', '/public/operation/image/edit_image_page', '1', '3', '\"public/operation/image/edit_image_page\"', '2019-06-17 19:46:19', '0:0:0:0:0:0:0:1', '5', '4');
+INSERT INTO `system_operation_log` VALUES ('594', '/public/operation/image/edit_image_page', '1', '3', '\"public/operation/image/edit_image_page\"', '2019-06-17 19:46:25', '0:0:0:0:0:0:0:1', '4', '4');
+INSERT INTO `system_operation_log` VALUES ('595', '/system/operator/menu_list', '1', null, '{\"code\":200,\"data\":[{\"addTime\":1516868034000,\"classify\":0,\"deleted\":false,\"id\":1001,\"nid\":\"systemManage\",\"pid\":0,\"sort\":0,\"title\":\"????\"},{\"addTime\":1516868041000,\"classify\":0,\"deleted\":false,\"id\":1004,\"nid\":\"menuManage\",\"pid\":1001,\"remark\":\"\",\"sort\":1,\"subUrl\":\"/system/menu/menu_list_page\",\"title\":\"????\",\"updateTime\":1548060227000,\"url\":\"/public/system/menu/manage_menu_page\"},{\"addTime\":1516868071000,\"classify\":0,\"deleted\":false,\"id\":1007,\"nid\":\"systemParamter\",\"pid\":1001,\"sort\":2,\"title\":\"????\",\"url\":\"/public/system/config/manage_config_page\"},{\"addTime\":1516868080000,\"classify\":0,\"deleted\":false,\"id\":1008,\"nid\":\"systemUser\",\"pid\":1001,\"sort\":3,\"title\":\"????\",\"url\":\"/public/system/operator/manage_operator_page\"},{\"addTime\":1516868096000,\"classify\":0,\"deleted\":false,\"id\":1009,\"nid\":\"roleManage\",\"pid\":1001,\"sort\":4,\"title\":\"????\",\"url\":\"/public/system/role/manage_role_page\"},{\"addTime\":1543395756000,\"classify\":0,\"deleted\":false,\"id\":1010,\"nid\":\"imageManage\",\"pid\":1001,\"sort\":5,\"title\":\"????\",\"url\":\"/public/operation/image/manage_image_page\"},{\"addTime\":1547200291000,\"classify\":0,\"deleted\":false,\"id\":1011,\"nid\":\"dictManage\",\"pid\":1001,\"sort\":6,\"title\":\"????\",\"url\":\"/public/system/dict/manage_dict_page\"},{\"addTime\":1547450878000,\"classify\":0,\"deleted\":false,\"id\":1012,\"nid\":\"cacheManage\",\"pid\":1001,\"sort\":7,\"title\":\"????\",\"url\":\"/public/system/cache/manage_cache_page\"},{\"addTime\":1547620261000,\"classify\":0,\"deleted\":false,\"id\":1013,\"nid\":\"operationManage\",\"pid\":1001,\"sort\":8,\"title\":\"????\",\"url\":\"/public/system/operation/manage_operation_page\"},{\"addTime\":1547719434000,\"classify\":0,\"deleted\":false,\"id\":1014,\"nid\":\"departmentManage\",\"pid\":1001,\"sort\":9,\"title\":\"????\",\"url\":\"/public/system/department/manage_department_page\"},{\"addTime\":1548137941000,\"classify\":1,\"deleted\":false,\"id\":1016,\"nid\":\"menuManageBase\",\"pid\":1004,\"remark\":\"????\",\"sort\":1,\"subUrl\":\"\",\"title\":\"??\",\"updateTime\":1548137969000,\"url\":\"\"},{\"addTime\":1548137771000,\"classify\":1,\"deleted\":false,\"id\":1015,\"nid\":\"menuManageQuery\",\"pid\":1004,\"remark\":\"????\",\"sort\":2,\"subUrl\":\"/system/menu/add_menu\",\"title\":\"??\",\"updateTime\":1548137949000,\"url\":\"/public/system/menu/add_menu_page\"}]}', '2019-06-17 19:46:33', '0:0:0:0:0:0:0:1', '5', '2');
 
 -- ----------------------------
 -- Table structure for system_operator
@@ -8758,7 +8799,7 @@ CREATE TABLE `system_operator` (
   `department` varchar(64) DEFAULT NULL COMMENT '所属部门',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(100) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `name_index` (`operator_name`),
@@ -8798,7 +8839,7 @@ CREATE TABLE `system_role` (
   `role_name` varchar(10) DEFAULT NULL COMMENT '角色名称',
   `role_type` varchar(20) DEFAULT NULL COMMENT '角色类型',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态:0:正常,1:已删除',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
@@ -8822,23 +8863,23 @@ CREATE TABLE `system_role_menu` (
   KEY `role_id_index` (`role_id`) USING BTREE,
   KEY `menu_id_index` (`menu_id`),
   CONSTRAINT `role_id_FK` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8 COMMENT='角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
-INSERT INTO `system_role_menu` VALUES ('183', '1', '1001');
-INSERT INTO `system_role_menu` VALUES ('184', '1', '1004');
-INSERT INTO `system_role_menu` VALUES ('185', '1', '1015');
-INSERT INTO `system_role_menu` VALUES ('186', '1', '1016');
-INSERT INTO `system_role_menu` VALUES ('187', '1', '1007');
-INSERT INTO `system_role_menu` VALUES ('188', '1', '1008');
-INSERT INTO `system_role_menu` VALUES ('189', '1', '1009');
-INSERT INTO `system_role_menu` VALUES ('190', '1', '1010');
-INSERT INTO `system_role_menu` VALUES ('191', '1', '1011');
-INSERT INTO `system_role_menu` VALUES ('192', '1', '1012');
-INSERT INTO `system_role_menu` VALUES ('193', '1', '1013');
-INSERT INTO `system_role_menu` VALUES ('194', '1', '1014');
+INSERT INTO `system_role_menu` VALUES ('215', '1', '1001');
+INSERT INTO `system_role_menu` VALUES ('216', '1', '1004');
+INSERT INTO `system_role_menu` VALUES ('217', '1', '1016');
+INSERT INTO `system_role_menu` VALUES ('218', '1', '1015');
+INSERT INTO `system_role_menu` VALUES ('219', '1', '1007');
+INSERT INTO `system_role_menu` VALUES ('220', '1', '1008');
+INSERT INTO `system_role_menu` VALUES ('221', '1', '1009');
+INSERT INTO `system_role_menu` VALUES ('222', '1', '1010');
+INSERT INTO `system_role_menu` VALUES ('223', '1', '1011');
+INSERT INTO `system_role_menu` VALUES ('224', '1', '1012');
+INSERT INTO `system_role_menu` VALUES ('225', '1', '1013');
+INSERT INTO `system_role_menu` VALUES ('226', '1', '1014');
 
 -- ----------------------------
 -- Table structure for tips
@@ -8849,7 +8890,7 @@ CREATE TABLE `tips` (
   `title` varchar(20) NOT NULL COMMENT '标签名称',
   `remark` varchar(100) DEFAULT NULL COMMENT '标签备注信息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
   PRIMARY KEY (`id`),
   KEY `name_index` (`title`)
@@ -8874,7 +8915,7 @@ CREATE TABLE `user` (
   `channel` tinyint(3) unsigned DEFAULT '0' COMMENT '注册渠道 pc,android,ios,h5,other',
   `register_ip` varchar(32) DEFAULT NULL COMMENT '注册地址',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `mobile_index` (`mobile`),
   KEY `email_index` (`email`),
@@ -8901,7 +8942,7 @@ CREATE TABLE `user_address` (
   `address` varchar(255) DEFAULT NULL COMMENT '详细地址',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `status_index` (`state`),
   KEY `user_id_index` (`user_id`),
@@ -8947,7 +8988,7 @@ CREATE TABLE `user_message` (
   `state` tinyint(1) unsigned DEFAULT '0' COMMENT '状态 0:未读 1:已读',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人站内信';
 
@@ -8998,7 +9039,7 @@ CREATE TABLE `withdraw_log` (
   `bank_num` varchar(32) DEFAULT NULL COMMENT '提现银行卡号',
   `bank_code` char(20) DEFAULT NULL COMMENT '提现银行卡编码',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `order_no` varchar(128) DEFAULT NULL COMMENT '订单号',
   `remark` varchar(200) DEFAULT NULL COMMENT '提现备注信息',
   PRIMARY KEY (`id`)
@@ -9014,7 +9055,7 @@ CREATE TABLE `withdraw_log` (
 DROP PROCEDURE IF EXISTS `idata`;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `idata`()
-  begin
+begin
     declare i int;
     set i=1;
     while(i<=100000)do
