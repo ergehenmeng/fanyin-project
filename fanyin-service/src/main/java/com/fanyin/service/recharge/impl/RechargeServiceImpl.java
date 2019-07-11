@@ -9,7 +9,6 @@ import com.fanyin.mapper.recharge.RechargeLogMapper;
 import com.fanyin.model.recharge.RechargeLog;
 import com.fanyin.service.recharge.RechargeService;
 import com.fanyin.service.user.AccountDetailLogService;
-import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +65,6 @@ public class RechargeServiceImpl implements RechargeService {
         }
         rechargeLog.setRealAmount(BigDecimal.valueOf(async.getRealAmount()));
         rechargeLog.setState(async.getState());
-        rechargeLog.setUpdateTime(DateUtil.getNow());
         rechargeLogMapper.updateByPrimaryKeySelective(rechargeLog);
 
         if(async.getState() == RechargeStatus.SUCCESS.getCode()){

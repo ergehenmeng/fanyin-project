@@ -5,8 +5,6 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.controller.AbstractController;
-import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.exception.BusinessException;
 import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.OperationLogTask;
@@ -27,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * 操作日志
@@ -77,11 +74,9 @@ public class OperationLogHandler {
                 }
             }
             systemOperationLog.setUrl(request.getRequestURI());
-            Date now = DateUtil.getNow();
-            systemOperationLog.setAddTime(now);
             Object proceed = joinPoint.proceed();
             long end = System.currentTimeMillis();
-            systemOperationLog.setBusinessTime(end - now.getTime());
+            systemOperationLog.setBusinessTime(end - DateUtil.getNow().getTime());
             systemOperationLog.setClassify((byte)mark.value().ordinal());
             if(mark.response() && proceed != null){
                 systemOperationLog.setResponse(JSONObject.toJSONString(proceed));

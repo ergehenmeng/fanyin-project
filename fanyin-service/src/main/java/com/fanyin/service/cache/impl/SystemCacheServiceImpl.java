@@ -91,7 +91,6 @@ public class SystemCacheServiceImpl implements SystemCacheService {
         }else{
             cache.setState((byte)2);
         }
-        cache.setUpdateTime(DateUtil.getNow());
         systemCacheMapper.updateCache(cache);
     }
 }

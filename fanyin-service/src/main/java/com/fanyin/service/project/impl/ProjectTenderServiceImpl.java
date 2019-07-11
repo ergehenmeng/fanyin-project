@@ -17,13 +17,12 @@ import com.fanyin.model.user.DiscountCoupon;
 import com.fanyin.model.user.DiscountCouponTender;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.TenderTask;
+import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.project.ProjectService;
 import com.fanyin.service.project.ProjectTenderService;
-import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.user.AccountDetailLogService;
 import com.fanyin.service.user.AccountService;
 import com.fanyin.service.user.DiscountCouponService;
-import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.ProjectUtil;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -233,12 +231,10 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
 
         //投标金额
         BigDecimal tenderAmount = BigDecimal.valueOf(request.getAmount());
-        Date now = DateUtil.getNow();
         //插入投标信息
         ProjectTender tender = new ProjectTender();
         tender.setState(TenderConstant.TENDER_STATUS_0);
         tender.setUserId(request.getUserId());
-        tender.setAddTime(now);
         tender.setAccount(tenderAmount);
         tender.setProjectId(request.getProjectId());
         tender.setIp(request.getIp());
@@ -250,7 +246,6 @@ public class ProjectTenderServiceImpl implements ProjectTenderService {
             //更新优惠券状态
             discountCouponService.updateDiscountCoupon(coupon);
             DiscountCouponTender couponTender = new DiscountCouponTender();
-            couponTender.setAddTime(now);
             couponTender.setDiscountCouponId(coupon.getId());
             couponTender.setTenderId(tender.getId());
             //插入优惠券关联信息

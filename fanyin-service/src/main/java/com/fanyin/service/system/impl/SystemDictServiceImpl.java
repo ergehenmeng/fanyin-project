@@ -11,7 +11,6 @@ import com.fanyin.mapper.system.SystemDictMapper;
 import com.fanyin.model.system.SystemDict;
 import com.fanyin.service.system.SystemDictService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +49,12 @@ public class SystemDictServiceImpl implements SystemDictService {
     public void addDict(DictAddRequest request) {
         SystemDict systemDict = BeanCopyUtil.copy(request, SystemDict.class);
         systemDict.setDeleted(false);
-        systemDict.setAddTime(DateUtil.getNow());
         systemDictMapper.insertSelective(systemDict);
     }
 
     @Override
     public void updateDict(DictEditRequest request) {
         SystemDict systemDict = BeanCopyUtil.copy(request, SystemDict.class);
-        systemDict.setUpdateTime(DateUtil.getNow());
         systemDictMapper.updateByPrimaryKeySelective(systemDict);
     }
 
@@ -66,7 +63,6 @@ public class SystemDictServiceImpl implements SystemDictService {
         SystemDict dict = new SystemDict();
         dict.setDeleted(true);
         dict.setId(id);
-        dict.setUpdateTime(DateUtil.getNow());
         int i = systemDictMapper.updateByIdSelective(dict);
         if(i != 1){
             throw new BusinessException(ErrorCodeEnum.DICT_LOCKED_ERROR);

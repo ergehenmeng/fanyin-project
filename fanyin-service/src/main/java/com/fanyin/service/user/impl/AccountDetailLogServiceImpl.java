@@ -57,7 +57,6 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         BigDecimal amount = tender.getAccount().add(interest);
         log.setAmount(amount);
         log.setTotal(amount);
-        log.setAddTime(DateUtil.getNow());
         this.capitalOperation(log);
     }
 
@@ -78,14 +77,12 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         //写入详细资金日志,记录此时的账户资金金额
         AccountDetailLog log = BeanCopyUtil.copy(account, AccountDetailLog.class,"id");
         log.setClassify(detailLog.getClassify());
-        log.setAddTime(detailLog.getAddTime());
         accountDetailLogMapper.insertSelective(log);
     }
 
     @Override
     public void tenderFreeze(ProjectTender tender) {
         AccountDetailLog log = new AccountDetailLog();
-        Date now = DateUtil.getNow();
         log.setUserId(tender.getUserId());
         log.setClassify(AccountLogType.TENDER.getClassify());
         BigDecimal freeze = tender.getAccount().subtract(tender.getVoucherInterest());
@@ -93,23 +90,19 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
         log.setAmount(freeze);
         log.setAvailableBalance(BigDecimalUtil.negation(freeze));
         log.setTotal(BigDecimalUtil.negation(freeze));
-        log.setAddTime(now);
         this.capitalOperation(log);
 
         AccountLog accountLog = new AccountLog();
         accountLog.setTenderId(tender.getId());
         accountLog.setUserId(tender.getUserId());
         accountLog.setAmount(freeze);
-        accountLog.setAddTime(log.getAddTime());
         accountLog.setClassify(log.getClassify());
-        accountLog.setAddTime(now);
         accountLogService.insertAccountLog(accountLog);
     }
 
     @Override
     public void rechargeSuccess(RechargeLog rechargeLog) {
         AccountDetailLog log = new AccountDetailLog();
-        Date now = DateUtil.getNow();
         log.setUserId(rechargeLog.getUserId());
         log.setClassify(AccountLogType.RECHARGE.getClassify());
         BigDecimal recharge = rechargeLog.getRealAmount();
@@ -120,7 +113,6 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
 
         AccountLog accountLog = new AccountLog();
         accountLog.setClassify(log.getClassify());
-        accountLog.setAddTime(now);
         accountLog.setAmount(recharge);
         accountLog.setUserId(log.getUserId());
         accountLogService.insertAccountLog(accountLog);
@@ -141,7 +133,6 @@ public class AccountDetailLogServiceImpl implements AccountDetailLogService {
 
         AccountLog accountLog = new AccountLog();
         accountLog.setClassify(log.getClassify());
-        accountLog.setAddTime(now);
         accountLog.setAmount(awardAmount);
         accountLog.setUserId(log.getUserId());
         accountLog.setRemark(log.getRemark());

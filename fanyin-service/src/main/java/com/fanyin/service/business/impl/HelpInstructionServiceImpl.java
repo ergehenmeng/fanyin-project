@@ -7,7 +7,6 @@ import com.fanyin.mapper.business.HelpInstructionMapper;
 import com.fanyin.model.business.HelpInstruction;
 import com.fanyin.service.business.HelpInstructionService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ public class HelpInstructionServiceImpl implements HelpInstructionService {
     @Override
     public void addHelpInstruction(HelpAddRequest request) {
         HelpInstruction instruction = BeanCopyUtil.copy(request, HelpInstruction.class);
-        instruction.setAddTime(DateUtil.getNow());
         //默认正常
         instruction.setDeleted(false);
         helpInstructionMapper.insertSelective(instruction);
@@ -40,7 +38,6 @@ public class HelpInstructionServiceImpl implements HelpInstructionService {
     @Override
     public void updateHelpInstruction(HelpEditRequest request) {
         HelpInstruction instruction = BeanCopyUtil.copy(request, HelpInstruction.class);
-        instruction.setUpdateTime(DateUtil.getNow());
         helpInstructionMapper.updateByPrimaryKeySelective(instruction);
     }
 
@@ -49,7 +46,6 @@ public class HelpInstructionServiceImpl implements HelpInstructionService {
         HelpInstruction instruction = new HelpInstruction();
         instruction.setId(request.getId());
         instruction.setDeleted(true);
-        instruction.setUpdateTime(DateUtil.getNow());
         helpInstructionMapper.updateByPrimaryKeySelective(instruction);
     }
 

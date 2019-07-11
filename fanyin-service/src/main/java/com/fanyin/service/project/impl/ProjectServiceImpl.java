@@ -31,7 +31,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -100,7 +99,6 @@ public class ProjectServiceImpl implements ProjectService {
         //还款列表
         Map<Integer,ProjectPlan> repaymentMap = Maps.newHashMap();
 
-        Date now = DateUtil.getNow();
         tenderList.forEach(projectTender -> {
             //生成回款列表
             List<ProjectPlan> recoverList = this.createRecoverList(projectTender, project);
@@ -110,7 +108,6 @@ public class ProjectServiceImpl implements ProjectService {
             projectRecoverService.addBatchRecover(recoverList,projectTender.getUserId(),project.getId(),projectTender.getId());
             //计算投标预计收益
             projectTenderService.calcTenderInterest(projectTender, recoverList);
-            projectTender.setUpdateTime(now);
             projectTender.setState(TenderConstant.TENDER_STATUS_1);
             //更新投标信息
             projectTenderService.updateTender(projectTender);
@@ -264,7 +261,6 @@ public class ProjectServiceImpl implements ProjectService {
             this.fullAuditFail(project);
             log.setState(ProjectAuditStatus.REVOCATION.getCode());
         }
-        log.setAddTime(DateUtil.getNow());
         log.setProjectId(audit.getId());
         log.setRemark(audit.getRemark());
         log.setOperatorId(audit.getOperatorId());

@@ -10,7 +10,6 @@ import com.fanyin.model.withdraw.WithdrawLog;
 import com.fanyin.service.borrower.BorrowerAccountLogService;
 import com.fanyin.service.borrower.BorrowerAccountService;
 import com.fanyin.utils.BigDecimalUtil;
-import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +60,6 @@ public class BorrowerAccountLogServiceImpl implements BorrowerAccountLogService 
         accountLog.setProjectId(accountDetailLog.getProjectId());
         accountLog.setBorrowerId(accountDetailLog.getBorrowerId());
         accountLog.setAmount(accountDetailLog.getAmount());
-        accountLog.setAddTime(DateUtil.getNow());
         borrowerAccountLogMapper.insertSelective(accountLog);
     }
 

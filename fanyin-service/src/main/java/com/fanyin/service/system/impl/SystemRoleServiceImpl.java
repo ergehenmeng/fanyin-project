@@ -5,11 +5,9 @@ import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
 import com.fanyin.mapper.system.SystemOperatorRoleMapper;
 import com.fanyin.mapper.system.SystemRoleMapper;
-import com.fanyin.model.system.SystemOperatorRole;
 import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Splitter;
@@ -50,14 +48,12 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public void updateRole(RoleEditRequest request) {
         SystemRole role = BeanCopyUtil.copy(request, SystemRole.class);
-        role.setUpdateTime(DateUtil.getNow());
         systemRoleMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override
     public void deleteRole(int id) {
         SystemRole role = new SystemRole();
-        role.setUpdateTime(DateUtil.getNow());
         role.setDeleted(true);
         systemRoleMapper.updateByPrimaryKeySelective(role);
     }
@@ -66,7 +62,6 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     public void addRole(RoleAddRequest request) {
         SystemRole role = BeanCopyUtil.copy(request, SystemRole.class);
         role.setDeleted(false);
-        role.setAddTime(DateUtil.getNow());
         systemRoleMapper.insertSelective(role);
     }
 

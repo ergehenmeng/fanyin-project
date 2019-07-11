@@ -7,7 +7,6 @@ import com.fanyin.mapper.business.ImageLogMapper;
 import com.fanyin.model.business.ImageLog;
 import com.fanyin.service.business.ImageLogService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     public void addImageLog(ImageAddRequest request) {
         ImageLog imageLog = BeanCopyUtil.copy(request, ImageLog.class);
         imageLog.setDeleted(false);
-        imageLog.setAddTime(DateUtil.getNow());
         imageLogMapper.insertSelective(imageLog);
     }
 
@@ -46,7 +44,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     public void deleteImageLog(Integer id) {
         ImageLog log = new ImageLog();
         log.setId(id);
-        log.setUpdateTime(DateUtil.getNow());
         log.setDeleted(true);
         imageLogMapper.updateByPrimaryKeySelective(log);
     }
@@ -54,7 +51,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     @Override
     public void updateImageLog(ImageEditRequest request) {
         ImageLog log = BeanCopyUtil.copy(request, ImageLog.class);
-        log.setUpdateTime(DateUtil.getNow());
         imageLogMapper.updateByPrimaryKeySelective(log);
     }
 

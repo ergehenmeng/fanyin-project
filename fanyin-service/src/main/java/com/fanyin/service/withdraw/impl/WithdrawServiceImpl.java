@@ -9,9 +9,9 @@ import com.fanyin.model.business.VipConfig;
 import com.fanyin.model.user.BankCard;
 import com.fanyin.model.user.UserExtend;
 import com.fanyin.model.withdraw.WithdrawLog;
+import com.fanyin.service.business.VipConfigService;
 import com.fanyin.service.common.CommonService;
 import com.fanyin.service.deposit.DepositService;
-import com.fanyin.service.business.VipConfigService;
 import com.fanyin.service.project.ProjectTenderService;
 import com.fanyin.service.recharge.BankCardService;
 import com.fanyin.service.recharge.RechargeService;
@@ -72,7 +72,6 @@ public class WithdrawServiceImpl implements WithdrawService {
         WithdrawLog log = new WithdrawLog();
         log.setUserId(apply.getUserId());
         log.setUserType(apply.getUserType());
-        log.setAddTime(DateUtil.getNow());
         log.setAmount(BigDecimal.valueOf(apply.getAmount()));
         log.setState(WithdrawStatus.ENTRY.getCode());
         //借款人免费提现

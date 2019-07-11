@@ -5,7 +5,6 @@ import com.fanyin.mapper.system.SystemDepartmentMapper;
 import com.fanyin.model.system.SystemDepartment;
 import com.fanyin.service.system.SystemDepartmentService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +33,6 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
         department.setDeleted(false);
-        department.setAddTime(DateUtil.getNow());
         systemDepartmentMapper.insertSelective(department);
     }
 

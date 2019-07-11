@@ -181,7 +181,7 @@ public class DateUtil extends DateUtils {
      * @return 字符串
      */
     public static String getNow(String pattern) {
-        return DateFormatUtils.format(getNow(), pattern);
+        return format(getNow(), pattern);
     }
 
     /**

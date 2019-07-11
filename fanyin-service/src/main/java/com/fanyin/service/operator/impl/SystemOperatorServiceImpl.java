@@ -13,7 +13,6 @@ import com.fanyin.model.system.SystemOperator;
 import com.fanyin.model.system.SystemOperatorRole;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import com.fanyin.utils.Md5Util;
 import com.fanyin.utils.StringUtil;
 import com.github.pagehelper.PageHelper;
@@ -71,7 +70,6 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public void addOperator(OperatorAddRequest request) {
         SystemOperator operator = BeanCopyUtil.copy(request, SystemOperator.class);
-        operator.setAddTime(DateUtil.getNow());
         operator.setDeleted(false);
         operator.setState(1);
         String initPassword = this.initPassword(request.getMobile());
@@ -100,7 +98,6 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public void updateOperator(OperatorEditRequest request) {
         SystemOperator operator = BeanCopyUtil.copy(request, SystemOperator.class);
-        operator.setUpdateTime(DateUtil.getNow());
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         systemOperatorRoleMapper.deleteByOperatorId(request.getId());
         if(StringUtil.isNotBlank(request.getRoleIds())){

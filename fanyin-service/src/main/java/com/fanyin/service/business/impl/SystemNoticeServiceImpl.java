@@ -7,7 +7,6 @@ import com.fanyin.mapper.business.SystemNoticeMapper;
 import com.fanyin.model.business.SystemNotice;
 import com.fanyin.service.business.SystemNoticeService;
 import com.fanyin.utils.BeanCopyUtil;
-import com.fanyin.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,12 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
         SystemNotice systemNotice = BeanCopyUtil.copy(request, SystemNotice.class);
         //默认正常
         systemNotice.setDeleted(false);
-        systemNotice.setAddTime(DateUtil.getNow());
         systemNoticeMapper.insertSelective(systemNotice);
     }
 
     @Override
     public void updateNotice(NoticeEditRequest request) {
         SystemNotice systemNotice = BeanCopyUtil.copy(request, SystemNotice.class);
-        systemNotice.setUpdateTime(DateUtil.getNow());
         systemNoticeMapper.updateByPrimaryKeySelective(systemNotice);
     }
 
@@ -48,7 +45,6 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     public void deleteNotice(NoticeEditRequest request) {
         SystemNotice notice = new SystemNotice();
         notice.setId(request.getId());
-        notice.setUpdateTime(DateUtil.getNow());
         //删除
         notice.setDeleted(true);
         systemNoticeMapper.updateByPrimaryKeySelective(notice);
