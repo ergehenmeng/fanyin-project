@@ -1,15 +1,15 @@
 package com.fanyin.configuration;
 
-import com.google.code.kaptcha.text.TextProducer;
-import com.google.code.kaptcha.util.Configurable;
+import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * 重写Random随机数
  * @author 王艳兵
  * @date 2019/7/10 17:32
  */
-public class CaptchaProducer extends Configurable implements TextProducer {
+public class CaptchaProducer extends DefaultTextCreator {
 
     @Override
     public String getText(){

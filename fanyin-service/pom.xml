@@ -12,7 +12,6 @@
     <name>fanyin-service</name>
     <artifactId>fanyin-service</artifactId>
     <packaging>jar</packaging>
-    <version>${project-version}</version>
     <description>fanyin-service</description>
 
     <dependencies>
@@ -82,10 +81,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-activemq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

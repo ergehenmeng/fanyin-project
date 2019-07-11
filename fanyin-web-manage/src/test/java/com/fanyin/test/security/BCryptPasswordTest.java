@@ -1,6 +1,6 @@
 package com.fanyin.test.security;
 
-import com.fanyin.configuration.BcryptPasswordEncoder;
+import com.fanyin.configuration.security.BcryptPasswordEncoder;
 import com.fanyin.configuration.security.PasswordEncoder;
 
 /**

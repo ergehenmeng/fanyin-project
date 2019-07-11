@@ -16,8 +16,8 @@ public class LoadRandom {
     public static void main(String[] args) {
         List<Load> list = Lists.newArrayListWithCapacity(100);
         list.add(Load.builder().weight(5).name("A").build());
-        list.add(Load.builder().weight(1).name("B").build());
-        list.add(Load.builder().weight(1).name("C").build());
+        list.add(Load.builder().weight(2).name("B").build());
+        list.add(Load.builder().weight(2).name("C").build());
         int totalWeight = list.stream().mapToInt(Load::getWeight).sum();
         reset(list,totalWeight);
     }
