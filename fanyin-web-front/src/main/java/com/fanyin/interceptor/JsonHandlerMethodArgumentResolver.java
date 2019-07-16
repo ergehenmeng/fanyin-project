@@ -16,12 +16,16 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.annotation.Nullable;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * 数据校验解析器
@@ -33,7 +37,15 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {
-        return parameter != null && !parameter.hasMethodAnnotation(SkipDataBinder.class);
+        if(parameter == null || parameter.hasMethodAnnotation(SkipDataBinder.class)){
+            return false;
+        }
+        Class<?> paramType = parameter.getParameterType();
+        return !ServletRequest.class.isAssignableFrom(paramType) &&
+                !ServletResponse.class.isAssignableFrom(paramType) &&
+                !MultipartRequest.class.isAssignableFrom(paramType) &&
+                !MultipartFile.class.isAssignableFrom(paramType) &&
+                !HttpSession.class.isAssignableFrom(paramType);
     }
 
     @Override
@@ -49,9 +61,8 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
         binder.validate(args);
         BindingResult bindingResult = binder.getBindingResult();
         if(bindingResult.hasErrors()){
-            List<ObjectError> allErrors = bindingResult.getAllErrors();
             //只显示第一条校验失败的信息
-            ObjectError objectError = allErrors.get(0);
+            ObjectError objectError = bindingResult.getAllErrors().get(0);
             throw new RequestException(ErrorCodeEnum.PARAMETER_PARSE_ERROR.getCode(),objectError.getDefaultMessage());
         }
         return args;
