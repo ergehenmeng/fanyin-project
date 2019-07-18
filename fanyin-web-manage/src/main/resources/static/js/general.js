@@ -24,6 +24,7 @@ $.fn.dataGridOptions.dataGrid = function(element,opts){
         pageSize : pageSize,
         pageList : pageList,
         singleSelect : true,
+        loadFilter:$.fn.extOptions.loadFilter,
         onLoadSuccess:$.fn.dataGridOptions.tips
     },opts);
     return $(element).datagrid(options);
@@ -36,6 +37,14 @@ $.fn.dataGridOptions.tips = function(data){
         slide: false,
         alignX: 'center'
     });
+};
+
+$.fn.extOptions.loadFilter = function(data){
+    if(data.code === 200){
+        return data.data;
+    }else{
+        parent.$.messager.alert("提示",data.msg || "系统繁忙","error");
+    }
 };
 
 /**
@@ -86,7 +95,8 @@ $.fn.treeGridOptions.treeGrid = function(element,opts){
         idField : 'id',
         treeField : 'text',
         nowrap : false,
-        singleSelect : true
+        singleSelect : true,
+        loadFilter:$.fn.extOptions.loadFilter
     },opts);
     return $(element).treegrid(options);
 };

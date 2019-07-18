@@ -1,6 +1,6 @@
 package com.fanyin.controller;
 
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
@@ -60,11 +60,11 @@ public class ErrorPageController extends AbstractErrorController {
      */
     @RequestMapping
     @ResponseBody
-    public Response error(HttpServletRequest request) {
+    public RespBody error(HttpServletRequest request) {
         HttpStatus status = super.getStatus(request);
         RequestAttributes requestAttributes = new ServletRequestAttributes(request);
         Object msg = requestAttributes.getAttribute(RequestDispatcher.ERROR_MESSAGE, RequestAttributes.SCOPE_REQUEST);
-        return Response.getInstance().setCode(status.value()).setMsg(msg != null ? msg.toString() : "");
+        return RespBody.getInstance().setCode(status.value()).setMsg(msg != null ? msg.toString() : "");
     }
 
     @Override

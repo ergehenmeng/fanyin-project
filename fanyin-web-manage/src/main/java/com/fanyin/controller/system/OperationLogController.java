@@ -4,6 +4,7 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.dto.system.log.OperationQueryRequest;
 import com.fanyin.ext.Paging;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.service.system.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class OperationLogController {
      */
     @PostMapping("/system/operation/operation_log_list_page")
     @ResponseBody
-    public Paging<SystemOperationLog> operationLogListPage(OperationQueryRequest request){
-        return new Paging<>(operationLogService.getByPage(request));
+    public RespBody<Paging<SystemOperationLog>> operationLogListPage(OperationQueryRequest request){
+        return RespBody.<Paging<SystemOperationLog>>getInstance().setData(new Paging<>(operationLogService.getByPage(request)));
     }
 
     /**

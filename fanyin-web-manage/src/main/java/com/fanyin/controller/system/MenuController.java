@@ -5,7 +5,7 @@ import com.fanyin.annotation.RequestType;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dto.system.menu.MenuAddRequest;
 import com.fanyin.dto.system.menu.MenuEditRequest;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemMenu;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
@@ -48,9 +48,9 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/menu_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Response<List<SystemMenu>> menuListPage(){
+    public RespBody<List<SystemMenu>> menuListPage(){
         List<SystemMenu> allList = systemMenuService.getAllList();
-        return Response.<List<SystemMenu>>getInstance().setData(allList);
+        return RespBody.<List<SystemMenu>>getInstance().setData(allList);
     }
 
     /**
@@ -76,9 +76,9 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/add_menu")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public Response addMenu(MenuAddRequest request){
+    public RespBody addMenu(MenuAddRequest request){
         systemMenuService.addMenu(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -89,9 +89,9 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/edit_menu")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public Response editMenu(MenuEditRequest request){
+    public RespBody editMenu(MenuEditRequest request){
         systemMenuService.updateMenu(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -101,9 +101,9 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/delete_menu")
     @Mark(RequestType.DELETE)
-    public Response deleteMenu(Integer id){
+    public RespBody deleteMenu(Integer id){
         systemMenuService.deleteMenu(id);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -113,10 +113,10 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/operator/menu_list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Response operatorMenuList(){
+    public RespBody operatorMenuList(){
         SystemOperator operator = getRequiredOperator();
         List<SystemMenu> menuList = systemMenuService.getMenuList(operator.getId(),null);
-        return Response.getInstance().setData(menuList);
+        return RespBody.getInstance().setData(menuList);
     }
 
 }

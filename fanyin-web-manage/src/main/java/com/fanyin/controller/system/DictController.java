@@ -6,7 +6,7 @@ import com.fanyin.dto.system.dict.DictAddRequest;
 import com.fanyin.dto.system.dict.DictEditRequest;
 import com.fanyin.dto.system.dict.DictQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemDict;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +33,8 @@ public class DictController {
     @PostMapping("/system/dict/dict_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemDict> dictListPage(DictQueryRequest request){
-        return new Paging<>(systemDictService.getByPage(request));
+    public RespBody<Paging<SystemDict>> dictListPage(DictQueryRequest request){
+        return RespBody.<Paging<SystemDict>>getInstance().setData(new Paging<>(systemDictService.getByPage(request)));
     }
 
     /**
@@ -58,9 +58,9 @@ public class DictController {
     @PostMapping("/system/dict/add_dict")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public Response addDict(DictAddRequest request){
+    public RespBody addDict(DictAddRequest request){
         systemDictService.addDict(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -71,9 +71,9 @@ public class DictController {
     @PostMapping("/system/dict/edit_dict")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public Response editDict(DictEditRequest request){
+    public RespBody editDict(DictEditRequest request){
         systemDictService.updateDict(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
 
@@ -85,9 +85,9 @@ public class DictController {
     @PostMapping("/system/dict/delete_dict")
     @ResponseBody
     @Mark(RequestType.DELETE)
-    public Response deleteDict(Integer id){
+    public RespBody deleteDict(Integer id){
         systemDictService.deleteDict(id);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
 }

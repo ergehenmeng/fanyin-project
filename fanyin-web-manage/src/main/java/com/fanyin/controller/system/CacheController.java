@@ -3,10 +3,9 @@ package com.fanyin.controller.system;
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemCache;
 import com.fanyin.service.cache.impl.SystemCacheService;
-
 import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +32,8 @@ public class CacheController {
     @PostMapping("/system/cache/cache_list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemCache> cacheList(){
-        return new Paging<>(systemCacheService.getList());
+    public RespBody<Paging<SystemCache>> cacheList(){
+        return RespBody.<Paging<SystemCache>>getInstance().setData(new Paging<>(systemCacheService.getList()));
     }
 
     /**
@@ -45,9 +44,9 @@ public class CacheController {
     @PostMapping("/system/cache/clear_cache")
     @ResponseBody
     @Mark(RequestType.ALL)
-    public Response clearCache(String cacheName){
+    public RespBody clearCache(String cacheName){
         List<String> cacheList = Splitter.on(",").splitToList(cacheName);
         systemCacheService.clearCache(cacheList);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 }

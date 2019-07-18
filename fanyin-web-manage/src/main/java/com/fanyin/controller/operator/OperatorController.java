@@ -9,7 +9,7 @@ import com.fanyin.dto.operator.OperatorEditRequest;
 import com.fanyin.dto.system.operator.OperatorQueryRequest;
 import com.fanyin.dto.system.operator.PasswordEditRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemOperator;
 import com.fanyin.service.operator.SystemOperatorService;
 import com.fanyin.service.system.SystemRoleService;
@@ -49,7 +49,7 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/change_password")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public Response changePassword(HttpSession session, PasswordEditRequest request){
+    public RespBody changePassword(HttpSession session, PasswordEditRequest request){
         SecurityOperator operator = getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = systemOperatorService.updateLoginPassword(request);
@@ -61,7 +61,7 @@ public class OperatorController extends AbstractController {
         token.setDetails(authentication.getDetails());
         context.setAuthentication(token);
 
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -72,9 +72,9 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/operator_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemOperator> operatorListPage(OperatorQueryRequest request){
+    public RespBody<Paging<SystemOperator>> operatorListPage(OperatorQueryRequest request){
         PageInfo<SystemOperator> page = systemOperatorService.getByPage(request);
-        return new Paging<>(page);
+        return RespBody.<Paging<SystemOperator>>getInstance().setData(new Paging<>(page));
     }
 
 
@@ -85,9 +85,9 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/add_operator")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public Response addOperator(OperatorAddRequest request){
+    public RespBody addOperator(OperatorAddRequest request){
         systemOperatorService.addOperator(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -116,9 +116,9 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/edit_operator")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public Response editOperator(OperatorEditRequest request){
+    public RespBody editOperator(OperatorEditRequest request){
         systemOperatorService.updateOperator(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
 }

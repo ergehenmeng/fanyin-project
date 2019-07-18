@@ -1,10 +1,9 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -25,12 +24,12 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException{
         if (exception instanceof SystemAuthenticationException){
             SystemAuthenticationException exc = (SystemAuthenticationException) exception;
-            Response<Object> returnJson = Response.getInstance().setCode(exc.getCode()).setMsg(exc.getMessage());
+            RespBody<Object> returnJson = RespBody.getInstance().setCode(exc.getCode()).setMsg(exc.getMessage());
             WebUtil.printJson(response, returnJson);
             return;
         }
         log.error("权限校验异常",exception);
-        Response<Object> returnJson = Response.getInstance().error(ErrorCodeEnum.PERMISSION_ERROR);
+        RespBody<Object> returnJson = RespBody.getInstance().error(ErrorCodeEnum.PERMISSION_ERROR);
         WebUtil.printJson(response, returnJson);
     }
 }

@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.enums.ErrorCodeEnum;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.utils.IpUtil;
 import com.fanyin.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class FailureAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException{
         log.warn("权限不足ip:[], url:[{}]", IpUtil.getIpAddress(request),request.getRequestURI());
-        Response<Object> returnJson = Response.getInstance().error(ErrorCodeEnum.ACCESS_DENIED);
+        RespBody<Object> returnJson = RespBody.getInstance().error(ErrorCodeEnum.ACCESS_DENIED);
         WebUtil.printJson(response, returnJson);
     }
 }

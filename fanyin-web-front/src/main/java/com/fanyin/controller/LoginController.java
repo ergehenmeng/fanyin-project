@@ -1,8 +1,7 @@
 package com.fanyin.controller;
 
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,9 +13,9 @@ public class LoginController extends AbstractController{
 
 
     @PostMapping("/login_exit")
-    public Response response(Object o){
+    public RespBody response(Object o){
 
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
 }

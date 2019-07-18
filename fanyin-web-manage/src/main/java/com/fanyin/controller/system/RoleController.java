@@ -7,7 +7,7 @@ import com.fanyin.dto.system.role.RoleAddRequest;
 import com.fanyin.dto.system.role.RoleEditRequest;
 import com.fanyin.dto.system.role.RoleQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
@@ -39,9 +39,9 @@ public class RoleController {
     @PostMapping("/system/role/role_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemRole> roleListPage(RoleQueryRequest request){
+    public RespBody roleListPage(RoleQueryRequest request){
         PageInfo<SystemRole> page = systemRoleService.getByPage(request);
-        return new Paging<>(page);
+        return RespBody.<Paging<SystemRole>>getInstance().setData(new Paging<>(page));
     }
 
     /**
@@ -51,14 +51,10 @@ public class RoleController {
     @PostMapping("/system/role/role_list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Response<List<CheckBox>> roleList(){
+    public RespBody<List<CheckBox>> roleList(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return Response.<List<CheckBox>>getInstance().setData(
-                DataUtil.transform(list,
-                    systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName())
-                )
-        );
+        return RespBody.<List<CheckBox>>getInstance().setData(DataUtil.transform(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName())));
     }
 
     /**
@@ -82,9 +78,9 @@ public class RoleController {
     @PostMapping("/system/role/edit_role")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public Response editRole(RoleEditRequest request){
+    public RespBody editRole(RoleEditRequest request){
         systemRoleService.updateRole(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -95,9 +91,9 @@ public class RoleController {
     @PostMapping("/system/role/delete_role")
     @ResponseBody
     @Mark(RequestType.DELETE)
-    public Response deleteRole(Integer id){
+    public RespBody deleteRole(Integer id){
         systemRoleService.deleteRole(id);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -108,9 +104,9 @@ public class RoleController {
     @PostMapping("/system/role/add_role")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public Response addRole(RoleAddRequest request){
+    public RespBody addRole(RoleAddRequest request){
         systemRoleService.addRole(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**
@@ -138,8 +134,8 @@ public class RoleController {
     @PostMapping("/system/role/auth_role")
     @ResponseBody
     @Mark(RequestType.ALL)
-    public Response authRole(Integer roleId,String menuIds){
+    public RespBody authRole(Integer roleId, String menuIds){
         systemRoleService.authMenu(roleId,menuIds);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 }

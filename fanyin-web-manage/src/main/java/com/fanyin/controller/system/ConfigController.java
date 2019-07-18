@@ -5,11 +5,10 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
-import com.fanyin.dto.system.config.ConfigAddRequest;
 import com.fanyin.dto.system.config.ConfigEditRequest;
 import com.fanyin.dto.system.config.ConfigQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemConfig;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.system.SystemConfigService;
@@ -38,9 +37,9 @@ public class ConfigController extends AbstractController {
     @PostMapping("/system/config/edit_config")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public Response editConfig(ConfigEditRequest request){
+    public RespBody editConfig(ConfigEditRequest request){
         systemConfigService.updateConfig(request);
-        return Response.getInstance();
+        return RespBody.getInstance();
     }
 
     /**

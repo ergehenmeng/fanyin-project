@@ -2,7 +2,7 @@ package com.fanyin.interceptor;
 
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.SystemException;
-import com.fanyin.ext.Response;
+import com.fanyin.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,12 +22,12 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public Response exception(Exception e){
+    public RespBody exception(Exception e){
         log.error("controller处理异常",e);
         if (e instanceof SystemException){
             SystemException exception = (SystemException)e;
-            return Response.<String>getInstance().setCode(exception.getCode()).setMsg(exception.getMessage());
+            return RespBody.<String>getInstance().setCode(exception.getCode()).setMsg(exception.getMessage());
         }
-        return Response.getInstance().error(ErrorCodeEnum.SYSTEM_ERROR);
+        return RespBody.getInstance().error(ErrorCodeEnum.SYSTEM_ERROR);
     }
 }

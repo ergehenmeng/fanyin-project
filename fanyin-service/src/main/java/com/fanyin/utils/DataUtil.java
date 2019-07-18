@@ -1,12 +1,12 @@
 package com.fanyin.utils;
 
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.Transfer;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * 主要针对移动端或前后端分离<br>
@@ -23,7 +23,7 @@ public class DataUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S,T> Paging<T> transform(PageInfo<S> pageInfo,Transfer<S,T> transfer){
+    public static <S,T> Paging<T> transform(PageInfo<S> pageInfo, Function<S,T> transfer){
 
         Paging<T> paging = new Paging<>();
 
@@ -31,7 +31,7 @@ public class DataUtil {
 
         List<T> formatList = Lists.newArrayList();
         list.forEach(s -> {
-            T format = transfer.transfer(s);
+            T format = transfer.apply(s);
             formatList.add(format);
         });
 
@@ -51,9 +51,9 @@ public class DataUtil {
      * @param <T> 目标数据类型
      * @return 结果数据列表
      */
-    public static <S,T> List<T> transform(Collection<S> sourceList, Transfer<S,T> transfer){
+    public static <S,T> List<T> transform(Collection<S> sourceList, Function<S,T> transfer){
         List<T> resultList = Lists.newArrayList();
-        sourceList.forEach(s -> resultList.add(transfer.transfer(s)));
+        sourceList.forEach(s -> resultList.add(transfer.apply(s)));
         return resultList;
     }
 }
