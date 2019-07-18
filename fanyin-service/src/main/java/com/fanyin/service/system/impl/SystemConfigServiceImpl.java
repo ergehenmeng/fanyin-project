@@ -43,7 +43,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public PageInfo<SystemConfig> getByPage(ConfigQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemConfig> list = systemConfigMapper.getList(request);
         return new PageInfo<>(list);
     }

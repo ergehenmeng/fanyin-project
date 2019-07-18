@@ -40,7 +40,7 @@ public class SystemDictServiceImpl implements SystemDictService {
 
     @Override
     public PageInfo<SystemDict> getByPage(DictQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemDict> list = systemDictMapper.getList(request);
         return new PageInfo<>(list);
     }

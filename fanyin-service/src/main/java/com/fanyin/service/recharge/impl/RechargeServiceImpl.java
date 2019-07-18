@@ -47,7 +47,7 @@ public class RechargeServiceImpl implements RechargeService {
 
     @Override
     public PageInfo<RechargeLog> getByPage(RechargeRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<RechargeLog> list = rechargeLogMapper.getList(request);
         return new PageInfo<>(list);
     }

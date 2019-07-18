@@ -24,7 +24,7 @@ public class PageQuery implements Serializable{
     /**
      * 页容量
      */
-    private int rows = 20;
+    private int pageSize = 20;
 
     /**
      * 基础查询字段

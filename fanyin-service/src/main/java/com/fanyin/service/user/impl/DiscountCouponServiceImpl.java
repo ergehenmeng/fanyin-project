@@ -39,7 +39,7 @@ public class DiscountCouponServiceImpl implements DiscountCouponService {
     @Override
     public PageInfo<DiscountCoupon> getByPage(CouponQueryRequest request) {
         request.setNow(DateUtil.getNow());
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<DiscountCoupon> list = discountCouponMapper.getList(request);
         return new PageInfo<>(list);
     }

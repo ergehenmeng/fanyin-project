@@ -51,7 +51,7 @@ public class HelpInstructionServiceImpl implements HelpInstructionService {
 
     @Override
     public PageInfo<HelpInstruction> getByPage(HelpQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<HelpInstruction> list = helpInstructionMapper.getList(request);
         return new PageInfo<>(list);
     }

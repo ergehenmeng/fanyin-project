@@ -22,7 +22,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private SystemConfigApi systemConfigApi;
 
-    @Autowired
+    @Autowired(required = false)
     private JavaMailSender javaMailSender;
 
     @Override

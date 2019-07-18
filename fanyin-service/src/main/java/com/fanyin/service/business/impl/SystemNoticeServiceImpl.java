@@ -52,7 +52,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
 
     @Override
     public PageInfo<SystemNotice> getByPage(NoticeQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemNotice> list = systemNoticeMapper.getList(request);
         return new PageInfo<>(list);
     }

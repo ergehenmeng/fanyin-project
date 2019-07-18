@@ -62,7 +62,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
 
     @Override
     public PageInfo<SystemOperator> getByPage(OperatorQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemOperator> list = systemOperatorMapper.getList(request);
         return new PageInfo<>(list);
     }

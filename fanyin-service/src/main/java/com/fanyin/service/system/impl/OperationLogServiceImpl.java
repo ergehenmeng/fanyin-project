@@ -31,7 +31,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 
     @Override
     public PageInfo<SystemOperationLog> getByPage(OperationQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemOperationLog> list = systemOperationLogMapper.getList(request);
         return new PageInfo<>(list);
     }

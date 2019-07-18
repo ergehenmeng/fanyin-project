@@ -28,7 +28,7 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     public PageInfo<ImageLog> getByPage(ImageQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<ImageLog> list = imageLogMapper.getList(request);
         return new PageInfo<>(list);
     }

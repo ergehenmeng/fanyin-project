@@ -35,7 +35,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Override
     public PageInfo<SystemRole> getByPage(RoleQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getRows());
+        PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemRole> list = systemRoleMapper.getList(request);
         return new PageInfo<>(list);
     }
