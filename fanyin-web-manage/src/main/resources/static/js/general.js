@@ -602,20 +602,28 @@ Date.prototype.format = function (format){
         "d+": this.getDate(),    //day 
         "h+": this.getHours(),   //hour 
         "m+": this.getMinutes(), //minute 
-        "s+": this.getSeconds(), //second 
-        "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter 
+        "s+": this.getSeconds(), //second
+        //刻度
+        "q+": Math.floor((this.getMonth() + 3) / 3),
         "S": this.getMilliseconds() //millisecond 
     };
-    if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
-    (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o) if (new RegExp("(" + k + ")").test(format))
-        format = format.replace(RegExp.$1,
-      RegExp.$1.length === 1 ? o[k] :
-        ("00" + o[k]).substr(("" + o[k]).length));
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (var k in o){
+        if (new RegExp("(" + k + ")").test(format)){
+            format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
     return format;
 };
 
-//时间戳转换
+/**
+ * 给定日期或者时间戳格式化日期
+ * @param value Date或时间戳(毫秒值)
+ * @param type 格式化类型
+ * @returns {*}
+ */
 var getLocalTime = function(value,type) {
     if (!value) {
         return '';
