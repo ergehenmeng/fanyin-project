@@ -32,6 +32,7 @@
 </body>
 <!-- jquery库2.0版本 -->
 <script type="text/javascript" src="/static/js/jquery.min.js"  charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/base64.min.js"  charset="UTF-8"></script>
 <script type="text/javascript" src="/static/js/md5.min.js"  charset="UTF-8"></script>
 <script type="text/javascript" src="/static/js/index.js?v=${version!}"   charset="UTF-8"></script>
 </html>

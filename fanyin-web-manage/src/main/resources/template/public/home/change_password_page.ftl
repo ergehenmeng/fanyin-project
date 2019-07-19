@@ -1,4 +1,5 @@
-<script type="text/javascript" src="/static/js/md5.min.js"  charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/md5.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/base64.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function() {
         $("#form").form({
@@ -12,8 +13,8 @@
                 if (!isValid) {
                     parent.$.messager.progress('close');
                 }
-                param.oldPwd = md5($("#oldPassword").val());
-                param.newPwd = md5($("#newPassword").val());
+                param.oldPwd = md5(Base64.encode($("#oldPassword").val()));
+                param.newPwd = md5(Base64.encode($("#newPassword").val()));
                 return isValid;
             },
             success:function(data){

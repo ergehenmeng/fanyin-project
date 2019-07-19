@@ -5,8 +5,8 @@ $(function(){
     $(".login_btn").on("click",function(){
         loginFun();
     });
-    $(window).keydown(function(event) {
-        if (event.keyCode === 13) {
+    $(window).on("keydown",function(event) {
+        if (event.key === 13) {
             loginFun();
         }
     });
@@ -44,8 +44,7 @@ function loginFun() {
         return;
     }
 
-
-    $.post("/login",{mobile : mobile,password : md5(password),validCode : validCode},function(data){
+    $.post("/login",{mobile : mobile,password : md5(Base64.encode(password)),validCode : validCode},function(data){
         if (data.code === 200) {
             // 跳转前清空密码框
             $password.val("");
@@ -65,7 +64,7 @@ function loginFun() {
  * @returns {boolean}
  */
 function verifyMobile(mobile){
-    var regexp = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/;
+    var regexp = /^((13[0-9])|(14[579])|(15([^4]))|(18[0-9])|(17[01235678]))\d{8}$/;
     return regexp.test(mobile);
 }
 
