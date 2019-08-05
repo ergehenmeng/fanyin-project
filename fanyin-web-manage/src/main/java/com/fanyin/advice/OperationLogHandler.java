@@ -76,7 +76,7 @@ public class OperationLogHandler {
             systemOperationLog.setUrl(request.getRequestURI());
             Object proceed = joinPoint.proceed();
             long end = System.currentTimeMillis();
-            systemOperationLog.setBusinessTime(end - DateUtil.getNow().getTime());
+            systemOperationLog.setBusinessTime(end - System.currentTimeMillis());
             systemOperationLog.setClassify((byte)mark.value().ordinal());
             if(mark.response() && proceed != null){
                 systemOperationLog.setResponse(JSONObject.toJSONString(proceed));
