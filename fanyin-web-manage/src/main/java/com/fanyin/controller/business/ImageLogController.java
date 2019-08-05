@@ -10,8 +10,8 @@ import com.fanyin.dto.business.ImageQueryRequest;
 import com.fanyin.ext.Paging;
 import com.fanyin.ext.RespBody;
 import com.fanyin.model.business.ImageLog;
-import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.business.ImageLogService;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +41,14 @@ public class ImageLogController extends AbstractUploadController {
     @PostMapping("/operation/image/image_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody<Paging<ImageLog>> imageListPage(ImageQueryRequest request){
+    public Paging<ImageLog> imageListPage(ImageQueryRequest request){
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
-        return RespBody.<Paging<ImageLog>>getInstance().setData(DataUtil.transform(page, imageLog -> {
+        return DataUtil.transform(page, imageLog -> {
             //将数据字典类型转换实际类型
             String dictValue = cacheProxyService.getDictValue(DictConstant.IMAGE_CLASSIFY, imageLog.getClassify());
             imageLog.setClassifyName(dictValue);
             return imageLog;
-        }));
+        });
     }
 
     /**

@@ -72,9 +72,9 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/operator_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody<Paging<SystemOperator>> operatorListPage(OperatorQueryRequest request){
+    public Paging<SystemOperator> operatorListPage(OperatorQueryRequest request){
         PageInfo<SystemOperator> page = systemOperatorService.getByPage(request);
-        return RespBody.<Paging<SystemOperator>>getInstance().setData(new Paging<>(page));
+        return new Paging<>(page);
     }
 
 

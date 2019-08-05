@@ -2,7 +2,6 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemDepartment;
 import com.fanyin.service.system.SystemDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class DepartmentController {
     @PostMapping("/system/department/department_list_page")
     @Mark(RequestType.SELECT)
     @ResponseBody
-    public RespBody<List<SystemDepartment>> departmentListPage(){
-        return RespBody.<List<SystemDepartment>>getInstance().setData(systemDepartmentService.getDepartment());
+    public List<SystemDepartment> departmentListPage(){
+        return systemDepartmentService.getDepartment();
     }
 }

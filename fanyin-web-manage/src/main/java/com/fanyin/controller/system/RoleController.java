@@ -39,9 +39,9 @@ public class RoleController {
     @PostMapping("/system/role/role_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody roleListPage(RoleQueryRequest request){
+    public Paging<SystemRole> roleListPage(RoleQueryRequest request){
         PageInfo<SystemRole> page = systemRoleService.getByPage(request);
-        return RespBody.<Paging<SystemRole>>getInstance().setData(new Paging<>(page));
+        return new Paging<>(page);
     }
 
     /**
@@ -51,10 +51,10 @@ public class RoleController {
     @PostMapping("/system/role/role_list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody<List<CheckBox>> roleList(){
+    public List<CheckBox> roleList(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return RespBody.<List<CheckBox>>getInstance().setData(DataUtil.transform(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName())));
+        return DataUtil.transform(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName()));
     }
 
     /**

@@ -48,9 +48,8 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/menu_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody<List<SystemMenu>> menuListPage(){
-        List<SystemMenu> allList = systemMenuService.getAllList();
-        return RespBody.<List<SystemMenu>>getInstance().setData(allList);
+    public List<SystemMenu> menuListPage(){
+        return systemMenuService.getAllList();
     }
 
     /**
@@ -113,10 +112,9 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/operator/menu_list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody operatorMenuList(){
+    public List<SystemMenu> operatorMenuList(){
         SystemOperator operator = getRequiredOperator();
-        List<SystemMenu> menuList = systemMenuService.getMenuList(operator.getId(),null);
-        return RespBody.getInstance().setData(menuList);
+        return systemMenuService.getMenuList(operator.getId(),null);
     }
 
 }

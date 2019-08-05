@@ -33,8 +33,8 @@ public class DictController {
     @PostMapping("/system/dict/dict_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody<Paging<SystemDict>> dictListPage(DictQueryRequest request){
-        return RespBody.<Paging<SystemDict>>getInstance().setData(new Paging<>(systemDictService.getByPage(request)));
+    public Paging<SystemDict> dictListPage(DictQueryRequest request){
+        return new Paging<>(systemDictService.getByPage(request));
     }
 
     /**

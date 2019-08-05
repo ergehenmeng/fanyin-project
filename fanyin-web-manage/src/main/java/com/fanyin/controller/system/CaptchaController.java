@@ -35,30 +35,25 @@ public class CaptchaController extends AbstractController {
      * @param module 哪个模块下的访问的
      * @param session session对象
      * @param response 响应对象
-     * @return 流默认为空
      * @throws IOException 写流异常
      */
     @GetMapping("/{module}/captcha")
-    @ResponseBody
-    public String module(@PathVariable("module")String module, HttpSession session, HttpServletResponse response)throws IOException{
+    public void module(@PathVariable("module")String module, HttpSession session, HttpServletResponse response)throws IOException{
         String text = producer.createText();
         writeBack(module,text,session,response);
-        return null;
     }
 
     /**
      * 默认的图片验证码
      * @param session session对象
      * @param response 响应对象
-     * @return 默认为null
      * @throws IOException 写异常
      */
     @GetMapping("/captcha")
     @ResponseBody
-    public String captcha(HttpSession session, HttpServletResponse response)throws IOException{
+    public void captcha(HttpSession session, HttpServletResponse response)throws IOException{
         String text = producer.createText();
         writeBack(CommonConstant.IMG_AUTH_CODE,text,session,response);
-        return null;
     }
 
     /**

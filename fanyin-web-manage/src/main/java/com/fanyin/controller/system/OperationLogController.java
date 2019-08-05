@@ -30,8 +30,8 @@ public class OperationLogController {
      */
     @PostMapping("/system/operation/operation_log_list_page")
     @ResponseBody
-    public RespBody<Paging<SystemOperationLog>> operationLogListPage(OperationQueryRequest request){
-        return RespBody.<Paging<SystemOperationLog>>getInstance().setData(new Paging<>(operationLogService.getByPage(request)));
+    public Paging<SystemOperationLog> operationLogListPage(OperationQueryRequest request){
+        return new Paging<>(operationLogService.getByPage(request));
     }
 
     /**

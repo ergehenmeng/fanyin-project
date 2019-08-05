@@ -32,8 +32,8 @@ public class CacheController {
     @PostMapping("/system/cache/cache_list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public RespBody<Paging<SystemCache>> cacheList(){
-        return RespBody.<Paging<SystemCache>>getInstance().setData(new Paging<>(systemCacheService.getList()));
+    public Paging<SystemCache> cacheList(){
+        return new Paging<>(systemCacheService.getList());
     }
 
     /**
