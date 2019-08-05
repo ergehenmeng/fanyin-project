@@ -67,8 +67,8 @@
     </script>
 </head>
 <body class="tabs_body">
-<div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
+<div class="easyui-layout" data-options="fit:true,doSize:false">
+    <div data-options="region:'north'" class="condition_bar">
         <div class="layout_norths">
             <@search placeholder="字典名称、标示符" advance=true>
                 <li>

@@ -64,13 +64,13 @@ public class ConfigController extends AbstractController {
     @PostMapping("/system/config/config_list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemConfig> configListPage(ConfigQueryRequest request){
+    public RespBody<Paging<SystemConfig>> configListPage(ConfigQueryRequest request){
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
-        return DataUtil.transform(listByPage,systemConfig -> {
+        return RespBody.<Paging<SystemConfig>>getInstance().setData(DataUtil.transform(listByPage,systemConfig -> {
             String dictValue = cacheProxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());
             systemConfig.setClassifyName(dictValue);
             return systemConfig;
-        });
+        }));
     }
 
 

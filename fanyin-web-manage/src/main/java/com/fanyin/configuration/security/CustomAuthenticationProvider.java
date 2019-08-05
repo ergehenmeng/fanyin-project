@@ -30,7 +30,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         ImageCodeAuthenticationDetails principal = (ImageCodeAuthenticationDetails)authentication.getDetails();
         String imageCode = principal.getImageCode();
-        String sessionImageCode =principal.getSessionImageCode();
+        String sessionImageCode = principal.getSessionImageCode();
         if(imageCode == null || !imageCode.equalsIgnoreCase(sessionImageCode)){
             throw new SystemAuthenticationException(ErrorCodeEnum.IMAGE_CODE_ERROR);
         }

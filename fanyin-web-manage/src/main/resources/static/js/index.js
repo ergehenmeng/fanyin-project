@@ -6,7 +6,7 @@ $(function(){
         loginFun();
     });
     $(window).on("keydown",function(event) {
-        if (event.key === 13) {
+        if (event.keyCode === 13) {
             loginFun();
         }
     });
@@ -24,7 +24,7 @@ function errorTip(msg){
 function loginFun() {
     var $mobile = $("#mobile");
     var mobile = $mobile.val();
-    if (verifyMobile(mobile)) {
+    if (!verifyMobile(mobile)) {
         errorTip("手机号码格式错误");
         $mobile.focus();
         return;

@@ -20,43 +20,40 @@ textarea{
 .left {
 	float: left;
 	position: relative;
-    height:45px;
-    line-height: 45px;
+    height:46px;
+    left: 10px;
 }
 
 .right {
-    height:45px;
-    line-height: 45px;
+    line-height: 46px;
 	float: right;
+    margin-right: 30px;
 }
 
 .layout_norths {
 	border: 1px solid #ccc;
-	margin-top:10px;
-	padding: 10px;
+	margin:10px;
+	padding: 5px;
 	color: #555;
-	height: 45px;
-	line-height: 45px;
+	height: 48px;
+	line-height: 48px;
 }
 
 .layout_norths input {
-	padding:0 10px;
-	height:28px;
+	padding: 0 0 0 10px;
     width: 250px;
+    height: 28px;
 }
 
 .searchBtn {
 	background-color: #e3781a;
 	display: inline-block;
 	line-height: 30px;
-	height:31.5px;
+	height:32px;
 	padding: 0 15px;
-	margin-right: 10px;
+    color: #fff;
 }
 
-.searchBtn {
-	color: #fff;
-}
 
 .dropBtn {
 	text-decoration: none;
@@ -69,7 +66,7 @@ textarea{
 	background-color: #FFF;
 	z-index: 999;
 	width: 320px;
-	top: 48px;
+	top: 42px;
 	left: 265px;
 	padding: 10px;
 }

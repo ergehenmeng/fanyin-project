@@ -33,5 +33,5 @@ public @interface Mark {
      * 是否保存响应参数
      * @return true
      */
-    boolean response() default true;
+    boolean response() default false;
 }
