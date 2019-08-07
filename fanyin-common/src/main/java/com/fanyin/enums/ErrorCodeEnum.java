@@ -17,9 +17,9 @@ public enum ErrorCodeEnum {
     ACCESS_DENIED(403,"暂无访问权限"),
 
     /**
-     * 标的信息不存在
+     * 未知请求地址
      */
-    PROJECT_NOT_FOUND(404,"标的信息不存在"),
+    PAGE_NOT_FOUND(404,"未知请求地址"),
 
     /**
      * 系统繁忙,请稍后再试
@@ -362,6 +362,11 @@ public enum ErrorCodeEnum {
      * 菜单标示符被占用
      */
     MENU_NID_ERROR(3034,"菜单标示符被占用"),
+
+    /**
+     * 标的信息不存在
+     */
+    PROJECT_NOT_FOUND(3035,"标的信息不存在"),
 
     /**
      * 充值订单未查询到

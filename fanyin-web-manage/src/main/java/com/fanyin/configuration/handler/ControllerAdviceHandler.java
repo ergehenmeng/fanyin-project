@@ -1,14 +1,18 @@
-package com.fanyin.advice;
+package com.fanyin.configuration.handler;
 
+import com.fanyin.configuration.DatePropertyEditor;
 import com.fanyin.enums.ErrorCodeEnum;
 import com.fanyin.exception.BusinessException;
 import com.fanyin.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @author 二哥很猛
@@ -16,8 +20,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 @Slf4j
-public class ExceptionHandlerAdvice {
+public class ControllerAdviceHandler {
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.registerCustomEditor(Date.class,new DatePropertyEditor());
+    }
 
     /**
      * 业务异常统一拦截
