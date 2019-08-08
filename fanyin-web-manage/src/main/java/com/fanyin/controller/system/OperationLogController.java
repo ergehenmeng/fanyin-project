@@ -4,7 +4,6 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.dto.system.log.OperationQueryRequest;
 import com.fanyin.ext.Paging;
-import com.fanyin.ext.RespBody;
 import com.fanyin.model.system.SystemOperationLog;
 import com.fanyin.service.system.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,9 @@ public class OperationLogController {
      * @param request 查询条件
      * @return 分页
      */
-    @PostMapping("/system/operation/operation_log_list_page")
+    @PostMapping("/system/operation_log/list_page")
     @ResponseBody
-    public Paging<SystemOperationLog> operationLogListPage(OperationQueryRequest request){
+    public Paging<SystemOperationLog> listPage(OperationQueryRequest request){
         return new Paging<>(operationLogService.getByPage(request));
     }
 
@@ -39,11 +38,11 @@ public class OperationLogController {
      * @param id di
      * @return 结果页面
      */
-    @PostMapping("/public/system/operation/query_operation_page")
+    @PostMapping("/public/system/operation_log/query_page")
     @Mark(RequestType.PAGE)
-    public String queryOperationPage(Model model, Integer id){
+    public String queryPage(Model model, Integer id){
         String response = operationLogService.getResponseById(id);
         model.addAttribute("response",response);
-        return "public/system/operation/query_operation_page";
+        return "query_page";
     }
 }

@@ -34,10 +34,10 @@ public class ConfigController extends AbstractController {
     @Autowired
     private CacheProxyService cacheProxyService;
 
-    @PostMapping("/system/config/edit_config")
+    @PostMapping("/system/config/edit")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public RespBody editConfig(ConfigEditRequest request){
+    public RespBody edit(ConfigEditRequest request){
         systemConfigService.updateConfig(request);
         return RespBody.getInstance();
     }
@@ -48,12 +48,12 @@ public class ConfigController extends AbstractController {
      * @param id 主键
      * @return 页面
      */
-    @PostMapping("/public/system/config/edit_config_page")
+    @PostMapping("/public/system/config/edit_page")
     @Mark(RequestType.PAGE)
-    public String editConfigPage(Model model, Integer id){
+    public String editPage(Model model, Integer id){
         SystemConfig config = systemConfigService.getById(id);
         model.addAttribute("config",config);
-        return "public/system/config/edit_config_page";
+        return "public/system/config/edit_page";
     }
 
     /**
@@ -61,10 +61,10 @@ public class ConfigController extends AbstractController {
      * @param request 查询
      * @return 分页列表
      */
-    @PostMapping("/system/config/config_list_page")
+    @PostMapping("/system/config/list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemConfig> configListPage(ConfigQueryRequest request){
+    public Paging<SystemConfig> listPage(ConfigQueryRequest request){
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
         return DataUtil.transform(listByPage,systemConfig -> {
             String dictValue = cacheProxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());

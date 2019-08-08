@@ -11,13 +11,13 @@
         var winHeight = 300;
 
         var addTitle = "添加用户";
-        var addUrl = "/public/system/operator/add_operator_page";
+        var addUrl = "/public/system/operator/add_page";
 
         var editTitle = "编辑用户";
-        var editUrl = "/public/system/operator/edit_operator_page";
+        var editUrl = "/public/system/operator/edit_page";
 
         var delMsg = "确定要执行删除操作?";
-        var delUrl = "/public/system/operator/delete_operator";
+        var delUrl = "/public/system/operator/delete";
 
         var lockMsg = "确定要执行锁定操作?";
         var lockUrl = "/system/operator/lock_operator";
@@ -31,7 +31,7 @@
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/system/operator/operator_list_page",
+                url : "/system/operator/list_page",
                 columns : [ [
                     {
                         field : "action",

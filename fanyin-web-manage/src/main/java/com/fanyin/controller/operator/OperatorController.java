@@ -69,7 +69,7 @@ public class OperatorController extends AbstractController {
      * @param request 查询条件
      * @return 列表
      */
-    @PostMapping("/system/operator/operator_list_page")
+    @PostMapping("/system/operator/list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
     public Paging<SystemOperator> operatorListPage(OperatorQueryRequest request){
@@ -82,7 +82,7 @@ public class OperatorController extends AbstractController {
      * 添加管理人员
      * @return 成功
      */
-    @PostMapping("/system/operator/add_operator")
+    @PostMapping("/system/operator/add")
     @ResponseBody
     @Mark(RequestType.INSERT)
     public RespBody addOperator(OperatorAddRequest request){
@@ -95,7 +95,7 @@ public class OperatorController extends AbstractController {
      * @param id 管理人员id
      * @return 页面
      */
-    @PostMapping("/public/system/operator/edit_operator_page")
+    @PostMapping("/public/system/operator/edit_page")
     @Mark(RequestType.PAGE)
     public String editOperatorPage(Model model, Integer id){
         SystemOperator operator = systemOperatorService.getById(id);
@@ -105,7 +105,7 @@ public class OperatorController extends AbstractController {
             String roleIds = Joiner.on(",").join(roleList);
             model.addAttribute("roleIds",roleIds);
         }
-        return "public/system/operator/edit_operator_page";
+        return "public/system/operator/edit_page";
     }
 
     /**
@@ -113,7 +113,7 @@ public class OperatorController extends AbstractController {
      * @param request 前台参数
      * @return 成功
      */
-    @PostMapping("/system/operator/edit_operator")
+    @PostMapping("/system/operator/edit")
     @ResponseBody
     @Mark(RequestType.UPDATE)
     public RespBody editOperator(OperatorEditRequest request){

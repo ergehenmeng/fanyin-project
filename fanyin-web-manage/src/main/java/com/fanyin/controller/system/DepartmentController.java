@@ -25,10 +25,14 @@ public class DepartmentController {
      * 查询所有部门列表
      * @return list
      */
-    @PostMapping("/system/department/department_list_page")
+    @PostMapping("/system/department/list_page")
     @Mark(RequestType.SELECT)
     @ResponseBody
-    public List<SystemDepartment> departmentListPage(){
+    public List<SystemDepartment> listPage(){
         return systemDepartmentService.getDepartment();
     }
+
+    //.
+    // @PostMapping("/system/department/add")
+
 }

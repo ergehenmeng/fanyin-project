@@ -38,10 +38,10 @@ public class ImageLogController extends AbstractUploadController {
      * 分页查询图片列表
      * @return 分页数据
      */
-    @PostMapping("/operation/image/image_list_page")
+    @PostMapping("/operation/image/list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<ImageLog> imageListPage(ImageQueryRequest request){
+    public Paging<ImageLog> listPage(ImageQueryRequest request){
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.transform(page, imageLog -> {
             //将数据字典类型转换实际类型
@@ -55,7 +55,7 @@ public class ImageLogController extends AbstractUploadController {
      * 添加图片
      * @return 成功
      */
-    @PostMapping("/operation/image/add_image")
+    @PostMapping("/operation/image/add")
     @ResponseBody
     @Mark(RequestType.INSERT)
     public RespBody addImage(ImageAddRequest request, MultipartFile imgFile){
@@ -73,7 +73,7 @@ public class ImageLogController extends AbstractUploadController {
      * @param request 更新参数
      * @return 成功
      */
-    @PostMapping("/operation/image/edit_image")
+    @PostMapping("/operation/image/edit")
     @ResponseBody
     @Mark(RequestType.UPDATE)
     public RespBody editImage(ImageEditRequest request){
@@ -87,7 +87,7 @@ public class ImageLogController extends AbstractUploadController {
      * @param id 用户id
      * @return 删除
      */
-    @PostMapping("/operation/image/delete_image")
+    @PostMapping("/operation/image/delete")
     @ResponseBody
     @Mark(RequestType.DELETE)
     public RespBody deleteImage(Integer id){
@@ -99,11 +99,11 @@ public class ImageLogController extends AbstractUploadController {
      * 图片编辑页面
      * @return 图片地址
      */
-    @PostMapping("/public/operation/image/edit_image_page")
+    @PostMapping("/public/operation/image/edit_page")
     @Mark(RequestType.PAGE)
     public String editImagePage(Model model, Integer id){
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log",log);
-        return "public/operation/image/edit_image_page";
+        return "edit_page";
     }
 }

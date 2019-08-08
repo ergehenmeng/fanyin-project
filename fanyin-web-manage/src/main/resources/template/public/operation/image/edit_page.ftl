@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.dataGridOptions.formSubmit("#form",'/operation/image/edit_image',"更新图片成功");
+        $.fn.dataGridOptions.formSubmit("#form",'/operation/image/edit',"更新图片成功");
     });
 </script>
 <div class="platform_form">

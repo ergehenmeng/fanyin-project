@@ -29,10 +29,10 @@ public class CacheController {
      * 查询所有的缓存列表
      * @return 缓存列表
      */
-    @PostMapping("/system/cache/cache_list")
+    @PostMapping("/system/cache/list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemCache> cacheList(){
+    public Paging<SystemCache> list(){
         return new Paging<>(systemCacheService.getList());
     }
 
@@ -41,10 +41,10 @@ public class CacheController {
      * @param cacheName 缓存名称
      * @return 成功响应
      */
-    @PostMapping("/system/cache/clear_cache")
+    @PostMapping("/system/cache/clear")
     @ResponseBody
     @Mark(RequestType.ALL)
-    public RespBody clearCache(String cacheName){
+    public RespBody clear(String cacheName){
         List<String> cacheList = Splitter.on(",").splitToList(cacheName);
         systemCacheService.clearCache(cacheList);
         return RespBody.getInstance();

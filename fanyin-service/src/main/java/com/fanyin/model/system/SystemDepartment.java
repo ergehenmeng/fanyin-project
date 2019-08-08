@@ -11,7 +11,9 @@ import java.util.Date;
  */
 @Data
 public class SystemDepartment implements Serializable {
+
     private static final long serialVersionUID = 3509025826333039284L;
+
     /**
      * 主键<br>
      * 表 : system_department<br>
@@ -61,5 +63,19 @@ public class SystemDepartment implements Serializable {
      */
     private Boolean deleted;
 
+    /**
+     * 备注信息
+     */
+    private String remark;
+
+    /**
+     * 操作人姓名
+     */
+    private String operatorName;
+
+    /**
+     * 操作人id
+     */
+    private Integer operatorId;
 
 }

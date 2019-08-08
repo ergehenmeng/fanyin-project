@@ -11,17 +11,17 @@
         var winHeight = 400;
 
         var addTitle = "添加数据字典";
-        var addUrl = "/public/system/dict/add_dict_page";
+        var addUrl = "/public/system/dict/add_page";
 
         var editTitle = "编辑数据字典";
-        var editUrl = "/public/system/dict/edit_dict_page";
+        var editUrl = "/public/system/dict/edit_page";
 
         var  delMsg = "删除数据字典可能导致相关人员无法使用系统,确定要执行该操作";
-        var delUrl = "/system/dict/delete_dict";
+        var delUrl = "/system/dict/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/system/dict/dict_list_page",
+                url : "/system/dict/list_page",
                 columns : [ [
                     {
                         field : "action",

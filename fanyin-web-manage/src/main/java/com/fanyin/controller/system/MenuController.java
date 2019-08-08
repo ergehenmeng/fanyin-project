@@ -33,22 +33,22 @@ public class MenuController extends AbstractController {
      * @param id 菜单主键
      * @return 页面地址
      */
-    @PostMapping("/public/system/menu/edit_menu_page")
+    @PostMapping("/public/system/menu/edit_page")
     @Mark(RequestType.PAGE)
     public String editMenuPage(Model model, Integer id){
         SystemMenu menu = systemMenuService.getMenuById(id);
         model.addAttribute("menu",menu);
-        return "public/system/menu/edit_menu_page";
+        return "public/system/menu/edit_page";
     }
 
     /**
      * 获取所有可用的菜单列表,注意不分页
      * @return list
      */
-    @PostMapping("/system/menu/menu_list_page")
+    @PostMapping("/system/menu/list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public List<SystemMenu> menuListPage(){
+    public List<SystemMenu> listPage(){
         return systemMenuService.getAllList();
     }
 
@@ -59,12 +59,12 @@ public class MenuController extends AbstractController {
      * @param id 父级id
      * @return ftl地址
      */
-    @PostMapping("/public/system/menu/add_menu_page")
+    @PostMapping("/public/system/menu/add_page")
     @Mark(RequestType.ALL)
-    public String addMenuPage(Model model,String nid,Integer id){
+    public String addPage(Model model,String nid,Integer id){
         model.addAttribute("nid",nid);
         model.addAttribute("pid",id);
-        return "public/system/menu/add_menu_page";
+        return "public/system/menu/add_page";
     }
 
     /**
@@ -72,10 +72,10 @@ public class MenuController extends AbstractController {
      * @param request 请求参数组装
      * @return 成功状态
      */
-    @PostMapping("/system/menu/add_menu")
+    @PostMapping("/system/menu/add")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public RespBody addMenu(MenuAddRequest request){
+    public RespBody add(MenuAddRequest request){
         systemMenuService.addMenu(request);
         return RespBody.getInstance();
     }
@@ -85,10 +85,10 @@ public class MenuController extends AbstractController {
      * @param request 菜单信息
      * @return 成功返回值
      */
-    @PostMapping("/system/menu/edit_menu")
+    @PostMapping("/system/menu/edit")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public RespBody editMenu(MenuEditRequest request){
+    public RespBody edit(MenuEditRequest request){
         systemMenuService.updateMenu(request);
         return RespBody.getInstance();
     }
@@ -98,9 +98,9 @@ public class MenuController extends AbstractController {
      * @param id 主键
      * @return 成功后的返回信息
      */
-    @PostMapping("/system/menu/delete_menu")
+    @PostMapping("/system/menu/delete")
     @Mark(RequestType.DELETE)
-    public RespBody deleteMenu(Integer id){
+    public RespBody delete(Integer id){
         systemMenuService.deleteMenu(id);
         return RespBody.getInstance();
     }

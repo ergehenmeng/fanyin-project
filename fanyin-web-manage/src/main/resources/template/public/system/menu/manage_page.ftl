@@ -11,17 +11,17 @@
         var winHeight = 450;
 
         var addTitle = "添加菜单";
-        var addUrl = "/public/system/menu/add_menu_page";
+        var addUrl = "/public/system/menu/add_page";
 
         var editTitle = "编辑菜单";
-        var editUrl = "/public/system/menu/edit_menu_page";
+        var editUrl = "/public/system/menu/edit_page";
 
         var delMsg = "确定要删除该菜单选项吗?";
-        var delUrl = "/system/menu/delete_menu";
+        var delUrl = "/system/menu/delete";
 
         $(function() {
             treeGrid = $.fn.treeGridOptions.treeGrid("#treeGrid",{
-                url : "/system/menu/menu_list_page",
+                url : "/system/menu/list_page",
                 loadFilter : pageFilter,
                 columns : [ [
                     {

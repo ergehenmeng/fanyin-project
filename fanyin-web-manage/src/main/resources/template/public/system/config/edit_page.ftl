@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(function() {
         $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
-        $.fn.dataGridOptions.formSubmit("#form",'/system/config/edit_config');
+        $.fn.dataGridOptions.formSubmit("#form",'/system/config/edit');
         $("#timing").on("change",function(){
             var timing = $(this).val();
             if(timing === "1"){

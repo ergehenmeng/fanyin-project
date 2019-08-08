@@ -13,20 +13,20 @@
         var authHeight = 500;
 
         var addTitle = "添加角色";
-        var addUrl = "/public/system/role/add_role_page";
+        var addUrl = "/public/system/role/add_page";
 
         var editTitle = "编辑角色";
-        var editUrl = "/public/system/role/edit_role_page";
+        var editUrl = "/public/system/role/edit_page";
 
         var authTitle = "角色授权";
-        var authUrl = "/public/system/role/auth_role_page";
+        var authUrl = "/public/system/role/auth_page";
 
         var  delMsg = "删除角色可能导致相关人员无法使用系统,确定要执行该操作";
-        var delUrl = "/system/role/delete_role";
+        var delUrl = "/system/role/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/system/role/role_list_page",
+                url : "/system/role/list_page",
                 columns : [ [
                     {
                         field : "action",

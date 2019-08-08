@@ -11,11 +11,11 @@
         var winHeight = 620;
 
         var editTitle = "编辑系统参数";
-        var editUrl = "/public/system/config/edit_config_page";
+        var editUrl = "/public/system/config/edit_page";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/system/config/config_list_page",
+                url : "/system/config/list_page",
                 columns : [[
                     {
                         field : "action",

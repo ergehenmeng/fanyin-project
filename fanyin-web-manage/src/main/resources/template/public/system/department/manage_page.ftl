@@ -10,11 +10,11 @@
         var winTitle = "响应信息";
         var winWidth = 480;
         var winHeight = 300;
-        var url = "/public/system/operation/query_operation_page";
+        var url = "/public/system/operation/query_page";
 
         $(function() {
             dataGrid = $.fn.treeGridOptions.treeGrid("#treeGrid",{
-                url : "/system/department/department_list_page",
+                url : "/system/department/list_page",
                 loadFilter : pageFilter,
                 columns : [[
                     {

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.dataGridOptions.formSubmit("#form",'/system/dict/edit_dict');
+        $.fn.dataGridOptions.formSubmit("#form",'/system/dict/edit');
     });
 </script>
 <div class="platform_form">

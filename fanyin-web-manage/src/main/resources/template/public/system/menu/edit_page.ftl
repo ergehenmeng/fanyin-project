@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.treeGridOptions.formSubmit("#form",'/system/menu/edit_menu');
+        $.fn.treeGridOptions.formSubmit("#form",'/system/menu/edit');
     });
 </script>
 <div class="platform_form">

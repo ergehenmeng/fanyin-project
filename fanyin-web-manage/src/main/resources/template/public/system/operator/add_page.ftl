@@ -2,12 +2,12 @@
     $(function() {
         $("#roleSelect").multipleSelect({
             target:"#roleIds",
-            url:"/system/role/role_list",
+            url:"/system/role/list",
             loadSuccess:function(data){
                 return data.data;
             }
         });
-        $.fn.dataGridOptions.formSubmit("#form",'/system/operator/add_operator',"用户添加成功");
+        $.fn.dataGridOptions.formSubmit("#form",'/system/operator/add',"用户添加成功");
     });
 </script>
 <div class="platform_form">

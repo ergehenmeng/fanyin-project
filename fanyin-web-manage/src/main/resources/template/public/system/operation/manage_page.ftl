@@ -10,11 +10,11 @@
         var title = "响应信息";
         var winWidth = 480;
         var winHeight = 300;
-        var url = "/public/system/operation/query_operation_page";
+        var url = "/public/system/operation/query_page";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/system/operation/operation_log_list_page",
+                url : "/system/operation_log/list_page",
                 columns : [ [
                     {
                         field : "action",

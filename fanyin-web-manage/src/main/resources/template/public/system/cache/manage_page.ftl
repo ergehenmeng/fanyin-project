@@ -8,11 +8,11 @@
         var dataGrid;
 
         var  clearMsg = "请选择一条数据";
-        var clearUrl = "/system/cache/clear_cache";
+        var clearUrl = "/system/cache/clear";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/system/cache/cache_list",
+                url : "/system/cache/list",
                 singleSelect : false,
                 columns : [ [
                     {

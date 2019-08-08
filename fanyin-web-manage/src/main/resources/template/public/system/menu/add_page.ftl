@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.treeGridOptions.formSubmit("#form",'/system/menu/add_menu',"菜单添加成功");
+        $.fn.treeGridOptions.formSubmit("#form",'/system/menu/add',"菜单添加成功");
     });
 </script>
 <div class="platform_form">

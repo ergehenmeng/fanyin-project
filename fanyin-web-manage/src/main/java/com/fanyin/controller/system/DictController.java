@@ -30,10 +30,10 @@ public class DictController {
      * @param request 前台参数
      * @return 分页列表
      */
-    @PostMapping("/system/dict/dict_list_page")
+    @PostMapping("/system/dict/list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemDict> dictListPage(DictQueryRequest request){
+    public Paging<SystemDict> listPage(DictQueryRequest request){
         return new Paging<>(systemDictService.getByPage(request));
     }
 
@@ -42,12 +42,12 @@ public class DictController {
      * @param id id
      * @return 页面地址
      */
-    @PostMapping("/public/system/dict/edit_dict_page")
+    @PostMapping("/public/system/dict/edit_page")
     @Mark(RequestType.PAGE)
-    public String editDictPage(Model model,Integer id){
+    public String editPage(Model model,Integer id){
         SystemDict dict = systemDictService.getById(id);
         model.addAttribute("dict",dict);
-        return "public/system/dict/edit_dict_page";
+        return "public/system/dict/edit_page";
     }
 
     /**
@@ -55,10 +55,10 @@ public class DictController {
      * @param request 前台参数
      * @return 成功响应
      */
-    @PostMapping("/system/dict/add_dict")
+    @PostMapping("/system/dict/add")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public RespBody addDict(DictAddRequest request){
+    public RespBody add(DictAddRequest request){
         systemDictService.addDict(request);
         return RespBody.getInstance();
     }
@@ -68,10 +68,10 @@ public class DictController {
      * @param request 前台参数
      * @return 结果
      */
-    @PostMapping("/system/dict/edit_dict")
+    @PostMapping("/system/dict/edit")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public RespBody editDict(DictEditRequest request){
+    public RespBody edit(DictEditRequest request){
         systemDictService.updateDict(request);
         return RespBody.getInstance();
     }
@@ -82,10 +82,10 @@ public class DictController {
      * @param id 主键
      * @return 成功响应
      */
-    @PostMapping("/system/dict/delete_dict")
+    @PostMapping("/system/dict/delete")
     @ResponseBody
     @Mark(RequestType.DELETE)
-    public RespBody deleteDict(Integer id){
+    public RespBody delete(Integer id){
         systemDictService.deleteDict(id);
         return RespBody.getInstance();
     }

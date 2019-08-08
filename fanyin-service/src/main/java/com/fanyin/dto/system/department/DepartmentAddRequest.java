@@ -1,15 +1,17 @@
 package com.fanyin.dto.system.department;
 
-import lombok.Data;
-
-import java.io.Serializable;
+import com.fanyin.ext.Operation;
+import lombok.*;
 
 /**
  * @author 二哥很猛
  * @date 2018/12/14 14:11
  */
-@Data
-public class DepartmentAddRequest implements Serializable {
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class DepartmentAddRequest extends Operation {
 
     private static final long serialVersionUID = -4129318805129787627L;
 
@@ -24,5 +26,9 @@ public class DepartmentAddRequest implements Serializable {
      */
     private String title;
 
+    /**
+     * 备注信息
+     */
+    private String remark;
 
 }

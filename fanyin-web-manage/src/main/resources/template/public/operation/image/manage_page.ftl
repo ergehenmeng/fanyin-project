@@ -11,17 +11,17 @@
         var winHeight = 300;
 
         var addTitle = "添加图片";
-        var addUrl = "/public/operation/image/add_image_page";
+        var addUrl = "/public/operation/image/add_page";
 
         var editTitle = "编辑图片";
-        var editUrl = "/public/operation/image/edit_image_page";
+        var editUrl = "/public/operation/image/edit_page";
 
         var  delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
-        var delUrl = "/operation/image/delete_image";
+        var delUrl = "/operation/image/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/operation/image/image_list_page",
+                url : "/operation/image/list_page",
                 columns : [ [
                     {
                         field : "action",

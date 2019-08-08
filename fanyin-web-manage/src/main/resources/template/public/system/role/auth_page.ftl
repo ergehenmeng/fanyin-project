@@ -2,7 +2,7 @@
     $(function(){
         var flag = false;
         var treeObj = $("#roleTree").tree({
-            url:"/system/menu/menu_list_page",
+            url:"/system/menu/list_page",
             loadFilter:function (data) {
                 return $.fn.treeGridOptions.dataFilter(data.data,"id","title","pid",0);
             },
@@ -21,7 +21,7 @@
             }
         });
     });
-    $.fn.dataGridOptions.formSubmit("#form",'/system/role/auth_role',"授权成功");
+    $.fn.dataGridOptions.formSubmit("#form",'/system/role/auth',"授权成功");
 
 </script>
 <div class="user_role">

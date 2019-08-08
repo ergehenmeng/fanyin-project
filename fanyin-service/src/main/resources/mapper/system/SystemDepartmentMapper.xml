@@ -12,12 +12,15 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, parent_code, code, title, add_time, update_time, deleted
+    id, parent_code, code, title, add_time, update_time, deleted,remark,operator_name,operator_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -56,6 +59,15 @@
       <if test="deleted != null">
         deleted,
       </if>
+        <if test="remark != null">
+            remark,
+        </if>
+        <if test="operatorName != null">
+            operator_name,
+        </if>
+        <if test="operatorId != null">
+            operator_id,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -79,6 +91,15 @@
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
       </if>
+        <if test="remark != null">
+            #{remark},
+        </if>
+        <if test="operatorName != null">
+            #{operatorName},
+        </if>
+        <if test="operatorId != null">
+            #{operatorId},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemDepartment">
@@ -105,9 +126,19 @@
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
       </if>
+        <if test="remark != null">
+            #{remark},
+        </if>
+        <if test="operatorName != null">
+            #{operatorName},
+        </if>
+        <if test="operatorId != null">
+            #{operatorId},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
     <select id="getMaxCodeChild" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_department where parent_code = #{code} order by code desc limit 1
@@ -117,4 +148,5 @@
         select <include refid="BaseColumnList"/>
         from system_department where deleted = false
     </select>
+
 </mapper>

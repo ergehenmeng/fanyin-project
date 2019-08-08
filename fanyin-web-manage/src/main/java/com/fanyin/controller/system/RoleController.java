@@ -36,10 +36,10 @@ public class RoleController {
      * @param request 查询条件
      * @return 列表
      */
-    @PostMapping("/system/role/role_list_page")
+    @PostMapping("/system/role/list_page")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public Paging<SystemRole> roleListPage(RoleQueryRequest request){
+    public Paging<SystemRole> listPage(RoleQueryRequest request){
         PageInfo<SystemRole> page = systemRoleService.getByPage(request);
         return new Paging<>(page);
     }
@@ -48,10 +48,10 @@ public class RoleController {
      * 获取所有可用的角色列表
      * @return 角色列表
      */
-    @PostMapping("/system/role/role_list")
+    @PostMapping("/system/role/list")
     @ResponseBody
     @Mark(RequestType.SELECT)
-    public List<CheckBox> roleList(){
+    public List<CheckBox> list(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
         return DataUtil.transform(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName()));
@@ -62,12 +62,12 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @PostMapping("/public/system/role/edit_role_page")
+    @PostMapping("/public/system/role/edit_page")
     @Mark(RequestType.PAGE)
-    public String editRolePage(Model model, Integer id){
+    public String editPage(Model model, Integer id){
         SystemRole role = systemRoleService.getById(id);
         model.addAttribute("role",role);
-        return "public/system/role/edit_role_page";
+        return "public/system/role/edit_page";
     }
 
     /**
@@ -75,10 +75,10 @@ public class RoleController {
      * @param request 前台请求参数
      * @return 成功
      */
-    @PostMapping("/system/role/edit_role")
+    @PostMapping("/system/role/edit")
     @ResponseBody
     @Mark(RequestType.UPDATE)
-    public RespBody editRole(RoleEditRequest request){
+    public RespBody edit(RoleEditRequest request){
         systemRoleService.updateRole(request);
         return RespBody.getInstance();
     }
@@ -88,10 +88,10 @@ public class RoleController {
      * @param id 主键
      * @return 成功
      */
-    @PostMapping("/system/role/delete_role")
+    @PostMapping("/system/role/delete")
     @ResponseBody
     @Mark(RequestType.DELETE)
-    public RespBody deleteRole(Integer id){
+    public RespBody delete(Integer id){
         systemRoleService.deleteRole(id);
         return RespBody.getInstance();
     }
@@ -101,10 +101,10 @@ public class RoleController {
      * @param request 前台参数
      * @return 成功
      */
-    @PostMapping("/system/role/add_role")
+    @PostMapping("/system/role/add")
     @ResponseBody
     @Mark(RequestType.INSERT)
-    public RespBody addRole(RoleAddRequest request){
+    public RespBody add(RoleAddRequest request){
         systemRoleService.addRole(request);
         return RespBody.getInstance();
     }
@@ -115,14 +115,14 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @PostMapping("/public/system/role/auth_role_page")
+    @PostMapping("/public/system/role/auth_page")
     @Mark(RequestType.PAGE)
-    public String authRolePage(Model model, Integer id){
+    public String addPage(Model model, Integer id){
         List<Integer> role = systemRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
         model.addAttribute("menuIds",menuIds);
         model.addAttribute("roleId",id);
-        return "public/system/role/auth_role_page";
+        return "public/system/role/auth_page";
     }
 
     /**
@@ -131,7 +131,7 @@ public class RoleController {
      * @param menuIds 菜单
      * @return 响应
      */
-    @PostMapping("/system/role/auth_role")
+    @PostMapping("/system/role/auth")
     @ResponseBody
     @Mark(RequestType.ALL)
     public RespBody authRole(Integer roleId, String menuIds){
