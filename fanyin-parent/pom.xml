@@ -54,7 +54,7 @@
       <!--zookeeper客户端工具-->
       <curator.version>2.12.0</curator.version>
       <!--调度定时任务-->
-      <quartz.version>2.2.3</quartz.version>
+      <quartz.version>2.3.2</quartz.version>
       <!--map queue扩展并发包-->
       <jctools.version>2.1.1</jctools.version>
       <!--common-fileupload上传-->
