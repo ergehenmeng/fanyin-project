@@ -37,7 +37,7 @@
       <guava.version>27.0.1-jre</guava.version>
       <!--apache工具类版本-->
       <commons.lang3.version>3.4</commons.lang3.version>
-      <commons.io.version>2.5</commons.io.version>
+      <commons.io.version>2.7</commons.io.version>
       <commons.codec.version>1.10</commons.codec.version>
       <!--json工具类版本-->
       <fastjson.version>1.2.46</fastjson.version>
