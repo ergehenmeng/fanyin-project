@@ -49,7 +49,7 @@
       <!--生产消费者-->
       <disruptor.version>3.4.2</disruptor.version>
       <akka.version>2.5.16</akka.version>
-      <httpclient.version>4.5.3</httpclient.version>
+      <httpclient.version>4.5.13</httpclient.version>
       <zookeeper.version>3.4.14</zookeeper.version>
       <!--zookeeper客户端工具-->
       <curator.version>2.12.0</curator.version>
